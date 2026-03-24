@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Otida — Case Study</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --c-bg: #08080A;
+      --c-bg2: #0F0F12;
+      --c-bg3: #16161A;
+      --c-bg4: #1E1E23;
+      --c-border: rgba(255,255,255,0.06);
+      --c-border-m: rgba(255,255,255,0.10);
+      --c-text: #EDECEA;
+      --c-text-m: #A8A6A0;
+      --c-text-d: #5E5C58;
+      --c-accent: #1DA882;
+      --c-accent-l: #5DCAA5;
+      --f-display: 'Syne', sans-serif;
+      --f-body: 'DM Sans', sans-serif;
+      --nav-h: 56px;
+      --sidebar-w: 220px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--c-bg); color: var(--c-text); font-family: var(--f-body); font-size: 16px; line-height: 1.7; overflow-x: hidden; }
+
+    /* ── TOP NAV ── */
+    .top-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px; height: var(--nav-h);
+      background: rgba(8,8,10,0.92); backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--c-border);
+    }
+    .top-nav-name {
+      display: flex; align-items: center; gap: 10px;
+      font-family: var(--f-display); font-weight: 700; font-size: 13px;
+      letter-spacing: 0.06em; text-transform: uppercase; color: var(--c-text);
+      text-decoration: none;
+    }
+    .top-nav-name .green-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--c-accent);
+      box-shadow: 0 0 8px rgba(29,168,130,0.5);
+      flex-shrink: 0;
+    }
+    .top-nav-back {
+      font-size: 13px; color: var(--c-accent); text-decoration: none;
+      font-weight: 500; letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .top-nav-back:hover { color: var(--c-accent-l); }
+
+    /* ── HERO ── */
+    .hero {
+      margin-top: var(--nav-h);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 48px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+    .hero-glow {
+      position: absolute; width: 900px; height: 900px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(29,168,130,0.15) 0%, transparent 70%);
+      top: -300px; right: -200px;
+    }
+    .hero-glow2 {
+      position: absolute; width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(29,168,130,0.07) 0%, transparent 70%);
+      bottom: 80px; left: -100px;
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse at 60% 40%, black 20%, transparent 70%);
+    }
+
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-accent); margin-bottom: 28px; position: relative; }
+    .hero-eyebrow::before { content: ''; display: block; width: 28px; height: 1px; background: var(--c-accent); }
+    .hero-title { font-family: var(--f-display); font-size: clamp(60px, 9vw, 128px); font-weight: 800; line-height: 0.9; letter-spacing: -0.03em; margin-bottom: 40px; position: relative; }
+    .hero-title .line-teal { color: var(--c-accent); }
+    .hero-title .line-dim { color: var(--c-text-d); }
+    .hero-divider { width: 100%; height: 1px; background: var(--c-border); margin-bottom: 40px; }
+
+    .hero-meta { display: flex; gap: 48px; margin-bottom: 48px; position: relative; }
+    .hero-meta-item label { display: block; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-text-d); margin-bottom: 4px; }
+    .hero-meta-item span { font-size: 13px; color: var(--c-text-m); }
+
+    .hero-scroll { display: flex; align-items: center; gap: 12px; font-size: 11px; color: var(--c-text-d); letter-spacing: 0.1em; text-transform: uppercase; position: relative; }
+    .scroll-line { width: 40px; height: 1px; background: var(--c-text-d); position: relative; overflow: hidden; }
+    .scroll-line::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: var(--c-accent); animation: slide 2s ease-in-out infinite; }
+    @keyframes slide { 0%{left:-100%} 50%{left:0%} 100%{left:100%} }
+
+    /* ── TWO-COLUMN LAYOUT ── */
+    .case-layout { display: flex; min-height: 100vh; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      position: sticky;
+      top: var(--nav-h);
+      height: calc(100vh - var(--nav-h));
+      overflow-y: auto;
+      padding: 32px 0 32px 0;
+      border-right: 1px solid var(--c-border);
+      background: var(--c-bg);
+      z-index: 50;
+    }
+    .sidebar::-webkit-scrollbar { width: 0; }
+    .sidebar-nav { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+    .sidebar-nav a {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 20px 9px 20px;
+      font-size: 12.5px; font-weight: 500; color: var(--c-text-d);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      border-left: 2px solid transparent;
+      transition: color 0.25s cubic-bezier(0.22,1,0.36,1),
+                  border-color 0.25s cubic-bezier(0.22,1,0.36,1),
+                  background 0.25s cubic-bezier(0.22,1,0.36,1);
+    }
+    .sidebar-nav a:hover { color: var(--c-text-m); background: rgba(255,255,255,0.02); }
+    .sidebar-nav a.active { color: var(--c-accent); border-left-color: var(--c-accent); background: rgba(29,168,130,0.05); }
+    .sidebar-nav a svg { width: 15px; height: 15px; flex-shrink: 0; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; opacity: 0.7; }
+    .sidebar-nav a.active svg { opacity: 1; }
+    .sidebar-sep { height: 1px; background: var(--c-border); margin: 12px 20px; }
+
+    /* ── MAIN CONTENT ── */
+    .main-content { flex: 1; min-width: 0; }
+
+    /* ── SECTIONS ── */
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 100px 48px; }
+    .band { background: var(--c-bg2); }
+    .section-label { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-accent); margin-bottom: 20px; }
+    .section-label .num { opacity: 0.55; }
+    h2 { font-family: var(--f-display); font-size: clamp(32px, 3.5vw, 48px); font-weight: 700; line-height: 1.06; letter-spacing: -0.025em; margin-bottom: 20px; }
+    h3 { font-family: var(--f-display); font-size: 20px; font-weight: 600; margin-bottom: 10px; }
+    p { color: var(--c-text-m); max-width: 640px; }
+    p + p { margin-top: 14px; }
+
+    /* PROBLEM */
+    .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 56px; }
+    .problem-card { background: var(--c-bg3); padding: 40px; position: relative; overflow: hidden; transition: background 0.3s cubic-bezier(0.22,1,0.36,1); }
+    .problem-card:hover { background: var(--c-bg4); }
+    .p-icon { width: 38px; height: 38px; border-radius: 10px; background: rgba(29,168,130,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+    .p-icon svg { width: 18px; height: 18px; stroke: var(--c-accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .problem-card h3 { font-size: 17px; color: var(--c-text); margin-bottom: 10px; }
+    .problem-card p { font-size: 14px; max-width: none; line-height: 1.65; }
+
+    /* ROLE */
+    .role-split { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; margin-top: 56px; }
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+    .badge { padding: 5px 13px; border-radius: 100px; font-size: 12px; font-weight: 500; border: 1px solid var(--c-border-m); color: var(--c-text-m); }
+    .badge.a { border-color: rgba(29,168,130,0.4); color: var(--c-accent-l); background: rgba(29,168,130,0.07); }
+    .highlight-card { background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: 14px; padding: 28px; margin-bottom: 16px; transition: border-color 0.3s cubic-bezier(0.22,1,0.36,1); }
+    .highlight-card:hover { border-color: var(--c-border-m); }
+    .highlight-card .qt { font-family: var(--f-display); font-size: 16px; font-weight: 600; line-height: 1.55; color: var(--c-text); margin-bottom: 12px; }
+    .highlight-card .attr { font-size: 12px; color: var(--c-text-d); }
+
+    /* METRICS */
+    .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-top: 56px; }
+    .metric-card { background: var(--c-bg3); padding: 40px 32px; position: relative; overflow: hidden; transition: background 0.3s cubic-bezier(0.22,1,0.36,1); }
+    .metric-card:hover { background: var(--c-bg4); }
+    .metric-card .m-num { font-family: var(--f-display); font-size: 44px; font-weight: 800; color: var(--c-accent); line-height: 1; letter-spacing: -0.03em; margin-bottom: 8px; position: relative; }
+    .metric-card .m-label { font-size: 13px; color: var(--c-text-m); position: relative; max-width: 220px; line-height: 1.5; }
+
+    /* COMPARISON TABLE */
+    .comp-table { width: 100%; border-collapse: collapse; margin-top: 48px; }
+    .comp-table th { text-align: left; padding: 14px 18px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-accent); background: var(--c-bg3); border-bottom: 1px solid var(--c-border); }
+    .comp-table td { padding: 13px 18px; font-size: 13px; color: var(--c-text-m); border-bottom: 1px solid var(--c-border); }
+    .comp-table tr:hover td { background: rgba(29,168,130,0.03); }
+    .comp-table .check { color: var(--c-accent); }
+    .comp-table .cross { color: var(--c-text-d); }
+
+    /* PLACEHOLDER */
+    .placeholder {
+      background: var(--c-bg3);
+      border: 1px dashed rgba(29,168,130,0.28);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: var(--c-text-d);
+      font-size: 12px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      padding: 28px;
+    }
+    .placeholder::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(45deg, transparent, transparent 12px, rgba(29,168,130,0.025) 12px, rgba(29,168,130,0.025) 24px);
+    }
+    .placeholder svg { width: 24px; height: 24px; stroke: rgba(29,168,130,0.35); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; position: relative; }
+    .placeholder span { position: relative; line-height: 1.5; }
+
+    /* WEB MOCKUPS (Website Design section) */
+    .web-mockup-label {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--c-accent);
+      border: 1px solid rgba(29,168,130,0.3);
+      background: rgba(29,168,130,0.06);
+      margin-bottom: 16px;
+    }
+    .web-mockup { margin-top: 72px; }
+    .web-mockup.first { margin-top: 56px; }
+    .web-mockup-header p { font-size: 14px; max-width: 520px; }
+    .web-mockup-frame {
+      margin-top: 28px;
+      background: var(--c-bg3);
+      border: 1px solid var(--c-border);
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.2);
+    }
+    .web-mockup-frame img {
+      width: 100%;
+      display: block;
+      height: auto;
+    }
+
+    /* IMPACT STATS */
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-top: 56px; margin-bottom: 20px; }
+    .stat-card { background: var(--c-bg3); padding: 44px 36px; position: relative; overflow: hidden; }
+    .stat-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at top right, rgba(29,168,130,0.055) 0%, transparent 60%); }
+    .stat-card .stat-n { font-family: var(--f-display); font-size: 60px; font-weight: 800; color: var(--c-accent); line-height: 1; letter-spacing: -0.03em; margin-bottom: 8px; position: relative; }
+    .stat-card .stat-l { font-size: 13px; color: var(--c-text-m); position: relative; max-width: 190px; line-height: 1.5; }
+
+    /* QUOTES */
+    .quotes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+    .q-card { background: var(--c-bg3); border-radius: 14px; padding: 28px; border: 1px solid var(--c-border); border-left: 3px solid var(--c-accent); transition: border-color 0.3s cubic-bezier(0.22,1,0.36,1); }
+    .q-card:hover { border-color: var(--c-border-m); border-left-color: var(--c-accent); }
+    .q-card .q-text { font-size: 14px; font-style: italic; color: var(--c-text); line-height: 1.65; margin-bottom: 14px; }
+    .q-card .q-attr { font-size: 11px; color: var(--c-text-d); text-transform: uppercase; letter-spacing: 0.08em; }
+
+    /* USER RESEARCH */
+    .research-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 56px; }
+    .research-card { background: var(--c-bg3); border-radius: 16px; padding: 36px; border: 1px solid var(--c-border); position: relative; overflow: hidden; transition: border-color 0.3s cubic-bezier(0.22,1,0.36,1); }
+    .research-card:hover { border-color: var(--c-border-m); }
+    .research-card::after { content: ''; position: absolute; bottom: -40px; right: -40px; width: 160px; height: 160px; border-radius: 50%; background: rgba(29,168,130,0.04); }
+    .research-card h3 { font-size: 17px; color: var(--c-text); margin-bottom: 12px; }
+    .research-card p { font-size: 14px; max-width: none; line-height: 1.65; }
+    .feat-list { list-style: none; margin-top: 18px; display: flex; flex-direction: column; gap: 9px; }
+    .feat-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--c-text-m); }
+    .feat-list li::before { content: ''; display: block; width: 14px; height: 14px; flex-shrink: 0; margin-top: 4px; background: rgba(29,168,130,0.12); border-radius: 50%; border: 1px solid rgba(29,168,130,0.35); }
+
+    /* LEARNINGS */
+    .learnings-split { display: grid; grid-template-columns: 5fr 4fr; gap: 64px; align-items: start; margin-top: 56px; }
+    .learning-item { padding: 28px 0; border-bottom: 1px solid var(--c-border); display: grid; grid-template-columns: 40px 1fr; gap: 20px; align-items: start; }
+    .learning-item:first-child { border-top: 1px solid var(--c-border); }
+    .learning-item .l-num { font-family: var(--f-display); font-size: 13px; font-weight: 700; color: var(--c-accent); opacity: 0.5; padding-top: 2px; }
+    .learning-item h4 { font-size: 15px; font-weight: 500; color: var(--c-text); margin-bottom: 8px; }
+    .learning-item p { font-size: 13px; max-width: none; line-height: 1.65; }
+
+    .next-steps { background: var(--c-bg3); border-radius: 16px; padding: 36px; border: 1px solid var(--c-border); position: sticky; top: 88px; }
+    .next-steps h3 { font-size: 17px; color: var(--c-text); margin-bottom: 8px; }
+    .next-steps .ns-sub { font-size: 12px; color: var(--c-text-d); margin-bottom: 24px; letter-spacing: 0.04em; text-transform: uppercase; }
+    .ns-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .ns-list li { font-size: 13px; color: var(--c-text-m); display: flex; align-items: flex-start; gap: 10px; line-height: 1.55; }
+    .ns-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--c-accent); flex-shrink: 0; margin-top: 6px; opacity: 0.7; }
+
+    /* PROCESS TIMELINE */
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 3px;
+      margin-top: 56px;
+    }
+
+    footer { background: var(--c-bg2); border-top: 1px solid var(--c-border); padding: 56px 48px; display: flex; justify-content: space-between; align-items: center; }
+    .f-name { font-family: var(--f-display); font-size: 17px; font-weight: 700; color: var(--c-text); }
+    .f-role { font-size: 12px; color: var(--c-text-d); margin-top: 4px; }
+    .f-link { font-size: 13px; color: var(--c-accent); text-decoration: none; border-bottom: 1px solid rgba(29,168,130,0.3); padding-bottom: 2px; transition: border-color 0.2s; }
+    .f-link:hover { border-color: var(--c-accent); }
+
+    .mt-16 { margin-top: 16px; }
+    .mt-48 { margin-top: 48px; }
+
+    /* REVEAL ANIMATIONS */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) {
+      .learnings-split { grid-template-columns: 1fr; gap: 30px; }
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .quotes-grid { grid-template-columns: 1fr; }
+      .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-steps { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+      .hero { padding: 0 20px 60px; }
+      .wrap { padding: 72px 20px; }
+      footer { padding: 40px 20px; flex-direction: column; gap: 20px; align-items: flex-start; }
+      .problem-grid, .role-split, .quotes-grid, .research-grid { grid-template-columns: 1fr; }
+      .stats-row, .metrics-grid { grid-template-columns: 1fr; }
+      .learnings-split { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr; }
+      .comp-table { font-size: 12px; }
+      .top-nav { padding: 0 16px; }
+      .next-steps { position: relative; top: auto; }
+      .web-mockup { margin-top: 56px; }
+      .web-mockup.first { margin-top: 44px; }
+      .web-mockup-frame { margin-top: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <a href="index.html" class="top-nav-name">
+    <span class="green-dot"></span>
+    Sayed El Mohamady
+  </a>
+  <a href="index.html" class="top-nav-back">&larr; Back to Portfolio</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg">
+    <div class="hero-glow"></div>
+    <div class="hero-glow2"></div>
+    <div class="hero-grid"></div>
+  </div>
+
+  <div class="hero-eyebrow">Case Study &middot; Otida</div>
+  <h1 class="hero-title">
+    <span>Live in better health</span><br>
+    <span class="line-teal">and fewer medications</span>
+  </h1>
+
+  <div class="hero-divider"></div>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><label>Role</label><span>Lead Product Designer</span></div>
+    <div class="hero-meta-item"><label>Company</label><span>Otida</span></div>
+    <div class="hero-meta-item"><label>Year</label><span>TBD</span></div>
+    <div class="hero-meta-item"><label>Platform</label><span>Mobile &middot; Web</span></div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll to explore
+  </div>
+</div>
+
+<!-- TWO-COLUMN LAYOUT -->
+<div class="case-layout">
+  <!-- LEFT SIDEBAR NAV -->
+  <aside class="sidebar">
+    <ul class="sidebar-nav">
+      <li>
+        <a href="#challenge" data-section="challenge">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          The Challenge
+        </a>
+      </li>
+      <li>
+        <a href="#research" data-section="research">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          Research
+        </a>
+      </li>
+      <li>
+        <a href="#user-research" data-section="user-research">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          User Research
+        </a>
+      </li>
+      <li>
+        <a href="#competitors" data-section="competitors">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          Competitors
+        </a>
+      </li>
+      <li>
+        <a href="#solution" data-section="solution">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          Solution
+        </a>
+      </li>
+      <li>
+        <a href="#app-design" data-section="app-design">
+          <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          App Design
+        </a>
+      </li>
+      <li>
+        <a href="#web-design" data-section="web-design">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Website Design
+        </a>
+      </li>
+      <li>
+        <a href="#design-process" data-section="design-process">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Design Process
+        </a>
+      </li>
+      <li>
+        <a href="#impact" data-section="impact">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Impact
+        </a>
+      </li>
+      <li>
+        <a href="#learnings" data-section="learnings">
+          <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          Learnings
+        </a>
+      </li>
+      <li><div class="sidebar-sep"></div></li>
+      <li>
+        <a href="#hero-top" data-section="hero-top">
+          <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+          Top
+        </a>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- RIGHT MAIN CONTENT -->
+  <div class="main-content">
+    <!-- THE CHALLENGE -->
+    <div class="wrap" id="challenge">
+      <div class="reveal">
+        <div class="section-label"><span class="num">01 /</span> The Challenge</div>
+        <h2>Why this project<br>needed to exist</h2>
+        <p>The project entitled <strong>&quot;Control type 2 diabetes. Live in better health and fewer medications&quot;</strong> has two main objectives that are strongly interconnected.</p>
+        <p>The first objective is to provide patients a suitable plan depending on their cases—how they eat, live, and exercise. The second objective is to help patients track their health life to measure where their level of diabetes is.</p>
+      </div>
+
+      <div class="problem-grid reveal">
+        <div class="problem-card">
+          <div class="p-icon">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          </div>
+          <h3>Need for a suitable plan</h3>
+          <p>Patients need plans tailored to their cases, including how they eat, live, and exercise.</p>
+        </div>
+        <div class="problem-card">
+          <div class="p-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h8"/></svg>
+          </div>
+          <h3>Daily habits that matter</h3>
+          <p>Eating, lifestyle, and exercise routines are core inputs—so the experience must guide those decisions clearly.</p>
+        </div>
+        <div class="problem-card">
+          <div class="p-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Need to track health progress</h3>
+          <p>Patients need help tracking their health over time to understand outcomes and stay aligned.</p>
+        </div>
+        <div class="problem-card">
+          <div class="p-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg>
+          </div>
+          <h3>Measuring diabetes level</h3>
+          <p>To support better outcomes, the experience must help measure where a patient’s diabetes level is.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESEARCH & DISCOVERY -->
+    <div class="wrap" id="research">
+      <div class="reveal">
+        <div class="section-label"><span class="num">03 /</span> Research &amp; Discovery</div>
+        <h2>Understanding the<br>market opportunity</h2>
+        <p>Before designing screens, we validated assumptions about user intent, decision triggers, and the strongest trust factors. Findings shaped the information architecture and interaction strategy.</p>
+      </div>
+
+      <div class="metrics-grid reveal">
+        <div class="metric-card"><div class="m-num">TBD</div><div class="m-label">User behaviour signals used to prioritise the flow</div></div>
+        <div class="metric-card"><div class="m-num">TBD</div><div class="m-label">Key friction points identified in user journeys</div></div>
+        <div class="metric-card"><div class="m-num">TBD</div><div class="m-label">Competitive patterns mapped for feature parity</div></div>
+      </div>
+
+      <div class="reveal mt-48">
+        <h3>Additional discovery insights</h3>
+        <p>Research highlighted that users do not just need features — they need reassurance moments and clear explanation of what happens next.</p>
+      </div>
+    </div>
+
+    <!-- USER RESEARCH -->
+    <div class="band">
+      <div class="wrap" id="user-research">
+        <div class="reveal">
+          <div class="section-label"><span class="num">04 /</span> User Research</div>
+          <h2>Qualitative insights<br>from real users</h2>
+          <p>We ran structured sessions to understand behaviours, decision-making criteria, and perceived risks across the journey.</p>
+        </div>
+
+        <div class="research-grid reveal">
+          <div class="research-card">
+            <h3>Interviews</h3>
+            <p>Captured user motivations, trust expectations, and how people compare options today.</p>
+            <ul class="feat-list">
+              <li>Mapping current workarounds</li>
+              <li>Identifying trust triggers</li>
+              <li>Understanding decision timelines</li>
+              <li>Documenting information gaps</li>
+            </ul>
+          </div>
+          <div class="research-card">
+            <h3>Usability testing</h3>
+            <p>Validated prototypes against real tasks to measure clarity and friction.</p>
+            <ul class="feat-list">
+              <li>Testing information hierarchy</li>
+              <li>Validating step-by-step comprehension</li>
+              <li>Reducing ambiguity in CTAs</li>
+              <li>Measuring time-to-decision</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPETITOR ANALYSIS -->
+    <div class="wrap" id="competitors">
+      <div class="reveal">
+        <div class="section-label"><span class="num">05 /</span> Competitor Analysis</div>
+        <h2>Exploring existing<br>apps in the market</h2>
+        <p>We compared similar products to identify gaps, trust patterns, and feature sets. This helped us avoid building generic flows and instead focus on differentiation through clarity.</p>
+      </div>
+
+      <div class="reveal">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Otida</th>
+              <th>Competitor A</th>
+              <th>Competitor B</th>
+              <th>Competitor C</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Clear next steps</td>
+              <td class="check">&#10003;</td>
+              <td class="cross">&#10005;</td>
+              <td class="check">&#10003;</td>
+              <td class="cross">&#10005;</td>
+            </tr>
+            <tr>
+              <td>Comparison experience</td>
+              <td class="check">&#10003;</td>
+              <td class="cross">&#10005;</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+            </tr>
+            <tr>
+              <td>Trust signals</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="cross">&#10005;</td>
+              <td class="check">&#10003;</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SOLUTION -->
+    <div class="band">
+      <div class="wrap" id="solution">
+        <div class="reveal">
+          <div class="section-label"><span class="num">06 /</span> Solution</div>
+          <h2>What we built<br>for Otida</h2>
+          <p>Otida's solution was designed around four pillars to address the journey’s biggest risks: confusion, lack of comparability, uncertainty, and unnecessary steps.</p>
+        </div>
+
+        <div class="problem-grid reveal" style="margin-top:48px;">
+          <div class="problem-card">
+            <div class="p-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 8h8"/></svg></div>
+            <h3>Clarity</h3>
+            <p>Explain the decision with a hierarchy that answers “what’s next?” before the user asks.</p>
+          </div>
+          <div class="problem-card">
+            <div class="p-icon"><svg viewBox="0 0 24 24"><path d="M4 19h16"/><path d="M6 16l3-8 3 4 2-6 4 10"/></svg></div>
+            <h3>Comparison</h3>
+            <p>Surface differences between options in a way that is fast to scan and easy to trust.</p>
+          </div>
+          <div class="problem-card">
+            <div class="p-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <h3>Trust</h3>
+            <p>Use verification, transparency, and reassurance moments to reduce perceived risk.</p>
+          </div>
+          <div class="problem-card">
+            <div class="p-icon"><svg viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M7 9h6"/><path d="M7 13h10"/></svg></div>
+            <h3>Speed</h3>
+            <p>Reduce unnecessary steps by pre-filling input where possible and simplifying the path.</p>
+          </div>
+        </div>
+
+        <div class="reveal mt-48">
+          <h3>Key platform features</h3>
+          <p>We built reusable UI patterns for explanation, comparison, and reassurance — so the experience stays consistent across screens and channels.</p>
+        </div>
+
+        <div class="reveal mt-48 placeholder" style="height:360px;">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          <span>Add app screens showing the main journey,<br>decision comparisons, and trust signals here</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- APP DESIGN -->
+    <div class="band">
+      <div class="wrap" id="app-design">
+        <div class="reveal">
+          <div class="section-label"><span class="num">07 /</span> App Design</div>
+          <h2>Crafting the<br>mobile experience</h2>
+          <p>The mobile experience is where users decide. We focused on legibility, progressive disclosure, and reassuring microcopy that reduces uncertainty.</p>
+        </div>
+
+        <!-- 1) Mobile app hero -->
+        <div class="web-mockup first reveal">
+          <div class="web-mockup-header">
+            <span class="web-mockup-label">Mobile App</span>
+            <h3 style="font-family:var(--f-display);font-size:22px;font-weight:700;color:var(--c-text);margin-bottom:8px;">
+              Control type 2 diabetes. Live in better health and fewer medications
+            </h3>
+          </div>
+          <div class="web-mockup-frame">
+            <img src="otida-app-hero.png" alt="Otida mobile app hero with three app screens" loading="lazy" decoding="async" />
+          </div>
+        </div>
+
+        <!-- 2) Data entry - logging activities -->
+        <div class="web-mockup reveal">
+          <div class="web-mockup-header">
+            <span class="web-mockup-label">Data entry</span>
+            <h3 style="font-family:var(--f-display);font-size:22px;font-weight:700;color:var(--c-text);margin-bottom:8px;">
+              Logging activities
+            </h3>
+            <p>Log what you did like meals, Glucose reading, Weight, Blood Pressure and more.</p>
+          </div>
+          <div class="web-mockup-frame">
+            <img src="otida-app-logging-activities.png" alt="Otida app logging activities flow" loading="lazy" decoding="async" />
+          </div>
+        </div>
+
+        <!-- 3) Data entry - glucose and pressure -->
+        <div class="web-mockup reveal">
+          <div class="web-mockup-header">
+            <span class="web-mockup-label">Data entry</span>
+            <h3 style="font-family:var(--f-display);font-size:22px;font-weight:700;color:var(--c-text);margin-bottom:8px;">
+              Logging Glucose and pressure
+            </h3>
+            <p>A record of progress of what happened like HbA1c, Weight, Fasting Glucose and more.</p>
+          </div>
+          <div class="web-mockup-frame">
+            <img src="otida-app-glucose-pressure.png" alt="Otida app logging glucose and blood pressure" loading="lazy" decoding="async" />
+          </div>
+        </div>
+
+        <!-- 4) Data display - weight -->
+        <div class="web-mockup reveal">
+          <div class="web-mockup-header">
+            <span class="web-mockup-label">Data Display</span>
+            <h3 style="font-family:var(--f-display);font-size:22px;font-weight:700;color:var(--c-text);margin-bottom:8px;">
+              Logging and tracking Weight
+            </h3>
+            <p>Patients tracking their weight progress and activities by adding their weight.</p>
+          </div>
+          <div class="web-mockup-frame">
+            <img src="otida-app-tracking-weight.png" alt="Otida app logging and tracking weight" loading="lazy" decoding="async" />
+          </div>
+        </div>
+
+        <!-- 5) Data display - tracking data -->
+        <div class="web-mockup reveal">
+          <div class="web-mockup-header">
+            <span class="web-mockup-label">Data display</span>
+            <h3 style="font-family:var(--f-display);font-size:22px;font-weight:700;color:var(--c-text);margin-bottom:8px;">
+              Tracking the data
+            </h3>
+            <p>Tracking the data for patient like fasting glucose, HbA1c, Weight and Before&amp;After meal glucose goes on.</p>
+          </div>
+          <div class="web-mockup-frame">
+            <img src="otida-app-tracking-data.png" alt="Otida app progress and tracking data screens" loading="lazy" decoding="async" />
+          </div>
+        </div>
+
+        <!-- 6) Final app showcase -->
+        <div class="web-mockup reveal">
+          <div class="web-mockup-header">
+            <span class="web-mockup-label">Final Showcase</span>
+            <h3 style="font-family:var(--f-display);font-size:22px;font-weight:700;color:var(--c-text);margin-bottom:8px;">
+              Complete mobile experience
+            </h3>
+            <p>Thank you screen with a final overview of the key mobile interactions and health tracking flows.</p>
+          </div>
+          <div class="web-mockup-frame">
+            <img src="otida-app-final-showcase.png" alt="Otida final mobile app showcase and thank you frame" loading="lazy" decoding="async" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEBSITE DESIGN -->
+    <div class="band">
+      <div class="wrap" id="web-design">
+        <div class="reveal">
+          <div class="section-label"><span class="num">08 /</span> Website Design</div>
+          <h2>Designing the<br>cross-device experience</h2>
+          <p>We extended the same decision logic to responsive layouts, ensuring the user can compare options and complete the journey comfortably on desktop and mobile web.</p>
+        </div>
+
+        <!-- 1) About the app / Hero -->
+        <div class="web-mockup first reveal">
+          <div class="web-mockup-header">
+            <span class="web-mockup-label">About the app</span>
+            <h3 style="font-family:var(--f-display);font-size:22px;font-weight:700;color:var(--c-text);margin-bottom:8px;">
+              Live in better health<br>and fewer medications
+            </h3>
+            <p>
+              The Otida program will help you reverse diabetes with a well-thought-out plan from a professional medical team, health coaches and nutritionists who rely on the latest technology to treat diabetes.
+            </p>
+          </div>
+          <div class="web-mockup-frame">
+            <img src="otida-website-hero.png" alt="Otida website hero - Live in better health and fewer medications" loading="lazy" decoding="async" />
+          </div>
+        </div>
+
+        <!-- 2) Creating prescriptions -->
+        <div class="web-mockup reveal">
+          <div class="web-mockup-header">
+            <span class="web-mockup-label">Creating</span>
+            <h3 style="font-family:var(--f-display);font-size:22px;font-weight:700;color:var(--c-text);margin-bottom:8px;">
+              Create a suitable<br>prescriptions
+            </h3>
+            <p>
+              Prescriptions are written instructions from a licensed healthcare professional, such as a doctor or nurse practitioner, that authorize a patient to obtain a specific medication from a pharmacy to treat a medical condition.
+            </p>
+          </div>
+          <div class="web-mockup-frame">
+            <img src="otida-website-create-prescriptions.png" alt="Otida website - Create a suitable prescriptions" loading="lazy" decoding="async" />
+          </div>
+        </div>
+
+        <!-- 3) Details / Food logging -->
+        <div class="web-mockup reveal">
+          <div class="web-mockup-header">
+            <span class="web-mockup-label">Details</span>
+            <h3 style="font-family:var(--f-display);font-size:22px;font-weight:700;color:var(--c-text);margin-bottom:8px;">
+              Food logging for<br>tracking nutritions
+            </h3>
+            <p>
+              Food logging involves recording the types and amounts of foods and beverages consumed by an individual in a food diary or mobile application, which can help monitor calorie and nutrient intake for various health and wellness goals.
+            </p>
+          </div>
+          <div class="web-mockup-frame">
+            <img src="otida-website-weight-changes.png" alt="Otida website - Food logging for tracking nutritions" loading="lazy" decoding="async" />
+          </div>
+        </div>
+
+        <!-- 4) Tracking / Weight changes -->
+        <div class="web-mockup reveal">
+          <div class="web-mockup-header">
+            <span class="web-mockup-label">Tracking</span>
+            <h3 style="font-family:var(--f-display);font-size:22px;font-weight:700;color:var(--c-text);margin-bottom:8px;">
+              Tracking weight changes<br>and blood glucos
+            </h3>
+            <p>
+              Tracking weight changes involves monitoring an individual's weight over time using a scale or other measurement tool to assess progress toward weight loss or gain goals and identify any potential health concerns.
+            </p>
+          </div>
+          <div class="web-mockup-frame">
+            <img src="otida-website-blood-pressure.png" alt="Otida website - Tracking blood pressure and blood glucose context" loading="lazy" decoding="async" />
+          </div>
+        </div>
+
+        <!-- 5) Tracking / Blood pressure -->
+        <div class="web-mockup reveal">
+          <div class="web-mockup-header">
+            <span class="web-mockup-label">Tracking</span>
+            <h3 style="font-family:var(--f-display);font-size:22px;font-weight:700;color:var(--c-text);margin-bottom:8px;">
+              Tracking<br>Blood Pressure
+            </h3>
+            <p>
+              Tracking blood pressure involves measuring an individual's blood pressure regularly to monitor for changes in blood pressure levels, which can help identify potential health concerns and inform preventive treatment decisions.
+            </p>
+          </div>
+          <div class="web-mockup-frame">
+            <img src="otida-website-blood-pressure-poster.png" alt="Otida website - Blood pressure poster" loading="lazy" decoding="async" />
+          </div>
+        </div>
+
+        <!-- 6) Plan / Personal plan -->
+        <div class="web-mockup reveal">
+          <div class="web-mockup-header">
+            <span class="web-mockup-label">Plan</span>
+            <h3 style="font-family:var(--f-display);font-size:22px;font-weight:700;color:var(--c-text);margin-bottom:8px;">
+              Every patient have<br>a personal plan
+            </h3>
+            <p>
+              We will work with you personally to create your personal plan at an effective and appropriate way for your body and lifestyle. The trainers will show you the right food, how to exercise intensity, and how to tell.
+            </p>
+          </div>
+          <div class="web-mockup-frame">
+            <img src="otida-website-personal-plan.png" alt="Otida website - Every patient have a personal plan" loading="lazy" decoding="async" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESIGN PROCESS -->
+    <div class="wrap" id="design-process">
+      <div class="reveal">
+        <div class="section-label"><span class="num">09 /</span> Design Process</div>
+        <h2>From research<br>to final UI</h2>
+        <p>The design process followed a structured approach: discovery, definition, interaction design, testing, and iteration. Each phase was informed by the previous one’s findings.</p>
+      </div>
+
+      <div class="process-steps reveal">
+        <div class="problem-card">
+          <div class="section-label" style="margin:0 0 14px 0;">
+            <span class="num">01 /</span>
+          </div>
+          <h3 style="margin:0 0 10px 0;">Discovery</h3>
+          <p style="max-width:none;">Stakeholder interviews and journey mapping to define the decision problem.</p>
+        </div>
+        <div class="problem-card">
+          <div class="section-label" style="margin:0 0 14px 0;">
+            <span class="num">02 /</span>
+          </div>
+          <h3 style="margin:0 0 10px 0;">Define</h3>
+          <p style="max-width:none;">Information architecture and key user flows that reduce ambiguity.</p>
+        </div>
+        <div class="problem-card">
+          <div class="section-label" style="margin:0 0 14px 0;">
+            <span class="num">03 /</span>
+          </div>
+          <h3 style="margin:0 0 10px 0;">Design</h3>
+          <p style="max-width:none;">Wireframes to high fidelity UI, with interaction patterns for clarity.</p>
+        </div>
+        <div class="problem-card">
+          <div class="section-label" style="margin:0 0 14px 0;">
+            <span class="num">04 /</span>
+          </div>
+          <h3 style="margin:0 0 10px 0;">Test</h3>
+          <p style="max-width:none;">Usability testing focused on comprehension, trust, and decision speed.</p>
+        </div>
+        <div class="problem-card">
+          <div class="section-label" style="margin:0 0 14px 0;">
+            <span class="num">05 /</span>
+          </div>
+          <h3 style="margin:0 0 10px 0;">Iterate</h3>
+          <p style="max-width:none;">Refine based on findings and technical feasibility constraints.</p>
+        </div>
+      </div>
+
+      <div class="placeholder reveal mt-48" style="height:320px;">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        <span>Add wireframes, user flows, and key UI screens here</span>
+      </div>
+    </div>
+
+    <!-- IMPACT -->
+    <div class="band">
+      <div class="wrap" id="impact">
+        <div class="reveal">
+          <div class="section-label"><span class="num">10 /</span> Impact</div>
+          <h2>Results that<br>validated the work</h2>
+          <p>The new Otida experience aimed to improve comprehension, reduce friction, and increase confidence at key decision moments.</p>
+        </div>
+
+        <div class="stats-row reveal">
+          <div class="stat-card">
+            <div class="stat-n">TBD</div>
+            <div class="stat-l">Completion rate improvement (replace with real number)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-n">TBD</div>
+            <div class="stat-l">Faster time-to-decision (replace with real number)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-n">TBD</div>
+            <div class="stat-l">Higher user confidence / satisfaction (replace with real number)</div>
+          </div>
+        </div>
+
+        <div class="quotes-grid reveal">
+          <div class="q-card">
+            <div class="q-text">"The experience made the next step feel obvious — I always knew what would happen after I chose."</div>
+            <div class="q-attr">Outcome — clarity</div>
+          </div>
+          <div class="q-card">
+            <div class="q-text">"Comparing options was easier, and I trusted the information more because it was transparent."</div>
+            <div class="q-attr">Outcome — trust</div>
+          </div>
+          <div class="q-card">
+            <div class="q-text">"The flow felt shorter. I didn’t need to repeat information or search for answers."</div>
+            <div class="q-attr">Outcome — speed</div>
+          </div>
+          <div class="q-card">
+            <div class="q-text">"The reassurance moments reduced anxiety — it felt safer to commit."</div>
+            <div class="q-attr">Outcome — confidence</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEARNINGS -->
+    <div class="wrap" id="learnings">
+      <div class="reveal">
+        <div class="section-label"><span class="num">11 /</span> Learnings</div>
+        <h2>Key takeaways<br>from the project</h2>
+        <p>Designing Otida highlighted that trust is earned through explanation and reassurance — not just by adding more UI.</p>
+      </div>
+
+      <div class="learnings-split reveal">
+        <div>
+          <div class="learning-item">
+            <div class="l-num">01</div>
+            <div>
+              <h4>Clarity beats complexity</h4>
+              <p>Users will tolerate fewer features if the decision context is explained clearly and consistently.</p>
+            </div>
+          </div>
+          <div class="learning-item">
+            <div class="l-num">02</div>
+            <div>
+              <h4>Comparison is a trust mechanic</h4>
+              <p>When users can compare options quickly, perceived risk drops and confidence increases.</p>
+            </div>
+          </div>
+          <div class="learning-item">
+            <div class="l-num">03</div>
+            <div>
+              <h4>Microcopy reduces cognitive load</h4>
+              <p>Small reassurance messages at the right moments can prevent confusion and abandonment.</p>
+            </div>
+          </div>
+          <div class="learning-item">
+            <div class="l-num">04</div>
+            <div>
+              <h4>Test comprehension, not just preference</h4>
+              <p>Usability sessions should measure whether users understand, not only whether they like the UI.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="next-steps">
+          <h3>Project highlights</h3>
+          <div class="ns-sub">What made Otida stand out</div>
+          <ul class="ns-list">
+            <li><span class="ns-dot"></span>Decision-making structure built for clarity and scanning</li>
+            <li><span class="ns-dot"></span>Comparison patterns designed to reduce uncertainty</li>
+            <li><span class="ns-dot"></span>Trust signals integrated into the flow (not added at the end)</li>
+            <li><span class="ns-dot"></span>Reusable UI patterns for explanation and reassurance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div>
+        <div class="f-name">Sayed El Mohamady</div>
+        <div class="f-role">Lead Product Designer &middot; Otida</div>
+      </div>
+      <a href="index.html" class="f-link">Back to Portfolio &larr;</a>
+    </footer>
+  </div><!-- /main-content -->
+</div><!-- /case-layout -->
+
+<!-- Anchor for "Top" link -->
+<div id="hero-top" style="position:absolute;top:0;"></div>
+
+<script>
+  /* ── Reveal animations via IntersectionObserver ── */
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.01, rootMargin: '100px 0px -20px 0px' });
+
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = (i % 3) * 0.07 + 's';
+    revealObs.observe(el);
+  });
+
+  /* Fallback: reveal elements already in viewport on load */
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight + 100) el.classList.add('visible');
+      });
+    }, 300);
+  });
+
+  /* ── Smooth scroll for sidebar links ── */
+  document.querySelectorAll('.sidebar-nav a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 56;
+          const y = target.getBoundingClientRect().top + window.pageYOffset - navH - 24;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }
+    });
+  });
+
+  /* ── Scroll spy for sidebar active state ── */
+  (function() {
+    const sidebarLinks = document.querySelectorAll('.sidebar-nav a[data-section]');
+    const sectionIds = [];
+    sidebarLinks.forEach(link => {
+      const id = link.getAttribute('data-section');
+      if (id !== 'hero-top') sectionIds.push(id);
+    });
+
+    function updateActive() {
+      const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 56;
+      const scrollY = window.scrollY + navH + 80;
+      let currentId = sectionIds[0];
+
+      for (let i = 0; i < sectionIds.length; i++) {
+        const section = document.getElementById(sectionIds[i]);
+        if (section && section.offsetTop <= scrollY) currentId = sectionIds[i];
+      }
+
+      if (window.scrollY < 200) {
+        sidebarLinks.forEach(l => l.classList.remove('active'));
+        return;
+      }
+
+      sidebarLinks.forEach(link => {
+        if (link.getAttribute('data-section') === currentId) link.classList.add('active');
+        else link.classList.remove('active');
+      });
+    }
+
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => { updateActive(); ticking = false; });
+        ticking = true;
+      }
+    });
+    updateActive();
+  })();
+</script>
+</body>
+</html>
+

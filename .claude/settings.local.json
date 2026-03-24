@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "Bash(ls -la \"/Users/sayedelmohamady/Downloads/Sayed elmohamady/\"*.p*)",
+      "Bash(ls -lt ~/Downloads/*.png)",
+      "Bash(ls -la \"/Users/sayedelmohamady/Downloads/Sayed elmohamady/\"*.png \"/Users/sayedelmohamady/Downloads/Sayed elmohamady/\"*.jpg \"/Users/sayedelmohamady/Downloads/Sayed elmohamady/\"*.jpeg)",
+      "Bash(ls -la \"/Users/sayedelmohamady/Downloads/Sayed elmohamady/\"*.png)",
+      "Bash(mv \"mabaat-booking.png.png\" \"mabaat-booking.png\")",
+      "Bash(mv \"mabaat-map.png.png\" \"mabaat-map.png\")",
+      "Bash(mv \"mabaat-search.png.png\" \"mabaat-search.png\")",
+      "Bash(ls -la mabaat-*.png)",
+      "Bash(ls -la \"/Users/sayedelmohamady/Downloads/Sayed elmohamady/\"mabaat-app-*.png)",
+      "Bash(python3 -c \":*)",
+      "Bash(ls -la \"/Users/sayedelmohamady/Downloads/Sayed elmohamady/\"mabaat-app*)",
+      "Bash(ls -la \"/Users/sayedelmohamady/Downloads/Sayed elmohamady/\"mabaat*)",
+      "Bash(ls -la \"/Users/sayedelmohamady/Downloads/Sayed elmohamady/\"*card* \"/Users/sayedelmohamady/Downloads/Sayed elmohamady/\"*club* \"/Users/sayedelmohamady/Downloads/Sayed elmohamady/\"*mnt* \"/Users/sayedelmohamady/Downloads/Sayed elmohamady/\"*mabaat* \"/Users/sayedelmohamady/Downloads/Sayed elmohamady/\"*otida*)",
+      "Bash(ls \"/Users/sayedelmohamady/Downloads/Sayed elmohamady/\"*club*)"
+    ]
+  }
+}
