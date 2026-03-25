@@ -3,6 +3,9 @@ import type { ReactNode } from "react";
 import { DM_Sans, Syne } from "next/font/google";
 
 import "@/styles/globals.css";
+import "@/styles/custom-cursor.css";
+
+import { CustomCursor } from "@/components/CustomCursor";
 
 const syne = Syne({
   subsets: ["latin"],
@@ -30,7 +33,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       lang="en"
       className={`${syne.variable} ${dmSans.variable}`}
     >
-      <body className="min-h-screen antialiased">{children}</body>
+      <body className="min-h-screen antialiased">
+        <CustomCursor />
+        {children}
+      </body>
     </html>
   );
 }

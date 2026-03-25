@@ -13,7 +13,7 @@ export default function OtidaCaseStudyPage() {
   const html = getCaseStudyBodyHtml("otida");
   return (
     <CaseStudyRevealInit>
-      <div className="case-study">
+      <div className="case-study case-study--otida">
         <CaseStudyTopNav />
         <div dangerouslySetInnerHTML={{ __html: html }} />
       </div>

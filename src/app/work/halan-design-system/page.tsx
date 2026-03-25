@@ -4,13 +4,13 @@ import { getCaseStudyBodyHtml } from "@/lib/caseStudyHtml";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "MNT-Halan — Revolutionizing Loan Processing",
+  title: "MNT Halan — Design System",
   description:
-    "Lending and collections UX for loan officers — strategy, dashboards, gamification, and field workflows.",
+    "Design guidelines, tokens, components, and rollout across Halan products — from audit to adoption and measurement.",
 };
 
-export default function MntHalanCaseStudyPage() {
-  const html = getCaseStudyBodyHtml("mnt-halan");
+export default function HalanDesignSystemCaseStudyPage() {
+  const html = getCaseStudyBodyHtml("halan-design-system");
   return (
     <CaseStudyRevealInit>
       <div className="case-study case-study--mnt-halan">

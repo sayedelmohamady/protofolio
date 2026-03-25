@@ -1,0 +1,107 @@
+/* Custom cursor — neutral frosted / blurred (no accent colors) */
+
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+
+html.has-custom-cursor input[type="text"],
+html.has-custom-cursor input[type="email"],
+html.has-custom-cursor input[type="search"],
+html.has-custom-cursor input[type="password"],
+html.has-custom-cursor input[type="url"],
+html.has-custom-cursor input[type="tel"],
+html.has-custom-cursor input[type="number"],
+html.has-custom-cursor textarea {
+  cursor: text !important;
+}
+
+.custom-cursor-root {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10060;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.custom-cursor-root.is-visible {
+  opacity: 1;
+}
+
+.custom-cursor-ring,
+.custom-cursor-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Outer ring — soft glass, heavy blur */
+.custom-cursor-ring {
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.08),
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(16px) saturate(1.05);
+  -webkit-backdrop-filter: blur(16px) saturate(1.05);
+}
+
+.custom-cursor-root.is-hover .custom-cursor-ring {
+  border-color: rgba(255, 255, 255, 0.38);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 0 40px rgba(255, 255, 255, 0.08),
+    0 12px 40px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px) saturate(1.08);
+  -webkit-backdrop-filter: blur(20px) saturate(1.08);
+}
+
+.custom-cursor-root.is-clicking .custom-cursor-ring {
+  border-color: rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Inner core — soft blurred light blob, not a hard dot */
+.custom-cursor-dot {
+  width: 18px;
+  height: 18px;
+  margin-left: 0;
+  margin-top: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0.12) 45%,
+    transparent 72%
+  );
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  opacity: 0.75;
+  box-shadow: none;
+}
+
+.custom-cursor-root.is-hover .custom-cursor-dot {
+  opacity: 0.45;
+  filter: blur(7px);
+  -webkit-filter: blur(7px);
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 75%
+  );
+}
+
+.custom-cursor-root.is-clicking .custom-cursor-dot {
+  opacity: 0.65;
+  filter: blur(4px);
+  -webkit-filter: blur(4px);
+}

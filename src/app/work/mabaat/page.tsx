@@ -13,7 +13,7 @@ export default function MabaatCaseStudyPage() {
   const html = getCaseStudyBodyHtml("mabaat");
   return (
     <CaseStudyRevealInit>
-      <div className="case-study">
+      <div className="case-study case-study--mabaat">
         <CaseStudyTopNav />
         <div dangerouslySetInnerHTML={{ __html: html }} />
       </div>

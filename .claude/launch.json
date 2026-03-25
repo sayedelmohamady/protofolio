@@ -4,8 +4,8 @@
     {
       "name": "portfolio",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["serve", "-l", "3000", "--no-clipboard"],
-      "port": 3000
+      "runtimeArgs": ["next", "dev", "--turbo"],
+      "autoPort": true
     }
   ]
 }

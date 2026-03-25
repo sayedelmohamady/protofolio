@@ -95,6 +95,30 @@ export function HomeInteractions({ children }: { children: ReactNode }) {
       hero.style.setProperty("--hero-parallax", String(clamped));
     }
 
+    const expStepperList = root.querySelector<HTMLElement>(
+      "#experience .experience-stepper-list",
+    );
+
+    function updateExperienceSpine() {
+      if (!expStepperList) return;
+      if (prefersReducedMotion) {
+        expStepperList.style.setProperty("--exp-spine-progress", "1");
+        return;
+      }
+      const rect = expStepperList.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const y = window.scrollY;
+      const listTopDoc = rect.top + y;
+      const listH = rect.height;
+      const anchor = y + vh * 0.42;
+      const start = listTopDoc + listH * 0.04;
+      const end = listTopDoc + listH * 0.96;
+      const span = Math.max(120, end - start);
+      let p = (anchor - start) / span;
+      p = Math.max(0, Math.min(1, p));
+      expStepperList.style.setProperty("--exp-spine-progress", String(p));
+    }
+
     function updateActiveNav() {
       if (!root) return;
       const navH = (nav ? nav.offsetHeight : 64) + 28;
@@ -126,15 +150,20 @@ export function HomeInteractions({ children }: { children: ReactNode }) {
         const speed = 0.03 + i * 0.015;
         orb.style.setProperty("--orb-scroll", `${window.scrollY * speed}px`);
       });
+      updateExperienceSpine();
     };
     window.addEventListener("scroll", onScroll, { passive: true });
 
     const onResize = () => {
       const activeLink = root.querySelector(".nav-links a.is-active");
       positionNavPill(activeLink);
+      updateExperienceSpine();
     };
     window.addEventListener("resize", onResize);
-    requestAnimationFrame(() => updateActiveNav());
+    requestAnimationFrame(() => {
+      updateActiveNav();
+      updateExperienceSpine();
+    });
 
     /* ── Scroll reveals ── */
     const rvObs = new IntersectionObserver(
@@ -157,6 +186,63 @@ export function HomeInteractions({ children }: { children: ReactNode }) {
     root.querySelectorAll<HTMLElement>(".case-card").forEach((card, idx) => {
       card.dataset.revealDelay = String(100 * idx);
     });
+
+    /* ── Case study filter (All / Digital product / Design system) ── */
+    const filterBar = root.querySelector<HTMLElement>("#casesFilter");
+
+    function applyCaseFilter(filter: string) {
+      if (!root) return;
+      const wraps = root.querySelectorAll<HTMLElement>(
+        ".case-card-sticky-wrap[data-case-type]",
+      );
+      wraps.forEach((wrap) => {
+        const type = wrap.dataset.caseType;
+        const show = filter === "all" || type === filter;
+        wrap.classList.toggle("case-filter-hidden", !show);
+      });
+      if (filter === "all") {
+        wraps.forEach((wrap) => {
+          const bz = wrap.dataset.baseZ;
+          if (bz) wrap.style.setProperty("--card-z", bz);
+        });
+      } else {
+        let z = 1;
+        wraps.forEach((wrap) => {
+          if (wrap.classList.contains("case-filter-hidden")) return;
+          wrap.style.setProperty("--card-z", String(z));
+          z += 1;
+        });
+      }
+      const clubVideo = root.querySelector<HTMLVideoElement>(
+        ".case-card--club-tie .case-card-thumb-video",
+      );
+      const clubWrap = root.querySelector<HTMLElement>(
+        ".case-card--club-tie",
+      )?.closest<HTMLElement>(".case-card-sticky-wrap");
+      if (clubVideo && clubWrap) {
+        if (clubWrap.classList.contains("case-filter-hidden")) {
+          void clubVideo.pause();
+        } else if (!prefersReducedMotion) {
+          void clubVideo.play().catch(() => {});
+        }
+      }
+    }
+
+    const onFilterClick = (e: Event) => {
+      const btn = (e.target as HTMLElement).closest(
+        "button[data-filter]",
+      ) as HTMLButtonElement | null;
+      if (!btn || !filterBar?.contains(btn)) return;
+      const filter = btn.dataset.filter ?? "all";
+      applyCaseFilter(filter);
+      filterBar.querySelectorAll("button[data-filter]").forEach((b) => {
+        const active = b === btn;
+        b.classList.toggle("is-active", active);
+        b.setAttribute("aria-selected", active ? "true" : "false");
+      });
+    };
+
+    filterBar?.addEventListener("click", onFilterClick);
 
     const clubCardVideo = root.querySelector<HTMLVideoElement>(
       ".case-card--club-tie .case-card-thumb-video",
@@ -319,6 +405,7 @@ export function HomeInteractions({ children }: { children: ReactNode }) {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
       root.removeEventListener("click", hashClickHandler);
+      filterBar?.removeEventListener("click", onFilterClick);
       rvObs.disconnect();
       clubVideoIo?.disconnect();
       if (clubVideoOnVis) {
