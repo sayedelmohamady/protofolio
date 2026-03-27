@@ -1,0 +1,143 @@
+/* ─────────────────────────────────────────────────────
+   Intro overlay — "system initializing" feel
+   Total duration: ~1.4s  |  Plays once per session
+   All motion: transform + opacity only (GPU only)
+   ───────────────────────────────────────────────────── */
+
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10200;           /* above custom cursor (10060) */
+  background: #0a0d11;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;     /* never blocks clicks or scroll */
+  /* Exit: overlay fades to black → transparent at t=1050ms */
+  animation: intro-out 0.38s cubic-bezier(0.4, 0, 0.2, 1) 1.05s forwards;
+}
+
+/* ── Background grid — structure of the system ── */
+.intro-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.038) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.038) 1px, transparent 1px);
+  background-size: 72px 72px;
+  /* Vignette mask so grid fades at edges */
+  mask-image: radial-gradient(ellipse 85% 75% at 50% 50%, black 15%, transparent 68%);
+  -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 50%, black 15%, transparent 68%);
+  opacity: 0;
+  /* Appears first, as if the system is drawing its grid */
+  animation: intro-fade 0.55s ease-out 0.06s forwards;
+}
+
+/* ── Center glow — soft ambient light source ── */
+.intro-glow {
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(29, 168, 130, 0.11) 0%, transparent 68%);
+  filter: blur(64px);
+  opacity: 0;
+  animation: intro-fade 0.8s ease-out 0.12s forwards;
+}
+
+/* ── Center content block ── */
+.intro-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+/* ── Eyebrow — first signal from the system ── */
+.intro-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(29, 168, 130, 0.75);
+  opacity: 0;
+  transform: translateY(7px);
+  animation: intro-rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.28s forwards;
+}
+
+.intro-eyebrow-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(29, 168, 130, 0.9);
+  flex-shrink: 0;
+}
+
+/* ── Name — core identity ── */
+.intro-name {
+  font-size: clamp(26px, 3.8vw, 42px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.92);
+  opacity: 0;
+  transform: translateY(14px);
+  animation: intro-rise 0.58s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+}
+
+/* ── Divider — accent line "draws" itself in ── */
+.intro-divider {
+  height: 1px;
+  width: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(29, 168, 130, 0.55) 50%,
+    transparent 100%
+  );
+  animation: intro-line 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.68s forwards;
+}
+
+/* ── Role — quiet context ── */
+.intro-role {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.3);
+  opacity: 0;
+  transform: translateY(6px);
+  animation: intro-rise 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
+}
+
+/* ── Keyframes ── */
+
+@keyframes intro-fade {
+  to { opacity: 1; }
+}
+
+@keyframes intro-rise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes intro-line {
+  to { width: 100px; }
+}
+
+@keyframes intro-out {
+  to { opacity: 0; }
+}
+
+/* ── Respect prefers-reduced-motion ── */
+/* (component bails early in JS, but this is a safety net) */
+@media (prefers-reduced-motion: reduce) {
+  .intro-overlay {
+    display: none;
+  }
+}

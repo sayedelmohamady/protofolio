@@ -6,7 +6,8 @@ export type CaseStudySlug =
   | "otida"
   | "mnt-halan"
   | "club-tie"
-  | "halan-design-system";
+  | "halan-design-system"
+  | "etar";
 
 const HTML_FILES: Record<CaseStudySlug, string> = {
   mabaat: "mabaat-case-study.html",
@@ -14,6 +15,7 @@ const HTML_FILES: Record<CaseStudySlug, string> = {
   "mnt-halan": "project-case-study.html",
   "club-tie": "club-design-system-case-study.html",
   "halan-design-system": "halan-design-system-case-study.html",
+  etar: "etar-case-study.html",
 };
 
 function mapImageSrc(filename: string): string {
@@ -28,6 +30,8 @@ function mapImageSrc(filename: string): string {
     return `/images/projects/otida/${filename}`;
   if (filename.startsWith("mnt-halan"))
     return `/images/projects/mnt-halan/${filename}`;
+  if (filename.startsWith("etar-"))
+    return `/images/projects/etar/${filename}`;
   if (filename.startsWith("halan-ds-"))
     return `/images/projects/halan-design-system/${filename}`;
   if (filename.startsWith("halan-"))
@@ -179,6 +183,10 @@ export function getHomeBodyHtml(): string {
   inner = inner.replace(
     /href="club-design-system-case-study\.html"/g,
     'href="/work/club-tie"',
+  );
+  inner = inner.replace(
+    /href="etar-case-study\.html"/g,
+    'href="/work/etar"',
   );
   inner = rewriteImgSrc(inner);
   inner = rewriteVideoPoster(inner);

@@ -67,7 +67,71 @@ export function HomeInteractions({ children }: { children: ReactNode }) {
       requestAnimationFrame(step);
     }
 
-    /* ── Nav hide/show + active section + hero parallax ── */
+    /* ── Smooth layered parallax — RAF loop with lerp ── */
+    const heroInner = root.querySelector<HTMLElement>(".hero-inner");
+    const heroOrbs = root.querySelectorAll<HTMLElement>(".hero-orb");
+    // Per-orb parallax multipliers (bg → mid → accent orb)
+    const ORB_SPEEDS = [0.16, 0.26, 0.10] as const;
+
+    let rawScrollY = window.scrollY;
+    let smoothScrollY = rawScrollY;
+    let parallaxRaf: number;
+
+    // Mobile: reduce intensity to avoid motion sickness on small screens
+    let isMobile = window.matchMedia("(max-width: 768px)").matches;
+    const mqMobile = window.matchMedia("(max-width: 768px)");
+    const onMQChange = (e: MediaQueryListEvent) => { isMobile = e.matches; };
+    mqMobile.addEventListener("change", onMQChange);
+
+    function runParallax() {
+      rawScrollY = window.scrollY;
+      // Lerp toward raw scroll — 0.072 ≈ ~14-frame ease-out feel
+      smoothScrollY += (rawScrollY - smoothScrollY) * 0.072;
+
+      if (!prefersReducedMotion && hero) {
+        const heroRect = hero.getBoundingClientRect();
+        if (heroRect.bottom > -50) {
+          const intensity = isMobile ? 0.35 : 1.0;
+          const py = smoothScrollY * intensity;
+
+          // Layer 1 – Background (gradient mesh + grid): slowest drift downward
+          hero.style.setProperty("--px-bg", `${py * 0.13}px`);
+
+          // Layer 2 – Orbs (midground): each at its own speed for depth
+          heroOrbs.forEach((orb, i) => {
+            const speed = (ORB_SPEEDS[i] ?? 0.16) * intensity;
+            orb.style.setProperty("--px-orb", `${py * speed}px`);
+          });
+
+          // Layer 3 – Foreground content: counter-parallax lift + fade/scale out
+          if (heroInner) {
+            const heroH = hero.offsetHeight;
+            // Fade begins at 80px scroll; fully faded at ~55% of hero height
+            const fadeStart = 80;
+            const fadeEnd = heroH * 0.55;
+            const fadeProgress = Math.min(
+              Math.max((smoothScrollY - fadeStart) / (fadeEnd - fadeStart), 0),
+              1,
+            );
+            // Smooth the progress with an ease-out curve
+            const easedFade = 1 - Math.pow(1 - fadeProgress, 2);
+
+            const fgY = py * -0.065;          // gentle upward counter-drift
+            const driftY = easedFade * 28 * intensity; // accelerates as it fades
+            const opacity = 1 - easedFade * 0.42;
+            const scaleOut = 1 - easedFade * 0.038;
+
+            heroInner.style.transform = `translate3d(0, ${fgY + driftY}px, 0) scale(${scaleOut})`;
+            heroInner.style.opacity = String(Math.max(0.55, opacity));
+          }
+        }
+      }
+
+      parallaxRaf = requestAnimationFrame(runParallax);
+    }
+    parallaxRaf = requestAnimationFrame(runParallax);
+
+    /* ── Nav hide/show + active section ── */
     let lastScroll = 0;
     const nav = root.querySelector<HTMLElement>("#mainNav");
     const navPill = root.querySelector<HTMLElement>("#navPill");
@@ -84,15 +148,6 @@ export function HomeInteractions({ children }: { children: ReactNode }) {
       navPill.style.opacity = "1";
       navPill.style.width = `${lr.width}px`;
       navPill.style.left = `${lr.left - ur.left}px`;
-    }
-
-    function updateHeroParallax() {
-      if (!hero || prefersReducedMotion) return;
-      const rect = hero.getBoundingClientRect();
-      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
-      const raw = -rect.top * 0.14;
-      const clamped = Math.max(-52, Math.min(60, raw));
-      hero.style.setProperty("--hero-parallax", String(clamped));
     }
 
     const expStepperList = root.querySelector<HTMLElement>(
@@ -135,7 +190,6 @@ export function HomeInteractions({ children }: { children: ReactNode }) {
         ? root.querySelector(`.nav-links a[data-section="${activeId}"]`)
         : null;
       positionNavPill(activeLink);
-      updateHeroParallax();
     }
 
     const onScroll = () => {
@@ -146,10 +200,6 @@ export function HomeInteractions({ children }: { children: ReactNode }) {
       }
       lastScroll = curr;
       updateActiveNav();
-      root.querySelectorAll<HTMLElement>(".hero-orb").forEach((orb, i) => {
-        const speed = 0.03 + i * 0.015;
-        orb.style.setProperty("--orb-scroll", `${window.scrollY * speed}px`);
-      });
       updateExperienceSpine();
     };
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -307,6 +357,24 @@ export function HomeInteractions({ children }: { children: ReactNode }) {
       });
     }
 
+    /* ── Avatar tilt on mouse move ── */
+    const avatarContainer = root.querySelector<HTMLElement>(".hero-avatar-container");
+    let avatarTiltHandlers: { move: (e: MouseEvent) => void; leave: () => void } | null = null;
+    if (avatarContainer && !prefersReducedMotion) {
+      const move = (e: MouseEvent) => {
+        const rect = avatarContainer.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        avatarContainer.style.transform = `perspective(600px) rotateX(${y * -7}deg) rotateY(${x * 7}deg)`;
+      };
+      const leave = () => {
+        avatarContainer.style.transform = "";
+      };
+      avatarContainer.addEventListener("mousemove", move);
+      avatarContainer.addEventListener("mouseleave", leave);
+      avatarTiltHandlers = { move, leave };
+    }
+
     /* ── Magnetic buttons ── */
     const magnetics = root.querySelectorAll<HTMLElement>(".magnetic");
     const magneticHandlers: Array<{
@@ -400,6 +468,12 @@ export function HomeInteractions({ children }: { children: ReactNode }) {
     });
 
     return () => {
+      cancelAnimationFrame(parallaxRaf);
+      mqMobile.removeEventListener("change", onMQChange);
+      if (avatarContainer && avatarTiltHandlers) {
+        avatarContainer.removeEventListener("mousemove", avatarTiltHandlers.move);
+        avatarContainer.removeEventListener("mouseleave", avatarTiltHandlers.leave);
+      }
       document.removeEventListener("mousemove", onMouseMove);
       cancelAnimationFrame(glowRaf);
       window.removeEventListener("scroll", onScroll);
