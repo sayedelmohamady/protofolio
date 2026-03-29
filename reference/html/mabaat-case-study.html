@@ -164,6 +164,50 @@
   .problem-card h3 { font-size: 17px; color: var(--c-text); margin-bottom: 10px; }
   .problem-card p { font-size: 14px; max-width: none; line-height: 1.65; }
 
+  .challenge-graph { position: relative; margin-top: 56px; isolation: isolate; }
+  .challenge-graph__edges { position: absolute; left: 9%; right: 9%; top: 20%; bottom: 20%; width: auto; height: auto; pointer-events: none; z-index: 0; overflow: visible; }
+  .challenge-graph__path { stroke: rgba(var(--c-accent-rgb),0.42); stroke-width: 1.35; vector-effect: non-scaling-stroke; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+  .challenge-graph__path--ring { stroke-dasharray: 100; stroke-dashoffset: 100; }
+  .challenge-graph__path--diag { stroke-dasharray: 100; stroke-dashoffset: 100; stroke-opacity: 0.55; }
+  .challenge-graph.reveal.visible .challenge-graph__path--ring { animation: case-study-challenge-draw 1.05s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .challenge-graph.reveal.visible .challenge-graph__path--diag { animation: case-study-challenge-draw 0.9s cubic-bezier(0.22,1,0.36,1) 0.4s forwards; }
+  @keyframes case-study-challenge-draw { to { stroke-dashoffset: 0; } }
+  .challenge-graph__grid { position: relative; z-index: 1; margin-top: 0; }
+  .challenge-graph.reveal:not(.visible) .challenge-node { opacity: 0; transform: translateY(20px) scale(0.98); }
+  .challenge-graph.reveal.visible .challenge-node { opacity: 1; transform: translateY(0) scale(1); transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.55s cubic-bezier(0.22,1,0.36,1), background 0.3s cubic-bezier(0.22,1,0.36,1); }
+  .challenge-graph.reveal.visible .challenge-node:nth-child(1) { transition-delay: 0.1s; }
+  .challenge-graph.reveal.visible .challenge-node:nth-child(2) { transition-delay: 0.22s; }
+  .challenge-graph.reveal.visible .challenge-node:nth-child(3) { transition-delay: 0.34s; }
+  .challenge-graph.reveal.visible .challenge-node:nth-child(4) { transition-delay: 0.46s; }
+  .challenge-graph.reveal.visible .challenge-node:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,0.28); }
+  .challenge-graph:hover .challenge-graph__path { stroke: rgba(var(--c-accent-rgb),0.58); transition: stroke 0.35s ease; }
+
+  .qual-graph { position: relative; margin-top: 56px; isolation: isolate; }
+  .qual-graph__edges { position: absolute; left: 8%; right: 8%; top: 18%; bottom: 18%; width: auto; height: auto; pointer-events: none; z-index: 0; overflow: visible; }
+  .qual-graph__path { stroke: rgba(var(--c-accent-rgb),0.38); stroke-width: 1.25; vector-effect: non-scaling-stroke; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+  .qual-graph__path--ring { stroke-dasharray: 100; stroke-dashoffset: 100; }
+  .qual-graph__path--diag { stroke-dasharray: 100; stroke-dashoffset: 100; stroke-opacity: 0.5; }
+  .qual-graph.reveal.visible .qual-graph__path--ring { animation: case-study-challenge-draw 1s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .qual-graph.reveal.visible .qual-graph__path--diag { animation: case-study-challenge-draw 0.88s cubic-bezier(0.22,1,0.36,1) 0.38s forwards; }
+  .qual-graph__grid { position: relative; z-index: 1; margin-top: 0; }
+  .qual-graph.reveal:not(.visible) .qual-node { opacity: 0; transform: translateY(20px) scale(0.98); }
+  .qual-graph.reveal.visible .qual-node { opacity: 1; transform: translateY(0) scale(1); transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.55s cubic-bezier(0.22,1,0.36,1), border-color 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.45s cubic-bezier(0.22,1,0.36,1); }
+  .qual-graph.reveal.visible .qual-node:nth-child(1) { transition-delay: 0.1s; }
+  .qual-graph.reveal.visible .qual-node:nth-child(2) { transition-delay: 0.22s; }
+  .qual-graph.reveal.visible .qual-node:nth-child(3) { transition-delay: 0.34s; }
+  .qual-graph.reveal.visible .qual-node:nth-child(4) { transition-delay: 0.46s; }
+  .qual-graph.reveal.visible .qual-node:hover { transform: translateY(-5px); box-shadow: 0 14px 44px rgba(0,0,0,0.22); }
+  .qual-graph:hover .qual-graph__path { stroke: rgba(var(--c-accent-rgb),0.55); transition: stroke 0.35s ease; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .challenge-graph__path--ring, .challenge-graph__path--diag,
+    .qual-graph__path--ring, .qual-graph__path--diag { stroke-dasharray: none; stroke-dashoffset: 0; animation: none !important; }
+    .challenge-graph.reveal.visible .challenge-node,
+    .qual-graph.reveal.visible .qual-node { transition-delay: 0s !important; }
+    .challenge-graph.reveal.visible .challenge-node:hover,
+    .qual-graph.reveal.visible .qual-node:hover { transform: none; box-shadow: none; }
+  }
+
   /* ROLE */
   .role-split { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; margin-top: 56px; }
   .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
@@ -297,6 +341,7 @@
     .wrap { padding: 72px 20px; }
     footer { padding: 40px 20px; flex-direction: column; gap: 20px; align-items: flex-start; }
     .problem-grid, .role-split, .quotes-grid, .research-grid { grid-template-columns: 1fr; }
+    .challenge-graph__edges, .qual-graph__edges { display: none; }
     .stats-row { grid-template-columns: 1fr; }
     .metrics-grid { grid-template-columns: 1fr; }
     .pillars-grid { grid-template-columns: 1fr; }
@@ -429,28 +474,36 @@
       <div class="reveal">
         <div class="section-label"><span class="num">01 /</span> The Challenge</div>
         <h2>Why this project<br>needed to exist</h2>
-        <p>Mabaat set out to become the go-to short-term rental booking platform for Saudi Arabia and the UAE. The market needed a trustworthy, culturally aware alternative to global platforms that overlooked local hospitality standards and preferences.</p>
+        <p>Mabaat set out to be the trusted short-term rental platform for Saudi Arabia and the UAE—built around local hospitality, not a generic global playbook.</p>
       </div>
-      <div class="problem-grid reveal">
-        <div class="problem-card">
-          <div class="p-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
-          <h3>Hard to find reliable stays</h3>
-          <p>Users in the Saudi and UAE market struggled to find reliable, well-presented short-term rental options. Existing platforms offered fragmented experiences with inconsistent listing quality.</p>
-        </div>
-        <div class="problem-card">
-          <div class="p-icon"><svg viewBox="0 0 24 24"><path d="M3 21h18M3 10h18M3 7l9-4 9 4M4 10v11M20 10v11"/></svg></div>
-          <h3>Cultural preferences ignored</h3>
-          <p>Global platforms didn't cater to local cultural preferences and hospitality standards. There was a gap for a product that understood the nuances of the Saudi and Emirati guest experience.</p>
-        </div>
-        <div class="problem-card">
-          <div class="p-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-          <h3>No unified discovery experience</h3>
-          <p>There was no unified experience for discovering, comparing, and booking unique stays in the region. Users had to jump between multiple apps and websites to find suitable options.</p>
-        </div>
-        <div class="problem-card">
-          <div class="p-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-          <h3>Low platform trust</h3>
-          <p>Low trust in online rental platforms due to inconsistent listing quality, lack of verification, and poor customer support created hesitation among potential users.</p>
+      <div class="challenge-graph reveal">
+        <svg class="challenge-graph__edges" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <path class="challenge-graph__path challenge-graph__path--ring" fill="none" pathLength="100"
+            d="M 25 25 H 75 V 75 H 25 Z" />
+          <path class="challenge-graph__path challenge-graph__path--diag" fill="none" pathLength="100"
+            d="M 25 25 L 75 75 M 75 25 L 25 75" />
+        </svg>
+        <div class="problem-grid challenge-graph__grid">
+          <div class="problem-card challenge-node">
+            <div class="p-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
+            <h3>Hard to find reliable stays</h3>
+            <p>Fragmented listings and uneven quality made good stays hard to discover.</p>
+          </div>
+          <div class="problem-card challenge-node">
+            <div class="p-icon"><svg viewBox="0 0 24 24"><path d="M3 21h18M3 10h18M3 7l9-4 9 4M4 10v11M20 10v11"/></svg></div>
+            <h3>Cultural fit missing</h3>
+            <p>Global apps skipped local guest expectations and hospitality norms.</p>
+          </div>
+          <div class="problem-card challenge-node">
+            <div class="p-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+            <h3>No unified discovery</h3>
+            <p>People bounced between sites and apps to compare and book.</p>
+          </div>
+          <div class="problem-card challenge-node">
+            <div class="p-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <h3>Low platform trust</h3>
+            <p>Weak verification and support made users hesitate to book online.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -501,50 +554,54 @@
         <div class="reveal">
           <div class="section-label"><span class="num">04 /</span> User Research</div>
           <h2>Qualitative insights<br>from real users</h2>
-          <p>We conducted structured user research to understand behaviours, needs, and attitudes around short-term rental booking. Insights from interviews and brainstorming sessions directly informed our design decisions.</p>
+          <p>Structured research on booking behaviour—interviews, synthesis, and flows—directly shaped product and UI decisions.</p>
         </div>
-        <div class="research-grid reveal">
-          <div class="research-card">
-            <h3>Stakeholder Interviews</h3>
-            <p>Conducted 5 in-depth stakeholder interviews about online booking behaviour, preferences, and pain points in the current rental experience.</p>
-            <ul class="feat-list">
-              <li>Understanding booking decision factors</li>
-              <li>Mapping current pain points and workarounds</li>
-              <li>Identifying trust signals users look for</li>
-              <li>Exploring cultural expectations around hospitality</li>
-              <li>Documenting feature priorities from user perspective</li>
-            </ul>
-          </div>
-          <div class="research-card">
-            <h3>Brainstorming &amp; Synthesis</h3>
-            <p>Collaborative brainstorming sessions to gather early insights and synthesize findings into actionable design opportunities.</p>
-            <ul class="feat-list">
-              <li>Affinity mapping of interview findings</li>
-              <li>Identifying recurring themes and patterns</li>
-              <li>Prioritising user needs by frequency and impact</li>
-              <li>Generating "How Might We" statements</li>
-              <li>Defining design principles from research</li>
-            </ul>
-          </div>
-          <div class="research-card">
-            <h3>User Behaviour Analysis</h3>
-            <p>Understanding user behaviour, needs, and attitudes through observation and data analysis to inform the booking experience design.</p>
-            <ul class="feat-list">
-              <li>Booking journey mapping end-to-end</li>
-              <li>Identifying drop-off points in competitor flows</li>
-              <li>Analysing search and filter usage patterns</li>
-              <li>Understanding decision-making timelines</li>
-            </ul>
-          </div>
-          <div class="research-card">
-            <h3>User Flow Mapping</h3>
-            <p>Visualisation of steps users take to complete booking tasks — from discovery through to confirmed reservation and post-stay review.</p>
-            <ul class="feat-list">
-              <li>Search and discovery flow</li>
-              <li>Listing detail and comparison flow</li>
-              <li>Booking and payment flow</li>
-              <li>Post-booking communication flow</li>
-            </ul>
+        <div class="qual-graph reveal">
+          <svg class="qual-graph__edges" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path class="qual-graph__path qual-graph__path--ring" fill="none" pathLength="100"
+              d="M 25 25 H 75 V 75 H 25 Z" />
+            <path class="qual-graph__path qual-graph__path--diag" fill="none" pathLength="100"
+              d="M 25 25 L 75 75 M 75 25 L 25 75" />
+          </svg>
+          <div class="research-grid qual-graph__grid">
+            <div class="research-card qual-node">
+              <h3>Stakeholder interviews</h3>
+              <p>Five depth sessions on habits, friction, and what builds trust.</p>
+              <ul class="feat-list">
+                <li>Decision drivers &amp; pain points</li>
+                <li>Trust signals</li>
+                <li>Local hospitality expectations</li>
+                <li>Feature priorities</li>
+              </ul>
+            </div>
+            <div class="research-card qual-node">
+              <h3>Brainstorming &amp; synthesis</h3>
+              <p>Clustered findings into themes and actionable opportunities.</p>
+              <ul class="feat-list">
+                <li>Affinity mapping</li>
+                <li>Recurring themes &amp; HMWs</li>
+                <li>Needs prioritisation</li>
+                <li>Design principles</li>
+              </ul>
+            </div>
+            <div class="research-card qual-node">
+              <h3>Behaviour analysis</h3>
+              <p>Journeys and patterns to anchor the booking experience.</p>
+              <ul class="feat-list">
+                <li>End-to-end journey maps</li>
+                <li>Competitor drop-off points</li>
+                <li>Search &amp; filter usage</li>
+              </ul>
+            </div>
+            <div class="research-card qual-node">
+              <h3>Flow mapping</h3>
+              <p>Discovery → booking → post-stay, step by step.</p>
+              <ul class="feat-list">
+                <li>Search &amp; compare</li>
+                <li>Listing detail &amp; checkout</li>
+                <li>Post-booking comms</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -659,16 +716,6 @@
             <h3>24/7 Support</h3>
             <p>Round-the-clock customer support through in-app messaging and phone, ensuring help is always one tap away.</p>
           </div>
-        </div>
-
-        <div class="reveal mt-48">
-          <h3>Key platform features</h3>
-          <p>Beyond the four pillars, we built specialised filters for finding the perfect stay, awareness features to help users discover new destinations, and direct messaging between guests and hosts for seamless communication.</p>
-        </div>
-
-        <div class="placeholder reveal mt-48" style="height:360px;">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-          <span>Add app screens showing the booking flow,<br>property listings, and key features here</span>
         </div>
       </div>
     </div>

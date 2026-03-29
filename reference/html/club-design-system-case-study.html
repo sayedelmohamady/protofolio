@@ -152,6 +152,7 @@
   /* ── SECTIONS ── */
   .wrap { max-width: 1100px; margin: 0 auto; padding: 100px 48px; }
   .band { background: var(--c-bg2); }
+  .band--rounded { border-radius: 28px; margin: 0 24px; overflow: hidden; }
 
   .section-label { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-accent); margin-bottom: 20px; }
   .section-label .num { opacity: 0.55; }
@@ -354,15 +355,14 @@
   .stat-card .stat-n { font-family: var(--f-display); font-size: 60px; font-weight: 800; color: var(--c-accent); line-height: 1; letter-spacing: -0.03em; margin-bottom: 8px; position: relative; }
   .stat-card .stat-l { font-size: 13px; color: var(--c-text-m); position: relative; max-width: 190px; line-height: 1.5; }
   /* PROCESS */
-  .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-top: 56px; }
-  .process-phase { background: var(--c-bg3); padding: 36px 32px; position: relative; overflow: hidden; cursor: default; transition: background 0.3s cubic-bezier(0.22,1,0.36,1); }
-  .process-phase:hover { background: var(--c-bg4); }
-  .process-phase::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: transparent; transition: background 0.3s cubic-bezier(0.22,1,0.36,1); }
+  .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 56px; }
+  .process-phase { background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: 14px; padding: 28px 24px; position: relative; overflow: hidden; cursor: default; transition: background 0.3s cubic-bezier(0.22,1,0.36,1), border-color 0.3s; }
+  .process-phase:hover { background: var(--c-bg4); border-color: var(--c-border-m); }
+  .process-phase::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: transparent; transition: background 0.3s cubic-bezier(0.22,1,0.36,1); border-radius: 14px 14px 0 0; }
   .process-phase:hover::before { background: var(--c-accent); }
-  .process-phase .ph-num { font-family: var(--f-display); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-accent); margin-bottom: 20px; opacity: 0.7; }
-  .process-phase h3 { font-size: 17px; color: var(--c-text); margin-bottom: 12px; }
-  .process-phase p { font-size: 13px; max-width: none; line-height: 1.65; }
-  .process-phase .ph-tasks { list-style: none; margin-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+  .process-phase .ph-num { font-family: var(--f-display); font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-accent); margin-bottom: 12px; opacity: 0.7; }
+  .process-phase h3 { font-size: 16px; color: var(--c-text); margin-bottom: 0; }
+  .process-phase .ph-tasks { list-style: none; margin-top: 16px; display: flex; flex-direction: column; gap: 8px; padding-top: 16px; border-top: 1px solid var(--c-border); }
   .process-phase .ph-tasks li { font-size: 12px; color: var(--c-text-d); display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
   .process-phase .ph-tasks li::before { content: '\2014'; color: var(--c-accent); opacity: 0.5; flex-shrink: 0; }
   .process-full-row { background: var(--c-bg3); padding: 32px; margin-top: 3px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
@@ -384,18 +384,23 @@
   .stack-tag { padding: 5px 12px; background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: 6px; font-size: 12px; color: var(--c-text-m); font-family: monospace; letter-spacing: 0.02em; }
 
   /* LEARNINGS */
-  .learnings-split { display: grid; grid-template-columns: 5fr 4fr; gap: 64px; align-items: start; margin-top: 56px; }
-  .learning-item { padding: 28px 0; border-bottom: 1px solid var(--c-border); display: grid; grid-template-columns: 40px 1fr; gap: 20px; align-items: start; }
-  .learning-item:first-child { border-top: 1px solid var(--c-border); }
-  .learning-item .l-num { font-family: var(--f-display); font-size: 13px; font-weight: 700; color: var(--c-accent); opacity: 0.5; padding-top: 2px; }
-  .learning-item h4 { font-size: 15px; font-weight: 500; color: var(--c-text); margin-bottom: 8px; }
-  .learning-item p { font-size: 13px; max-width: none; line-height: 1.65; }
-  .next-steps { background: var(--c-bg3); border-radius: 16px; padding: 36px; border: 1px solid var(--c-border); position: sticky; top: 88px; }
-  .next-steps h3 { font-size: 17px; color: var(--c-text); margin-bottom: 8px; }
-  .next-steps .ns-sub { font-size: 12px; color: var(--c-text-d); margin-bottom: 24px; letter-spacing: 0.04em; text-transform: uppercase; }
-  .ns-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-  .ns-list li { font-size: 13px; color: var(--c-text-m); display: flex; align-items: flex-start; gap: 10px; line-height: 1.55; }
-  .ns-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--c-accent); flex-shrink: 0; margin-top: 6px; opacity: 0.7; }
+  .learnings-layout { display: grid; grid-template-columns: 5fr 4fr; gap: 56px; align-items: start; margin-top: 56px; }
+  .learnings-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .learn-card { background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: 14px; padding: 22px; display: flex; flex-direction: column; gap: 10px; overflow: hidden; transition: border-color 0.3s, transform 0.35s cubic-bezier(0.22,1,0.36,1); }
+  .learn-card:hover { border-color: var(--c-border-m); transform: translateY(-3px); }
+  .lc-num { font-family: var(--f-display); font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-accent); opacity: 0.7; }
+  .learn-card h4 { font-size: 14px; font-weight: 600; color: var(--c-text); line-height: 1.35; margin: 0; }
+  .learn-card p { font-size: 12.5px; color: var(--c-text-d); line-height: 1.55; flex: 1; margin: 0; }
+  .lc-bar-track { height: 2px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; margin-top: 6px; }
+  .lc-bar { height: 100%; width: 0; background: var(--c-accent); border-radius: 2px; }
+  .learn-card.visible .lc-bar { animation: lc-fill 0.9s cubic-bezier(0.22,1,0.36,1) 0.2s forwards; }
+  @keyframes lc-fill { to { width: 100%; } }
+  .next-steps { background: var(--c-bg3); border-radius: 16px; padding: 32px; border: 1px solid var(--c-border); position: sticky; top: 88px; }
+  .next-steps h3 { font-size: 16px; color: var(--c-text); margin-bottom: 6px; }
+  .next-steps .ns-sub { font-size: 11px; color: var(--c-text-d); margin-bottom: 20px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .ns-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .ns-list li { font-size: 13px; color: var(--c-text-m); display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
+  .ns-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--c-accent); flex-shrink: 0; margin-top: 5px; opacity: 0.7; }
 
   /* FOOTER */
   footer { background: var(--c-bg2); border-top: 1px solid var(--c-border); padding: 56px 48px; display: flex; justify-content: space-between; align-items: center; }
@@ -431,7 +436,8 @@
     .comp-grid { grid-template-columns: 1fr; }
     .hero-meta { flex-direction: column; gap: 20px; }
     .tools-grid { grid-template-columns: 1fr; }
-    .learnings-split { grid-template-columns: 1fr; }
+    .learnings-layout { grid-template-columns: 1fr; }
+    .learnings-cards { grid-template-columns: 1fr 1fr; }
     .process-grid { grid-template-columns: 1fr; }
     .process-full-row { grid-template-columns: 1fr; }
     .tools-divider { grid-template-columns: 1fr; }
@@ -499,6 +505,12 @@
         </a>
       </li>
       <li>
+        <a href="#process" data-section="process">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Process
+        </a>
+      </li>
+      <li>
         <a href="#architecture" data-section="architecture">
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
           Architecture
@@ -532,12 +544,6 @@
         <a href="#impact" data-section="impact">
           <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
           Impact
-        </a>
-      </li>
-      <li>
-        <a href="#process" data-section="process">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          Process
         </a>
       </li>
       <li>
@@ -607,6 +613,391 @@
         </div>
       </div>
     </div>
+
+    <!-- PROCESS DEEP-DIVE -->
+    <div class="band band--rounded">
+      <div class="wrap" id="process">
+        <div class="reveal">
+          <div class="section-label"><span class="num">07 /</span> Process Deep-Dive</div>
+          <h2>How we built it:<br>phase by phase</h2>
+          <p>The Club TIE system wasn't designed all at once. It evolved through deliberate phases — from discovery and audit through to active governance — with each phase building on a validated foundation.</p>
+        </div>
+
+        <!-- PROCESS FLOW GRAPH -->
+        <style>
+          /* ── PROCESS GRAPH ── */
+          .pgraph-wrap { margin-top: 48px; }
+          .pgraph { position: relative; width: 100%; aspect-ratio: 900/460; max-width: 960px; margin: 0 auto; }
+          .pgraph-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+          /* Background tracks */
+          .pge-bg { fill: none; stroke: var(--c-border); stroke-width: 1.5; opacity: 0.45; }
+
+          /* Animated edges */
+          .pge { fill: none; stroke-width: 1.8; stroke-linecap: round;
+                 stroke-dasharray: 8 5; animation: pge-flow 2s linear infinite;
+                 opacity: 0.45; transition: opacity 0.32s, stroke-width 0.32s; }
+          @keyframes pge-flow { to { stroke-dashoffset: -26; } }
+          .pge--p  { stroke: #9667f7; animation-duration: 2.2s; }
+          .pge--bp { stroke: #7c78f5; animation-duration: 2.0s; }
+          .pge--b  { stroke: #3b82f6; animation-duration: 1.8s; }
+          .pge--c  { stroke: #22d3ee; animation-duration: 2.1s; }
+          .pge--o  { stroke: #f97316; animation-duration: 2.5s; }
+
+          /* Arrow markers */
+          .pgraph-svg marker path { opacity: 0.85; }
+
+          /* Nodes */
+          .pgn { position: absolute; transform: translate(-50%,-50%); width: 17%; z-index: 2; cursor: pointer; }
+          .pgn-card {
+            background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: 14px;
+            padding: 18px 12px 16px; text-align: center;
+            transition: transform 0.38s cubic-bezier(0.22,1,0.36,1), box-shadow 0.38s, border-color 0.32s, background 0.3s;
+            position: relative; overflow: hidden;
+          }
+          .pgn-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            border-radius: 14px 14px 0 0; opacity: 0; transition: opacity 0.3s;
+          }
+          .pgn:hover .pgn-card { transform: translateY(-5px); background: var(--c-bg4); }
+          .pgn:hover .pgn-card::before { opacity: 1; }
+          .pgn-phase { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-text-dim); margin-bottom: 8px; }
+          .pgn-num { font-family: var(--f-display); font-size: 36px; font-weight: 800; line-height: 1; letter-spacing: -0.03em; margin-bottom: 8px; }
+          .pgn-title { font-size: 10.5px; font-weight: 600; line-height: 1.35; color: var(--c-text-m); }
+
+          /* Phase colors */
+          #pgn1 .pgn-num { color: #9667f7; }
+          #pgn1 .pgn-card::before { background: #9667f7; }
+          #pgn2 .pgn-num { color: #7c78f5; }
+          #pgn2 .pgn-card::before { background: #7c78f5; }
+          #pgn3 .pgn-num { color: #3b82f6; }
+          #pgn3 .pgn-card::before { background: #3b82f6; }
+          #pgn4 .pgn-num { color: #22d3ee; }
+          #pgn4 .pgn-card::before { background: #22d3ee; }
+          #pgn5 .pgn-num { color: #f97316; }
+          #pgn5 .pgn-card::before { background: #f97316; }
+          #pgn6 .pgn-num { color: #22c55e; }
+          #pgn6 .pgn-card::before { background: #22c55e; }
+
+          #pgn1:hover .pgn-card { box-shadow: 0 10px 40px rgba(150,103,247,0.32); border-color: rgba(150,103,247,0.55); }
+          #pgn2:hover .pgn-card { box-shadow: 0 10px 40px rgba(124,120,245,0.32); border-color: rgba(124,120,245,0.55); }
+          #pgn3:hover .pgn-card { box-shadow: 0 10px 40px rgba(59,130,246,0.32); border-color: rgba(59,130,246,0.55); }
+          #pgn4:hover .pgn-card { box-shadow: 0 10px 40px rgba(34,211,238,0.32); border-color: rgba(34,211,238,0.55); }
+          #pgn5:hover .pgn-card { box-shadow: 0 10px 40px rgba(249,115,22,0.32); border-color: rgba(249,115,22,0.55); }
+          #pgn6:hover .pgn-card { box-shadow: 0 10px 40px rgba(34,197,94,0.32); border-color: rgba(34,197,94,0.55); }
+
+          /* Dim non-connected edges on any hover */
+          .pgraph:has(.pgn:hover) .pge { opacity: 0.09; stroke-width: 1.3; }
+          /* Highlight connected edges */
+          .pgraph:has(#pgn1:hover) .pge--e12,
+          .pgraph:has(#pgn2:hover) .pge--e12 { opacity: 1; stroke-width: 2.6; }
+          .pgraph:has(#pgn2:hover) .pge--e23,
+          .pgraph:has(#pgn3:hover) .pge--e23 { opacity: 1; stroke-width: 2.6; }
+          .pgraph:has(#pgn3:hover) .pge--e34,
+          .pgraph:has(#pgn4:hover) .pge--e34 { opacity: 1; stroke-width: 2.6; }
+          .pgraph:has(#pgn4:hover) .pge--e45,
+          .pgraph:has(#pgn5:hover) .pge--e45 { opacity: 1; stroke-width: 2.6; }
+          .pgraph:has(#pgn5:hover) .pge--e56,
+          .pgraph:has(#pgn6:hover) .pge--e56 { opacity: 1; stroke-width: 2.6; }
+          /* Dim non-active nodes */
+          .pgraph:has(.pgn:hover) .pgn { opacity: 0.35; }
+          .pgraph:has(#pgn1:hover) #pgn1,
+          .pgraph:has(#pgn2:hover) #pgn2,
+          .pgraph:has(#pgn3:hover) #pgn3,
+          .pgraph:has(#pgn4:hover) #pgn4,
+          .pgraph:has(#pgn5:hover) #pgn5,
+          .pgraph:has(#pgn6:hover) #pgn6 { opacity: 1; }
+
+          /* ── Detail panel ── */
+          .pgd-wrap { position: relative; height: 185px; margin-top: 24px; }
+          .pgd {
+            position: absolute; inset: 0;
+            background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: 14px;
+            padding: 24px 28px; opacity: 0; transform: translateY(10px);
+            transition: opacity 0.38s cubic-bezier(0.22,1,0.36,1), transform 0.38s cubic-bezier(0.22,1,0.36,1);
+            pointer-events: none; display: flex; align-items: flex-start; gap: 22px;
+          }
+          .pgd--idle {
+            opacity: 0; transform: translateY(-6px); pointer-events: none;
+            align-items: center; justify-content: center; gap: 10px;
+            color: var(--c-text-dim); font-size: 13px; flex-direction: column;
+          }
+          .pgd--idle svg { opacity: 0.4; }
+          /* Phase 01 visible by default */
+          .pgd--1 { opacity: 1; transform: none; pointer-events: auto; }
+          /* Hide pgd--1 when other nodes hovered */
+          .pgraph-wrap:has(#pgn2:hover) .pgd--1,
+          .pgraph-wrap:has(#pgn3:hover) .pgd--1,
+          .pgraph-wrap:has(#pgn4:hover) .pgd--1,
+          .pgraph-wrap:has(#pgn5:hover) .pgd--1,
+          .pgraph-wrap:has(#pgn6:hover) .pgd--1 { opacity: 0; transform: translateY(10px); pointer-events: none; }
+          .pgraph-wrap:has(#pgn1:hover) .pgd--1 { opacity: 1; transform: none; pointer-events: auto; }
+          .pgraph-wrap:has(#pgn2:hover) .pgd--2 { opacity: 1; transform: none; pointer-events: auto; }
+          .pgraph-wrap:has(#pgn3:hover) .pgd--3 { opacity: 1; transform: none; pointer-events: auto; }
+          .pgraph-wrap:has(#pgn4:hover) .pgd--4 { opacity: 1; transform: none; pointer-events: auto; }
+          .pgraph-wrap:has(#pgn5:hover) .pgd--5 { opacity: 1; transform: none; pointer-events: auto; }
+          .pgraph-wrap:has(#pgn6:hover) .pgd--6 { opacity: 1; transform: none; pointer-events: auto; }
+
+          .pgd-accent { width: 3px; border-radius: 3px; align-self: stretch; flex-shrink: 0; }
+          .pgd--1 .pgd-accent { background: #9667f7; }
+          .pgd--2 .pgd-accent { background: #7c78f5; }
+          .pgd--3 .pgd-accent { background: #3b82f6; }
+          .pgd--4 .pgd-accent { background: #22d3ee; }
+          .pgd--5 .pgd-accent { background: #f97316; }
+          .pgd--6 .pgd-accent { background: #22c55e; }
+
+          .pgd-body { flex: 1; min-width: 0; }
+          .pgd-ph-label { font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-text-dim); margin-bottom: 6px; }
+          .pgd-title { font-size: 17px; font-weight: 700; color: var(--c-text); margin-bottom: 14px; line-height: 1.2; }
+          .pgd-tasks { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 7px; }
+          .pgd-tasks li { font-size: 12.5px; color: var(--c-text-m); padding-left: 18px; position: relative; line-height: 1.45; }
+          .pgd-tasks li::before { content: '—'; position: absolute; left: 0; color: var(--c-text-dim); }
+
+          /* ── Phase 01 default active card ── */
+          #pgn1 .pgn-card {
+            transform: translateY(-5px); border-color: rgba(150,103,247,0.55);
+            box-shadow: 0 10px 40px rgba(150,103,247,0.32); background: var(--c-bg4);
+            animation: pgn1-glow 3s ease-in-out infinite;
+          }
+          #pgn1 .pgn-card::before { opacity: 1; }
+          @keyframes pgn1-glow {
+            0%, 100% { box-shadow: 0 10px 40px rgba(150,103,247,0.28); }
+            50%  { box-shadow: 0 14px 52px rgba(150,103,247,0.54), 0 0 0 5px rgba(150,103,247,0.1); }
+          }
+          /* Reset pgn1 when another node is hovered */
+          .pgraph:has(#pgn2:hover) #pgn1 .pgn-card,
+          .pgraph:has(#pgn3:hover) #pgn1 .pgn-card,
+          .pgraph:has(#pgn4:hover) #pgn1 .pgn-card,
+          .pgraph:has(#pgn5:hover) #pgn1 .pgn-card,
+          .pgraph:has(#pgn6:hover) #pgn1 .pgn-card {
+            transform: none; border-color: var(--c-border); box-shadow: none;
+            background: var(--c-bg3); animation: none;
+          }
+          .pgraph:has(#pgn2:hover) #pgn1 .pgn-card::before,
+          .pgraph:has(#pgn3:hover) #pgn1 .pgn-card::before,
+          .pgraph:has(#pgn4:hover) #pgn1 .pgn-card::before,
+          .pgraph:has(#pgn5:hover) #pgn1 .pgn-card::before,
+          .pgraph:has(#pgn6:hover) #pgn1 .pgn-card::before { opacity: 0; }
+
+          /* ── e12 default bright + bouncing hint arrow ── */
+          .pge--e12 { opacity: 1; stroke-width: 2.4; }
+          .pge-hint-arr {
+            opacity: 0.8;
+            animation: pge-arr-bounce 1.2s ease-in-out infinite;
+            transform-box: fill-box; transform-origin: center;
+            transition: opacity 0.25s;
+          }
+          @keyframes pge-arr-bounce {
+            0%, 100% { transform: translateX(-5px); opacity: 0.5; }
+            50%      { transform: translateX(6px);  opacity: 1;   }
+          }
+          /* Hide hint arrow once user starts interacting */
+          .pgraph:has(.pgn:hover) .pge-hint-arr { opacity: 0; animation: none; }
+
+          /* Mobile: fallback to simple list */
+          @media (max-width: 680px) {
+            .pgraph-wrap { display: none; }
+            .process-grid--mobile { display: flex !important; flex-direction: column; gap: 10px; }
+          }
+          @media (min-width: 681px) {
+            .process-grid--mobile { display: none !important; }
+          }
+        </style>
+
+        <!-- Mobile fallback -->
+        <div class="process-grid process-grid--mobile reveal" style="margin-top:48px">
+          <div class="process-phase"><div class="ph-num">Phase 01</div><h3>Audit &amp; discovery</h3><ul class="ph-tasks"><li>Inventoried all existing UI across app and web</li><li>Identified duplicated patterns and divergent states</li><li>Defined the v1 scope with engineering input</li></ul></div>
+          <div class="process-phase"><div class="ph-num">Phase 02</div><h3>Foundations first</h3><ul class="ph-tasks"><li>Colour tokens: primitive → semantic → component</li><li>Typography scale mapped to Flutter text themes</li><li>8px spacing grid and shape language established</li></ul></div>
+          <div class="process-phase"><div class="ph-num">Phase 03</div><h3>Core component build</h3><ul class="ph-tasks"><li>Prioritised by usage frequency across both platforms</li><li>All variants, states, and interactive props covered</li><li>Vibe coded with engineers to ship in parallel</li></ul></div>
+          <div class="process-phase"><div class="ph-num">Phase 04</div><h3>Platform specialisation</h3><ul class="ph-tasks"><li>Forked into Flutter App Components and React Platform Components</li><li>Shared token linkage kept platform variants in sync</li><li>Added mission- and ambassador-specific composed components</li></ul></div>
+          <div class="process-phase"><div class="ph-num">Phase 05</div><h3>Icons &amp; graphics</h3><ul class="ph-tasks"><li>Clubicons across navigation, action, status, and social</li><li>Exported as optimised SVGs for Flutter and React</li><li>Club Graphics illustration library with a consistent art style</li></ul></div>
+          <div class="process-phase"><div class="ph-num">Phase 06</div><h3>Patterns, templates &amp; governance</h3><ul class="ph-tasks"><li>Repeatable design patterns for common UX problems</li><li>App templates for core screens and user flows</li><li>Storybook and Widgetbook as the governance layer</li></ul></div>
+        </div>
+
+        <!-- Desktop process graph -->
+        <div class="pgraph-wrap reveal">
+          <div class="pgraph" id="pgraph">
+            <svg class="pgraph-svg" viewBox="0 0 900 460" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+              <defs>
+                <marker id="pa-p"  markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto"><path d="M0,0.5 L6,3.5 L0,6.5 Z" fill="#9667f7" opacity="0.85"/></marker>
+                <marker id="pa-bp" markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto"><path d="M0,0.5 L6,3.5 L0,6.5 Z" fill="#7c78f5" opacity="0.85"/></marker>
+                <marker id="pa-b"  markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto"><path d="M0,0.5 L6,3.5 L0,6.5 Z" fill="#3b82f6" opacity="0.85"/></marker>
+                <marker id="pa-c"  markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto"><path d="M0,0.5 L6,3.5 L0,6.5 Z" fill="#22d3ee" opacity="0.85"/></marker>
+                <marker id="pa-o"  markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto"><path d="M0,0.5 L6,3.5 L0,6.5 Z" fill="#f97316" opacity="0.85"/></marker>
+              </defs>
+
+              <!-- Background tracks -->
+              <path class="pge-bg" d="M 186 115 L 308 115"/>
+              <path class="pge-bg" d="M 462 115 L 584 115"/>
+              <path class="pge-bg" d="M 744 115 C 840 115 840 345 744 345"/>
+              <path class="pge-bg" d="M 590 345 L 466 345"/>
+              <path class="pge-bg" d="M 312 345 L 188 345"/>
+
+              <!-- Animated flowing edges -->
+              <path class="pge pge--p  pge--e12" d="M 186 115 L 308 115" marker-end="url(#pa-p)"/>
+              <path class="pge pge--bp pge--e23" d="M 462 115 L 584 115" marker-end="url(#pa-bp)"/>
+              <path class="pge pge--b  pge--e34" d="M 744 115 C 840 115 840 345 744 345" marker-end="url(#pa-b)"/>
+              <path class="pge pge--c  pge--e45" d="M 590 345 L 466 345" marker-end="url(#pa-c)"/>
+              <path class="pge pge--o  pge--e56" d="M 312 345 L 188 345" marker-end="url(#pa-o)"/>
+              <!-- Bouncing chevron hint on e12: suggests "hover next step →" -->
+              <path class="pge-hint-arr" d="M 256 108 L 270 115 L 256 122" fill="none" stroke="#9667f7" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+
+            <!-- Phase nodes — Row 1 (left→right) -->
+            <div class="pgn" id="pgn1" style="left:12%;top:25%">
+              <div class="pgn-card">
+                <div class="pgn-phase">Phase</div>
+                <div class="pgn-num">01</div>
+                <div class="pgn-title">Audit &amp; discovery</div>
+              </div>
+            </div>
+            <div class="pgn" id="pgn2" style="left:43%;top:25%">
+              <div class="pgn-card">
+                <div class="pgn-phase">Phase</div>
+                <div class="pgn-num">02</div>
+                <div class="pgn-title">Foundations first</div>
+              </div>
+            </div>
+            <div class="pgn" id="pgn3" style="left:74%;top:25%">
+              <div class="pgn-card">
+                <div class="pgn-phase">Phase</div>
+                <div class="pgn-num">03</div>
+                <div class="pgn-title">Core component build</div>
+              </div>
+            </div>
+
+            <!-- Phase nodes — Row 2 (right→left) -->
+            <div class="pgn" id="pgn4" style="left:74%;top:75%">
+              <div class="pgn-card">
+                <div class="pgn-phase">Phase</div>
+                <div class="pgn-num">04</div>
+                <div class="pgn-title">Platform specialisation</div>
+              </div>
+            </div>
+            <div class="pgn" id="pgn5" style="left:43%;top:75%">
+              <div class="pgn-card">
+                <div class="pgn-phase">Phase</div>
+                <div class="pgn-num">05</div>
+                <div class="pgn-title">Icons &amp; graphics</div>
+              </div>
+            </div>
+            <div class="pgn" id="pgn6" style="left:12%;top:75%">
+              <div class="pgn-card">
+                <div class="pgn-phase">Phase</div>
+                <div class="pgn-num">06</div>
+                <div class="pgn-title">Patterns &amp; governance</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Detail panels -->
+          <div class="pgd-wrap">
+            <div class="pgd pgd--idle">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg>
+              Hover a phase to explore
+            </div>
+
+            <div class="pgd pgd--1">
+              <div class="pgd-accent"></div>
+              <div class="pgd-body">
+                <div class="pgd-ph-label">Phase 01</div>
+                <div class="pgd-title">Audit &amp; discovery</div>
+                <ul class="pgd-tasks">
+                  <li>Inventoried all existing UI across app and web</li>
+                  <li>Identified duplicated patterns and divergent states</li>
+                  <li>Defined the v1 scope with engineering input</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="pgd pgd--2">
+              <div class="pgd-accent"></div>
+              <div class="pgd-body">
+                <div class="pgd-ph-label">Phase 02</div>
+                <div class="pgd-title">Foundations first</div>
+                <ul class="pgd-tasks">
+                  <li>Colour tokens: primitive → semantic → component</li>
+                  <li>Typography scale mapped to Flutter text themes</li>
+                  <li>8px spacing grid and shape language established</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="pgd pgd--3">
+              <div class="pgd-accent"></div>
+              <div class="pgd-body">
+                <div class="pgd-ph-label">Phase 03</div>
+                <div class="pgd-title">Core component build</div>
+                <ul class="pgd-tasks">
+                  <li>Prioritised by usage frequency across both platforms</li>
+                  <li>All variants, states, and interactive props covered</li>
+                  <li>Vibe coded with engineers to ship in parallel</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="pgd pgd--4">
+              <div class="pgd-accent"></div>
+              <div class="pgd-body">
+                <div class="pgd-ph-label">Phase 04</div>
+                <div class="pgd-title">Platform specialisation</div>
+                <ul class="pgd-tasks">
+                  <li>Forked into Flutter App Components and React Platform Components</li>
+                  <li>Shared token linkage kept platform variants in sync</li>
+                  <li>Added mission- and ambassador-specific composed components</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="pgd pgd--5">
+              <div class="pgd-accent"></div>
+              <div class="pgd-body">
+                <div class="pgd-ph-label">Phase 05</div>
+                <div class="pgd-title">Icons &amp; graphics</div>
+                <ul class="pgd-tasks">
+                  <li>Clubicons across navigation, action, status, and social</li>
+                  <li>Exported as optimised SVGs for Flutter and React</li>
+                  <li>Club Graphics illustration library with a consistent art style</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="pgd pgd--6">
+              <div class="pgd-accent"></div>
+              <div class="pgd-body">
+                <div class="pgd-ph-label">Phase 06</div>
+                <div class="pgd-title">Patterns, templates &amp; governance</div>
+                <ul class="pgd-tasks">
+                  <li>Repeatable design patterns for common UX problems</li>
+                  <li>App templates for core screens and user flows</li>
+                  <li>Storybook and Widgetbook as the governance layer</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="process-full-row reveal">
+          <div class="pf-item">
+            <h4>Design-first, then code</h4>
+            <p>Full Figma spec coverage before any code was written.</p>
+          </div>
+          <div class="pf-item">
+            <h4>Parallel shipping</h4>
+            <p>Design and code landed in Figma and production simultaneously.</p>
+          </div>
+          <div class="pf-item">
+            <h4>Foundations as a forcing function</h4>
+            <p>Tokens meant design choices propagated automatically across the system.</p>
+          </div>
+          <div class="pf-item">
+            <h4>Progressive documentation</h4>
+            <p>Each component documented as it was built — usable from day one.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <!-- BRAND VISUAL STRIPS (stacked scroll, full width) — Challenge + extended brand tokens -->
     <div class="ss-strip ss-strip--stack">
@@ -1244,81 +1635,399 @@
         <h2>Built for two platforms,<br>one design language</h2>
         <p>Eight Figma libraries make up Club TIE — each with a clear scope, shared tokens, and platform-specific variants serving both the Flutter ambassador app and the React brand management platform.</p>
       </div>
-      <div class="tabs reveal">
-        <button class="tab-btn active" onclick="switchTab(this,'foundations')">Foundations</button>
-        <button class="tab-btn" onclick="switchTab(this,'core')">Core Components</button>
-        <button class="tab-btn" onclick="switchTab(this,'app')">App (Flutter)</button>
-        <button class="tab-btn" onclick="switchTab(this,'platform')">Platform (React)</button>
-        <button class="tab-btn" onclick="switchTab(this,'icons')">Clubicons</button>
-        <button class="tab-btn" onclick="switchTab(this,'patterns')">Patterns</button>
+
+      <!-- INTERACTIVE ARCHITECTURE GRAPH -->
+      <style>
+        .cag-wrap { margin-top: 52px; }
+        .cag-graph { position: relative; width: 100%; aspect-ratio: 800/660; max-width: 860px; margin: 0 auto; }
+        .cag-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+        .cag-edge { fill: none; stroke-width: 1.8; stroke-linecap: round; opacity: 0.65; transition: opacity 0.3s, stroke-width 0.3s; stroke-dasharray: 8 5; animation: cag-flow 2s linear infinite; }
+        @keyframes cag-flow { to { stroke-dashoffset: -26; } }
+        .cag-edge--purple { stroke: #a855f7; animation-duration: 2.6s; }
+        .cag-edge--orange { stroke: #f97316; animation-duration: 2.0s; }
+        .cag-edge--blue   { stroke: #3b82f6; animation-duration: 1.8s; }
+        .cag-edge--green  { stroke: #22c55e; animation-duration: 2.3s; }
+        .cag-edge--teal   { stroke: #06b6d4; animation-duration: 2.1s; }
+        .cag-node {
+          position: absolute; transform: translate(-50%,-50%);
+          background: rgba(22,22,26,0.92); border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 12px; padding: 12px 20px; text-align: center;
+          transition: border-color 0.3s, transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s, opacity 0.3s;
+          backdrop-filter: blur(12px); z-index: 2; white-space: nowrap;
+        }
+        .cag-node-icon { font-size: 17px; margin-bottom: 5px; line-height: 1; }
+        .cag-node-name { font-family: var(--f-display,'Syne',sans-serif); font-size: 13px; font-weight: 600; color: #EDECEA; }
+        .cag-node-sub  { font-size: 10.5px; color: #5E5C58; margin-top: 3px; letter-spacing: 0.04em; }
+        /* Hover: dim everything, then un-dim connected elements */
+        .cag-graph:has(.cag-node:hover) .cag-edge { opacity: 0.07; }
+        .cag-graph:has(.cag-node:hover) .cag-node { opacity: 0.25; }
+        .cag-graph:has(.cag-node:hover) .cag-node:hover { opacity: 1; transform: translate(-50%,-50%) translateY(-4px); }
+        /* Primitives */
+        .cag-graph:has(#cn-prim:hover) #e1 { opacity: 1; stroke-width: 2.5; }
+        .cag-graph:has(#cn-prim:hover) #cn-found { opacity: 1; border-color: #a855f7; box-shadow: 0 0 18px rgba(168,85,247,.25); }
+        /* Foundations */
+        .cag-graph:has(#cn-found:hover) #e1,.cag-graph:has(#cn-found:hover) #e2,.cag-graph:has(#cn-found:hover) #e3 { opacity: 1; stroke-width: 2.5; }
+        .cag-graph:has(#cn-found:hover) #cn-prim,.cag-graph:has(#cn-found:hover) #cn-core,.cag-graph:has(#cn-found:hover) #cn-plat { opacity: 1; border-color: #f97316; box-shadow: 0 0 18px rgba(249,115,22,.2); }
+        /* Clubicons */
+        .cag-graph:has(#cn-club:hover) #e4,.cag-graph:has(#cn-club:hover) #e5 { opacity: 1; stroke-width: 2.5; }
+        .cag-graph:has(#cn-club:hover) #cn-core,.cag-graph:has(#cn-club:hover) #cn-app { opacity: 1; border-color: #3b82f6; box-shadow: 0 0 18px rgba(59,130,246,.2); }
+        /* Core */
+        .cag-graph:has(#cn-core:hover) #e2,.cag-graph:has(#cn-core:hover) #e4,.cag-graph:has(#cn-core:hover) #e6,.cag-graph:has(#cn-core:hover) #e7 { opacity: 1; stroke-width: 2.5; }
+        .cag-graph:has(#cn-core:hover) #cn-found,.cag-graph:has(#cn-core:hover) #cn-club,.cag-graph:has(#cn-core:hover) #cn-plat,.cag-graph:has(#cn-core:hover) #cn-app { opacity: 1; border-color: #9667f7; box-shadow: 0 0 18px rgba(150,103,247,.2); }
+        /* Platform */
+        .cag-graph:has(#cn-plat:hover) #e3,.cag-graph:has(#cn-plat:hover) #e6,.cag-graph:has(#cn-plat:hover) #e8,.cag-graph:has(#cn-plat:hover) #e9 { opacity: 1; stroke-width: 2.5; }
+        .cag-graph:has(#cn-plat:hover) #cn-found,.cag-graph:has(#cn-plat:hover) #cn-core,.cag-graph:has(#cn-plat:hover) #cn-app,.cag-graph:has(#cn-plat:hover) #cn-dp { opacity: 1; border-color: #f97316; box-shadow: 0 0 18px rgba(249,115,22,.2); }
+        /* App */
+        .cag-graph:has(#cn-app:hover) #e5,.cag-graph:has(#cn-app:hover) #e7,.cag-graph:has(#cn-app:hover) #e8,.cag-graph:has(#cn-app:hover) #e10 { opacity: 1; stroke-width: 2.5; }
+        .cag-graph:has(#cn-app:hover) #cn-club,.cag-graph:has(#cn-app:hover) #cn-core,.cag-graph:has(#cn-app:hover) #cn-plat,.cag-graph:has(#cn-app:hover) #cn-dp { opacity: 1; border-color: #3b82f6; box-shadow: 0 0 18px rgba(59,130,246,.2); }
+        /* Design Patterns */
+        .cag-graph:has(#cn-dp:hover) #e9,.cag-graph:has(#cn-dp:hover) #e10 { opacity: 1; stroke-width: 2.5; }
+        .cag-graph:has(#cn-dp:hover) #cn-plat,.cag-graph:has(#cn-dp:hover) #cn-app { opacity: 1; border-color: #06b6d4; box-shadow: 0 0 18px rgba(6,182,212,.2); }
+        /* Legend */
+        .cag-legend { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 36px; max-width: 860px; margin-left: auto; margin-right: auto; padding: 18px 22px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; }
+        .cag-legend-item { display: flex; align-items: center; gap: 9px; font-size: 12px; color: #A8A6A0; }
+        .cag-legend-line { width: 26px; height: 2px; border-radius: 2px; flex-shrink: 0; }
+        @media (max-width: 680px) {
+          .cag-graph { aspect-ratio: 800/800; }
+          .cag-node { padding: 9px 13px; }
+          .cag-node-name { font-size: 11px; }
+          .cag-node-sub { display: none; }
+        }
+      </style>
+
+      <div class="cag-wrap reveal">
+        <div class="cag-graph" id="cag">
+          <svg class="cag-svg" viewBox="0 0 800 660" aria-hidden="true">
+            <defs>
+              <marker id="m-pu" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,.5 L0,6.5 L7,3.5z" fill="#a855f7"/></marker>
+              <marker id="m-or" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,.5 L0,6.5 L7,3.5z" fill="#f97316"/></marker>
+              <marker id="m-bl" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,.5 L0,6.5 L7,3.5z" fill="#3b82f6"/></marker>
+              <marker id="m-gr" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,.5 L0,6.5 L7,3.5z" fill="#22c55e"/></marker>
+              <marker id="m-te" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,.5 L0,6.5 L7,3.5z" fill="#06b6d4"/></marker>
+            </defs>
+            <!-- E1: Primitives → Foundations -->
+            <path id="e1" class="cag-edge cag-edge--purple" d="M 378,88 C 355,122 245,122 228,158" marker-end="url(#m-pu)"/>
+            <!-- E2: Foundations → Core -->
+            <path id="e2" class="cag-edge cag-edge--orange" d="M 268,222 C 282,262 348,262 358,298" marker-end="url(#m-or)"/>
+            <!-- E3: Foundations → Platform -->
+            <path id="e3" class="cag-edge cag-edge--orange" d="M 192,222 C 188,305 182,368 182,438" marker-end="url(#m-or)"/>
+            <!-- E4: Clubicons → Core -->
+            <path id="e4" class="cag-edge cag-edge--blue" d="M 568,222 C 552,262 480,262 468,298" marker-end="url(#m-bl)"/>
+            <!-- E5: Clubicons → App -->
+            <path id="e5" class="cag-edge cag-edge--blue" d="M 665,222 C 665,325 638,368 610,438" marker-end="url(#m-bl)"/>
+            <!-- E6: Core → Platform -->
+            <path id="e6" class="cag-edge cag-edge--green" d="M 358,362 C 318,400 265,400 245,438" marker-end="url(#m-gr)"/>
+            <!-- E7: Core → App -->
+            <path id="e7" class="cag-edge cag-edge--green" d="M 478,362 C 518,400 555,400 558,438" marker-end="url(#m-gr)"/>
+            <!-- E8: App ↔ Platform -->
+            <path id="e8" class="cag-edge cag-edge--blue" d="M 528,472 C 448,505 332,505 262,472" marker-end="url(#m-bl)"/>
+            <!-- E9: Platform → Design Patterns -->
+            <path id="e9" class="cag-edge cag-edge--teal" d="M 192,495 C 192,548 318,566 362,578" marker-end="url(#m-te)"/>
+            <!-- E10: App → Design Patterns -->
+            <path id="e10" class="cag-edge cag-edge--teal" d="M 608,495 C 608,548 482,566 438,578" marker-end="url(#m-te)"/>
+          </svg>
+
+          <!-- Primitives: 50%, 8.3% -->
+          <div class="cag-node" id="cn-prim" style="left:50%;top:8.3%">
+            <div class="cag-node-icon">◆</div>
+            <div class="cag-node-name">Primitives</div>
+            <div class="cag-node-sub">Raw tokens</div>
+          </div>
+          <!-- Foundations: 27.5%, 28.8% -->
+          <div class="cag-node" id="cn-found" style="left:27.5%;top:28.8%">
+            <div class="cag-node-icon">🏗️</div>
+            <div class="cag-node-name">Foundations</div>
+            <div class="cag-node-sub">Tokens · Type · Motion</div>
+          </div>
+          <!-- Clubicons: 79.4%, 28.8% -->
+          <div class="cag-node" id="cn-club" style="left:79.4%;top:28.8%">
+            <div class="cag-node-icon">🎯</div>
+            <div class="cag-node-name">Clubicons</div>
+            <div class="cag-node-sub">Icon library</div>
+          </div>
+          <!-- Core: 51.9%, 50% -->
+          <div class="cag-node" id="cn-core" style="left:51.9%;top:50%">
+            <div class="cag-node-icon">⚙️</div>
+            <div class="cag-node-name">Core Components</div>
+            <div class="cag-node-sub">Shared · Buttons · Inputs · Cards</div>
+          </div>
+          <!-- Platform: 23.75%, 71.2% -->
+          <div class="cag-node" id="cn-plat" style="left:23.75%;top:71.2%">
+            <div class="cag-node-icon">🖥️</div>
+            <div class="cag-node-name">Platform (only)</div>
+            <div class="cag-node-sub">React · Web</div>
+          </div>
+          <!-- App: 76.25%, 71.2% -->
+          <div class="cag-node" id="cn-app" style="left:76.25%;top:71.2%">
+            <div class="cag-node-icon">📱</div>
+            <div class="cag-node-name">App (only)</div>
+            <div class="cag-node-sub">Flutter · Mobile</div>
+          </div>
+          <!-- Design Patterns: 50%, 90.5% -->
+          <div class="cag-node" id="cn-dp" style="left:50%;top:90.5%">
+            <div class="cag-node-icon">🧩</div>
+            <div class="cag-node-name">Design Patterns</div>
+            <div class="cag-node-sub">Flows · Templates · Rules</div>
+          </div>
+        </div>
+
+        <div class="cag-legend">
+          <div class="cag-legend-item"><div class="cag-legend-line" style="background:#a855f7"></div>Primitive inheritance</div>
+          <div class="cag-legend-item"><div class="cag-legend-line" style="background:#f97316"></div>Foundation flow</div>
+          <div class="cag-legend-item"><div class="cag-legend-line" style="background:#3b82f6"></div>Icon &amp; App consumption</div>
+          <div class="cag-legend-item"><div class="cag-legend-line" style="background:#22c55e"></div>Core → Platform / App</div>
+          <div class="cag-legend-item"><div class="cag-legend-line" style="background:#06b6d4"></div>Platform &amp; App → Design Patterns</div>
+        </div>
       </div>
 
-      <div class="tab-panel active" id="tab-foundations">
-        <div class="comp-grid">
-          <div class="comp-card"><div class="ci">🎨</div><h4>Colour tokens</h4><p>Semantic token system with primitive, semantic, and component-level colour roles — supporting light/dark mode across both platforms.</p></div>
-          <div class="comp-card"><div class="ci">Aa</div><h4>Typography scale</h4><p>Harmonious type scale with display, heading, body, and label styles — mapped to both Flutter text themes and CSS variables.</p></div>
-          <div class="comp-card"><div class="ci">⊞</div><h4>Spacing &amp; grid</h4><p>An 8px base spacing system with consistent grid structures for mobile and web — ensuring alignment and rhythm across all layouts.</p></div>
-          <div class="comp-card"><div class="ci">◉</div><h4>Elevation &amp; shadow</h4><p>Defined elevation levels with corresponding shadow values — giving the UI hierarchy and depth across surfaces and overlapping layers.</p></div>
-          <div class="comp-card"><div class="ci">⟳</div><h4>Motion &amp; animation</h4><p>Shared easing curves, durations, and transition patterns ensuring micro-interactions feel cohesive between the app and web platform.</p></div>
-          <div class="comp-card"><div class="ci">◻</div><h4>Border radius &amp; shape</h4><p>Consistent shape language for all interactive elements — from subtle card rounding to fully rounded buttons and input fields.</p></div>
-        </div>
-      </div>
+      <!-- ── Atomic Design Graph (4 tiers) ────────────────────────────── -->
+      <style>
+        .adg-wrap { margin-top: 64px; }
+        .adg-intro { margin-bottom: 28px; }
+        .adg-intro h4 { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: #777; margin: 0 0 6px; font-weight: 600; }
+        .adg-intro p { font-size: 14px; color: #aaa; margin: 0; line-height: 1.55; max-width: 560px; }
+        .adg-graph { position: relative; width: 100%; display: flex; flex-direction: column; gap: 48px; }
+        .adg-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; overflow: visible; }
+        .adg-edge { fill: none; stroke-width: 2; stroke-dasharray: 7 5; opacity: .38; transition: opacity .25s, stroke-width .25s; }
+        .adg-edge--orange { stroke: #f97316; animation: adg-flow 2.2s linear infinite; }
+        .adg-edge--purple { stroke: #a855f7; animation: adg-flow 1.9s linear infinite; }
+        .adg-edge--green  { stroke: #22c55e; animation: adg-flow 2.6s linear infinite; }
+        @keyframes adg-flow { to { stroke-dashoffset: -24; } }
+        /* Tier wrappers */
+        .adg-tier { position: relative; border-radius: 10px; padding: 56px 32px 56px; z-index: 1; }
+        .adg-tier-label { display: block; font-size: 9.5px; font-weight: 600; letter-spacing: 1.8px; text-transform: uppercase; opacity: .65; margin-bottom: 20px; }
+        .adg-tier-content { display: flex; justify-content: space-evenly; align-items: flex-start; }
+        .adg-tier--templates { background: rgba(34,197,94,.035); }
+        .adg-tier--templates .adg-tier-label { color: #4ade80; }
+        .adg-tier--organisms { background: rgba(6,182,212,.035); }
+        .adg-tier--organisms .adg-tier-label { color: #22d3ee; }
+        .adg-tier--molecules { background: rgba(168,85,247,.035); }
+        .adg-tier--molecules .adg-tier-label { color: #c084fc; }
+        .adg-tier--atoms { background: rgba(249,115,22,.035); }
+        .adg-tier--atoms .adg-tier-label { color: #fb923c; }
+        /* Node base */
+        .adg-node { display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: default; }
+        .adg-node-box { border-radius: 14px; border: 1.5px solid; padding: 10px 12px; display: flex; flex-direction: column; align-items: center; gap: 7px; transition: transform .24s cubic-bezier(.34,1.56,.64,1), box-shadow .24s; }
+        .adg-node:hover .adg-node-box { transform: scale(1.06); }
+        .adg-node-label { font-size: 9.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+        /* Template tier */
+        .adg-node--template .adg-node-box { background: rgba(34,197,94,.07); border-color: rgba(34,197,94,.22); }
+        .adg-node--template .adg-node-label { color: #4ade80; }
+        .adg-node--template:hover .adg-node-box { box-shadow: 0 0 0 3px rgba(34,197,94,.14), 0 8px 22px rgba(34,197,94,.16); }
+        /* Organism tier */
+        .adg-node--organism .adg-node-box { background: rgba(6,182,212,.06); border-color: rgba(6,182,212,.25); }
+        .adg-node--organism .adg-node-label { color: #22d3ee; }
+        .adg-node--organism:hover .adg-node-box { box-shadow: 0 0 0 4px rgba(6,182,212,.16), 0 10px 28px rgba(6,182,212,.2); }
+        /* Molecule tier */
+        .adg-node--molecule .adg-node-box { background: rgba(168,85,247,.07); border-color: rgba(168,85,247,.22); }
+        .adg-node--molecule .adg-node-label { color: #c084fc; }
+        .adg-node--molecule:hover .adg-node-box { box-shadow: 0 0 0 3px rgba(168,85,247,.14), 0 8px 22px rgba(168,85,247,.16); }
+        /* Atom tier */
+        .adg-node--atom .adg-node-box { background: rgba(249,115,22,.07); border-color: rgba(249,115,22,.22); }
+        .adg-node--atom .adg-node-label { color: #fb923c; }
+        .adg-node--atom:hover .adg-node-box { box-shadow: 0 0 0 3px rgba(249,115,22,.14), 0 8px 22px rgba(249,115,22,.16); }
+        /* Images */
+        .adg-tpl-img  { height: 550px; width: auto; border-radius: 10px; display: block; }
+        .adg-org-img  { height: 212px; width: auto; border-radius: 10px; display: block; }
+        .adg-atom-img { display: block; max-height: 38px; width: auto; object-fit: contain; }
+        .adg-atom-img--photo { max-width: 90px; max-height: 48px; border-radius: 7px; object-fit: cover; }
+        /* Molecule composed layouts */
+        .adg-mol-row { display: flex; align-items: center; gap: 7px; width: 148px; }
+        .adg-mol-av { height: 22px; width: 22px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+        .adg-mol-name { font-size: 10px; color: #bbb; flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+        .adg-mol-btn { height: 20px; width: auto; object-fit: contain; flex-shrink: 0; }
+        .adg-mol-media { width: 148px; height: 54px; border-radius: 8px; object-fit: cover; display: block; }
+        .adg-mol-footer { display: flex; align-items: center; justify-content: space-between; width: fit-content; gap: 10px; }
+        .adg-mol-val { height: 17px; width: fit-content; object-fit: contain; }
+        /* Edge hover — Atoms */
+        .adg-graph:has(#an-btn:hover) #ae1 { opacity: 1; stroke-width: 2.5; }
+        .adg-graph:has(#an-avt:hover) #ae2 { opacity: 1; stroke-width: 2.5; }
+        .adg-graph:has(#an-img:hover) #ae3 { opacity: 1; stroke-width: 2.5; }
+        .adg-graph:has(#an-rwg:hover) #ae4 { opacity: 1; stroke-width: 2.5; }
+        .adg-graph:has(#an-val:hover) #ae5 { opacity: 1; stroke-width: 2.5; }
+        /* Edge hover — Molecules */
+        .adg-graph:has(#an-hdr:hover) #ae1,
+        .adg-graph:has(#an-hdr:hover) #ae2,
+        .adg-graph:has(#an-hdr:hover) #ae6 { opacity: .9; stroke-width: 2.5; }
+        .adg-graph:has(#an-med:hover) #ae3,
+        .adg-graph:has(#an-med:hover) #ae7 { opacity: .9; stroke-width: 2.5; }
+        .adg-graph:has(#an-ftr:hover) #ae4,
+        .adg-graph:has(#an-ftr:hover) #ae5,
+        .adg-graph:has(#an-ftr:hover) #ae8 { opacity: .9; stroke-width: 2.5; }
+        /* Edge hover — Organism */
+        .adg-graph:has(#an-card:hover) #ae6,
+        .adg-graph:has(#an-card:hover) #ae7,
+        .adg-graph:has(#an-card:hover) #ae8 { opacity: 1; stroke-width: 2.5; }
+        .adg-graph:has(#an-card:hover) #ae9 { opacity: .8; stroke-width: 2; }
+        .adg-graph:has(#an-card:hover) #ae1,
+        .adg-graph:has(#an-card:hover) #ae2,
+        .adg-graph:has(#an-card:hover) #ae3,
+        .adg-graph:has(#an-card:hover) #ae4,
+        .adg-graph:has(#an-card:hover) #ae5 { opacity: .42; }
+        .adg-graph:has(#an-list:hover) #ae11,
+        .adg-graph:has(#an-list:hover) #ae12 { opacity: .8; stroke-width: 2; }
+        /* Edge hover — Templates */
+        .adg-graph:has(#an-tpl1:hover) #ae9  { opacity: 1; stroke-width: 2.5; }
+        .adg-graph:has(#an-tpl3:hover) #ae11 { opacity: 1; stroke-width: 2.5; }
+        .adg-graph:has(#an-tpl4:hover) #ae12 { opacity: 1; stroke-width: 2.5; }
+        /* Legend */
+        .adg-legend { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.07); }
+        .adg-legend-item { display: flex; align-items: center; gap: 7px; font-size: 11px; color: #888; }
+        .adg-legend-line { width: 22px; height: 2px; border-radius: 2px; }
+        .adg-legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+      </style>
 
-      <div class="tab-panel" id="tab-core">
-        <div class="comp-grid">
-          <div class="comp-card"><div class="ci">⬜</div><h4>Buttons</h4><p>Primary, secondary, ghost, and destructive variants with all interactive states, sizes, and loading/disabled conditions documented.</p></div>
-          <div class="comp-card"><div class="ci">▭</div><h4>Inputs &amp; forms</h4><p>Text fields, selects, date pickers, and checkbox/radio groups — with validation states and accessibility-first structure.</p></div>
-          <div class="comp-card"><div class="ci">▣</div><h4>Cards &amp; surfaces</h4><p>Content cards, list items, and surface containers that compose cleanly into mission feeds, ambassador profiles, and brand views.</p></div>
-          <div class="comp-card"><div class="ci">≡</div><h4>Navigation</h4><p>Tab bars, top navigation, side drawers, and breadcrumbs — adapted to each platform's navigation paradigm.</p></div>
-          <div class="comp-card"><div class="ci">⊡</div><h4>Modals &amp; sheets</h4><p>Bottom sheets for mobile, dialogs for web — with consistent overlay behaviour, focus trapping, and dismiss patterns.</p></div>
-          <div class="comp-card"><div class="ci">◈</div><h4>Tags &amp; badges</h4><p>Status indicators, category tags, and notification badges used across mission status flows and ambassador tier labels.</p></div>
+      <div class="adg-wrap reveal">
+        <div class="adg-intro">
+          <h4>Atomic Design in Practice</h4>
+          <p>Atoms compose into molecules, molecules into organisms, organisms into screen templates — each layer building on the last.</p>
         </div>
-      </div>
+        <div class="adg-graph" id="adg">
+          <svg class="adg-svg" viewBox="0 0 1000 1000" aria-hidden="true">
+            <defs>
+              <marker id="adg-m-or" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,.5 L0,6.5 L7,3.5z" fill="#f97316"/></marker>
+              <marker id="adg-m-pu" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,.5 L0,6.5 L7,3.5z" fill="#a855f7"/></marker>
+              <marker id="adg-m-gr" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,.5 L0,6.5 L7,3.5z" fill="#22c55e"/></marker>
+            </defs>
+            <!-- Atom → Molecule edges (orange) -->
+            <path id="ae1" class="adg-edge adg-edge--orange" d="M 167,870 C 167,850 250,845 250,825" marker-end="url(#adg-m-or)"/>
+            <path id="ae2" class="adg-edge adg-edge--orange" d="M 333,870 C 333,850 250,845 250,825" marker-end="url(#adg-m-or)"/>
+            <path id="ae3" class="adg-edge adg-edge--orange" d="M 500,870 C 500,850 500,845 500,825" marker-end="url(#adg-m-or)"/>
+            <path id="ae4" class="adg-edge adg-edge--orange" d="M 667,870 C 667,850 750,845 750,825" marker-end="url(#adg-m-or)"/>
+            <path id="ae5" class="adg-edge adg-edge--orange" d="M 833,870 C 833,850 750,845 750,825" marker-end="url(#adg-m-or)"/>
+            <!-- Molecule → Organism edges (purple) -->
+            <path id="ae6" class="adg-edge adg-edge--purple" d="M 250,695 C 250,675 333,670 333,650" marker-end="url(#adg-m-pu)"/>
+            <path id="ae7" class="adg-edge adg-edge--purple" d="M 500,695 C 480,675 350,670 333,650" marker-end="url(#adg-m-pu)"/>
+            <path id="ae8" class="adg-edge adg-edge--purple" d="M 750,695 C 720,675 370,670 345,650" marker-end="url(#adg-m-pu)"/>
+            <!-- Organism → Template edges (green) -->
+            <path id="ae9"  class="adg-edge adg-edge--green" d="M 333,455 C 333,435 250,430 250,410" marker-end="url(#adg-m-gr)"/>
+            <path id="ae11" class="adg-edge adg-edge--green" d="M 667,455 C 667,435 500,430 500,410" marker-end="url(#adg-m-gr)"/>
+            <path id="ae12" class="adg-edge adg-edge--green" d="M 667,455 C 667,435 750,430 750,410" marker-end="url(#adg-m-gr)"/>
+          </svg>
 
-      <div class="tab-panel" id="tab-app">
-        <div class="comp-grid">
-          <div class="comp-card"><div class="ci">📱</div><h4>Mission cards</h4><p>Core ambassador touchpoint — cards displaying mission details, reward values, deadlines, and quick-action CTAs for the mobile app.</p></div>
-          <div class="comp-card"><div class="ci">👤</div><h4>Ambassador profile</h4><p>Composed profile view with avatar, tier badge, stats summary, and social handle links — built for the Flutter ambassador experience.</p></div>
-          <div class="comp-card"><div class="ci">🏆</div><h4>Reward components</h4><p>Earning summaries, reward tier progress indicators, and payout status views — key to the ambassador motivation loop.</p></div>
-          <div class="comp-card"><div class="ci">📊</div><h4>Progress &amp; stats</h4><p>Mission completion progress bars, performance summaries, and campaign tracking components for in-app reporting.</p></div>
-          <div class="comp-card"><div class="ci">🔔</div><h4>Notifications &amp; feeds</h4><p>Activity feeds, notification cells, and empty-state patterns with skeleton loading states for perceived performance.</p></div>
-          <div class="comp-card"><div class="ci">📸</div><h4>Media upload</h4><p>Photo/video submission components for mission content delivery — camera picker, gallery selector, and upload progress states.</p></div>
-        </div>
-      </div>
+          <!-- ── TEMPLATES ── -->
+          <div class="adg-tier adg-tier--templates">
+            <span class="adg-tier-label">TEMPLATES</span>
+            <div class="adg-tier-content">
+              <div class="adg-node adg-node--template" id="an-tpl1">
+                <div class="adg-node-box">
+                  <img class="adg-tpl-img" src="/images/projects/club-tie/brand-template.png" alt="Brand Template" loading="lazy">
+                  <div class="adg-node-label">Brand Template</div>
+                </div>
+              </div>
+              <div class="adg-node adg-node--template" id="an-tpl3">
+                <div class="adg-node-box">
+                  <img class="adg-tpl-img" src="/images/projects/club-tie/Missions.png" alt="Missions" loading="lazy">
+                  <div class="adg-node-label">Missions</div>
+                </div>
+              </div>
+              <div class="adg-node adg-node--template" id="an-tpl4">
+                <div class="adg-node-box">
+                  <img class="adg-tpl-img" src="/images/projects/club-tie/App%20template%2010.png" alt="App Template" loading="lazy">
+                  <div class="adg-node-label">App Template</div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-      <div class="tab-panel" id="tab-platform">
-        <div class="comp-grid">
-          <div class="comp-card"><div class="ci">📋</div><h4>Brand dashboard</h4><p>Campaign performance tables, ambassador list views, and analytics summaries — built for the React brand management web platform.</p></div>
-          <div class="comp-card"><div class="ci">⚙️</div><h4>Mission builder</h4><p>Step-by-step form patterns for brands to create and configure missions — with inline validation, rich text, and media upload.</p></div>
-          <div class="comp-card"><div class="ci">🔍</div><h4>Search &amp; filters</h4><p>Advanced filter panels, search bars with suggestion dropdowns, and sort controls adapted to desktop-first interaction patterns.</p></div>
-          <div class="comp-card"><div class="ci">📈</div><h4>Analytics views</h4><p>Chart wrappers, metric cards, and data table components for brand-side reporting on ambassador performance and campaign ROI.</p></div>
-          <div class="comp-card"><div class="ci">💬</div><h4>Messaging</h4><p>Thread lists, message bubbles, and conversation views enabling direct communication between brands and ambassadors.</p></div>
-          <div class="comp-card"><div class="ci">⬡</div><h4>Onboarding flows</h4><p>Multi-step onboarding patterns, progress indicators, and setup checklists for brand account creation and configuration.</p></div>
-        </div>
-      </div>
+          <!-- ── ORGANISM ── -->
+          <div class="adg-tier adg-tier--organisms">
+            <span class="adg-tier-label">ORGANISM</span>
+            <div class="adg-tier-content">
+              <div class="adg-node adg-node--organism" id="an-card">
+                <div class="adg-node-box">
+                  <img class="adg-org-img" src="/images/projects/club-tie/Mission%20Card%20App%F0%9F%93%B1.png" alt="Mission Card" loading="lazy">
+                  <div class="adg-node-label">Mission Card</div>
+                </div>
+              </div>
+              <div class="adg-node adg-node--organism" id="an-list">
+                <div class="adg-node-box">
+                  <img class="adg-org-img" src="/images/projects/club-tie/mission-list.png" alt="Mission List" loading="lazy">
+                  <div class="adg-node-label">Mission List</div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-      <div class="tab-panel" id="tab-icons">
-        <div style="max-width:560px;">
-          <h3 style="margin-bottom:12px;">Clubicons &amp; Otto</h3>
-          <p style="max-width:none;">A custom icon library on a 24px grid with a 1.5px stroke — navigation, actions, status, social, and product-specific glyphs. The same visual language extends to <strong>Otto</strong> and spot illustrations (see <strong>Club graphics &amp; icons</strong> above).</p>
-        </div>
-      </div>
+          <!-- ── MOLECULES ── -->
+          <div class="adg-tier adg-tier--molecules">
+            <span class="adg-tier-label">MOLECULES</span>
+            <div class="adg-tier-content">
+              <div class="adg-node adg-node--molecule" id="an-hdr">
+                <div class="adg-node-box">
+                  <div class="adg-mol-row">
+                    <img class="adg-mol-av" src="/images/projects/club-tie/Brand%20avatar.png" alt="">
+                    <span class="adg-mol-name">Club Brand</span>
+                    <img class="adg-mol-btn" src="/images/projects/club-tie/Button.png" alt="">
+                  </div>
+                  <div class="adg-node-label">Card Header</div>
+                </div>
+              </div>
+              <div class="adg-node adg-node--molecule" id="an-med">
+                <div class="adg-node-box">
+                  <img class="adg-mol-media" src="/images/projects/club-tie/Image.png" alt="" loading="lazy">
+                  <div class="adg-node-label">Card Media</div>
+                </div>
+              </div>
+              <div class="adg-node adg-node--molecule" id="an-ftr">
+                <div class="adg-node-box">
+                  <div class="adg-mol-footer">
+                    <img class="adg-mol-val" src="/images/projects/club-tie/Value.png" alt="">
+                  </div>
+                  <div class="adg-node-label">Card Footer</div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-      <div class="tab-panel" id="tab-patterns">
-        <div style="max-width:560px; margin-bottom:28px;">
-          <h3 style="margin-bottom:12px;">Design patterns</h3>
-          <p style="max-width:none;">Beyond components, Club TIE documents repeatable design patterns — structured solutions to common UX problems that guide how components are composed into functional interactions.</p>
+          <!-- ── ATOMS ── -->
+          <div class="adg-tier adg-tier--atoms">
+            <span class="adg-tier-label">ATOMS</span>
+            <div class="adg-tier-content">
+              <div class="adg-node adg-node--atom" id="an-btn">
+                <div class="adg-node-box">
+                  <img class="adg-atom-img" src="/images/projects/club-tie/Button.png" alt="Join button" loading="lazy">
+                  <div class="adg-node-label">Join Button</div>
+                </div>
+              </div>
+              <div class="adg-node adg-node--atom" id="an-avt">
+                <div class="adg-node-box">
+                  <img class="adg-atom-img" src="/images/projects/club-tie/Brand%20avatar.png" alt="Brand avatar" loading="lazy">
+                  <div class="adg-node-label">Brand Avatar</div>
+                </div>
+              </div>
+              <div class="adg-node adg-node--atom" id="an-img">
+                <div class="adg-node-box">
+                  <img class="adg-atom-img adg-atom-img--photo" src="/images/projects/club-tie/Image.png" alt="Brand image" loading="lazy">
+                  <div class="adg-node-label">Brand Image</div>
+                </div>
+              </div>
+              <div class="adg-node adg-node--atom" id="an-rwg">
+                <div class="adg-node-box">
+                  <img class="adg-atom-img" src="/images/projects/club-tie/Reward%20icon%20group.png" alt="Reward icons" loading="lazy">
+                  <div class="adg-node-label">Reward Group</div>
+                </div>
+              </div>
+              <div class="adg-node adg-node--atom" id="an-val">
+                <div class="adg-node-box">
+                  <img class="adg-atom-img" src="/images/projects/club-tie/Value.png" alt="Value" loading="lazy">
+                  <div class="adg-node-label">Value</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="comp-grid">
-          <div class="comp-card"><h4>Empty states</h4><p>Consistent patterns for zero-data screens — illustration, message, and action CTA.</p></div>
-          <div class="comp-card"><h4>Loading &amp; skeleton</h4><p>Skeleton screen patterns for async content — reducing perceived wait time across feeds.</p></div>
-          <div class="comp-card"><h4>Error handling</h4><p>Toast messages, inline errors, and full-page error states with recovery actions clearly signposted.</p></div>
-          <div class="comp-card"><h4>Confirmation dialogs</h4><p>Destructive action confirmation patterns with accessible focus management.</p></div>
-          <div class="comp-card"><h4>Multi-step flows</h4><p>Progress stepper patterns for mission creation, onboarding, and ambassador application flows.</p></div>
-          <div class="comp-card"><h4>Responsive layout</h4><p>Breakpoint-aware patterns showing how components reflow across mobile, tablet, and desktop.</p></div>
+
+        <div class="adg-legend">
+          <div class="adg-legend-item"><div class="adg-legend-line" style="background:#f97316"></div>Atom → Molecule</div>
+          <div class="adg-legend-item"><div class="adg-legend-line" style="background:#a855f7"></div>Molecule → Organism</div>
+          <div class="adg-legend-item"><div class="adg-legend-line" style="background:#22c55e"></div>Organism → Template</div>
+          <div class="adg-legend-item" style="margin-left:auto"><div class="adg-legend-dot" style="background:rgba(249,115,22,.55)"></div>Atom</div>
+          <div class="adg-legend-item"><div class="adg-legend-dot" style="background:rgba(168,85,247,.55)"></div>Molecule</div>
+          <div class="adg-legend-item"><div class="adg-legend-dot" style="background:rgba(6,182,212,.55)"></div>Organism</div>
+          <div class="adg-legend-item"><div class="adg-legend-dot" style="background:rgba(34,197,94,.55)"></div>Template</div>
         </div>
       </div>
-    </div>
 
     <!-- GOVERNANCE -->
     <div class="band">
@@ -1326,31 +2035,29 @@
         <div class="reveal">
           <div class="section-label"><span class="num">05 /</span> Governance</div>
           <h2>Design meets code:<br>Storybook &amp; Widgetbook</h2>
-          <p>A design system only works if it's trusted by the people building with it. Governance means the system is documented, tested, and maintained — not just designed.</p>
+          <p>Documented, tested, and maintained — not just designed.</p>
         </div>
         <div class="gov-grid reveal">
           <div class="gov-card">
             <div class="tool-name">Storybook</div>
             <div class="tool-sub">React Web Platform</div>
-            <p>Living documentation for all React components on the brand management platform. Each component is catalogued with all its variants, states, and props — giving developers a reliable reference and a visual test suite.</p>
+            <p>Living docs for all React components — variants, states, and props catalogued as a reliable reference and visual test suite.</p>
             <ul class="feat-list">
-              <li>Component stories for all interactive states</li>
-              <li>Visual regression testing baseline</li>
-              <li>Accessible component documentation</li>
+              <li>Stories for all interactive states</li>
+              <li>Visual regression baseline</li>
               <li>Isolated development environment</li>
-              <li>Single source of truth for frontend engineers</li>
+              <li>Single source of truth for frontend</li>
             </ul>
           </div>
           <div class="gov-card">
             <div class="tool-name">Widgetbook</div>
             <div class="tool-sub">Flutter Mobile App</div>
-            <p>The same governance layer for the Flutter app. Each widget is catalogued, documented, and testable in isolation — closing the loop between what's designed in Figma and what's shipped in the ambassador app.</p>
+            <p>Same governance layer for Flutter — each widget testable in isolation, closing the loop between Figma and the shipped app.</p>
             <ul class="feat-list">
-              <li>Widget catalogue for all Flutter components</li>
+              <li>Full Flutter widget catalogue</li>
               <li>Device and theme preview testing</li>
               <li>Hot-reload documentation workflow</li>
-              <li>Direct collaboration with Flutter engineers</li>
-              <li>Design-to-code consistency verification</li>
+              <li>Design-to-code consistency checks</li>
             </ul>
           </div>
         </div>
@@ -1369,29 +2076,29 @@
           <div class="vibe-split__intro">
             <div class="section-label"><span class="num">05b /</span> Vibe Coding</div>
             <h2>Designing in code</h2>
-            <p>One of my most distinctive contributions was participating directly in the development of design system components through a practice I call "vibe coding" — a fluid, collaborative loop between design intent and code output.</p>
+            <p>A fluid loop between design intent and code output — I participate directly in building components, not just speccing them.</p>
           </div>
           <div class="vibe-split__body">
           <div class="vibe-line">
             <div class="vibe-step">
               <h4>Design the component in Figma</h4>
-              <p>Each component starts in Figma with all variants, states, and token references clearly defined — giving engineers a precise specification before a single line of code is written.</p>
+              <p>Variants, states, and token references defined upfront — a precise spec before any code is written.</p>
             </div>
             <div class="vibe-step">
               <h4>Sit alongside the engineer</h4>
-              <p>Rather than throwing specs over a wall, I work directly with the engineer as they build — providing real-time design feedback and catching deviations early, before they become habits.</p>
+              <p>I work directly with the engineer as they build — giving real-time feedback and catching deviations before they become habits.</p>
             </div>
             <div class="vibe-step">
               <h4>Contribute code directly</h4>
-              <p>Where possible, I write or adjust code myself — tweaking spacing values, token references, border radii, and animation curves directly in the codebase to match the design intent precisely.</p>
+              <p>I tweak spacing, token references, and animation curves in the codebase myself to match design intent precisely.</p>
             </div>
             <div class="vibe-step">
               <h4>Validate in Storybook or Widgetbook</h4>
-              <p>The finished component is verified against the Figma spec in the documentation environment — checking all states, themes, and responsive behaviour before it's added to the library.</p>
+              <p>Verified against the Figma spec — all states, themes, and responsive behaviour checked before it's added to the library.</p>
             </div>
             <div class="vibe-step">
               <h4>Document and publish</h4>
-              <p>Once validated, the component is documented in both Figma and the code documentation tool — ready to be used, extended, and governed by the full team.</p>
+              <p>Documented in Figma and the code tool — ready to be used, extended, and governed by the full team.</p>
             </div>
           </div>
           <aside class="vibe-split__media" aria-label="Screen recording of designing in code">
@@ -1420,110 +2127,6 @@
       </div>
     </div>
 
-    <!-- PROCESS DEEP-DIVE -->
-    <div class="band">
-      <div class="wrap" id="process">
-        <div class="reveal">
-          <div class="section-label"><span class="num">07 /</span> Process Deep-Dive</div>
-          <h2>How we built it:<br>phase by phase</h2>
-          <p>The Club TIE system wasn't designed all at once. It evolved through deliberate phases — from discovery and audit through to active governance — with each phase building on a validated foundation.</p>
-        </div>
-
-        <div class="process-grid reveal">
-          <div class="process-phase">
-            <div class="ph-num">Phase 01</div>
-            <h3>Audit &amp; discovery</h3>
-            <p>Before designing anything new, we mapped what already existed — cataloguing UI patterns, inconsistencies, and reuse opportunities across both platforms.</p>
-            <ul class="ph-tasks">
-              <li>Screenshotted and inventoried all existing UI across app and web</li>
-              <li>Identified duplicated patterns and divergent component states</li>
-              <li>Interviewed engineers on the biggest friction points in handoff</li>
-              <li>Benchmarked competitor design systems for structural reference</li>
-              <li>Defined the scope: what would and wouldn't be in v1</li>
-            </ul>
-          </div>
-          <div class="process-phase">
-            <div class="ph-num">Phase 02</div>
-            <h3>Foundations first</h3>
-            <p>With audit findings in hand, we established the primitive layer — tokens, typography, colour, and spacing — before touching a single component. No building on sand.</p>
-            <ul class="ph-tasks">
-              <li>Defined the full colour token system: primitive → semantic → component</li>
-              <li>Built the typography scale in Figma and mapped it to Flutter text themes</li>
-              <li>Established the 8px spacing grid and component shape language</li>
-              <li>Created the Primitives and Foundations Figma libraries</li>
-              <li>Synced token values with the engineering team for alignment</li>
-            </ul>
-          </div>
-          <div class="process-phase">
-            <div class="ph-num">Phase 03</div>
-            <h3>Core component build</h3>
-            <p>With solid foundations, we systematically built the core component library — starting with the highest-frequency, highest-impact UI elements.</p>
-            <ul class="ph-tasks">
-              <li>Prioritised components by usage frequency across both platforms</li>
-              <li>Built each component with all variants, states, and interactive props</li>
-              <li>Documented component anatomy, usage guidelines, and do/don'ts</li>
-              <li>Ran vibe coding sessions with engineers to ship in parallel</li>
-              <li>Published core components to Storybook and Widgetbook progressively</li>
-            </ul>
-          </div>
-          <div class="process-phase">
-            <div class="ph-num">Phase 04</div>
-            <h3>Platform specialisation</h3>
-            <p>Once the shared core was stable, we extended it into platform-specific layers — App Components for Flutter, Platform Components for React — each inheriting from the same foundation.</p>
-            <ul class="ph-tasks">
-              <li>Defined which components diverge by platform vs which stay shared</li>
-              <li>Built App Components tuned to Flutter's interaction model</li>
-              <li>Built Platform Components for React's desktop-first paradigms</li>
-              <li>Maintained token linkage so platform variants stayed in sync</li>
-              <li>Added mission-specific and ambassador-specific composed components</li>
-            </ul>
-          </div>
-          <div class="process-phase">
-            <div class="ph-num">Phase 05</div>
-            <h3>Icons &amp; graphics</h3>
-            <p>Clubicons and the Club Graphics library were built as dedicated systems — giving the product a distinctive visual voice beyond just UI components.</p>
-            <ul class="ph-tasks">
-              <li>Defined icon grid, stroke weight, and optical correction rules</li>
-              <li>Designed Clubicons set across navigation, action, status, and social</li>
-              <li>Exported icons as optimised SVGs for Flutter and React</li>
-              <li>Built the Club Graphics illustration library with a consistent art style</li>
-              <li>Documented usage guidelines for icons and graphic assets</li>
-            </ul>
-          </div>
-          <div class="process-phase">
-            <div class="ph-num">Phase 06</div>
-            <h3>Patterns, templates &amp; governance</h3>
-            <p>The final phase turned the component library into a living system — adding design patterns, app templates, and the governance tooling to keep it healthy over time.</p>
-            <ul class="ph-tasks">
-              <li>Documented repeatable design patterns for common UX problems</li>
-              <li>Created app templates for core screens and user flows</li>
-              <li>Established Storybook and Widgetbook as the governance layer</li>
-              <li>Defined contribution guidelines for adding new components</li>
-              <li>Set up a regular design system review cadence with the team</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="process-full-row reveal">
-          <div class="pf-item">
-            <h4>Design-first, then code</h4>
-            <p>Every component was designed in Figma with full spec coverage before any code was written — reducing back-and-forth during development.</p>
-          </div>
-          <div class="pf-item">
-            <h4>Parallel shipping</h4>
-            <p>Vibe coding sessions meant design and code progressed in parallel — components landed in both Figma and production faster than sequential handoff.</p>
-          </div>
-          <div class="pf-item">
-            <h4>Foundations as a forcing function</h4>
-            <p>Building primitives and foundations first made every subsequent decision easier — tokens meant design choices propagated automatically across the system.</p>
-          </div>
-          <div class="pf-item">
-            <h4>Progressive documentation</h4>
-            <p>Rather than documenting everything at the end, each component was documented as it was built — making the system usable from day one of each phase.</p>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- PLATFORM & AMBASSADOR STRIP (stacked scroll, full width) -->
     <div class="ss-strip ss-strip--stack">
@@ -1549,70 +2152,223 @@
         <p>Club TIE was built across a carefully chosen toolset — covering design, documentation, development, and collaboration. Each tool served a specific role in the system's lifecycle.</p>
       </div>
 
-      <div class="tools-grid reveal">
-        <div class="tool-card">
-          <div class="t-logo">🎨</div>
-          <div>
-            <div class="t-name">Figma</div>
-            <div class="t-role">Design &amp; Library</div>
+      <!-- TOOLS CONNECTION GRAPH -->
+      <style>
+        .tg-wrap { margin-top: 52px; }
+        .tg { position: relative; width: 100%; aspect-ratio: 820/560; max-width: 900px; margin: 0 auto; }
+        .tg-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+        /* edges */
+        .tge { fill: none; stroke-width: 1.7; stroke-linecap: round; opacity: 0.6;
+               transition: opacity 0.28s, stroke-width 0.28s;
+               stroke-dasharray: 7 5; animation: tg-flow 2s linear infinite; }
+        @keyframes tg-flow { to { stroke-dashoffset: -24; } }
+        .tge--purple { stroke: #9667f7; animation-duration: 2.4s; }
+        .tge--blue   { stroke: #3b82f6; animation-duration: 1.9s; }
+        .tge--orange { stroke: #f97316; animation-duration: 2.1s; }
+        .tge--grey   { stroke: #5E5C58; animation-duration: 2.8s; }
+
+        /* nodes */
+        .tgn {
+          position: absolute; transform: translate(-50%,-50%);
+          background: rgba(22,22,26,0.93); border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 12px; padding: 11px 18px; text-align: center; white-space: nowrap;
+          transition: border-color 0.28s, transform 0.35s cubic-bezier(0.22,1,0.36,1),
+                      box-shadow 0.35s, opacity 0.28s;
+          backdrop-filter: blur(12px); z-index: 2;
+        }
+        .tgn-hub {
+          background: rgba(150,103,247,0.07);
+          border-color: rgba(150,103,247,0.25);
+          box-shadow: 0 0 28px rgba(150,103,247,0.12);
+          animation: tg-pulse 3s ease-in-out infinite;
+        }
+        @keyframes tg-pulse {
+          0%,100% { box-shadow: 0 0 28px rgba(150,103,247,0.12); }
+          50%      { box-shadow: 0 0 44px rgba(150,103,247,0.24); }
+        }
+        .tgn-icon { font-size: 16px; margin-bottom: 4px; line-height: 1; }
+        .tgn-name { font-family: var(--f-display,'Syne',sans-serif); font-size: 12.5px; font-weight: 600; color: #EDECEA; }
+        .tgn-role { font-size: 10px; color: #5E5C58; margin-top: 2px; letter-spacing: 0.05em; text-transform: uppercase; }
+
+        /* hover: dim everything first */
+        .tg:has(.tgn:hover) .tge { opacity: 0.06; }
+        .tg:has(.tgn:hover) .tgn { opacity: 0.22; }
+        .tg:has(.tgn:hover) .tgn:hover { opacity: 1; transform: translate(-50%,-50%) translateY(-4px); }
+
+        /* Figma Variables */
+        .tg:has(#tn-fv:hover) #te1,
+        .tg:has(#tn-fv:hover) #te5,
+        .tg:has(#tn-fv:hover) #te6 { opacity:1; stroke-width:2.5; }
+        .tg:has(#tn-fv:hover) #tn-fig,
+        .tg:has(#tn-fv:hover) #tn-rea,
+        .tg:has(#tn-fv:hover) #tn-flt { opacity:1; border-color:#3b82f6; box-shadow:0 0 16px rgba(59,130,246,.22); }
+        .tg:has(#tn-fv:hover) .tgn:not(#tn-fv):not(#tn-fig):not(#tn-rea):not(#tn-flt) { opacity:.22; }
+
+        /* Notion */
+        .tg:has(#tn-not:hover) #te2 { opacity:1; stroke-width:2.5; }
+        .tg:has(#tn-not:hover) #tn-fig { opacity:1; border-color:#5E5C58; }
+        .tg:has(#tn-not:hover) .tgn:not(#tn-not):not(#tn-fig) { opacity:.22; }
+
+        /* Figma (hub) */
+        .tg:has(#tn-fig:hover) #te1,
+        .tg:has(#tn-fig:hover) #te2,
+        .tg:has(#tn-fig:hover) #te3,
+        .tg:has(#tn-fig:hover) #te4 { opacity:1; stroke-width:2.5; }
+        .tg:has(#tn-fig:hover) #tn-fv,
+        .tg:has(#tn-fig:hover) #tn-not,
+        .tg:has(#tn-fig:hover) #tn-rea,
+        .tg:has(#tn-fig:hover) #tn-flt { opacity:1; border-color:#9667f7; box-shadow:0 0 16px rgba(150,103,247,.22); }
+        .tg:has(#tn-fig:hover) .tgn:not(#tn-fig):not(#tn-fv):not(#tn-not):not(#tn-rea):not(#tn-flt) { opacity:.22; }
+
+        /* React */
+        .tg:has(#tn-rea:hover) #te3,
+        .tg:has(#tn-rea:hover) #te5,
+        .tg:has(#tn-rea:hover) #te7,
+        .tg:has(#tn-rea:hover) #te9 { opacity:1; stroke-width:2.5; }
+        .tg:has(#tn-rea:hover) #tn-fig,
+        .tg:has(#tn-rea:hover) #tn-fv,
+        .tg:has(#tn-rea:hover) #tn-sb,
+        .tg:has(#tn-rea:hover) #tn-git { opacity:1; border-color:#9667f7; box-shadow:0 0 16px rgba(150,103,247,.2); }
+        .tg:has(#tn-rea:hover) .tgn:not(#tn-rea):not(#tn-fig):not(#tn-fv):not(#tn-sb):not(#tn-git) { opacity:.22; }
+
+        /* Flutter */
+        .tg:has(#tn-flt:hover) #te4,
+        .tg:has(#tn-flt:hover) #te6,
+        .tg:has(#tn-flt:hover) #te8,
+        .tg:has(#tn-flt:hover) #te10 { opacity:1; stroke-width:2.5; }
+        .tg:has(#tn-flt:hover) #tn-fig,
+        .tg:has(#tn-flt:hover) #tn-fv,
+        .tg:has(#tn-flt:hover) #tn-wb,
+        .tg:has(#tn-flt:hover) #tn-git { opacity:1; border-color:#9667f7; box-shadow:0 0 16px rgba(150,103,247,.2); }
+        .tg:has(#tn-flt:hover) .tgn:not(#tn-flt):not(#tn-fig):not(#tn-fv):not(#tn-wb):not(#tn-git) { opacity:.22; }
+
+        /* Storybook */
+        .tg:has(#tn-sb:hover) #te7 { opacity:1; stroke-width:2.5; }
+        .tg:has(#tn-sb:hover) #tn-rea { opacity:1; border-color:#f97316; box-shadow:0 0 16px rgba(249,115,22,.2); }
+        .tg:has(#tn-sb:hover) .tgn:not(#tn-sb):not(#tn-rea) { opacity:.22; }
+
+        /* Widgetbook */
+        .tg:has(#tn-wb:hover) #te8 { opacity:1; stroke-width:2.5; }
+        .tg:has(#tn-wb:hover) #tn-flt { opacity:1; border-color:#f97316; box-shadow:0 0 16px rgba(249,115,22,.2); }
+        .tg:has(#tn-wb:hover) .tgn:not(#tn-wb):not(#tn-flt) { opacity:.22; }
+
+        /* Git */
+        .tg:has(#tn-git:hover) #te9,
+        .tg:has(#tn-git:hover) #te10 { opacity:1; stroke-width:2.5; }
+        .tg:has(#tn-git:hover) #tn-rea,
+        .tg:has(#tn-git:hover) #tn-flt { opacity:1; border-color:#5E5C58; }
+        .tg:has(#tn-git:hover) .tgn:not(#tn-git):not(#tn-rea):not(#tn-flt) { opacity:.22; }
+
+        /* Legend */
+        .tg-legend { display:flex; flex-wrap:wrap; gap:10px 26px; margin-top:32px; max-width:900px; margin-left:auto; margin-right:auto; padding:16px 20px; background:rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.06); border-radius:12px; }
+        .tg-li { display:flex; align-items:center; gap:8px; font-size:11.5px; color:#A8A6A0; }
+        .tg-ll { width:24px; height:2px; border-radius:2px; flex-shrink:0; }
+        @media (max-width:680px) {
+          .tg { aspect-ratio:820/680; }
+          .tgn { padding:8px 11px; }
+          .tgn-name { font-size:10.5px; }
+          .tgn-role { display:none; }
+        }
+      </style>
+
+      <div class="tg-wrap reveal">
+        <div class="tg" id="tg">
+          <svg class="tg-svg" viewBox="0 0 820 560" aria-hidden="true">
+            <defs>
+              <marker id="tm-pu" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,.5L0,6.5L7,3.5z" fill="#9667f7"/></marker>
+              <marker id="tm-bl" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,.5L0,6.5L7,3.5z" fill="#3b82f6"/></marker>
+              <marker id="tm-or" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,.5L0,6.5L7,3.5z" fill="#f97316"/></marker>
+              <marker id="tm-gr" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,.5L0,6.5L7,3.5z" fill="#5E5C58"/></marker>
+            </defs>
+
+            <!-- te1: Figma Variables → Figma (token source) -->
+            <path id="te1" class="tge tge--blue"
+              d="M 188,99 C 202,134 355,134 368,171" marker-end="url(#tm-bl)"/>
+            <!-- te2: Figma → Notion (governance docs) -->
+            <path id="te2" class="tge tge--grey"
+              d="M 455,171 C 468,134 618,134 632,99" marker-end="url(#tm-gr)"/>
+            <!-- te3: Figma → React (design to web) -->
+            <path id="te3" class="tge tge--purple"
+              d="M 368,229 C 352,275 210,275 202,341" marker-end="url(#tm-pu)"/>
+            <!-- te4: Figma → Flutter (design to mobile) -->
+            <path id="te4" class="tge tge--purple"
+              d="M 452,229 C 468,275 608,275 618,341" marker-end="url(#tm-pu)"/>
+            <!-- te5: Figma Variables → React (CSS tokens) -->
+            <path id="te5" class="tge tge--blue"
+              d="M 138,99 C 130,198 142,268 148,341" marker-end="url(#tm-bl)"/>
+            <!-- te6: Figma Variables → Flutter (theme tokens) -->
+            <path id="te6" class="tge tge--blue"
+              d="M 255,70 C 490,32 728,178 668,341" marker-end="url(#tm-bl)"/>
+            <!-- te7: React → Storybook -->
+            <path id="te7" class="tge tge--orange"
+              d="M 150,399 C 138,428 110,444 105,466" marker-end="url(#tm-or)"/>
+            <!-- te8: Flutter → Widgetbook -->
+            <path id="te8" class="tge tge--orange"
+              d="M 668,399 C 678,428 715,444 718,466" marker-end="url(#tm-or)"/>
+            <!-- te9: React → Git -->
+            <path id="te9" class="tge tge--grey"
+              d="M 262,399 C 298,432 358,450 378,466" marker-end="url(#tm-gr)"/>
+            <!-- te10: Flutter → Git -->
+            <path id="te10" class="tge tge--grey"
+              d="M 558,399 C 522,432 462,450 442,466" marker-end="url(#tm-gr)"/>
+          </svg>
+
+          <!-- Figma Variables: 21.95%, 12.5% -->
+          <div class="tgn" id="tn-fv" style="left:21.95%;top:12.5%">
+            <div class="tgn-icon">🔷</div>
+            <div class="tgn-name">Figma Variables</div>
+            <div class="tgn-role">Token system</div>
           </div>
-          <div class="t-desc">The central design environment. All 8 libraries live here — from Primitives through to App Templates — connected via shared variables and component references.</div>
+          <!-- Notion: 78.05%, 12.5% -->
+          <div class="tgn" id="tn-not" style="left:78.05%;top:12.5%">
+            <div class="tgn-icon">🗂️</div>
+            <div class="tgn-name">Notion</div>
+            <div class="tgn-role">Governance docs</div>
+          </div>
+          <!-- Figma (hub): 50%, 35.7% -->
+          <div class="tgn tgn-hub" id="tn-fig" style="left:50%;top:35.7%">
+            <div class="tgn-icon">🎨</div>
+            <div class="tgn-name">Figma</div>
+            <div class="tgn-role">Design hub · 8 libraries</div>
+          </div>
+          <!-- React: 23.78%, 66.07% -->
+          <div class="tgn" id="tn-rea" style="left:23.78%;top:66.07%">
+            <div class="tgn-icon">⚛️</div>
+            <div class="tgn-name">React</div>
+            <div class="tgn-role">Web platform</div>
+          </div>
+          <!-- Flutter: 76.22%, 66.07% -->
+          <div class="tgn" id="tn-flt" style="left:76.22%;top:66.07%">
+            <div class="tgn-icon">🐦</div>
+            <div class="tgn-name">Flutter</div>
+            <div class="tgn-role">Mobile app</div>
+          </div>
+          <!-- Storybook: 12.2%, 88.4% -->
+          <div class="tgn" id="tn-sb" style="left:12.2%;top:88.4%">
+            <div class="tgn-icon">📖</div>
+            <div class="tgn-name">Storybook</div>
+            <div class="tgn-role">React docs</div>
+          </div>
+          <!-- Git: 50%, 88.4% -->
+          <div class="tgn" id="tn-git" style="left:50%;top:88.4%">
+            <div class="tgn-icon">🔗</div>
+            <div class="tgn-name">Git</div>
+            <div class="tgn-role">Version control</div>
+          </div>
+          <!-- Widgetbook: 87.8%, 88.4% -->
+          <div class="tgn" id="tn-wb" style="left:87.8%;top:88.4%">
+            <div class="tgn-icon">📱</div>
+            <div class="tgn-name">Widgetbook</div>
+            <div class="tgn-role">Flutter docs</div>
+          </div>
         </div>
-        <div class="tool-card">
-          <div class="t-logo">📖</div>
-          <div>
-            <div class="t-name">Storybook</div>
-            <div class="t-role">React Documentation</div>
-          </div>
-          <div class="t-desc">Living documentation for all React components on the brand management web platform. Every component is catalogued with stories, props, and visual states.</div>
-        </div>
-        <div class="tool-card">
-          <div class="t-logo">📱</div>
-          <div>
-            <div class="t-name">Widgetbook</div>
-            <div class="t-role">Flutter Documentation</div>
-          </div>
-          <div class="t-desc">The Flutter equivalent of Storybook. Each widget is catalogued and testable in isolation across devices and themes — ensuring design fidelity in the ambassador app.</div>
-        </div>
-        <div class="tool-card">
-          <div class="t-logo">⚛️</div>
-          <div>
-            <div class="t-name">React</div>
-            <div class="t-role">Web Platform</div>
-          </div>
-          <div class="t-desc">The frontend framework for the brand management web platform. Components are implemented as reusable React components consuming design tokens directly.</div>
-        </div>
-        <div class="tool-card">
-          <div class="t-logo">🐦</div>
-          <div>
-            <div class="t-name">Flutter</div>
-            <div class="t-role">Mobile App</div>
-          </div>
-          <div class="t-desc">The cross-platform framework for the ambassador mobile app. Widgets are built against the Club TIE token system using Flutter's theme and text theme APIs.</div>
-        </div>
-        <div class="tool-card">
-          <div class="t-logo">🔷</div>
-          <div>
-            <div class="t-name">Figma Variables</div>
-            <div class="t-role">Token System</div>
-          </div>
-          <div class="t-desc">Figma's native variable system powers the token layer — allowing colour, spacing, and radius values to propagate across all 8 libraries from a single source.</div>
-        </div>
-        <div class="tool-card">
-          <div class="t-logo">🗂️</div>
-          <div>
-            <div class="t-name">Notion</div>
-            <div class="t-role">Documentation</div>
-          </div>
-          <div class="t-desc">Component guidelines, usage documentation, contribution rules, and design system governance documentation live here — accessible to the full team.</div>
-        </div>
-        <div class="tool-card">
-          <div class="t-logo">🔗</div>
-          <div>
-            <div class="t-name">Git</div>
-            <div class="t-role">Version Control</div>
-          </div>
-          <div class="t-desc">Component code lives in version control alongside the product — design system updates follow the same branching and review workflow as any product feature.</div>
+
+        <div class="tg-legend">
+          <div class="tg-li"><div class="tg-ll" style="background:#9667f7"></div>Design → implementation</div>
+          <div class="tg-li"><div class="tg-ll" style="background:#3b82f6"></div>Token pipeline</div>
+          <div class="tg-li"><div class="tg-ll" style="background:#f97316"></div>Component documentation</div>
+          <div class="tg-li"><div class="tg-ll" style="background:#5E5C58"></div>Version control &amp; governance</div>
         </div>
       </div>
 
@@ -1647,52 +2403,46 @@
         <div class="reveal">
           <div class="section-label"><span class="num">09 /</span> Learnings</div>
           <h2>What I'd tell myself<br>at the start</h2>
-          <p>Building a design system from the ground up across two platforms is one of the most complex design challenges I've faced. Here's what I learned — and what I'd do differently.</p>
+          <p>Six things that shaped how I think about design systems.</p>
         </div>
 
-        <div class="learnings-split reveal">
-          <div>
-            <div class="learning-item">
-              <div class="l-num">01</div>
-              <div>
-                <h4>Foundations are worth the investment — every time</h4>
-                <p>It's tempting to skip straight to components. But every hour spent on a solid token and primitive layer saves ten hours of rework later. The more thorough the foundations, the faster everything built on top of them moves.</p>
-              </div>
+        <div class="learnings-layout">
+          <div class="learnings-cards">
+            <div class="learn-card reveal">
+              <div class="lc-num">01</div>
+              <h4>Foundations save 10× the time</h4>
+              <p>Every hour on tokens prevents ten hours of rework later.</p>
+              <div class="lc-bar-track"><div class="lc-bar"></div></div>
             </div>
-            <div class="learning-item">
-              <div class="l-num">02</div>
-              <div>
-                <h4>Governance is a product, not a meeting</h4>
-                <p>A design system without governance is just a Figma file. Storybook and Widgetbook transformed the system from a design artefact into a living product — one that could be trusted, tested, and extended by the full team.</p>
-              </div>
+            <div class="learn-card reveal">
+              <div class="lc-num">02</div>
+              <h4>Governance is a product, not a meeting</h4>
+              <p>Without Storybook and Widgetbook, the system is just a Figma file.</p>
+              <div class="lc-bar-track"><div class="lc-bar"></div></div>
             </div>
-            <div class="learning-item">
-              <div class="l-num">03</div>
-              <div>
-                <h4>Vibe coding changes the relationship</h4>
-                <p>The most impactful thing I did wasn't designing components — it was sitting with engineers and helping ship them. Being present in the codebase earned trust, caught issues early, and made the final result far more faithful to the design intent.</p>
-              </div>
+            <div class="learn-card reveal">
+              <div class="lc-num">03</div>
+              <h4>Vibe coding changes the relationship</h4>
+              <p>Being in the codebase earns trust and catches drift early.</p>
+              <div class="lc-bar-track"><div class="lc-bar"></div></div>
             </div>
-            <div class="learning-item">
-              <div class="l-num">04</div>
-              <div>
-                <h4>Scope ruthlessly in v1</h4>
-                <p>The instinct is to design everything up front. But a focused, well-executed v1 — even if it doesn't cover every edge case — gets adopted faster and builds more momentum than a sprawling system that never ships.</p>
-              </div>
+            <div class="learn-card reveal">
+              <div class="lc-num">04</div>
+              <h4>Scope ruthlessly in v1</h4>
+              <p>A focused v1 ships and gets adopted. A sprawling one never lands.</p>
+              <div class="lc-bar-track"><div class="lc-bar"></div></div>
             </div>
-            <div class="learning-item">
-              <div class="l-num">05</div>
-              <div>
-                <h4>Multi-platform is a multiplier — of both value and complexity</h4>
-                <p>Serving Flutter and React from the same foundation amplified the system's value significantly. But it also meant every decision needed to work in two different paradigms. Thinking in tokens rather than platform-specific values was the key to making it sustainable.</p>
-              </div>
+            <div class="learn-card reveal">
+              <div class="lc-num">05</div>
+              <h4>Multi-platform multiplies value and complexity</h4>
+              <p>Tokens — not platform values — are what make it sustainable.</p>
+              <div class="lc-bar-track"><div class="lc-bar"></div></div>
             </div>
-            <div class="learning-item">
-              <div class="l-num">06</div>
-              <div>
-                <h4>A design system is never done</h4>
-                <p>The most important mindset shift was accepting that Club TIE is a living product — not a project with an end date. Continuous iteration, regular reviews, and a clear contribution process are what keep a system healthy over time.</p>
-              </div>
+            <div class="learn-card reveal">
+              <div class="lc-num">06</div>
+              <h4>A design system is never done</h4>
+              <p>Treat it as a living product. Regular reviews keep it healthy.</p>
+              <div class="lc-bar-track"><div class="lc-bar"></div></div>
             </div>
           </div>
 
@@ -1701,12 +2451,12 @@
               <h3>What's next for Club TIE</h3>
               <div class="ns-sub">Roadmap &amp; future improvements</div>
               <ul class="ns-list">
-                <li><span class="ns-dot"></span>Formalise the token pipeline with a dedicated token export tool (e.g. Token Studio) to automate sync between Figma and both codebases</li>
-                <li><span class="ns-dot"></span>Expand the Clubicons set to cover more mission types, social platforms, and product-specific concepts</li>
-                <li><span class="ns-dot"></span>Build out a dedicated design system documentation site — going beyond Storybook/Widgetbook to a public-facing reference</li>
-                <li><span class="ns-dot"></span>Add accessibility audit checkpoints to the component governance process — automated a11y testing in CI</li>
-                <li><span class="ns-dot"></span>Extend the illustration system into a full motion library — defining animation patterns for the Flutter app</li>
-                <li><span class="ns-dot"></span>Introduce a contribution framework that allows product squads to propose and ship new components without bottlenecking through one person</li>
+                <li><span class="ns-dot"></span>Formalise the token pipeline with Token Studio</li>
+                <li><span class="ns-dot"></span>Expand Clubicons for more mission and social contexts</li>
+                <li><span class="ns-dot"></span>Build a public-facing documentation site</li>
+                <li><span class="ns-dot"></span>Automate a11y audit checkpoints in CI</li>
+                <li><span class="ns-dot"></span>Extend illustration into a full motion library</li>
+                <li><span class="ns-dot"></span>Introduce a squad contribution framework</li>
               </ul>
             </div>
           </div>

@@ -1,9 +1,41 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 
 export function HomeInteractions({ children }: { children: ReactNode }) {
+  const router = useRouter();
+  const routerRef = useRef(router);
+  routerRef.current = router;
+
+  /* ── Case card page transition ── */
+  useEffect(() => {
+    const overlay = document.getElementById("pt-overlay");
+
+    const onClick = (e: MouseEvent) => {
+      const card = (e.target as HTMLElement).closest(
+        "a.case-card",
+      ) as HTMLAnchorElement | null;
+      if (!card) return;
+      const href = card.getAttribute("href");
+      if (!href || !href.startsWith("/")) return;
+
+      e.preventDefault();
+      if (overlay) {
+        overlay.classList.remove("pt-revealing");
+        void overlay.offsetHeight; // force reflow to reset transition
+        overlay.classList.add("pt-covering");
+      }
+      window.setTimeout(() => {
+        routerRef.current.push(href);
+      }, 420);
+    };
+
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, []);
+
   useEffect(() => {
     const root = document.getElementById("home-root");
     if (!root) return;
@@ -11,6 +43,21 @@ export function HomeInteractions({ children }: { children: ReactNode }) {
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
+
+    /* ── Dismiss overlay when arriving from a case study ── */
+    const overlay = document.getElementById("pt-overlay");
+    if (overlay?.classList.contains("pt-covering")) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          overlay.classList.add("pt-revealing");
+          const onEnd = () => {
+            overlay.classList.remove("pt-covering", "pt-revealing");
+            overlay.removeEventListener("transitionend", onEnd);
+          };
+          overlay.addEventListener("transitionend", onEnd);
+        });
+      });
+    }
 
     /* ── Cursor glow ── */
     const glow = root.querySelector<HTMLElement>("#cursorGlow");
@@ -136,7 +183,13 @@ export function HomeInteractions({ children }: { children: ReactNode }) {
     const nav = root.querySelector<HTMLElement>("#mainNav");
     const navPill = root.querySelector<HTMLElement>("#navPill");
     const navLinksEl = root.querySelector<HTMLElement>("#navLinks");
-    const sectionOrder = ["about", "work", "approach", "experience", "contact"];
+    const sectionOrder = [
+      "work",
+      "articles",
+      "about",
+      "experience",
+      "contact",
+    ];
 
     function positionNavPill(link: Element | null) {
       if (!navPill || !navLinksEl || !link) {
@@ -467,6 +520,41 @@ export function HomeInteractions({ children }: { children: ReactNode }) {
       pressHandlers.push({ el, down, clear });
     });
 
+    /* ── Articles rail: vertical wheel → horizontal scroll + arrow keys ── */
+    const articlesRail = root.querySelector<HTMLElement>("#articlesRail");
+    const onArticlesWheel = (e: WheelEvent) => {
+      if (!articlesRail) return;
+      if (!articlesRail.contains(e.target as Node)) return;
+      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+      const maxScroll = articlesRail.scrollWidth - articlesRail.clientWidth;
+      if (maxScroll <= 2) return;
+      const { scrollLeft } = articlesRail;
+      const atStart = scrollLeft <= 2;
+      const atEnd = scrollLeft >= maxScroll - 2;
+      if ((e.deltaY < 0 && atStart) || (e.deltaY > 0 && atEnd)) return;
+      e.preventDefault();
+      articlesRail.scrollLeft += e.deltaY;
+    };
+    const onArticlesKeyDown = (e: KeyboardEvent) => {
+      if (!articlesRail || e.target !== articlesRail) return;
+      const step = Math.min(360, articlesRail.clientWidth * 0.85);
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        articlesRail.scrollBy({
+          left: -step,
+          behavior: prefersReducedMotion ? "auto" : "smooth",
+        });
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        articlesRail.scrollBy({
+          left: step,
+          behavior: prefersReducedMotion ? "auto" : "smooth",
+        });
+      }
+    };
+    articlesRail?.addEventListener("wheel", onArticlesWheel, { passive: false });
+    articlesRail?.addEventListener("keydown", onArticlesKeyDown);
+
     return () => {
       cancelAnimationFrame(parallaxRaf);
       mqMobile.removeEventListener("change", onMQChange);
@@ -502,7 +590,26 @@ export function HomeInteractions({ children }: { children: ReactNode }) {
         el.removeEventListener("pointerleave", clear);
         el.removeEventListener("blur", clear);
       });
+      articlesRail?.removeEventListener("wheel", onArticlesWheel);
+      articlesRail?.removeEventListener("keydown", onArticlesKeyDown);
     };
+  }, []);
+
+  /* Persist scroll position across reloads */
+  useEffect(() => {
+    const key = `scroll-y:${window.location.pathname}`;
+
+    const saved = sessionStorage.getItem(key);
+    if (saved) {
+      const y = parseInt(saved, 10);
+      requestAnimationFrame(() => window.scrollTo(0, y));
+    }
+
+    const onBeforeUnload = () => {
+      sessionStorage.setItem(key, String(window.scrollY));
+    };
+    window.addEventListener("beforeunload", onBeforeUnload);
+    return () => window.removeEventListener("beforeunload", onBeforeUnload);
   }, []);
 
   return <div id="home-root">{children}</div>;

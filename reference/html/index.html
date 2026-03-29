@@ -960,7 +960,7 @@
    ═══════════════════════════════════════════════ */
     .about-section {
       position: relative;
-      overflow: hidden;
+      overflow: visible;
     }
 
     .about-section::before {
@@ -992,242 +992,485 @@
       z-index: 1;
     }
 
-    .about-header {
-      text-align: center;
-      max-width: 680px;
-      margin: 0 auto;
+    .about-mosaic-grid {
+      display: grid;
+      grid-template-columns: 0.82fr 1.38fr 1.05fr;
+      grid-template-rows: 1fr 1fr;
+      gap: clamp(14px, 2vw, 22px);
+      margin-top: 56px;
+      min-height: clamp(420px, 65vw, 720px);
+      isolation: isolate;
+      padding: 10px 6px 20px;
+      margin-inline: -6px;
     }
 
-    .about-header .about-title {
-      margin-bottom: 16px;
-    }
-
-    .about-header .about-intro {
-      max-width: 100%;
-      margin: 0 auto;
-    }
-
-    .about-title-line {
-      display: block;
-    }
-
-    .about-head-block.rv .about-title-line,
-    .about-head-block.rv .about-intro {
-      opacity: 0;
-      transform: translateY(22px);
-    }
-
-    .about-head-block.rv.visible .about-title-line {
-      animation: about-line-in 0.85s var(--ease-spring) forwards;
-    }
-
-    .about-head-block.rv.visible .about-title-line:nth-child(1) {
-      animation-delay: 0.06s;
-    }
-
-    .about-head-block.rv.visible .about-title-line:nth-child(2) {
-      animation-delay: 0.16s;
-    }
-
-    .about-head-block.rv.visible .about-intro {
-      animation: about-line-in 0.75s var(--ease-out) 0.28s forwards;
-    }
-
-    @keyframes about-line-in {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .about-code {
-      background: linear-gradient(120deg, var(--c-accent-l) 0%, var(--c-accent) 42%, rgba(125, 255, 176, 0.95) 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+    .about-mosaic-card {
       position: relative;
-      display: inline-block;
-    }
-
-    .about-code::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -2px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--c-accent-b), transparent);
-      opacity: 0.65;
-      pointer-events: none;
-    }
-
-    .about-intro {
-      color: var(--c-text-m);
-      font-size: clamp(15px, 1.35vw, 17px);
-      line-height: 1.65;
-      max-width: 36ch;
       margin: 0;
+      border-radius: 20px;
+      z-index: 0;
+      transform: translateZ(0) scale(1);
+      transition:
+        transform 0.55s cubic-bezier(0.33, 1.35, 0.48, 1),
+        box-shadow 0.5s var(--ease-out),
+        z-index 0s;
     }
 
-    .about-intro br {
+    .about-mosaic-card--tall {
+      grid-row: 1 / -1;
+    }
+
+    .about-mosaic-card--half:nth-of-type(3) {
+      grid-column: 3;
+      grid-row: 1;
+    }
+
+    .about-mosaic-card--half:nth-of-type(4) {
+      grid-column: 3;
+      grid-row: 2;
+    }
+
+    .about-mosaic-media {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      border-radius: inherit;
+      overflow: hidden;
+      border: 1px solid var(--c-border);
+      background:
+        linear-gradient(145deg, rgba(34, 34, 42, 0.9) 0%, rgba(18, 18, 22, 0.98) 100%);
+      box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    .about-mosaic-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      z-index: 2;
+      opacity: 0;
+      transform-origin: center center;
+      transition: opacity 0.65s var(--ease-out), transform 0.55s cubic-bezier(0.33, 1.35, 0.48, 1);
+    }
+
+    .about-mosaic-img.about-mosaic-img--loaded {
+      opacity: 1;
+      transition: opacity 0.65s var(--ease-out), transform 0.55s cubic-bezier(0.33, 1.35, 0.48, 1);
+    }
+
+    .about-mosaic-img.about-mosaic-img--missing {
       display: none;
     }
 
-    @media (min-width: 520px) {
-      .about-intro br {
-        display: inline;
+    .about-mosaic-fallback {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 20px;
+      text-align: center;
+      opacity: 1;
+      transition: opacity 0.4s var(--ease-out);
+    }
+
+    .about-mosaic-media:has(.about-mosaic-img--loaded) .about-mosaic-fallback {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .about-mosaic-fallback-code {
+      font-family: ui-monospace, monospace;
+      font-size: 10px;
+      color: var(--c-accent-l);
+      word-break: break-all;
+      max-width: 100%;
+      line-height: 1.4;
+    }
+
+    .about-mosaic-fallback-hint {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--c-text-d);
+    }
+
+    .about-mosaic-caption {
+      position: absolute;
+      left: 16px;
+      bottom: 14px;
+      z-index: 3;
+      margin: 0;
+      padding: 6px 12px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--c-text);
+      background: rgba(8, 8, 10, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      opacity: 0;
+      transform: translateY(8px);
+      transition:
+        opacity 0.4s var(--ease-out),
+        transform 0.45s var(--ease-spring);
+      pointer-events: none;
+    }
+
+    .about-mosaic-media:has(.about-mosaic-img--loaded) .about-mosaic-caption {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .about-mosaic-card:hover {
+        z-index: 10;
+        transform: scale(1.045) translateY(-10px);
+        box-shadow:
+          0 36px 72px rgba(0, 0, 0, 0.45),
+          0 0 0 1px rgba(29, 168, 130, 0.2),
+          0 0 56px rgba(29, 168, 130, 0.1);
+      }
+
+      .about-mosaic-card:hover .about-mosaic-media {
+        border-color: rgba(29, 168, 130, 0.35);
+      }
+
+      .about-mosaic-card:hover .about-mosaic-img.about-mosaic-img--loaded {
+        transform: scale(1.04);
+        transition: opacity 0.65s var(--ease-out), transform 0.55s cubic-bezier(0.33, 1.35, 0.48, 1);
       }
     }
 
-    .about-pillars-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-top: clamp(48px, 5vw, 64px);
-    }
-
     @media (max-width: 900px) {
-      .about-pillars-grid {
-        grid-template-columns: repeat(2, 1fr);
+      .about-mosaic-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+        min-height: 0;
+      }
+
+      .about-mosaic-card--tall {
+        grid-row: auto;
+        min-height: clamp(240px, 42vw, 360px);
+      }
+
+      .about-mosaic-card--half:nth-of-type(3),
+      .about-mosaic-card--half:nth-of-type(4) {
+        grid-column: auto;
+        grid-row: auto;
+        min-height: clamp(180px, 36vw, 260px);
       }
     }
 
     @media (max-width: 520px) {
-      .about-pillars-grid {
+      .about-mosaic-grid {
         grid-template-columns: 1fr;
       }
     }
 
-    .about-pillar {
+    @media (prefers-reduced-motion: reduce) {
+
+      .about-mosaic-card,
+      .about-mosaic-img,
+      .about-mosaic-caption {
+        transition: none !important;
+      }
+
+      .about-mosaic-card:hover {
+        transform: none !important;
+        box-shadow: none !important;
+      }
+
+      .about-mosaic-card:hover .about-mosaic-img {
+        transform: none !important;
+      }
+    }
+
+    /* ═══════════════════════════════════════════════
+   ARTICLES & COMMUNITY — horizontal rail
+   ═══════════════════════════════════════════════ */
+    .articles-section {
+      position: relative;
+      overflow: visible;
+      --articles-accent: #e879f9;
+      --articles-accent-dim: rgba(232, 121, 249, 0.35);
+      --articles-deep: #12101c;
+    }
+
+    .articles-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 70% 50% at 85% 20%, rgba(232, 121, 249, 0.07), transparent 55%),
+        radial-gradient(ellipse 50% 40% at 10% 80%, rgba(29, 168, 130, 0.06), transparent 50%);
+      z-index: 0;
+    }
+
+    .articles-section .section-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .articles-rail-outer {
+      margin-top: 48px;
+      margin-inline: calc(-1 * clamp(20px, 4vw, 48px));
+      padding: 8px 0 16px;
+      mask-image: linear-gradient(to right, transparent, black 32px, black calc(100% - 32px), transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 32px, black calc(100% - 32px), transparent);
+    }
+
+    .articles-rail {
+      display: flex;
+      gap: clamp(16px, 2.2vw, 24px);
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: clamp(20px, 4vw, 48px);
+      padding: 12px clamp(20px, 4vw, 48px) 28px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--c-border-m) transparent;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-x;
+      outline: none;
+    }
+
+    .articles-rail:focus-visible {
+      box-shadow: 0 0 0 2px var(--c-bg), 0 0 0 4px var(--articles-accent-dim);
+      border-radius: 12px;
+    }
+
+    .articles-rail::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .articles-rail::-webkit-scrollbar-thumb {
+      background: var(--c-border-m);
+      border-radius: 3px;
+    }
+
+    .articles-card {
+      flex: 0 0 min(92vw, 680px);
+      max-width: 680px;
+      scroll-snap-align: start;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+      min-height: clamp(240px, 32vw, 300px);
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid var(--c-border);
+      background: linear-gradient(155deg, rgba(26, 24, 34, 0.95) 0%, rgba(12, 10, 18, 0.98) 100%);
+      box-shadow:
+        0 20px 56px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      text-align: left;
+      transition:
+        transform 0.55s cubic-bezier(0.33, 1.35, 0.48, 1),
+        box-shadow 0.5s var(--ease-out),
+        border-color 0.35s var(--ease-out);
+    }
+
+    .articles-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: var(--articles-accent-dim);
+      box-shadow:
+        0 32px 72px rgba(0, 0, 0, 0.45),
+        0 0 0 1px rgba(232, 121, 249, 0.15),
+        0 0 48px rgba(232, 121, 249, 0.08);
+    }
+
+    .articles-card-visual {
+      position: relative;
+      min-height: 200px;
+      background:
+        linear-gradient(135deg, rgba(30, 22, 48, 0.9) 0%, var(--articles-deep) 100%);
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 20px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .articles-card-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.65s var(--ease-out);
+    }
+
+    .articles-card:hover .articles-card-visual img {
+      transform: scale(1.06);
+    }
+
+    .articles-card-visual--abstract {
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding: 20px;
+    }
+
+    .articles-visual-deco {
+      font-family: var(--f-display);
+      font-size: clamp(42px, 8vw, 72px);
+      font-weight: 800;
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      color: rgba(255, 255, 255, 0.06);
+      user-select: none;
+    }
+
+    .articles-play {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(6, 4, 12, 0.35);
+      transition: background 0.35s var(--ease-out);
+    }
+
+    .articles-card:hover .articles-play {
+      background: rgba(6, 4, 12, 0.2);
+    }
+
+    .articles-play svg {
+      width: 56px;
+      height: 56px;
+      color: #fff;
+      filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.5));
+      transition: transform 0.45s var(--ease-spring);
+    }
+
+    .articles-card:hover .articles-play svg {
+      transform: scale(1.08);
+    }
+
+    .articles-card-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--articles-accent);
+      border: 1px solid var(--articles-accent-dim);
+      background: rgba(8, 6, 14, 0.75);
+      backdrop-filter: blur(8px);
+    }
+
+    .articles-card-body {
+      padding: clamp(20px, 3vw, 28px);
       display: flex;
       flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 32px 20px;
-      border-radius: 20px;
-      background: linear-gradient(145deg, rgba(34, 34, 40, 0.65) 0%, rgba(22, 22, 26, 0.92) 100%);
-      border: 1px solid var(--c-border);
-      box-shadow:
-        0 12px 40px rgba(0, 0, 0, 0.22),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
-      transition:
-        transform var(--t-med) var(--ease-spring),
-        box-shadow var(--t-med) var(--ease-out),
-        border-color var(--t-fast) var(--ease-out);
-    }
-
-    .about-pillar:hover {
-      transform: translateY(-5px) scale(1.015);
-      border-color: var(--c-accent-b);
-      box-shadow:
-        0 20px 56px rgba(0, 0, 0, 0.32),
-        0 0 0 1px rgba(29, 168, 130, 0.12),
-        0 0 48px rgba(29, 168, 130, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.07);
-    }
-
-    .about-pillar-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
       justify-content: center;
-      background: var(--c-accent-bg);
-      border: 1px solid var(--c-accent-b);
-      color: var(--c-accent-l);
-      flex-shrink: 0;
+      gap: 10px;
     }
 
-    .about-pillar-icon svg {
-      width: 22px;
-      height: 22px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 1.75;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .about-pillar-title {
-      font-family: var(--f-display);
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      color: var(--c-text);
-      margin: 16px 0 6px;
-    }
-
-    .about-pillar-desc {
-      font-size: 13px;
-      line-height: 1.5;
-      color: var(--c-text-d);
+    .articles-meta {
       margin: 0;
-    }
-
-    .about-skills-row {
-      margin-top: clamp(40px, 4vw, 56px);
-      display: flex;
-      justify-content: center;
-    }
-
-    .about-skills-row .skill-tags {
-      justify-content: center;
-      margin-bottom: 0;
-    }
-
-    .skill-group-label {
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 500;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--c-text-d);
-      margin-bottom: 10px;
     }
 
-    .skill-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 18px;
+    .articles-card-title {
+      margin: 0;
+      font-family: var(--f-display);
+      font-size: clamp(20px, 2.4vw, 26px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--c-text);
     }
 
-    .skill-tags:last-child {
-      margin-bottom: 0;
-    }
-
-    .skill-tag {
-      padding: 7px 14px;
-      border-radius: 100px;
-      font-size: 12px;
-      font-weight: 500;
-      border: 1px solid var(--c-border-m);
+    .articles-card-desc {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
       color: var(--c-text-m);
-      background: rgba(15, 15, 18, 0.4);
-      transition:
-        transform 0.35s var(--ease-elastic),
-        border-color var(--t-fast) var(--ease-out),
-        background var(--t-fast) var(--ease-out),
-        color var(--t-fast) var(--ease-out),
-        box-shadow var(--t-med) var(--ease-out);
+      flex: 1;
+    }
+
+    .articles-card-cta {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--c-accent-l);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+      transition: color 0.25s ease, transform 0.35s var(--ease-spring);
+    }
+
+    .articles-card:hover .articles-card-cta {
+      color: var(--articles-accent);
+      transform: translateX(4px);
+    }
+
+    a.articles-card {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    .articles-card--static {
       cursor: default;
     }
 
-    .skill-tag:hover {
-      border-color: var(--c-accent-b);
+    a.articles-card .articles-card-cta {
       color: var(--c-accent-l);
-      background: var(--c-accent-bg);
-      transform: translateY(-2px) scale(1.045);
-      box-shadow: 0 0 20px rgba(29, 168, 130, 0.18), 0 4px 16px rgba(0, 0, 0, 0.15);
     }
 
-    .skill-tag.highlight {
-      border-color: var(--c-accent-b);
-      color: var(--c-accent-l);
-      background: var(--c-accent-bg);
+    @media (max-width: 720px) {
+      .articles-card {
+        grid-template-columns: 1fr;
+        flex-basis: min(94vw, 100%);
+        min-height: 0;
+      }
+
+      .articles-card-visual {
+        min-height: 180px;
+      }
     }
 
-    /* (skills expand removed — all tags visible) */
+    @media (prefers-reduced-motion: reduce) {
+
+      .articles-card,
+      .articles-card-visual img,
+      .articles-play svg,
+      .articles-card-cta {
+        transition: none !important;
+      }
+
+      .articles-card:hover {
+        transform: none;
+      }
+
+      .articles-card:hover .articles-card-visual img {
+        transform: none;
+      }
+    }
 
     /* ═══════════════════════════════════════════════
    CASE STUDIES (site tokens: dark, Syne, accent)
@@ -1426,6 +1669,38 @@
     }
 
     .case-card--club-tie .case-eyebrow {
+      color: #b593f9;
+    }
+
+    /* Club Experience — Club purple (same as Club TIE) */
+    .case-card--club-exp {
+      --card-bg: #100d16;
+    }
+
+    .case-card--club-exp::before {
+      background: linear-gradient(135deg, rgba(97, 49, 196, 0.35), transparent, transparent, rgba(179, 147, 249, 0.2)) border-box;
+    }
+
+    .case-card--club-exp::after {
+      background:
+        radial-gradient(circle at var(--card-mx, 50%) var(--card-my, 50%), rgba(150, 103, 247, 0.22), transparent 38%),
+        linear-gradient(110deg, rgba(255, 255, 255, 0.025), transparent 45%);
+    }
+
+    .case-card--club-exp:hover {
+      border-color: rgba(150, 103, 247, 0.42);
+      box-shadow:
+        0 36px 88px rgba(0, 0, 0, 0.42),
+        0 0 0 1px rgba(150, 103, 247, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 0 88px rgba(97, 49, 196, 0.12);
+    }
+
+    .case-card--club-exp .case-float {
+      color: #c9b0fc;
+    }
+
+    .case-card--club-exp .case-eyebrow {
       color: #b593f9;
     }
 
@@ -2172,15 +2447,6 @@
         display: none;
       }
 
-      .about-layout {
-        grid-template-columns: 1fr;
-        gap: 48px;
-      }
-
-      .about-pillars {
-        margin-top: 8px;
-      }
-
       .case-card {
         min-height: 0;
       }
@@ -2250,10 +2516,11 @@
     <ul class="nav-links" id="navLinks">
       <span class="nav-active-pill" id="navPill" aria-hidden="true"></span>
       <li><a href="#work" class="pressable" data-section="work">Work</a></li>
+      <li><a href="#articles" class="pressable" data-section="articles">Articles</a></li>
       <li><a href="#about" class="pressable" data-section="about">About</a></li>
-      <li><a href="#approach" class="pressable" data-section="approach">Approach</a></li>
       <li><a href="#experience" class="pressable" data-section="experience">Experience</a></li>
       <li><a href="/resume" class="pressable">Resume</a></li>
+      <li><a href="/beyond-the-interface" class="pressable">Beyond</a></li>
     </ul>
     <a href="#contact" class="nav-cta magnetic pressable">Let's talk</a>
   </nav>
@@ -2276,7 +2543,8 @@
           <div class="hero-avatar-container">
             <div class="hero-avatar-halo"></div>
             <div class="hero-avatar-ring"></div>
-            <img class="hero-avatar-img" src="sayed-photo.png" alt="Sayed El Mohamady" onerror="this.style.display='none'">
+            <img class="hero-avatar-img" src="sayed-photo.png" alt="Sayed El Mohamady"
+              onerror="this.style.display='none'">
             <div class="hero-avatar-glow"></div>
           </div>
         </div>
@@ -2297,7 +2565,8 @@
           <span class="line"><span class="accent">systems</span> that</span>
           <span class="line"><span class="dim">scale products</span></span>
         </h1>
-        <p class="hero-desc">Design system architect and vibe coder. I bridge the gap between design and engineering to build products that are consistent, scalable, and beautifully crafted.</p>
+        <p class="hero-desc">Design system architect and vibe coder. I bridge the gap between design and engineering to
+          build products that are consistent, scalable, and beautifully crafted.</p>
         <div class="hero-actions">
           <a href="#work" class="btn-primary magnetic pressable">
             View case studies
@@ -2426,8 +2695,40 @@
           </a>
         </div>
 
-        <!-- Case 2: Mabaat -->
+        <!-- Case 2: Club Experience — hidden, uncomment to restore
         <div class="case-card-sticky-wrap" data-base-z="2" data-case-type="digital-product" style="--card-z: 2">
+          <a href="club-experience-case-study.html" class="case-card case-card--club-exp pressable">
+            <span class="case-shimmer" aria-hidden="true"></span>
+            <div class="case-card-content">
+              <div class="case-brand">Club</div>
+              <p class="case-eyebrow">UX Case Study · Mobile App</p>
+              <h3 class="case-title">Redesigning engagement<br>for 1M+ members</h3>
+              <p class="case-desc">UX restructuring, reward clarity, and progression for Club's ambassador platform.</p>
+            </div>
+            <div class="case-card-visual">
+              <div class="case-visual-mesh" aria-hidden="true"></div>
+              <div class="case-float case-float--1" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <div class="case-float case-float--2" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+              </div>
+              <div class="case-float case-float--3" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+              </div>
+              <div class="case-card-full-img-wrap">
+                <div class="case-card-full-placeholder">
+                  <span>Club Experience</span>
+                  <small>Add a framed screenshot from Figma export.</small>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        -->
+
+        <!-- Case 3: Mabaat -->
+        <div class="case-card-sticky-wrap" data-base-z="3" data-case-type="digital-product" style="--card-z: 3">
           <a href="mabaat-case-study.html" class="case-card case-card--mabaat pressable" style="--card-bg: #131a22">
             <span class="case-shimmer" aria-hidden="true"></span>
             <div class="case-card-content">
@@ -2464,8 +2765,54 @@
           </a>
         </div>
 
-        <!-- Case 3: Otida -->
-        <div class="case-card-sticky-wrap" data-base-z="3" data-case-type="digital-product" style="--card-z: 3">
+        <!-- Case 4: Etar Design System -->
+        <div class="case-card-sticky-wrap" data-base-z="4" data-case-type="design-system" style="--card-z: 4">
+          <a href="etar-case-study.html" class="case-card case-card--etar pressable" style="--card-bg: #0b0f1a">
+            <span class="case-shimmer" aria-hidden="true"></span>
+            <div class="case-card-content">
+              <div class="case-brand">Etar</div>
+              <p class="case-eyebrow">Design System · Founder</p>
+              <h3 class="case-title">RTL-first system for<br>the Arab world</h3>
+              <p class="case-desc">4,000+ components supporting Arabic &amp; English, web &amp; mobile.</p>
+            </div>
+            <div class="case-card-visual">
+              <div class="case-visual-mesh" aria-hidden="true"></div>
+              <div class="case-float case-float--1" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4 7h16M4 12h10M4 17h13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                    fill="none" />
+                </svg>
+              </div>
+              <div class="case-float case-float--2" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <rect x="3" y="3" width="7" height="7" rx="1" />
+                  <rect x="14" y="3" width="7" height="7" rx="1" />
+                  <rect x="3" y="14" width="7" height="7" rx="1" />
+                  <rect x="14" y="14" width="7" height="7" rx="1" />
+                </svg>
+              </div>
+              <div class="case-float case-float--3" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10" />
+                  <path
+                    d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                    fill="none" stroke="currentColor" stroke-width="1.5" />
+                </svg>
+              </div>
+              <div class="case-card-full-img-wrap">
+                <video class="case-card-thumb-video" src="/videos/etar-ds.mp4" width="1200" height="750" autoplay muted
+                  loop playsinline preload="auto" aria-label="Etar Design System preview"></video>
+                <div class="case-card-full-placeholder">
+                  <span>Etar</span>
+                  <small>Add an Etar Design System screenshot or video.</small>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Case 5: Otida -->
+        <div class="case-card-sticky-wrap" data-base-z="5" data-case-type="digital-product" style="--card-z: 5">
           <a href="otida-case-study.html" class="case-card case-card--otida pressable" style="--card-bg: #101a1e">
             <span class="case-shimmer" aria-hidden="true"></span>
             <div class="case-card-content">
@@ -2500,8 +2847,8 @@
           </a>
         </div>
 
-        <!-- Case 4: MNT-Halan -->
-        <div class="case-card-sticky-wrap" data-base-z="4" data-case-type="digital-product" style="--card-z: 4">
+        <!-- Case 6: MNT-Halan -->
+        <div class="case-card-sticky-wrap" data-base-z="6" data-case-type="digital-product" style="--card-z: 6">
           <a href="project-case-study.html" class="case-card case-card--mnt-halan pressable" style="--card-bg: #181716">
             <span class="case-shimmer" aria-hidden="true"></span>
             <div class="case-card-content">
@@ -2538,8 +2885,8 @@
           </a>
         </div>
 
-        <!-- Case 5: Halan Design System -->
-        <div class="case-card-sticky-wrap" data-base-z="5" data-case-type="design-system" style="--card-z: 5">
+        <!-- Case 7: Halan Design System -->
+        <div class="case-card-sticky-wrap" data-base-z="7" data-case-type="design-system" style="--card-z: 7">
           <a href="halan-design-system-case-study.html" class="case-card case-card--halan-ds pressable"
             style="--card-bg: #0a1210">
             <span class="case-shimmer" aria-hidden="true"></span>
@@ -2582,179 +2929,165 @@
           </a>
         </div>
 
-        <!-- Case 6: Etar Design System -->
-        <div class="case-card-sticky-wrap" data-base-z="6" data-case-type="design-system" style="--card-z: 6">
-          <a href="etar-case-study.html" class="case-card case-card--etar pressable"
-            style="--card-bg: #0b0f1a">
-            <span class="case-shimmer" aria-hidden="true"></span>
-            <div class="case-card-content">
-              <div class="case-brand">Etar</div>
-              <p class="case-eyebrow">Design System · Founder</p>
-              <h3 class="case-title">RTL-first system for<br>the Arab world</h3>
-              <p class="case-desc">4,000+ components supporting Arabic &amp; English, web &amp; mobile.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ARTICLES & COMMUNITY — horizontal rail ═══ -->
+  <section class="section articles-section" id="articles">
+    <div class="section-inner">
+      <div class="rv">
+        <div class="section-label"><span class="num">02 /</span> Writing &amp; community</div>
+        <h2 class="section-title">Articles, talks &amp; mentoring</h2>
+        <p class="section-desc">Notes on design systems and product craft—and time with the community through talks,
+          podcasts, and mentoring designers.</p>
+      </div>
+
+      <div class="articles-rail-outer rv" data-reveal-delay="100">
+        <div class="articles-rail" id="articlesRail" tabindex="0" role="region"
+          aria-label="Featured writing and appearances">
+          <a class="articles-card pressable" href="https://www.youtube.com/watch?v=Wvh1vm-gXAk" target="_blank"
+            rel="noopener noreferrer">
+            <div class="articles-card-visual">
+              <span class="articles-card-badge">JobStack · June 2022</span>
+              <img src="https://img.youtube.com/vi/Wvh1vm-gXAk/hqdefault.jpg"
+                alt="JobStack talk — Love/Hate Relationship between Designers and Engineers (Design System) — video thumbnail"
+                width="480" height="360" decoding="async">
+              <div class="articles-play" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
             </div>
-            <div class="case-card-visual">
-              <div class="case-visual-mesh" aria-hidden="true"></div>
-              <div class="case-float case-float--1" aria-hidden="true">
-                <svg viewBox="0 0 24 24">
-                  <path d="M4 7h16M4 12h10M4 17h13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <div class="articles-card-body">
+              <p class="articles-meta">Speaking · JobStack Virtual Tech Job Fair</p>
+              <h3 class="articles-card-title">Love/Hate Relationship between Designers &amp; Engineers </h3>
+              <p class="articles-card-desc">Recorded for JobStack Virtual Tech Job Fair (Talents Arena): balanced
+                product
+                teams, what a design system is (and how to prepare), building your own, and common designer–engineer
+                friction. Senior Product Designer @ Halan.</p>
+              <span class="articles-card-cta">Watch on YouTube →</span>
+            </div>
+          </a>
+
+          <a class="articles-card pressable" href="https://www.youtube.com/watch?v=tFn31cgWk7Y" target="_blank"
+            rel="noopener noreferrer">
+            <div class="articles-card-visual">
+              <span class="articles-card-badge">Letter Cast · S1 · Ep 4</span>
+              <img src="https://img.youtube.com/vi/tFn31cgWk7Y/hqdefault.jpg"
+                alt="Letter Cast — design systems and digital products (video thumbnail)" width="480" height="360"
+                decoding="async">
+              <div class="articles-play" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M8 5v14l11-7z" />
                 </svg>
               </div>
-              <div class="case-float case-float--2" aria-hidden="true">
-                <svg viewBox="0 0 24 24">
-                  <rect x="3" y="3" width="7" height="7" rx="1" />
-                  <rect x="14" y="3" width="7" height="7" rx="1" />
-                  <rect x="3" y="14" width="7" height="7" rx="1" />
-                  <rect x="14" y="14" width="7" height="7" rx="1" />
-                </svg>
-              </div>
-              <div class="case-float case-float--3" aria-hidden="true">
-                <svg viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="10" />
-                  <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" fill="none" stroke="currentColor" stroke-width="1.5"/>
-                </svg>
-              </div>
-              <div class="case-card-full-img-wrap">
-                <video class="case-card-thumb-video" src="/videos/etar-ds.mp4" width="1200" height="750"
-                  autoplay muted loop playsinline preload="auto"
-                  aria-label="Etar Design System preview"></video>
-                <div class="case-card-full-placeholder">
-                  <span>Etar</span>
-                  <small>Add an Etar Design System screenshot or video.</small>
-                </div>
-              </div>
+            </div>
+            <div class="articles-card-body">
+              <p class="articles-meta">Speaking · Podcast</p>
+              <h3 class="articles-card-title">Design systems &amp; building digital products</h3>
+              <p class="articles-card-desc">A conversation on UX, consistency, and how shared foundations help teams
+                ship together—guest on Letter Cast (Arabic).</p>
+              <span class="articles-card-cta">Watch on YouTube →</span>
+            </div>
+          </a>
+
+          <article class="articles-card articles-card--static">
+            <div class="articles-card-visual articles-card-visual--abstract">
+              <span class="articles-card-badge">Article</span>
+              <span class="articles-visual-deco" aria-hidden="true">DS</span>
+            </div>
+            <div class="articles-card-body">
+              <p class="articles-meta">Writing</p>
+              <h3 class="articles-card-title">Why a design system pays off</h3>
+              <p class="articles-card-desc">How reusable components and clear standards keep interfaces consistent,
+                tighten designer–developer collaboration, and lift UX quality without blowing the budget.</p>
+              <span class="articles-card-cta">Full piece — coming soon</span>
+            </div>
+          </article>
+
+          <a class="articles-card pressable" href="#contact">
+            <div class="articles-card-visual articles-card-visual--abstract">
+              <span class="articles-card-badge">Community</span>
+              <span class="articles-visual-deco" aria-hidden="true">1:1</span>
+            </div>
+            <div class="articles-card-body">
+              <p class="articles-meta">Mentoring</p>
+              <h3 class="articles-card-title">Speaking &amp; mentoring</h3>
+              <p class="articles-card-desc">I share what I&rsquo;ve learned in meetups, podcasts, and 1:1
+                sessions—portfolio
+                reviews, system thinking, and growing as a product designer.</p>
+              <span class="articles-card-cta">Get in touch →</span>
             </div>
           </a>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- ═══ ABOUT ═══ -->
+  <!-- ═══ ABOUT — mosaic intro (add photos under public/images/personal/) ═══ -->
   <section class="section about-section" id="about">
     <div class="section-inner">
-      <!-- Top: label + headline centered -->
-      <div class="about-header rv about-head-block">
-        <div class="section-label"><span class="num">02 /</span> About</div>
-        <h2 class="section-title about-title">
-          <span class="about-title-line">Designer who speaks <span class="about-code">code</span></span>
-        </h2>
-        <p class="about-intro">Senior Product Designer bridging design systems and engineering.</p>
-      </div>
-
-      <!-- 4-column pillar grid -->
-      <div class="about-pillars-grid rv rv-stagger">
-        <article class="about-pillar">
-          <div class="about-pillar-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <rect x="3" y="3" width="7" height="7" rx="1" />
-              <rect x="14" y="3" width="7" height="7" rx="1" />
-              <rect x="3" y="14" width="7" height="7" rx="1" />
-              <rect x="14" y="14" width="7" height="7" rx="1" />
-            </svg>
-          </div>
-          <h3 class="about-pillar-title">Design Systems</h3>
-          <p class="about-pillar-desc">Scalable foundations across every surface.</p>
-        </article>
-        <article class="about-pillar">
-          <div class="about-pillar-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <polyline points="16 18 22 12 16 6" />
-              <polyline points="8 6 2 12 8 18" />
-            </svg>
-          </div>
-          <h3 class="about-pillar-title">Vibe Coding</h3>
-          <p class="about-pillar-desc">Designing directly in code with engineers.</p>
-        </article>
-        <article class="about-pillar">
-          <div class="about-pillar-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <rect x="4" y="4" width="16" height="6" rx="1" />
-              <rect x="4" y="14" width="10" height="6" rx="1" />
-              <rect x="16" y="14" width="4" height="6" rx="1" />
-            </svg>
-          </div>
-          <h3 class="about-pillar-title">Components</h3>
-          <p class="about-pillar-desc">Reusable UI systems that ship and scale.</p>
-        </article>
-        <article class="about-pillar">
-          <div class="about-pillar-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-              <circle cx="9" cy="7" r="4" />
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-            </svg>
-          </div>
-          <h3 class="about-pillar-title">Collaboration</h3>
-          <p class="about-pillar-desc">Aligning design and engineering on one roadmap.</p>
-        </article>
-      </div>
-
-      <!-- Skills row -->
-      <div class="about-skills-row rv" data-reveal-delay="80">
-        <div class="skill-tags">
-          <span class="skill-tag highlight">Design Systems</span>
-          <span class="skill-tag highlight">Vibe Coding</span>
-          <span class="skill-tag">Product Design</span>
-          <span class="skill-tag">Design Tokens</span>
-          <span class="skill-tag">Figma</span>
-          <span class="skill-tag">Storybook</span>
-          <span class="skill-tag">Flutter</span>
-          <span class="skill-tag">React</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ APPROACH ═══ -->
-  <section class="section" id="approach">
-    <div class="section-inner">
       <div class="rv">
-        <div class="section-label"><span class="num">03 /</span> Approach</div>
-        <h2 class="section-title">How I work</h2>
-        <p class="section-desc">My design philosophy centres on systems thinking, cross-functional collaboration, and
-          bridging the gap between design tools and production code.</p>
+        <div class="section-label"><span class="num">03 /</span> About</div>
+        <h2 class="section-title">That&rsquo;s me!</h2>
+        <p class="section-desc">Over the past 8 years, I&rsquo;ve worked with a diverse range of clients, from
+          startups to companies. I love crafting interfaces that delight users and help businesses grow.</p>
       </div>
-      <div class="philosophy-grid rv rv-stagger">
-        <div class="philosophy-card">
-          <div class="philosophy-icon">
-            <svg viewBox="0 0 24 24">
-              <rect x="3" y="3" width="7" height="7" />
-              <rect x="14" y="3" width="7" height="7" />
-              <rect x="3" y="14" width="7" height="7" />
-              <rect x="14" y="14" width="7" height="7" />
-            </svg>
+
+      <div class="about-mosaic-grid rv rv-stagger" aria-label="Photo gallery">
+        <figure class="about-mosaic-card about-mosaic-card--tall" data-cursor-hover>
+          <div class="about-mosaic-media">
+            <img class="about-mosaic-img" src="/images/personal/about-mosaic-01-workspace.jpg"
+              alt="Workspace — desk and monitors" width="900" height="1200" loading="lazy" decoding="async"
+              onload="this.classList.add('about-mosaic-img--loaded')"
+              onerror="this.classList.add('about-mosaic-img--missing')">
+            <figcaption class="about-mosaic-caption">Workspace</figcaption>
+            <div class="about-mosaic-fallback" aria-hidden="true">
+              <span class="about-mosaic-fallback-code">about-mosaic-01-workspace.jpg</span>
+              <span class="about-mosaic-fallback-hint">Portrait · left column</span>
+            </div>
           </div>
-          <h3>Systems over screens</h3>
-          <p>I don't design pages — I design the building blocks that compose into pages. Tokens, primitives,
-            components, and patterns that scale across any surface.</p>
-        </div>
-        <div class="philosophy-card">
-          <div class="philosophy-icon">
-            <svg viewBox="0 0 24 24">
-              <polyline points="16 18 22 12 16 6" />
-              <polyline points="8 6 2 12 8 18" />
-            </svg>
+        </figure>
+        <figure class="about-mosaic-card about-mosaic-card--tall" data-cursor-hover>
+          <div class="about-mosaic-media">
+            <img class="about-mosaic-img" src="/images/personal/about-mosaic-02-speaking.jpg"
+              alt="Presenting — talks or workshops" width="900" height="1200" loading="lazy" decoding="async"
+              onload="this.classList.add('about-mosaic-img--loaded')"
+              onerror="this.classList.add('about-mosaic-img--missing')">
+            <figcaption class="about-mosaic-caption">In action</figcaption>
+            <div class="about-mosaic-fallback" aria-hidden="true">
+              <span class="about-mosaic-fallback-code">about-mosaic-02-speaking.jpg</span>
+              <span class="about-mosaic-fallback-hint">Portrait · center column</span>
+            </div>
           </div>
-          <h3>Vibe coding</h3>
-          <p>I work directly in the codebase alongside engineers — writing, adjusting, and refining components in
-            real-time. Design intent doesn't get lost in translation.</p>
-        </div>
-        <div class="philosophy-card">
-          <div class="philosophy-icon">
-            <svg viewBox="0 0 24 24">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-              <circle cx="9" cy="7" r="4" />
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-            </svg>
+        </figure>
+        <figure class="about-mosaic-card about-mosaic-card--half" data-cursor-hover>
+          <div class="about-mosaic-media">
+            <img class="about-mosaic-img" src="/images/personal/about-mosaic-03-presentation.jpg"
+              alt="Presentation — screen or stage" width="1200" height="750" loading="lazy" decoding="async"
+              onload="this.classList.add('about-mosaic-img--loaded')"
+              onerror="this.classList.add('about-mosaic-img--missing')">
+            <figcaption class="about-mosaic-caption">On stage</figcaption>
+            <div class="about-mosaic-fallback" aria-hidden="true">
+              <span class="about-mosaic-fallback-code">about-mosaic-03-presentation.jpg</span>
+              <span class="about-mosaic-fallback-hint">Landscape · top right</span>
+            </div>
           </div>
-          <h3>Design ↔ engineering</h3>
-          <p>The best design systems are co-owned. I build trust with engineering through shared governance — Storybook,
-            Widgetbook, code reviews, and joint ownership.</p>
-        </div>
+        </figure>
+        <figure class="about-mosaic-card about-mosaic-card--half" data-cursor-hover>
+          <div class="about-mosaic-media">
+            <img class="about-mosaic-img" src="/images/personal/about-mosaic-04-detail.jpg"
+              alt="Detail — design or code on screen" width="1200" height="750" loading="lazy" decoding="async"
+              onload="this.classList.add('about-mosaic-img--loaded')"
+              onerror="this.classList.add('about-mosaic-img--missing')">
+            <figcaption class="about-mosaic-caption">Craft</figcaption>
+            <div class="about-mosaic-fallback" aria-hidden="true">
+              <span class="about-mosaic-fallback-code">about-mosaic-04-detail.jpg</span>
+              <span class="about-mosaic-fallback-hint">Landscape · bottom right</span>
+            </div>
+          </div>
+        </figure>
       </div>
     </div>
   </section>
@@ -2763,7 +3096,7 @@
   <section class="section band" id="experience">
     <div class="section-inner">
       <div class="rv">
-        <div class="section-label"><span class="num">04 /</span> Experience</div>
+        <div class="section-label"><span class="num">05 /</span> Experience</div>
         <h2 class="section-title">Where I've been</h2>
       </div>
       <div class="timeline experience-stepper rv" dir="ltr">
@@ -2788,7 +3121,8 @@
               </div>
               <ul class="timeline-desc">
                 <li>Creates and maintains Club design system components and guidelines.</li>
-                <li>Establishes visual language, develops components, documents guidelines, and collaborates with teams to continuously improve the system.</li>
+                <li>Establishes visual language, develops components, documents guidelines, and collaborates with teams
+                  to continuously improve the system.</li>
                 <li>Collaborates with designers and developers to ensure the highest product quality.</li>
               </ul>
             </div>
@@ -2811,7 +3145,8 @@
                 </div>
               </div>
               <ul class="timeline-desc">
-                <li>Collaborated with product teams to prototype, design, and deliver UI and UX across Halan apps and key verticals including loans, loan officer, and commerce.</li>
+                <li>Collaborated with product teams to prototype, design, and deliver UI and UX across Halan apps and
+                  key verticals including loans, loan officer, and commerce.</li>
                 <li>Owned core parts of the full design system and drove consistency at scale.</li>
                 <li>Planned and ran user interviews, usability testing, and design reviews.</li>
               </ul>
@@ -2904,7 +3239,8 @@
                 </div>
               </div>
               <ul class="timeline-desc">
-                <li>Worked on organizing sessions related to user interviews, usability testing, and design reviews.</li>
+                <li>Worked on organizing sessions related to user interviews, usability testing, and design reviews.
+                </li>
               </ul>
             </div>
           </article>
@@ -2916,7 +3252,7 @@
   <!-- ═══ CONTACT ═══ -->
   <section class="contact-section" id="contact">
     <div class="rv">
-      <div class="section-label" style="justify-content:center;"><span class="num">05 /</span> Contact</div>
+      <div class="section-label" style="justify-content:center;"><span class="num">06 /</span> Contact</div>
       <h2 class="section-title">Let's build<br>something <span style="color:var(--c-accent)">together</span></h2>
       <p class="section-desc" style="margin:16px auto 0; text-align:center; max-width:480px;">Open to design system
         roles, product design opportunities, and collaborations where design and code meet.</p>
@@ -3031,7 +3367,7 @@
     const nav = document.getElementById('mainNav');
     const navPill = document.getElementById('navPill');
     const navLinksEl = document.getElementById('navLinks');
-    const sectionOrder = ['about', 'work', 'approach', 'experience', 'contact'];
+    const sectionOrder = ['work', 'articles', 'about', 'experience', 'contact'];
 
     function positionNavPill(link) {
       if (!navPill || !navLinksEl || !link) {
@@ -3146,7 +3482,7 @@
       const clubWrap = document.querySelector('.case-card--club-tie')?.closest('.case-card-sticky-wrap');
       if (clubVideo && clubWrap) {
         if (clubWrap.classList.contains('case-filter-hidden')) clubVideo.pause();
-        else if (!prefersReducedMotion) clubVideo.play().catch(() => {});
+        else if (!prefersReducedMotion) clubVideo.play().catch(() => { });
       }
     }
     if (filterBar) {

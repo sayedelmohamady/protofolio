@@ -472,6 +472,130 @@
     line-height: 1.65;
   }
 
+  /* Mabaat challenge — network graph (edges draw in + staggered nodes) */
+  .case-study .challenge-graph {
+    position: relative;
+    margin-top: 56px;
+    isolation: isolate;
+  }
+
+  .case-study .challenge-graph__edges {
+    position: absolute;
+    left: 9%;
+    right: 9%;
+    top: 20%;
+    bottom: 20%;
+    width: auto;
+    height: auto;
+    pointer-events: none;
+    z-index: 0;
+    overflow: visible;
+  }
+
+  .case-study .challenge-graph__path {
+    stroke: rgba(var(--c-accent-rgb), 0.42);
+    stroke-width: 1.35;
+    vector-effect: non-scaling-stroke;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+  }
+
+  .case-study .challenge-graph__path--ring {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+  }
+
+  .case-study .challenge-graph__path--diag {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    stroke-opacity: 0.55;
+  }
+
+  .case-study .challenge-graph.reveal.visible .challenge-graph__path--ring {
+    animation: case-study-challenge-draw 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .case-study .challenge-graph.reveal.visible .challenge-graph__path--diag {
+    animation: case-study-challenge-draw 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
+  }
+
+  @keyframes case-study-challenge-draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .case-study .challenge-graph__grid {
+    position: relative;
+    z-index: 1;
+    margin-top: 0;
+  }
+
+  .case-study .challenge-graph.reveal:not(.visible) .challenge-node {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+
+  .case-study .challenge-graph.reveal.visible .challenge-node {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition:
+      opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      background 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .case-study .challenge-graph.reveal.visible .challenge-node:nth-child(1) {
+    transition-delay: 0.1s;
+  }
+
+  .case-study .challenge-graph.reveal.visible .challenge-node:nth-child(2) {
+    transition-delay: 0.22s;
+  }
+
+  .case-study .challenge-graph.reveal.visible .challenge-node:nth-child(3) {
+    transition-delay: 0.34s;
+  }
+
+  .case-study .challenge-graph.reveal.visible .challenge-node:nth-child(4) {
+    transition-delay: 0.46s;
+  }
+
+  .case-study .challenge-graph.reveal.visible .challenge-node:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.28);
+  }
+
+  .case-study .challenge-graph:hover .challenge-graph__path {
+    stroke: rgba(var(--c-accent-rgb), 0.58);
+    transition: stroke 0.35s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .case-study .challenge-graph__path--ring,
+    .case-study .challenge-graph__path--diag,
+    .case-study .qual-graph__path--ring,
+    .case-study .qual-graph__path--diag {
+      stroke-dasharray: none;
+      stroke-dashoffset: 0;
+      animation: none !important;
+    }
+
+    .case-study .challenge-graph.reveal.visible .challenge-node,
+    .case-study .qual-graph.reveal.visible .qual-node {
+      transition-delay: 0s !important;
+    }
+
+    .case-study .challenge-graph.reveal.visible .challenge-node:hover,
+    .case-study .qual-graph.reveal.visible .qual-node:hover {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+
   /* ROLE */
   .case-study .role-split {
     display: grid;
@@ -994,6 +1118,101 @@
     border: 1px solid rgba(var(--c-accent-rgb), 0.35);
   }
 
+  /* Mabaat user research — qualitative insights graph */
+  .case-study .qual-graph {
+    position: relative;
+    margin-top: 56px;
+    isolation: isolate;
+  }
+
+  .case-study .qual-graph__edges {
+    position: absolute;
+    left: 8%;
+    right: 8%;
+    top: 18%;
+    bottom: 18%;
+    width: auto;
+    height: auto;
+    pointer-events: none;
+    z-index: 0;
+    overflow: visible;
+  }
+
+  .case-study .qual-graph__path {
+    stroke: rgba(var(--c-accent-rgb), 0.38);
+    stroke-width: 1.25;
+    vector-effect: non-scaling-stroke;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+  }
+
+  .case-study .qual-graph__path--ring {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+  }
+
+  .case-study .qual-graph__path--diag {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    stroke-opacity: 0.5;
+  }
+
+  .case-study .qual-graph.reveal.visible .qual-graph__path--ring {
+    animation: case-study-challenge-draw 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .case-study .qual-graph.reveal.visible .qual-graph__path--diag {
+    animation: case-study-challenge-draw 0.88s cubic-bezier(0.22, 1, 0.36, 1) 0.38s forwards;
+  }
+
+  .case-study .qual-graph__grid {
+    position: relative;
+    z-index: 1;
+    margin-top: 0;
+  }
+
+  .case-study .qual-graph.reveal:not(.visible) .qual-node {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+
+  .case-study .qual-graph.reveal.visible .qual-node {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition:
+      opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .case-study .qual-graph.reveal.visible .qual-node:nth-child(1) {
+    transition-delay: 0.1s;
+  }
+
+  .case-study .qual-graph.reveal.visible .qual-node:nth-child(2) {
+    transition-delay: 0.22s;
+  }
+
+  .case-study .qual-graph.reveal.visible .qual-node:nth-child(3) {
+    transition-delay: 0.34s;
+  }
+
+  .case-study .qual-graph.reveal.visible .qual-node:nth-child(4) {
+    transition-delay: 0.46s;
+  }
+
+  .case-study .qual-graph.reveal.visible .qual-node:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 44px rgba(0, 0, 0, 0.22);
+  }
+
+  .case-study .qual-graph:hover .qual-graph__path {
+    stroke: rgba(var(--c-accent-rgb), 0.55);
+    transition: stroke 0.35s ease;
+  }
+
   /* LEARNINGS */
   .case-study .learnings-split {
     display: grid;
@@ -1274,13 +1493,83 @@
   /* REVEAL ANIMATIONS */
   .case-study .reveal {
     opacity: 0;
-    transform: translateY(22px);
-    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transform: translateY(48px);
+    transition:
+      opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .case-study .reveal.visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  /* Child stagger (applied via JS) */
+  .case-study .rv-child {
+    transform: translateY(28px);
+    transition: transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) var(--rv-d, 0ms);
+  }
+
+  .case-study .rv-child.rv-on {
+    transform: translateY(0);
+  }
+
+  /* Hero entrance — cascades in on page load */
+  @keyframes cs-hero-in {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .case-study .hero-eyebrow {
+    animation: cs-hero-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both;
+  }
+
+  .case-study .hero-title {
+    animation: cs-hero-in 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.32s both;
+  }
+
+  .case-study .hero-dek {
+    animation: cs-hero-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.44s both;
+  }
+
+  .case-study .hero-divider {
+    animation: cs-hero-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.54s both;
+  }
+
+  .case-study .hero-meta {
+    animation: cs-hero-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.60s both;
+  }
+
+  .case-study .hero-scroll {
+    animation: cs-hero-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.72s both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .case-study .hero-eyebrow,
+    .case-study .hero-title,
+    .case-study .hero-dek,
+    .case-study .hero-divider,
+    .case-study .hero-meta,
+    .case-study .hero-scroll {
+      animation: none;
+    }
+
+    .case-study .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    .case-study .rv-child {
+      transform: none;
+      transition: none;
+    }
   }
 
   /* ── RESPONSIVE ── */
@@ -1331,6 +1620,11 @@
     .case-study .quotes-grid,
     .case-study .research-grid {
       grid-template-columns: 1fr;
+    }
+
+    .case-study .challenge-graph__edges,
+    .case-study .qual-graph__edges {
+      display: none;
     }
 
     .case-study .stats-row {

@@ -38,6 +38,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="min-h-screen antialiased">
         <IntroOverlay />
         <CustomCursor />
+        <div id="pt-overlay" aria-hidden="true" />
         {children}
       </body>
     </html>

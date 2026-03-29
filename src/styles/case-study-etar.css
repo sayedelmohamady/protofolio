@@ -153,6 +153,73 @@
 .case-study--etar .highlight-card .qt { font-family: var(--f-display); font-size: 16px; font-weight: 600; line-height: 1.55; color: var(--c-text); margin-bottom: 12px; }
 .case-study--etar .highlight-card .attr { font-size: 12px; color: var(--c-text-d); }
 
+/* ── SOLUTION — Club TIE–style tier stack + interactive chips & quotes ── */
+.case-study--etar .etar-solution-lead {
+  font-size: 15px;
+  color: var(--c-text-m);
+  line-height: 1.6;
+  margin: 0 0 18px;
+  max-width: none;
+}
+
+.case-study--etar .etar-solution-arch {
+  margin-top: 0;
+  margin-bottom: 18px;
+  gap: 6px;
+}
+
+.case-study--etar .etar-solution-arch .arch-layer {
+  min-height: 56px;
+}
+
+.case-study--etar .etar-solution-badges {
+  margin-top: 4px;
+}
+
+.case-study--etar .etar-solution-badges .badge {
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+
+.case-study--etar .etar-solution-quotes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.case-study--etar .etar-solution-quote {
+  margin: 0;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.35s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .case-study--etar .etar-solution-badges .badge:hover {
+    transform: translateY(-2px);
+  }
+
+  .case-study--etar .etar-solution-badges .badge-accent:hover {
+    border-color: rgba(var(--c-accent-rgb), 0.55);
+    background: rgba(var(--c-accent-rgb), 0.12);
+  }
+
+  .case-study--etar .etar-solution-badges .badge:not(.badge-accent):hover {
+    border-color: var(--c-border-m);
+    color: var(--c-text);
+  }
+
+  .case-study--etar .etar-solution-quote:hover {
+    transform: translateY(-5px);
+    border-color: rgba(var(--c-accent-rgb), 0.32);
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.32), 0 0 0 1px rgba(var(--c-accent-rgb), 0.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-study--etar .etar-solution-badges .badge:hover,
+  .case-study--etar .etar-solution-quote:hover {
+    transform: none;
+  }
+}
+
 /* ── ARCH LAYERS ── */
 .case-study--etar .arch-layers { display: flex; flex-direction: column; gap: 8px; margin-top: 48px; }
 .case-study--etar .arch-layer { display: flex; align-items: stretch; gap: 8px; min-height: 72px; cursor: default; border-radius: 12px; overflow: hidden; transition: transform 0.35s cubic-bezier(0.22,1,0.36,1); }
