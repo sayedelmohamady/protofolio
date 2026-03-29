@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export function CaseStudyTopNav() {
   const router = useRouter();
@@ -24,13 +25,13 @@ export function CaseStudyTopNav() {
 
   return (
     <nav className="top-nav">
-      <a href="/" className="top-nav-name" onClick={handleNav}>
+      <Link href="/" className="top-nav-name" onClick={handleNav}>
         <span className="green-dot" />
         Sayed El Mohamady
-      </a>
-      <a href="/" className="top-nav-back" onClick={handleNav}>
+      </Link>
+      <Link href="/" className="top-nav-back" onClick={handleNav}>
         &larr; Back to Portfolio
-      </a>
+      </Link>
     </nav>
   );
 }
