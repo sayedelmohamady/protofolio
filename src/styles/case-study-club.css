@@ -160,7 +160,7 @@
   }
 
   /* ── SECTIONS ── */
-  .case-study-club .wrap { max-width: 1100px; margin: 0 auto; padding: 100px 48px; }
+  .case-study-club .wrap { max-width: 1100px; margin: 0 auto; padding: 56px 48px; }
   .case-study-club .band { background: var(--c-bg2); }
 
   .case-study-club .section-label { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-accent); margin-bottom: 20px; }
@@ -187,16 +187,128 @@
     pointer-events: none;
   }
 
-  /* PROBLEM */
+  /* PROBLEM / CHALLENGE */
+  .case-study-club .challenge-section {
+    position: relative;
+    isolation: isolate;
+  }
+  .case-study-club .challenge-section::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -12%;
+    width: min(960px, calc(100% + 80px));
+    height: 92%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(ellipse 72% 58% at 50% 0%, rgba(var(--c-accent-rgb), 0.13) 0%, transparent 58%),
+      radial-gradient(ellipse 48% 42% at 92% 28%, rgba(97, 49, 196, 0.07) 0%, transparent 52%);
+    opacity: 0.95;
+  }
+  .case-study-club .challenge-section > .reveal,
+  .case-study-club .challenge-section > .problem-grid {
+    position: relative;
+    z-index: 1;
+  }
+  .case-study-club .challenge-headline {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.06em;
+    margin-bottom: 20px;
+    font-family: var(--f-display);
+    font-size: clamp(32px, 3.5vw, 48px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.028em;
+  }
+  .case-study-club .challenge-headline__primary {
+    display: block;
+    font-weight: 800;
+    color: var(--c-text);
+    text-shadow: 0 0 52px rgba(var(--c-accent-rgb), 0.12);
+  }
+  .case-study-club .challenge-headline__secondary {
+    display: block;
+    font-size: clamp(26px, 2.75vw, 40px);
+    font-weight: 600;
+    letter-spacing: -0.024em;
+    color: var(--c-text-m);
+  }
+  .case-study-club .challenge-lead {
+    max-width: 640px;
+  }
+  .case-study-club .challenge-lead p {
+    font-size: 15px;
+    line-height: 1.62;
+  }
+
   .case-study-club .problem-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--case-grid-gap); margin-top: 56px; }
-  .case-study-club .problem-card { background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: var(--case-radius); padding: 28px; position: relative; overflow: hidden; transition: background 0.3s cubic-bezier(0.22,1,0.36,1), border-color 0.3s cubic-bezier(0.22,1,0.36,1); }
-  .case-study-club .problem-card:hover { background: var(--c-bg4); border-color: var(--c-border-m); }
-  .case-study-club .problem-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: transparent; transition: background 0.3s cubic-bezier(0.22,1,0.36,1); }
-  .case-study-club .problem-card:hover::before { background: var(--c-accent); }
-  .case-study-club .p-icon { width: 38px; height: 38px; border-radius: 10px; background: rgba(var(--c-accent-rgb),0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+  .case-study-club .problem-card {
+    background: var(--c-bg3);
+    border: 1px solid var(--c-border);
+    border-radius: var(--case-radius);
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    transition:
+      background 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .case-study-club .problem-card:hover {
+    background: var(--c-bg4);
+    border-color: rgba(var(--c-accent-rgb), 0.38);
+    transform: translateY(-5px);
+    box-shadow:
+      0 22px 56px rgba(0, 0, 0, 0.38),
+      0 0 0 1px rgba(var(--c-accent-rgb), 0.1),
+      0 0 40px rgba(var(--c-accent-rgb), 0.09);
+  }
+  .case-study-club .problem-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: transparent;
+    transition: background 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .case-study-club .problem-card:hover::before {
+    background: linear-gradient(90deg, var(--c-accent-d), var(--c-accent-l));
+  }
+  .case-study-club .p-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: rgba(var(--c-accent-rgb), 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    transition:
+      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      background 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .case-study-club .problem-card:hover .p-icon {
+    transform: scale(1.06);
+    background: rgba(var(--c-accent-rgb), 0.16);
+    box-shadow: 0 0 24px rgba(var(--c-accent-rgb), 0.12);
+  }
   .case-study-club .p-icon svg { width: 18px; height: 18px; stroke: var(--c-accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-  .case-study-club .problem-card h3 { font-size: 17px; color: var(--c-text); margin-bottom: 10px; }
-  .case-study-club .problem-card p { font-size: 14px; max-width: none; line-height: 1.65; }
+  .case-study-club .problem-card h3 {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--c-text);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .case-study-club .problem-card p { font-size: 14px; max-width: none; line-height: 1.65; color: var(--c-text-m); }
 
   /* ROLE */
   .case-study-club .role-split { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; margin-top: 56px; }
@@ -912,6 +1024,8 @@
   .case-study-club .gov-card { background: var(--c-bg3); border-radius: 16px; padding: 40px; border: 1px solid var(--c-border); position: relative; overflow: hidden; transition: border-color 0.3s cubic-bezier(0.22,1,0.36,1); }
   .case-study-club .gov-card:hover { border-color: var(--c-border-m); }
   .case-study-club .gov-card::after { content: ''; position: absolute; bottom: -40px; right: -40px; width: 160px; height: 160px; border-radius: 50%; background: rgba(var(--c-accent-rgb),0.04); }
+  .case-study-club .gov-card .tool-logo { margin-bottom: 16px; display: flex; align-items: center; }
+  .case-study-club .gov-card .tool-logo svg { display: block; }
   .case-study-club .gov-card .tool-name { font-family: var(--f-display); font-size: 34px; font-weight: 800; color: var(--c-accent); margin-bottom: 6px; letter-spacing: -0.025em; }
   .case-study-club .gov-card .tool-sub { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-text-d); margin-bottom: 22px; }
   .case-study-club .gov-card p { font-size: 14px; max-width: none; line-height: 1.65; }
@@ -1037,8 +1151,44 @@
   .case-study-club .mt-48 { margin-top: 48px; }
 
   /* REVEAL ANIMATIONS */
-  .case-study-club .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+  .case-study-club .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
   .case-study-club .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* Staggered children (CaseStudyRevealInit — .rv-child / .rv-on) */
+  .case-study-club .rv-child {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1) var(--rv-d, 0ms),
+      transform 0.62s cubic-bezier(0.22, 1, 0.36, 1) var(--rv-d, 0ms);
+  }
+  .case-study-club .rv-child.rv-on {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .case-study-club .reveal,
+    .case-study-club .reveal.visible {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .case-study-club .rv-child,
+    .case-study-club .rv-child.rv-on {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .case-study-club .problem-card,
+    .case-study-club .problem-card:hover {
+      transform: none;
+      transition-duration: 0.01ms;
+    }
+    .case-study-club .problem-card:hover .p-icon {
+      transform: none;
+    }
+  }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 1100px) {
@@ -1049,7 +1199,7 @@
   @media (max-width: 900px) {
     .case-study-club .sidebar { display: none; }
     .case-study-club .hero { padding: 0 20px 60px; }
-    .case-study-club .wrap { padding: 72px 20px; }
+    .case-study-club .wrap { padding: 40px 20px; }
     .case-study-club footer { padding: 40px 20px; flex-direction: column; gap: 20px; align-items: flex-start; }
     .case-study-club .problem-grid,
     .case-study-club .role-split,

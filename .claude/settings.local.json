@@ -15,7 +15,9 @@
       "Bash(ls -la \"/Users/sayedelmohamady/Downloads/Sayed elmohamady/\"mabaat-app*)",
       "Bash(ls -la \"/Users/sayedelmohamady/Downloads/Sayed elmohamady/\"mabaat*)",
       "Bash(ls -la \"/Users/sayedelmohamady/Downloads/Sayed elmohamady/\"*card* \"/Users/sayedelmohamady/Downloads/Sayed elmohamady/\"*club* \"/Users/sayedelmohamady/Downloads/Sayed elmohamady/\"*mnt* \"/Users/sayedelmohamady/Downloads/Sayed elmohamady/\"*mabaat* \"/Users/sayedelmohamady/Downloads/Sayed elmohamady/\"*otida*)",
-      "Bash(ls \"/Users/sayedelmohamady/Downloads/Sayed elmohamady/\"*club*)"
+      "Bash(ls \"/Users/sayedelmohamady/Downloads/Sayed elmohamady/\"*club*)",
+      "Bash(npm run:*)",
+      "WebFetch(domain:www.figma.com)"
     ]
   }
 }

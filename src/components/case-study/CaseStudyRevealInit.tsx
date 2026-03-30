@@ -31,6 +31,8 @@ export function CaseStudyRevealInit({ children }: { children: ReactNode }) {
     const CHILD_SELS = [
       ".section-label",
       "h2",
+      ".challenge-lead > p",
+      ".principles-dek",
       ".hero-eyebrow",
       ".hero-dek",
       ".hero-divider",
@@ -195,6 +197,14 @@ export function CaseStudyRevealInit({ children }: { children: ReactNode }) {
         return;
       }
 
+      const archLayer = t.closest(".arch-layer");
+      if (archLayer && root.contains(archLayer)) {
+        const isActive = archLayer.classList.contains("active");
+        root.querySelectorAll(".arch-layer").forEach((l) => l.classList.remove("active"));
+        if (!isActive) archLayer.classList.add("active");
+        return;
+      }
+
       const lotHead = t.closest("#loan-officer-timeline .lot-head");
       if (lotHead && root.contains(lotHead)) {
         const item = lotHead.closest(".lot-item");
@@ -290,6 +300,377 @@ export function CaseStudyRevealInit({ children }: { children: ReactNode }) {
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  /* Button component explorer */
+  useEffect(() => {
+    const previewEl = document.getElementById("btn-preview") as HTMLElement | null;
+    if (!previewEl) return;
+    const preview = previewEl;
+
+    const state = { variant: "primary", size: "md", bstate: "" };
+    const VARIANTS = ["bp-primary","bp-secondary","bp-subtle","bp-hls","bp-hll"];
+    const SIZES    = ["bp-xs","bp-sm","bp-md","bp-lg"];
+    const BSTATES  = ["bps-interact","bps-pressed","bps-focused","bps-disabled","bps-loading"];
+
+    function applyState() {
+      VARIANTS.forEach(c => preview.classList.remove(c));
+      SIZES.forEach(c => preview.classList.remove(c));
+      BSTATES.forEach(c => preview.classList.remove(c));
+      preview.classList.add("bp-" + state.variant);
+      preview.classList.add("bp-" + state.size);
+      if (state.bstate) preview.classList.add(state.bstate);
+    }
+
+    const chips = Array.from(document.querySelectorAll<HTMLButtonElement>(".btn-chip"));
+    const handlers: Array<() => void> = [];
+    chips.forEach((btn) => {
+      const handler = () => {
+        const prop = btn.dataset.prop;
+        const val  = btn.dataset.val ?? "";
+        if (!prop) return;
+        chips.filter(b => b.dataset.prop === prop).forEach(b => b.classList.remove("on"));
+        btn.classList.add("on");
+        if (prop === "variant") state.variant = val;
+        if (prop === "size")    state.size    = val;
+        if (prop === "state")   state.bstate  = val;
+        applyState();
+      };
+      btn.addEventListener("click", handler);
+      handlers.push(handler);
+    });
+
+    applyState();
+
+    return () => {
+      chips.forEach((btn, i) => btn.removeEventListener("click", handlers[i]));
+    };
+  }, []);
+
+  /* ── Interactive User Flow diagram ── */
+  useEffect(() => {
+    const section = document.getElementById("user-flow");
+    if (!section) return;
+    const wrap = document.getElementById("uf-wrap") as HTMLElement | null;
+    const svgEl = document.getElementById("uf-svg") as SVGSVGElement | null;
+    if (!wrap || !svgEl) return;
+
+    let autoTimer: ReturnType<typeof setInterval> | null = null;
+    let initialized = false;
+
+    const MAIN_ORDER = [
+      "enter-app", "access-club", "member-check",
+      "dashboard", "discover", "select-mission",
+      "act", "submit-proof", "validation",
+      "earn", "progress", "return",
+    ];
+
+    interface UfEdge {
+      from: string; to: string;
+      type: "straight" | "branch" | "merge" | "loop" | "link";
+      label?: string; labelCls?: string;
+    }
+    const EDGES: UfEdge[] = [
+      // ── main flow ──
+      { from: "enter-app",      to: "access-club",    type: "straight" },
+      { from: "access-club",    to: "member-check",   type: "straight" },
+      { from: "member-check",   to: "join-club",      type: "branch",   label: "No",  labelCls: "branch" },
+      { from: "member-check",   to: "dashboard",      type: "straight", label: "Yes", labelCls: "yes" },
+      { from: "join-club",      to: "dashboard",      type: "merge" },
+      { from: "dashboard",      to: "discover",       type: "straight" },
+      { from: "discover",       to: "select-mission", type: "straight" },
+      { from: "select-mission", to: "act",            type: "straight" },
+      { from: "act",            to: "submit-proof",   type: "straight" },
+      { from: "submit-proof",   to: "validation",     type: "straight" },
+      { from: "validation",     to: "edit-resubmit",  type: "branch",   label: "No",  labelCls: "branch" },
+      { from: "validation",     to: "earn",           type: "straight", label: "Yes", labelCls: "yes" },
+      { from: "edit-resubmit",  to: "earn",           type: "merge" },
+      { from: "earn",           to: "progress",       type: "straight" },
+      { from: "progress",       to: "return",         type: "straight" },
+      { from: "return",         to: "discover",       type: "loop" },
+      // ── onboarding flow ──
+      { from: "browse",         to: "details",        type: "link" },
+      { from: "details",        to: "join-onb",       type: "link" },
+      { from: "join-onb",       to: "overview-onb",   type: "link" },
+      { from: "overview-onb",   to: "dashboard",      type: "link" },
+      // ── re-engagement flow ──
+      { from: "inactive",       to: "notified",       type: "link" },
+      { from: "notified",       to: "opens-app",      type: "link" },
+      { from: "opens-app",      to: "discover",       type: "link" },
+      // ── drop-off flow ──
+      { from: "paused",         to: "reminder-drop",  type: "link" },
+      { from: "reminder-drop",  to: "resume-drop",    type: "link" },
+      { from: "resume-drop",    to: "act",            type: "link" },
+      // ── profile flow ──
+      { from: "dashboard",      to: "stats",          type: "link" },
+      { from: "stats",          to: "achievements",   type: "link" },
+      { from: "achievements",   to: "edit-profile",   type: "link" },
+      // ── reward flow ──
+      { from: "earn",           to: "view-reward",    type: "link" },
+      { from: "view-reward",    to: "redeem",         type: "link" },
+      { from: "redeem",         to: "confirm-rwd",    type: "link" },
+      // ── progress flow ──
+      { from: "progress",       to: "gain-pts",       type: "link" },
+      { from: "gain-pts",       to: "level-up",       type: "link" },
+      { from: "level-up",       to: "unlock",         type: "link" },
+    ];
+
+    function getR(id: string) {
+      const el = wrap!.querySelector(`[data-uf-id="${id}"]`) as HTMLElement | null;
+      if (!el) return null;
+      const er = el.getBoundingClientRect();
+      const wr = wrap!.getBoundingClientRect();
+      return {
+        top:    er.top    - wr.top,
+        bottom: er.bottom - wr.top,
+        left:   er.left   - wr.left,
+        right:  er.right  - wr.left,
+        cx: er.left + er.width  / 2 - wr.left,
+        cy: er.top  + er.height / 2 - wr.top,
+      };
+    }
+
+    function ns(tag: string) {
+      return document.createElementNS("http://www.w3.org/2000/svg", tag);
+    }
+
+    function mkArrow(id: string, color: string): SVGMarkerElement {
+      const m = ns("marker") as SVGMarkerElement;
+      m.setAttribute("id", id);
+      m.setAttribute("markerWidth", "7"); m.setAttribute("markerHeight", "7");
+      m.setAttribute("refX", "5"); m.setAttribute("refY", "3.5");
+      m.setAttribute("orient", "auto");
+      const p = ns("polygon") as SVGPolygonElement;
+      p.setAttribute("points", "0 1, 6 3.5, 0 6");
+      p.setAttribute("fill", color);
+      m.appendChild(p);
+      return m;
+    }
+
+    function drawSVG() {
+      const wr = wrap!.getBoundingClientRect();
+      svgEl!.setAttribute("viewBox", `0 0 ${wr.width} ${wr.height}`);
+      svgEl!.style.width  = wr.width  + "px";
+      svgEl!.style.height = wr.height + "px";
+      svgEl!.innerHTML = "";
+
+      const defs = ns("defs");
+      defs.appendChild(mkArrow("ufa-main",   "rgba(150,103,247,0.55)"));
+      defs.appendChild(mkArrow("ufa-branch", "rgba(245,158,11,0.65)"));
+      defs.appendChild(mkArrow("ufa-loop",   "rgba(34,211,238,0.7)"));
+      defs.appendChild(mkArrow("ufa-side",   "rgba(255,255,255,0.2)"));
+      svgEl!.appendChild(defs);
+
+      for (const edge of EDGES) {
+        const fr = getR(edge.from);
+        const tr = getR(edge.to);
+        if (!fr || !tr) continue;
+
+        let d = "";
+        let edgeCls = "uf-edge ";
+        let markerId = "ufa-main";
+        let labelPos: { x: number; y: number } | null = null;
+
+        if (edge.type === "straight") {
+          const x = fr.cx;
+          const y1 = fr.bottom + 2;
+          const y2 = tr.top   - 2;
+          const mid = (y1 + y2) / 2;
+          d = `M ${x},${y1} C ${x},${mid} ${x},${mid} ${x},${y2}`;
+          edgeCls += "uf-edge-main";
+          if (edge.label) labelPos = { x: x + 10, y: (y1 + y2) / 2 };
+        } else if (edge.type === "branch") {
+          // decision (col2) left-center → branch node (col1) right-center
+          const x1 = fr.left  - 2;  const y1 = fr.cy;
+          const x2 = tr.right + 2;  const y2 = tr.cy;
+          const cx1 = x1 - 36; const cx2 = x2 + 20;
+          d = `M ${x1},${y1} C ${cx1},${y1} ${cx2},${y2} ${x2},${y2}`;
+          edgeCls += "uf-edge-branch"; markerId = "ufa-branch";
+          if (edge.label) labelPos = { x: (x1 + x2) / 2, y: (y1 + y2) / 2 - 10 };
+        } else if (edge.type === "merge") {
+          // branch node (col1) right-center → main node (col2) left-center (same row)
+          const x1 = fr.right + 2; const y1 = fr.cy;
+          const x2 = tr.left  - 2; const y2 = tr.cy;
+          const mx = (x1 + x2) / 2;
+          d = `M ${x1},${y1} C ${mx},${y1} ${mx},${y2} ${x2},${y2}`;
+          edgeCls += "uf-edge-branch"; markerId = "ufa-branch";
+        } else if (edge.type === "loop") {
+          // Route loop arc to the LEFT of the main flow (avoids col-4 nodes)
+          const sx = fr.left - 2; const sy = fr.cy;
+          const ex = tr.left - 2; const ey = tr.cy;
+          const lx = 10; // fixed left anchor in SVG coords (within wrap padding)
+          d = `M ${sx},${sy} C ${lx},${sy} ${lx},${ey} ${ex},${ey}`;
+          edgeCls += "uf-edge-loop"; markerId = "ufa-loop";
+        } else if (edge.type === "link") {
+          // Auto-direction: horizontal if nodes are in different columns, vertical if same
+          const dxAbs = Math.abs(tr.cx - fr.cx);
+          if (dxAbs > 60) {
+            // Cross-column connection
+            let sx2: number, sy2: number, ex2: number, ey2: number;
+            if (tr.left > fr.right + 10) {
+              sx2 = fr.right + 1; sy2 = fr.cy;
+              ex2 = tr.left  - 1; ey2 = tr.cy;
+            } else {
+              sx2 = fr.left  - 1; sy2 = fr.cy;
+              ex2 = tr.right + 1; ey2 = tr.cy;
+            }
+            const mx2 = (sx2 + ex2) / 2;
+            d = `M ${sx2},${sy2} C ${mx2},${sy2} ${mx2},${ey2} ${ex2},${ey2}`;
+          } else {
+            // Same-column (vertical) connection
+            const x2 = fr.cx;
+            const y12 = fr.bottom + 1; const y22 = tr.top - 1;
+            const mid2 = (y12 + y22) / 2;
+            d = `M ${x2},${y12} C ${x2},${mid2} ${x2},${mid2} ${x2},${y22}`;
+          }
+          edgeCls += "uf-edge-side"; markerId = "ufa-side";
+        }
+        if (!d) continue;
+
+        const path = ns("path") as SVGPathElement;
+        path.setAttribute("d", d);
+        path.setAttribute("class", edgeCls);
+        path.setAttribute("fill", "none");
+        path.setAttribute("stroke-linecap", "round");
+        if (edge.type === "branch" || edge.type === "merge") {
+          path.setAttribute("stroke-dasharray", "5 4");
+        } else if (edge.type === "loop") {
+          path.setAttribute("stroke-dasharray", "6 5");
+        } else if (edge.type === "link") {
+          const dxAbsCheck = Math.abs(tr.cx - fr.cx);
+          if (dxAbsCheck > 60) path.setAttribute("stroke-dasharray", "3 3");
+        }
+        path.setAttribute("marker-end", `url(#${markerId})`);
+        svgEl!.appendChild(path);
+
+        // Animate draw with stroke-dashoffset
+        const len = path.getTotalLength();
+        path.style.strokeDasharray = String(len);
+        path.style.strokeDashoffset = String(len);
+        path.dataset.ufLen = String(len);
+        path.dataset.ufDash = edge.type === "branch" || edge.type === "merge" ? "5 4"
+                            : edge.type === "loop" ? "6 5"
+                            : edge.type === "link" && Math.abs(tr.cx - fr.cx) > 60 ? "3 3"
+                            : "";
+
+        if (labelPos && edge.label) {
+          const t = ns("text") as SVGTextElement;
+          t.setAttribute("x", String(labelPos.x));
+          t.setAttribute("y", String(labelPos.y));
+          t.setAttribute("class", `uf-edge-label${edge.labelCls ? ` uf-edge-label--${edge.labelCls}` : ""}`);
+          t.textContent = edge.label;
+          svgEl!.appendChild(t);
+        }
+      }
+
+      // Position loop label (left side arc)
+      const retR = getR("return");
+      const disR = getR("discover");
+      const loopLbl = document.getElementById("uf-loop-label");
+      if (retR && disR && loopLbl) {
+        const my = (retR.cy + disR.cy) / 2;
+        loopLbl.style.left  = "2px";
+        loopLbl.style.top   = my + "px";
+        loopLbl.style.transform = "translateY(-50%) rotate(-90deg)";
+        loopLbl.style.transformOrigin = "center center";
+      }
+    }
+
+    function animatePaths(delay = 120) {
+      if (!svgEl) return;
+      svgEl.querySelectorAll<SVGPathElement>("[data-uf-len]").forEach((path, i) => {
+        const len = parseFloat(path.dataset.ufLen || "0");
+        path.style.strokeDashoffset = String(len);
+        path.style.transition = "";
+        setTimeout(() => {
+          path.style.transition = `stroke-dashoffset 0.55s cubic-bezier(0.22,1,0.36,1)`;
+          path.style.strokeDashoffset = "0";
+          setTimeout(() => {
+            const dash = path.dataset.ufDash || "";
+            path.style.transition = "";
+            path.style.strokeDasharray = dash || "none";
+            path.style.strokeDashoffset = "";
+          }, 560);
+        }, delay + i * 70);
+      });
+      setTimeout(() => {
+        document.getElementById("uf-loop-label")?.classList.add("uf-label-on");
+      }, delay + EDGES.length * 70 + 400);
+    }
+
+    function revealNodes() {
+      const items = wrap!.querySelectorAll<HTMLElement>(".uf-node, .uf-decision");
+      items.forEach((el, i) => {
+        el.style.transition =
+          `opacity 0.4s ease ${i * 50}ms, transform 0.4s cubic-bezier(0.22,1,0.36,1) ${i * 50}ms`;
+        requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add("uf-visible")));
+      });
+    }
+
+    function setActive(id: string) {
+      wrap!.querySelectorAll(".uf-node, .uf-decision").forEach(el => el.classList.remove("uf-active"));
+      wrap!.querySelector(`[data-uf-id="${id}"]`)?.classList.add("uf-active");
+    }
+
+    function startAuto() {
+      let i = 0;
+      setActive(MAIN_ORDER[0]);
+      autoTimer = setInterval(() => {
+        i = (i + 1) % MAIN_ORDER.length;
+        setActive(MAIN_ORDER[i]);
+      }, 750);
+    }
+
+    function init() {
+      if (initialized) return;
+      initialized = true;
+      drawSVG();
+      revealNodes();
+      animatePaths(80);
+      setTimeout(startAuto, 900);
+    }
+
+    // Watch for the section reveal
+    const mo = new MutationObserver(() => {
+      if (section.classList.contains("visible")) {
+        mo.disconnect();
+        setTimeout(init, 120);
+      }
+    });
+    mo.observe(section, { attributes: true, attributeFilter: ["class"] });
+    if (section.classList.contains("visible")) { mo.disconnect(); setTimeout(init, 120); }
+
+    // Pause on hover, resume on leave
+    const onEnter = () => { if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } };
+    const onLeave = () => { if (!autoTimer && initialized) startAuto(); };
+    const onClick = (e: Event) => {
+      const node = (e.target as HTMLElement).closest("[data-uf-id]") as HTMLElement | null;
+      if (!node) return;
+      if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+      const id = node.getAttribute("data-uf-id");
+      if (id) setActive(id);
+    };
+    wrap.addEventListener("mouseenter", onEnter);
+    wrap.addEventListener("mouseleave", onLeave);
+    wrap.addEventListener("click", onClick);
+
+    // Redraw on resize
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    const onResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => { if (initialized) drawSVG(); }, 150);
+    };
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      mo.disconnect();
+      if (autoTimer) clearInterval(autoTimer);
+      clearTimeout(resizeTimer);
+      wrap.removeEventListener("mouseenter", onEnter);
+      wrap.removeEventListener("mouseleave", onLeave);
+      wrap.removeEventListener("click", onClick);
+      window.removeEventListener("resize", onResize);
     };
   }, []);
 

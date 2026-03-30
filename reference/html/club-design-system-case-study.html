@@ -161,16 +161,108 @@
   p { color: var(--c-text-m); max-width: 640px; }
   p + p { margin-top: 14px; }
 
-  /* PROBLEM */
+  /* PROBLEM / CHALLENGE */
+  .challenge-section { position: relative; isolation: isolate; }
+  .challenge-section::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -12%;
+    width: min(960px, calc(100% + 80px));
+    height: 92%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(ellipse 72% 58% at 50% 0%, rgba(150,103,247,0.13) 0%, transparent 58%),
+      radial-gradient(ellipse 48% 42% at 92% 28%, rgba(97,49,196,0.07) 0%, transparent 52%);
+    opacity: 0.95;
+  }
+  .challenge-section > .reveal,
+  .challenge-section > .problem-grid { position: relative; z-index: 1; }
+  .challenge-headline {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.06em;
+    margin-bottom: 20px;
+    font-family: var(--f-display);
+    font-size: clamp(32px, 3.5vw, 48px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.028em;
+  }
+  .challenge-headline__primary {
+    display: block;
+    font-weight: 800;
+    color: var(--c-text);
+    text-shadow: 0 0 52px rgba(150,103,247,0.12);
+  }
+  .challenge-headline__secondary {
+    display: block;
+    font-size: clamp(26px, 2.75vw, 40px);
+    font-weight: 600;
+    letter-spacing: -0.024em;
+    color: var(--c-text-m);
+  }
+  .challenge-lead { max-width: 640px; }
+  .challenge-lead p { font-size: 15px; line-height: 1.62; }
+
   .problem-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 56px; }
-  .problem-card { background: var(--c-bg3); padding: 28px; position: relative; overflow: hidden; transition: background 0.3s cubic-bezier(0.22,1,0.36,1); }
-  .problem-card:hover { background: var(--c-bg4); }
-  .problem-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: transparent; transition: background 0.3s cubic-bezier(0.22,1,0.36,1); }
-  .problem-card:hover::before { background: var(--c-accent); }
-  .p-icon { width: 38px; height: 38px; border-radius: 10px; background: rgba(150,103,247,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+  .problem-card {
+    background: var(--c-bg3);
+    border: 1px solid var(--c-border);
+    border-radius: 14px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    transition:
+      background 0.5s cubic-bezier(0.22,1,0.36,1),
+      border-color 0.5s cubic-bezier(0.22,1,0.36,1),
+      transform 0.5s cubic-bezier(0.22,1,0.36,1),
+      box-shadow 0.55s cubic-bezier(0.22,1,0.36,1);
+  }
+  .problem-card:hover {
+    background: var(--c-bg4);
+    border-color: rgba(150,103,247,0.38);
+    transform: translateY(-5px);
+    box-shadow:
+      0 22px 56px rgba(0,0,0,0.38),
+      0 0 0 1px rgba(150,103,247,0.1),
+      0 0 40px rgba(150,103,247,0.09);
+  }
+  .problem-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: transparent;
+    transition: background 0.45s cubic-bezier(0.22,1,0.36,1);
+  }
+  .problem-card:hover::before {
+    background: linear-gradient(90deg, var(--c-accent-d), var(--c-accent-l));
+  }
+  .p-icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    background: rgba(150,103,247,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    transition:
+      transform 0.45s cubic-bezier(0.22,1,0.36,1),
+      background 0.45s cubic-bezier(0.22,1,0.36,1),
+      box-shadow 0.5s cubic-bezier(0.22,1,0.36,1);
+  }
+  .problem-card:hover .p-icon {
+    transform: scale(1.06);
+    background: rgba(150,103,247,0.16);
+    box-shadow: 0 0 24px rgba(150,103,247,0.12);
+  }
   .p-icon svg { width: 18px; height: 18px; stroke: var(--c-accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-  .problem-card h3 { font-size: 17px; color: var(--c-text); margin-bottom: 10px; }
-  .problem-card p { font-size: 14px; max-width: none; line-height: 1.65; }
+  .problem-card h3 { font-size: 17px; font-weight: 600; color: var(--c-text); margin-bottom: 10px; letter-spacing: -0.01em; }
+  .problem-card p { font-size: 14px; max-width: none; line-height: 1.65; color: var(--c-text-m); }
 
   /* ROLE */
   .role-split { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; margin-top: 56px; }
@@ -413,8 +505,14 @@
   .mt-48 { margin-top: 48px; }
 
   /* REVEAL ANIMATIONS */
-  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
   .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .problem-card,
+    .problem-card:hover { transform: none; transition-duration: 0.01ms; }
+    .problem-card:hover .p-icon { transform: none; }
+  }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 1100px) {
@@ -584,32 +682,39 @@
     </div>
 
     <!-- PROBLEM -->
-    <div class="wrap" id="problem">
+    <div class="wrap challenge-section" id="problem">
       <div class="reveal">
         <div class="section-label"><span class="num">01 /</span> The Challenge</div>
-        <h2>Why the design<br>system needed to exist</h2>
-        <p>Club connects brands with ambassadors across a Flutter app and React web platform. As the product scaled, design and dev needed a shared language.</p>
+        <h2 class="challenge-headline">
+          <span class="challenge-headline__primary">Audience without action.</span>
+          <span class="challenge-headline__secondary">Growth without engagement.</span>
+        </h2>
+        <div class="challenge-lead">
+          <p>Brands had communities, but no system to activate them.</p>
+          <p>Influencer campaigns were hard to scale, and engagement was fragmented across tools and workflows.</p>
+          <p>The challenge was to create a system that drives consistent participation — not just one-time interaction.</p>
+        </div>
       </div>
       <div class="problem-grid reveal">
         <div class="problem-card">
-          <div class="p-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
-          <h3>Inconsistency at scale</h3>
-          <p>UI patterns duplicated across both platforms — fragmented brand experience.</p>
-        </div>
-        <div class="problem-card">
           <div class="p-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-          <h3>Friction between design and dev</h3>
-          <p>Slow handoffs and ambiguous specs led to rework and misaligned components.</p>
+          <h3>Passive Audiences</h3>
+          <p>Users existed, but had no clear reason to participate.</p>
         </div>
         <div class="problem-card">
-          <div class="p-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-          <h3>No unified brand design language</h3>
-          <p>Club lacked a cohesive visual identity across the ambassador app and brand platform.</p>
+          <div class="p-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-4 4 4 6-7"/></svg></div>
+          <h3>Unscalable Growth</h3>
+          <p>Managing ambassadors manually didn’t scale with demand.</p>
         </div>
         <div class="problem-card">
-          <div class="p-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-          <h3>Unsustainable design velocity</h3>
-          <p>Every feature designed from scratch — no tokens, no docs, no shared primitives.</p>
+          <div class="p-icon"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
+          <h3>Fragmented Engagement</h3>
+          <p>Actions, rewards, and communication were disconnected.</p>
+        </div>
+        <div class="problem-card">
+          <div class="p-icon"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg></div>
+          <h3>No Motivation Loop</h3>
+          <p>Lack of progress and feedback reduced long-term engagement.</p>
         </div>
       </div>
     </div>
@@ -1035,8 +1140,11 @@
         <p>The Club TIE design system is organised into five clear tiers — each building on the last. Every UI element traces back to a single source of truth in Figma and in code.</p>
       </div>
       <div class="arch-layers reveal">
-        <div class="arch-layer l0">
-          <div class="arch-lbl"><div class="tier">Tier 0</div><div class="name">Primitives</div></div>
+        <div class="arch-layer l0 active">
+          <div class="arch-lbl">
+            <div class="tier">Tier 0</div><div class="name">Primitives</div>
+            <svg class="arch-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
           <div class="arch-items">
             <div class="arch-item">Colour Tokens</div>
             <div class="arch-item">Typography Scale</div>
@@ -1047,7 +1155,10 @@
           </div>
         </div>
         <div class="arch-layer l1">
-          <div class="arch-lbl"><div class="tier">Tier 1</div><div class="name">Foundations</div></div>
+          <div class="arch-lbl">
+            <div class="tier">Tier 1</div><div class="name">Foundations</div>
+            <svg class="arch-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
           <div class="arch-items">
             <div class="arch-item">Semantic Colours</div>
             <div class="arch-item">Text Styles</div>
@@ -1057,7 +1168,10 @@
           </div>
         </div>
         <div class="arch-layer l2">
-          <div class="arch-lbl"><div class="tier">Tier 2</div><div class="name">Core Components</div></div>
+          <div class="arch-lbl">
+            <div class="tier">Tier 2</div><div class="name">Core Components</div>
+            <svg class="arch-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
           <div class="arch-items">
             <div class="arch-item">Buttons</div>
             <div class="arch-item">Inputs &amp; Forms</div>
@@ -1068,17 +1182,23 @@
           </div>
         </div>
         <div class="arch-layer l3">
-          <div class="arch-lbl"><div class="tier">Tier 3</div><div class="name">Platform Components</div></div>
+          <div class="arch-lbl">
+            <div class="tier">Tier 3</div><div class="name">Platform Components</div>
+            <svg class="arch-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
           <div class="arch-items">
-            <div class="arch-item">App Components (Flutter)</div>
-            <div class="arch-item">Platform Components (React)</div>
+            <div class="arch-item">Flutter App</div>
+            <div class="arch-item">React Web</div>
             <div class="arch-item">Mission Cards</div>
             <div class="arch-item">Ambassador Profiles</div>
             <div class="arch-item">Brand Dashboards</div>
           </div>
         </div>
         <div class="arch-layer l4">
-          <div class="arch-lbl"><div class="tier">Tier 4</div><div class="name">Patterns &amp; Templates</div></div>
+          <div class="arch-lbl">
+            <div class="tier">Tier 4</div><div class="name">Patterns &amp; Templates</div>
+            <svg class="arch-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
           <div class="arch-items">
             <div class="arch-item">App Templates</div>
             <div class="arch-item">Design Patterns</div>
@@ -1780,6 +1900,429 @@
         </div>
       </div>
 
+      <!-- ── Button Component Explorer ────────────────────────────────── -->
+      <style>
+        /* === Button Component Explorer === */
+        .btn-wrap { margin-top: 64px; }
+        .btn-intro { margin-bottom: 36px; }
+        .btn-intro-ey {
+          display: inline-flex; align-items: center; gap: 10px;
+          font-size: 10px; font-weight: 600; letter-spacing: .14em;
+          text-transform: uppercase; color: var(--c-accent); margin-bottom: 12px;
+        }
+        .btn-intro-ey::before { content: ''; display: block; width: 24px; height: 1px; background: currentColor; }
+        .btn-intro h4 {
+          font-family: var(--f-display); font-size: clamp(20px,2.8vw,30px);
+          font-weight: 700; letter-spacing: -0.02em; color: var(--c-text); margin: 0 0 10px;
+        }
+        .btn-intro p { font-size: 14px; color: var(--c-text-m); line-height: 1.65; max-width: 580px; margin: 0; }
+
+        /* Shell */
+        .btn-shell {
+          display: grid; grid-template-columns: 220px 1fr;
+          border: 1px solid var(--c-border); border-radius: 18px; overflow: hidden;
+          background: var(--c-bg2);
+        }
+
+        /* Properties panel */
+        .btn-panel {
+          background: var(--c-bg3); border-right: 1px solid var(--c-border);
+          padding: 16px 15px; display: flex; flex-direction: column;
+        }
+        .btn-panel-hd {
+          font-size: 9px; font-weight: 700; letter-spacing: .15em;
+          text-transform: uppercase; color: var(--c-text-d);
+          padding-bottom: 12px; margin-bottom: 14px;
+          border-bottom: 1px solid var(--c-border);
+          display: flex; align-items: center; gap: 7px;
+        }
+        .btn-panel-hd svg { width: 13px; height: 13px; opacity: .45; flex-shrink: 0; }
+        .btn-slug {
+          display: flex; align-items: center; gap: 8px; padding: 7px 9px; border-radius: 8px;
+          background: rgba(150,103,247,.08); border: 1px solid rgba(150,103,247,.2); margin-bottom: 22px;
+        }
+        .btn-slug-box {
+          width: 20px; height: 20px; border-radius: 4px; background: rgba(150,103,247,.3);
+          display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0;
+        }
+        .btn-slug-name { font-size: 11px; font-weight: 600; color: var(--c-text-m); line-height: 1.2; }
+        .btn-slug-id   { font-size: 9px; color: var(--c-text-d); font-variant-numeric: tabular-nums; }
+        .btn-grp { margin-bottom: 18px; }
+        .btn-grp-lbl {
+          font-size: 9px; font-weight: 600; letter-spacing: .11em;
+          text-transform: uppercase; color: var(--c-text-d); margin-bottom: 8px;
+        }
+        .btn-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+        .btn-chip {
+          padding: 5px 10px; border-radius: 6px;
+          border: 1px solid var(--c-border); background: transparent;
+          font-size: 11px; font-weight: 500; color: var(--c-text-d);
+          font-family: inherit; cursor: pointer; line-height: 1;
+          transition: all .2s cubic-bezier(.22,1,.36,1);
+        }
+        .btn-chip:hover { color: var(--c-text-m); border-color: var(--c-border-m); background: rgba(255,255,255,.03); }
+        .btn-chip.on { color: #b593f9; border-color: rgba(150,103,247,.42); background: rgba(150,103,247,.12); }
+
+        /* Stage */
+        .btn-stage {
+          display: flex; flex-direction: column; align-items: center; justify-content: center;
+          padding: 64px 32px; position: relative; min-height: 340px; gap: 0;
+          background-image:
+            linear-gradient(rgba(255,255,255,.016) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,.016) 1px, transparent 1px);
+          background-size: 26px 26px;
+        }
+        .btn-stage::before {
+          content: ''; position: absolute; inset: 0; pointer-events: none;
+          background: radial-gradient(ellipse at 55% 48%, rgba(150,103,247,.09), transparent 64%);
+        }
+        .btn-stage-foot {
+          position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
+          font-size: 9.5px; color: var(--c-text-d); letter-spacing: .1em;
+          text-transform: uppercase; white-space: nowrap; pointer-events: none;
+        }
+
+        /* ── Button element ── */
+        .bp {
+          display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+          font-family: var(--f-body); font-weight: 600; cursor: default;
+          white-space: nowrap; position: relative; overflow: hidden; letter-spacing: 0.01em; line-height: 1;
+          transition: background .18s cubic-bezier(.22,1,.36,1),
+                      border-color .18s cubic-bezier(.22,1,.36,1),
+                      box-shadow .18s cubic-bezier(.22,1,.36,1),
+                      transform .15s cubic-bezier(.22,1,.36,1),
+                      opacity .15s;
+        }
+        /* Sizes */
+        .bp-xs { height: 24px; padding: 0 10px; border-radius: 6px;  font-size: 10.5px; }
+        .bp-sm { height: 28px; padding: 0 12px; border-radius: 7px;  font-size: 11.5px; }
+        .bp-md { height: 34px; padding: 0 14px; border-radius: 8px;  font-size: 12.5px; }
+        .bp-lg { height: 42px; padding: 0 20px; border-radius: 10px; font-size: 13.5px; }
+        /* Variants */
+        .bp-primary   { background: #9667f7; color: white; border: 1.5px solid transparent; }
+        .bp-secondary { background: rgba(255,255,255,.045); color: #EDECEA; border: 1.5px solid rgba(255,255,255,.12); }
+        .bp-subtle    { background: transparent; color: #EDECEA; border: 1.5px solid transparent; }
+        .bp-hls       { background: rgba(150,103,247,.12); color: #b593f9; border: 1.5px solid rgba(150,103,247,.25); }
+        .bp-hll       { background: rgba(150,103,247,.06); color: #a07ef5; border: 1.5px solid rgba(150,103,247,.18); }
+        /* State: interact */
+        .bp-primary.bps-interact   { background: #8150ee; }
+        .bp-secondary.bps-interact { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.22); }
+        .bp-subtle.bps-interact    { background: rgba(255,255,255,.06); }
+        .bp-hls.bps-interact       { background: rgba(150,103,247,.2); border-color: rgba(150,103,247,.38); }
+        .bp-hll.bps-interact       { background: rgba(150,103,247,.11); border-color: rgba(150,103,247,.28); }
+        /* State: pressed */
+        .bp-primary.bps-pressed    { background: #6d3edd; transform: scale(0.97); }
+        .bp-secondary.bps-pressed  { background: rgba(255,255,255,.11); transform: scale(0.97); }
+        .bp-subtle.bps-pressed     { background: rgba(255,255,255,.09); transform: scale(0.97); }
+        .bp-hls.bps-pressed        { background: rgba(150,103,247,.26); transform: scale(0.97); }
+        .bp-hll.bps-pressed        { background: rgba(150,103,247,.15); transform: scale(0.97); }
+        /* State: focused */
+        .bp-primary.bps-focused    { box-shadow: 0 0 0 3px rgba(150,103,247,.5); }
+        .bp-secondary.bps-focused  { box-shadow: 0 0 0 3px rgba(150,103,247,.35); border-color: rgba(150,103,247,.55); }
+        .bp-subtle.bps-focused     { box-shadow: 0 0 0 3px rgba(150,103,247,.35); }
+        .bp-hls.bps-focused        { box-shadow: 0 0 0 3px rgba(150,103,247,.42); border-color: rgba(150,103,247,.55); }
+        .bp-hll.bps-focused        { box-shadow: 0 0 0 3px rgba(150,103,247,.3); border-color: rgba(150,103,247,.42); }
+        /* State: disabled */
+        .bp.bps-disabled { opacity: 0.35; cursor: not-allowed; }
+        /* State: loading */
+        .bp.bps-loading .bp-label { opacity: 0; }
+        .bp.bps-loading .bp-icon  { opacity: 0; }
+        .bp.bps-loading::after {
+          content: ''; position: absolute;
+          width: 13px; height: 13px; border-radius: 50%;
+          border: 2px solid currentColor; border-top-color: transparent;
+          animation: bp-spin .72s linear infinite;
+        }
+        @keyframes bp-spin { to { transform: rotate(360deg); } }
+        .bp-xs.bps-loading::after { width: 10px; height: 10px; }
+        .bp-lg.bps-loading::after { width: 16px; height: 16px; }
+        /* Icon */
+        .bp-icon { width: 14px; height: 14px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+        .bp-icon svg { width: 100%; height: 100%; stroke: currentColor; fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+        /* Preview scale */
+        .btn-preview-wrap { display: flex; align-items: center; justify-content: center; transform: scale(1.75); transition: transform .35s cubic-bezier(.22,1,.36,1); position: relative; z-index: 1; }
+
+        /* ── Variant matrix ── */
+        .btn-matrix { margin-top: 32px; }
+        .btn-matrix-lbl {
+          font-size: 9.5px; font-weight: 600; letter-spacing: .12em;
+          text-transform: uppercase; color: var(--c-text-d); margin-bottom: 14px;
+        }
+        .btn-matrix-wrap { border: 1px solid var(--c-border); border-radius: 14px; overflow: hidden; background: var(--c-bg2); }
+        .btn-matrix-table { width: 100%; border-collapse: collapse; }
+        .btn-mth {
+          font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+          color: var(--c-text-d); padding: 13px 10px; text-align: center;
+          background: var(--c-bg3); border-bottom: 1px solid var(--c-border);
+        }
+        .btn-mth:first-child { text-align: left; border-right: 1px solid var(--c-border); padding-left: 18px; }
+        .btn-mrh {
+          font-size: 9px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase;
+          color: var(--c-text-d); padding: 12px 18px; border-right: 1px solid var(--c-border);
+          background: var(--c-bg3); white-space: nowrap;
+        }
+        .btn-mtd {
+          text-align: center; padding: 10px 6px; border-top: 1px solid var(--c-border);
+        }
+        .btn-mtd .bp { font-size: 10.5px; height: 26px; padding: 0 10px; border-radius: 6px; pointer-events: none; }
+        .btn-mtd .bp-icon { display: none; }
+
+        @media (max-width: 700px) {
+          .btn-shell { grid-template-columns: 1fr; }
+          .btn-panel { border-right: none; border-bottom: 1px solid var(--c-border); }
+          .btn-preview-wrap { transform: scale(1.3); }
+          .btn-matrix-wrap { overflow-x: auto; }
+        }
+
+        /* ── Component Switcher ── */
+        .comp-switcher {
+          display: flex; align-items: center; gap: 2px;
+          padding: 3px; border-radius: 11px;
+          background: var(--c-bg3); border: 1px solid var(--c-border);
+          width: fit-content; margin-bottom: 28px;
+        }
+        .comp-sw {
+          padding: 7px 18px; border-radius: 8px; border: none;
+          font-size: 12px; font-weight: 500; color: var(--c-text-d);
+          font-family: inherit; cursor: pointer; background: transparent;
+          display: flex; align-items: center; gap: 7px; line-height: 1;
+          transition: all .22s cubic-bezier(.22,1,.36,1);
+        }
+        .comp-sw:hover { color: var(--c-text-m); background: rgba(255,255,255,.04); }
+        .comp-sw.active {
+          color: var(--c-text); background: var(--c-bg4);
+          box-shadow: 0 1px 4px rgba(0,0,0,.3);
+        }
+        .comp-sw svg { width: 13px; height: 13px; opacity: .7; flex-shrink: 0; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+        .comp-pane { display: none; }
+        .comp-pane.active { display: block; }
+
+        /* ── Text Field element ── */
+        .tfe { display: flex; flex-direction: column; gap: 5px; width: 260px; }
+        .tfe-label { font-size: 12px; font-weight: 500; color: var(--c-text-m); transition: color .2s; }
+        .tfe-input-wrap {
+          position: relative; display: flex; align-items: center;
+          height: 40px; border-radius: 8px; padding: 0 36px 0 12px;
+          background: rgba(255,255,255,.05); border: 1.5px solid rgba(255,255,255,.12);
+          transition: border-color .2s cubic-bezier(.22,1,.36,1),
+                      box-shadow .2s cubic-bezier(.22,1,.36,1), background .2s;
+          overflow: hidden;
+        }
+        .tfe-placeholder { font-size: 12.5px; color: var(--c-text-d); pointer-events: none; user-select: none; }
+        .tfe-value       { font-size: 12.5px; color: var(--c-text); display: none; pointer-events: none; user-select: none; }
+        .tfe-clear {
+          position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+          width: 18px; height: 18px; border-radius: 50%;
+          background: rgba(255,255,255,.12); display: none;
+          align-items: center; justify-content: center;
+          font-size: 11px; font-style: normal; color: var(--c-text-m); line-height: 1;
+        }
+        .tfe-helper { font-size: 11px; color: var(--c-text-d); min-height: 16px; display: block; transition: color .2s; }
+
+        /* filled */
+        .tfe.tfe-filled .tfe-placeholder { display: none; }
+        .tfe.tfe-filled .tfe-value       { display: block; }
+        .tfe.tfe-filled .tfe-clear       { display: flex; }
+        /* focused */
+        .tfe.tfe-focused .tfe-input-wrap  { border-color: var(--c-accent); box-shadow: 0 0 0 3px rgba(150,103,247,.22); }
+        /* disabled */
+        .tfe.tfe-disabled { opacity: .36; pointer-events: none; }
+        .tfe.tfe-disabled .tfe-input-wrap { background: rgba(255,255,255,.02); cursor: not-allowed; }
+        /* read-only */
+        .tfe.tfe-readonly .tfe-input-wrap { background: rgba(255,255,255,.02); border-color: rgba(255,255,255,.07); }
+        .tfe.tfe-readonly .tfe-clear      { display: none !important; }
+        /* invalid */
+        .tfe.tfe-invalid .tfe-input-wrap  { border-color: #f87171; }
+        .tfe.tfe-invalid.tfe-focused .tfe-input-wrap { border-color: #f87171; box-shadow: 0 0 0 3px rgba(248,113,113,.16); }
+        .tfe.tfe-invalid .tfe-helper      { color: #f87171; }
+
+        /* Stage for text field — reuses btn-stage look */
+        .tf-stage {
+          display: flex; flex-direction: column; align-items: center; justify-content: center;
+          padding: 64px 32px; position: relative; min-height: 340px;
+          background-image:
+            linear-gradient(rgba(255,255,255,.016) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,.016) 1px, transparent 1px);
+          background-size: 26px 26px;
+        }
+        .tf-stage::before {
+          content: ''; position: absolute; inset: 0; pointer-events: none;
+          background: radial-gradient(ellipse at 55% 48%, rgba(150,103,247,.08), transparent 64%);
+        }
+        .tf-stage-foot {
+          position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
+          font-size: 9.5px; color: var(--c-text-d); letter-spacing: .1em;
+          text-transform: uppercase; white-space: nowrap; pointer-events: none;
+        }
+
+        /* Matrix – text field */
+        .tf-matrix { margin-top: 32px; }
+        .tf-matrix-lbl {
+          font-size: 9.5px; font-weight: 600; letter-spacing: .12em;
+          text-transform: uppercase; color: var(--c-text-d); margin-bottom: 14px;
+        }
+        .tf-matrix-wrap { border: 1px solid var(--c-border); border-radius: 14px; overflow: hidden; background: var(--c-bg2); }
+        .tf-matrix-table { width: 100%; border-collapse: collapse; }
+        .tf-mth {
+          font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+          color: var(--c-text-d); padding: 13px 14px; text-align: left;
+          background: var(--c-bg3); border-bottom: 1px solid var(--c-border);
+        }
+        .tf-mth:first-child { border-right: 1px solid var(--c-border); min-width: 120px; }
+        .tf-mrh {
+          font-size: 8.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+          color: var(--c-text-d); padding: 12px 18px; border-right: 1px solid var(--c-border);
+          background: var(--c-bg3); white-space: nowrap; vertical-align: top;
+        }
+        .tf-mtd { padding: 12px 14px; border-top: 1px solid var(--c-border); vertical-align: top; }
+        /* compact tfe in matrix */
+        .tfe-sm { width: auto; }
+        .tfe-sm .tfe-input-wrap { height: 30px; border-radius: 6px; padding: 0 28px 0 10px; }
+        .tfe-sm .tfe-label       { font-size: 10.5px; }
+        .tfe-sm .tfe-placeholder,
+        .tfe-sm .tfe-value       { font-size: 11px; }
+        .tfe-sm .tfe-helper      { font-size: 10px; }
+        .tfe-sm .tfe-clear       { right: 7px; width: 14px; height: 14px; font-size: 9px; }
+
+        @media (max-width: 700px) { .tf-matrix-wrap { overflow-x: auto; } }
+      </style>
+
+      <div class="btn-wrap reveal">
+        <div class="btn-intro">
+          <div class="btn-intro-ey">CORE COMPONENT &middot; BUTTON</div>
+          <h4>Five variants. Four sizes. Six states.</h4>
+          <p>The Button is the primary action component shared across Club TIE&rsquo;s Flutter ambassador app and React brand platform &mdash; consistent interaction tokens, one system.</p>
+        </div>
+
+        <div class="btn-shell">
+          <!-- Properties panel -->
+          <div class="btn-panel">
+            <div class="btn-panel-hd">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1.5" y="1.5" width="13" height="13" rx="2"/><path d="M5 5h6M5 8h4M5 11h2"/>
+              </svg>
+              PROPERTIES
+            </div>
+            <div class="btn-slug">
+              <div class="btn-slug-box">&#9670;</div>
+              <div>
+                <div class="btn-slug-name">Button</div>
+                <div class="btn-slug-id">7020-46250</div>
+              </div>
+            </div>
+            <div class="btn-grp">
+              <div class="btn-grp-lbl">Variant</div>
+              <div class="btn-chips">
+                <button class="btn-chip on"  data-prop="variant" data-val="primary">Primary</button>
+                <button class="btn-chip"     data-prop="variant" data-val="secondary">Secondary</button>
+                <button class="btn-chip"     data-prop="variant" data-val="subtle">Subtle</button>
+                <button class="btn-chip"     data-prop="variant" data-val="hls">HL Subtle</button>
+                <button class="btn-chip"     data-prop="variant" data-val="hll">HL Light</button>
+              </div>
+            </div>
+            <div class="btn-grp">
+              <div class="btn-grp-lbl">Size</div>
+              <div class="btn-chips">
+                <button class="btn-chip"     data-prop="size" data-val="xs">XSmall</button>
+                <button class="btn-chip"     data-prop="size" data-val="sm">Small</button>
+                <button class="btn-chip on"  data-prop="size" data-val="md">Medium</button>
+                <button class="btn-chip"     data-prop="size" data-val="lg">Large</button>
+              </div>
+            </div>
+            <div class="btn-grp">
+              <div class="btn-grp-lbl">State</div>
+              <div class="btn-chips">
+                <button class="btn-chip on"  data-prop="state" data-val="">Default</button>
+                <button class="btn-chip"     data-prop="state" data-val="bps-interact">Interact</button>
+                <button class="btn-chip"     data-prop="state" data-val="bps-pressed">Pressed</button>
+                <button class="btn-chip"     data-prop="state" data-val="bps-focused">Focused</button>
+                <button class="btn-chip"     data-prop="state" data-val="bps-disabled">Disabled</button>
+                <button class="btn-chip"     data-prop="state" data-val="bps-loading">Loading</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Preview stage -->
+          <div class="btn-stage">
+            <div class="btn-preview-wrap">
+              <button class="bp bp-md bp-primary" id="btn-preview">
+                <span class="bp-icon"><svg viewBox="0 0 16 16"><path d="M8 3v10M3 8h10"/></svg></span>
+                <span class="bp-label">Label</span>
+              </button>
+            </div>
+            <span class="btn-stage-foot">Club TIE &middot; Core Components &middot; Button</span>
+          </div>
+        </div>
+
+        <!-- Variant matrix -->
+        <div class="btn-matrix">
+          <div class="btn-matrix-lbl">All Variants &times; States &mdash; Small size</div>
+          <div class="btn-matrix-wrap">
+            <table class="btn-matrix-table" role="presentation">
+              <thead><tr>
+                <th class="btn-mth">State</th>
+                <th class="btn-mth">Primary</th>
+                <th class="btn-mth">Secondary</th>
+                <th class="btn-mth">Subtle</th>
+                <th class="btn-mth">HL Subtle</th>
+                <th class="btn-mth">HL Light</th>
+              </tr></thead>
+              <tbody>
+                <tr>
+                  <td class="btn-mrh">Default</td>
+                  <td class="btn-mtd"><button class="bp bp-primary" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                  <td class="btn-mtd"><button class="bp bp-secondary" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                  <td class="btn-mtd"><button class="bp bp-subtle" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                  <td class="btn-mtd"><button class="bp bp-hls" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                  <td class="btn-mtd"><button class="bp bp-hll" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                </tr>
+                <tr>
+                  <td class="btn-mrh">Interact</td>
+                  <td class="btn-mtd"><button class="bp bp-primary bps-interact" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                  <td class="btn-mtd"><button class="bp bp-secondary bps-interact" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                  <td class="btn-mtd"><button class="bp bp-subtle bps-interact" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                  <td class="btn-mtd"><button class="bp bp-hls bps-interact" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                  <td class="btn-mtd"><button class="bp bp-hll bps-interact" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                </tr>
+                <tr>
+                  <td class="btn-mrh">Pressed</td>
+                  <td class="btn-mtd"><button class="bp bp-primary bps-pressed" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                  <td class="btn-mtd"><button class="bp bp-secondary bps-pressed" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                  <td class="btn-mtd"><button class="bp bp-subtle bps-pressed" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                  <td class="btn-mtd"><button class="bp bp-hls bps-pressed" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                  <td class="btn-mtd"><button class="bp bp-hll bps-pressed" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                </tr>
+                <tr>
+                  <td class="btn-mrh">Focused</td>
+                  <td class="btn-mtd"><button class="bp bp-primary bps-focused" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                  <td class="btn-mtd"><button class="bp bp-secondary bps-focused" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                  <td class="btn-mtd"><button class="bp bp-subtle bps-focused" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                  <td class="btn-mtd"><button class="bp bp-hls bps-focused" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                  <td class="btn-mtd"><button class="bp bp-hll bps-focused" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                </tr>
+                <tr>
+                  <td class="btn-mrh">Disabled</td>
+                  <td class="btn-mtd"><button class="bp bp-primary bps-disabled" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                  <td class="btn-mtd"><button class="bp bp-secondary bps-disabled" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                  <td class="btn-mtd"><button class="bp bp-subtle bps-disabled" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                  <td class="btn-mtd"><button class="bp bp-hls bps-disabled" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                  <td class="btn-mtd"><button class="bp bp-hll bps-disabled" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                </tr>
+                <tr>
+                  <td class="btn-mrh">Loading</td>
+                  <td class="btn-mtd"><button class="bp bp-primary bps-loading" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                  <td class="btn-mtd"><button class="bp bp-secondary bps-loading" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                  <td class="btn-mtd"><button class="bp bp-subtle bps-loading" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                  <td class="btn-mtd"><button class="bp bp-hls bps-loading" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                  <td class="btn-mtd"><button class="bp bp-hll bps-loading" tabindex="-1"><span class="bp-label">Label</span></button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
       <!-- ── Atomic Design Graph (4 tiers) ────────────────────────────── -->
       <style>
         .adg-wrap { margin-top: 64px; }
@@ -2039,25 +2582,41 @@
         </div>
         <div class="gov-grid reveal">
           <div class="gov-card">
+            <div class="tool-logo">
+              <!-- Storybook logo -->
+              <svg width="32" height="36" viewBox="0 0 48 54" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Storybook">
+                <path d="M1.6 48.4 0 4.2C0 3 .8 2 2 1.9L44 0c1.3-.1 2.3.9 2.3 2.1v49.7c0 1.2-1 2.2-2.2 2.2H3.8c-1.1 0-2.1-.8-2.2-1.6z" fill="#FF4785"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M33.7 4.6 34 0l7.3-.5-.3 4.7a.5.5 0 0 1-.8.4l-2-1.5-2.7 1.9a.5.5 0 0 1-.8-.4zm-6 22.5c0 1.6 10.7 .8 12.1-.3C39.8 17 35 12.2 26.4 12.2c-8.7 0-13.7 4.9-13.7 12.1 0 12.5 17.6 12.8 17.6 19.5 0 1.8-1 2.9-3.4 2.9-3.2 0-4.5-1.6-4.3-7.1 0-1.2-12.3-1.6-12.7 0-.8 13.6 7.4 17.5 17.1 17.5 9.4 0 15.3-4.9 15.3-13 0-13.4-17.9-13-17.9-19.5 0-2.6 2-2.9 3.3-2.9 1.5 0 3.3.3 3 7.4z" fill="#fff"/>
+              </svg>
+            </div>
             <div class="tool-name">Storybook</div>
             <div class="tool-sub">React Web Platform</div>
-            <p>Living docs for all React components — variants, states, and props catalogued as a reliable reference and visual test suite.</p>
+            <p>Living docs for React components — variants, states, and props.</p>
             <ul class="feat-list">
               <li>Stories for all interactive states</li>
               <li>Visual regression baseline</li>
-              <li>Isolated development environment</li>
-              <li>Single source of truth for frontend</li>
+              <li>Isolated dev environment</li>
+              <li>Single source of truth</li>
             </ul>
           </div>
           <div class="gov-card">
+            <div class="tool-logo">
+              <!-- Widgetbook logo -->
+              <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Widgetbook">
+                <rect width="64" height="64" rx="12" fill="#1A1A2E"/>
+                <path d="M32 8 L56 32 L32 56 L8 32 Z" fill="none" stroke="#4FC3F7" stroke-width="3.5"/>
+                <path d="M32 18 L46 32 L32 46 L18 32 Z" fill="#4FC3F7" opacity="0.25"/>
+                <circle cx="32" cy="32" r="5" fill="#4FC3F7"/>
+              </svg>
+            </div>
             <div class="tool-name">Widgetbook</div>
             <div class="tool-sub">Flutter Mobile App</div>
-            <p>Same governance layer for Flutter — each widget testable in isolation, closing the loop between Figma and the shipped app.</p>
+            <p>Same governance for Flutter — each widget testable in isolation.</p>
             <ul class="feat-list">
               <li>Full Flutter widget catalogue</li>
-              <li>Device and theme preview testing</li>
-              <li>Hot-reload documentation workflow</li>
-              <li>Design-to-code consistency checks</li>
+              <li>Device and theme preview</li>
+              <li>Hot-reload documentation</li>
+              <li>Design-to-code consistency</li>
             </ul>
           </div>
         </div>
@@ -2065,7 +2624,7 @@
         <div class="storybook-embed-wrap reveal">
           <p class="storybook-embed-kicker">Live Storybook</p>
           <h3 class="storybook-embed-title">TIE Button — React web documentation</h3>
-          <p class="storybook-embed-desc">Embedded Storybook for the Club TIE component library (example: <strong>TieButton</strong> docs). If the frame stays blank, the host may block embedding — open the same URL in a new tab.</p>
+          <p class="storybook-embed-desc">Example: <strong>TieButton</strong> docs. If blank, the host may block embedding — open in a new tab.</p>
           <p class="storybook-embed-open"><a href="https://web-club-tie.club.co/?path=/docs/tie-components-tiebutton--docs" target="_blank" rel="noopener noreferrer">Open Storybook in a new tab →</a></p>
           <div class="storybook-embed-frame">
             <iframe title="Club TIE Storybook — TieButton documentation" src="https://web-club-tie.club.co/?path=/docs/tie-components-tiebutton--docs" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="clipboard-write; fullscreen" allowfullscreen></iframe>
@@ -2485,6 +3044,41 @@
 <div id="hero-top" style="position:absolute;top:0;"></div>
 
 <script>
+/* ── Button Component Explorer ── */
+(function initButtonExplorer() {
+  const preview = document.getElementById('btn-preview');
+  if (!preview) return;
+
+  const state = { variant: 'primary', size: 'md', bstate: '' };
+  const VARIANTS = ['bp-primary','bp-secondary','bp-subtle','bp-hls','bp-hll'];
+  const SIZES    = ['bp-xs','bp-sm','bp-md','bp-lg'];
+  const BSTATES  = ['bps-interact','bps-pressed','bps-focused','bps-disabled','bps-loading'];
+
+  function applyState() {
+    VARIANTS.forEach(c => preview.classList.remove(c));
+    SIZES.forEach(c => preview.classList.remove(c));
+    BSTATES.forEach(c => preview.classList.remove(c));
+    preview.classList.add('bp-' + state.variant);
+    preview.classList.add('bp-' + state.size);
+    if (state.bstate) preview.classList.add(state.bstate);
+  }
+
+  document.querySelectorAll('.btn-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const prop = btn.dataset.prop;
+      const val  = btn.dataset.val || '';
+      document.querySelectorAll('.btn-chip[data-prop="' + prop + '"]').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      if (prop === 'variant') state.variant = val;
+      if (prop === 'size')    state.size    = val;
+      if (prop === 'state')   state.bstate  = val;
+      applyState();
+    });
+  });
+
+  applyState();
+})();
+
 /* ── Tab switching ── */
 function switchTab(btn, id) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));

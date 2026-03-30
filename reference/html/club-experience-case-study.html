@@ -1,1282 +1,3095 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Club Experience — UX Restructuring Case Study</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
-<style>
-  /* ── Standalone preview only — Next.js uses case-study-club-experience.css ── */
-  :root {
-    --c-bg: #08080A; --c-bg2: #0F0F12; --c-bg3: #16161A; --c-bg4: #1E1E23;
-    --c-border: rgba(255,255,255,0.06); --c-border-m: rgba(255,255,255,0.10);
-    --c-text: #EDECEA; --c-text-m: #A8A6A0; --c-text-d: #5E5C58;
-    --c-accent: #9667f7; --c-accent-l: #b593f9; --c-accent-m: #8152e0; --c-accent-d: #6131c4;
-    --c-accent-rgb: 150, 103, 247;
-    --f-display: 'Syne', sans-serif; --f-body: 'DM Sans', sans-serif;
-    --nav-h: 56px; --sidebar-w: 220px; --case-radius: 14px; --case-grid-gap: 10px;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { background: var(--c-bg); color: var(--c-text); font-family: var(--f-body); font-size: 16px; line-height: 1.7; overflow-x: hidden; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Club Experience — UX Restructuring Case Study</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ── Standalone preview only — Next.js uses case-study-club-experience.css ── */
+    :root {
+      --c-bg: #08080A;
+      --c-bg2: #0F0F12;
+      --c-bg3: #16161A;
+      --c-bg4: #1E1E23;
+      --c-border: rgba(255, 255, 255, 0.06);
+      --c-border-m: rgba(255, 255, 255, 0.10);
+      --c-text: #EDECEA;
+      --c-text-m: #A8A6A0;
+      --c-text-d: #5E5C58;
+      --c-accent: #9667f7;
+      --c-accent-l: #b593f9;
+      --c-accent-m: #8152e0;
+      --c-accent-d: #6131c4;
+      --c-accent-rgb: 150, 103, 247;
+      --f-display: 'Syne', sans-serif;
+      --f-body: 'DM Sans', sans-serif;
+      --nav-h: 56px;
+      --sidebar-w: 220px;
+      --case-radius: 14px;
+      --case-grid-gap: 10px;
+    }
 
-  /* NAV */
-  .top-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: var(--nav-h); background: rgba(8,8,10,0.92); backdrop-filter: blur(18px); border-bottom: 1px solid var(--c-border); }
-  .top-nav-name { display: flex; align-items: center; gap: 10px; font-family: var(--f-display); font-weight: 700; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--c-text); text-decoration: none; }
-  .top-nav-name .green-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c-accent); box-shadow: 0 0 8px rgba(150, 103, 247,0.5); flex-shrink: 0; }
-  .top-nav-back { font-size: 13px; color: var(--c-accent); text-decoration: none; font-weight: 500; letter-spacing: 0.02em; transition: color 0.2s; }
-  .top-nav-back:hover { color: var(--c-accent-l); }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  /* HERO */
-  .hero { margin-top: var(--nav-h); min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 48px 80px; position: relative; overflow: hidden; }
-  .hero-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
-  .hero-glow { position: absolute; width: 900px; height: 900px; border-radius: 50%; background: radial-gradient(circle, rgba(150, 103, 247,0.10) 0%, transparent 70%); top: -300px; right: -200px; }
-  .hero-glow2 { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(150, 103, 247,0.05) 0%, transparent 70%); bottom: 80px; left: -100px; }
-  .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px); background-size: 48px 48px; mask-image: radial-gradient(ellipse at 60% 40%, black 20%, transparent 70%); }
-  .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-accent); margin-bottom: 28px; position: relative; }
-  .hero-eyebrow::before { content: ''; display: block; width: 28px; height: 1px; background: var(--c-accent); }
-  .hero-title { font-family: var(--f-display); font-size: clamp(60px, 9vw, 128px); font-weight: 800; line-height: 0.9; letter-spacing: -0.03em; margin-bottom: 40px; position: relative; }
-  .hero-title .line-accent { color: var(--c-accent); }
-  .hero-title .line-dim { color: var(--c-text-d); }
-  .hero-divider { width: 100%; height: 1px; background: var(--c-border); margin-bottom: 40px; }
-  .hero-meta { display: flex; gap: 48px; margin-bottom: 48px; flex-wrap: wrap; position: relative; }
-  .hero-meta-item label { display: block; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-text-d); margin-bottom: 4px; }
-  .hero-meta-item span { font-size: 13px; color: var(--c-text-m); }
-  .hero-scroll { display: flex; align-items: center; gap: 12px; font-size: 11px; color: var(--c-text-d); letter-spacing: 0.1em; text-transform: uppercase; }
-  .scroll-line { width: 40px; height: 1px; background: var(--c-text-d); position: relative; overflow: hidden; }
-  .scroll-line::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: var(--c-accent); animation: slide 2s ease-in-out infinite; }
-  @keyframes slide { 0%{left:-100%} 50%{left:0%} 100%{left:100%} }
+    html {
+      scroll-behavior: smooth;
+    }
 
-  /* LAYOUT */
-  .case-layout { display: flex; min-height: 100vh; }
-  .sidebar { width: var(--sidebar-w); flex-shrink: 0; position: sticky; top: calc(var(--nav-h) + 24px); height: fit-content; max-height: calc(100vh - var(--nav-h) - 48px); overflow-y: auto; padding: 16px 0; margin-left: 24px; border: 1px solid var(--c-border); border-radius: 16px; background: rgba(255,255,255,0.02); backdrop-filter: blur(12px); z-index: 50; }
-  .sidebar::-webkit-scrollbar { width: 0; }
-  .sidebar-nav { list-style: none; display: flex; flex-direction: column; gap: 2px; }
-  .sidebar-nav a { display: flex; align-items: center; gap: 10px; padding: 9px 20px; font-size: 12.5px; font-weight: 500; color: var(--c-text-d); text-decoration: none; letter-spacing: 0.01em; border-left: 2px solid transparent; border-radius: 8px; margin: 0 8px; transition: color 0.25s, border-color 0.25s, background 0.25s; }
-  .sidebar-nav a:hover { color: var(--c-text-m); background: rgba(255,255,255,0.04); }
-  .sidebar-nav a.active { color: var(--c-accent); font-weight: 600; border-left-color: var(--c-accent); background: rgba(150, 103, 247,0.08); }
-  .sidebar-nav a svg { width: 15px; height: 15px; flex-shrink: 0; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; opacity: 0.7; }
-  .sidebar-nav a.active svg { opacity: 1; }
-  .sidebar-sep { height: 1px; background: var(--c-border); margin: 12px 16px; }
-  .main-content { flex: 1; min-width: 0; padding-left: 32px; }
+    body {
+      background: var(--c-bg);
+      color: var(--c-text);
+      font-family: var(--f-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
 
-  /* SECTIONS */
-  .wrap { max-width: 1100px; margin: 0 auto; padding: 100px 48px; }
-  .section-band { background: var(--c-bg2); border-top: 1px solid var(--c-border); border-bottom: 1px solid var(--c-border); }
+    /* NAV */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      height: var(--nav-h);
+      background: rgba(8, 8, 10, 0.92);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--c-border);
+    }
 
-  /* TYPOGRAPHY */
-  .section-label { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-accent); margin-bottom: 20px; }
-  .section-label .num { opacity: 0.5; }
-  h2 { font-family: var(--f-display); font-size: clamp(32px, 3.5vw, 48px); font-weight: 700; line-height: 1.06; letter-spacing: -0.025em; margin-bottom: 20px; }
-  h3 { font-family: var(--f-display); font-size: 20px; font-weight: 600; margin-bottom: 10px; }
-  p { color: var(--c-text-m); max-width: 640px; }
-  p + p { margin-top: 14px; }
+    .top-nav-name {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--f-display);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--c-text);
+      text-decoration: none;
+    }
 
-  /* KPI */
-  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--case-grid-gap); margin-top: 48px; }
-  .kpi-card { background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: var(--case-radius); padding: 28px 24px; position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22,1,0.36,1); }
-  .kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: transparent; transition: background 0.3s; }
-  .kpi-card:hover::before { background: var(--c-accent); }
-  .kpi-card:hover { border-color: rgba(150, 103, 247,0.35); transform: translateY(-4px); }
-  .kpi-num { font-family: var(--f-display); font-size: 40px; font-weight: 800; color: var(--c-accent); line-height: 1; letter-spacing: -0.03em; margin-bottom: 8px; }
-  .kpi-label { font-size: 11px; color: var(--c-text-d); letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.4; }
+    .top-nav-name .green-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--c-accent);
+      box-shadow: 0 0 8px rgba(150, 103, 247, 0.5);
+      flex-shrink: 0;
+    }
 
-  /* PROCESS STEPS */
-  .process-steps { display: flex; gap: 0; margin-top: 48px; border: 1px solid var(--c-border); border-radius: var(--case-radius); overflow: hidden; }
-  .process-step { flex: 1; padding: 28px 24px; position: relative; transition: background 0.3s; border-right: 1px solid var(--c-border); }
-  .process-step:last-child { border-right: none; }
-  .process-step:hover { background: var(--c-bg4); }
-  .process-step.active { background: rgba(150, 103, 247,0.05); }
-  .process-step.active::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--c-accent); }
-  .ps-num { font-size: 10px; font-weight: 600; color: var(--c-text-d); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
-  .ps-title { font-family: var(--f-display); font-size: 18px; font-weight: 700; color: var(--c-text); margin-bottom: 8px; }
-  .process-step.active .ps-title { color: var(--c-accent); }
-  .ps-desc { font-size: 13px; color: var(--c-text-d); line-height: 1.55; }
+    .top-nav-back {
+      font-size: 13px;
+      color: var(--c-accent);
+      text-decoration: none;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
 
-  /* PROBLEM */
-  .problem-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--case-grid-gap); margin-top: 48px; }
-  .problem-card { background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: var(--case-radius); padding: 32px; position: relative; overflow: hidden; transition: background 0.3s, border-color 0.3s; }
-  .problem-card:hover { background: var(--c-bg4); border-color: var(--c-border-m); }
-  .problem-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: transparent; transition: background 0.3s; }
-  .problem-card:hover::before { background: var(--c-accent); }
-  .p-icon { width: 40px; height: 40px; border-radius: 11px; background: rgba(150, 103, 247,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
-  .p-icon svg { width: 18px; height: 18px; stroke: var(--c-accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-  .problem-card h3 { font-size: 17px; color: var(--c-text); margin-bottom: 10px; }
-  .problem-card p { font-size: 14px; max-width: none; line-height: 1.65; }
+    .top-nav-back:hover {
+      color: var(--c-accent-l);
+    }
 
-  /* INSIGHT */
-  .insight-card { background: linear-gradient(135deg, rgba(150, 103, 247,0.08) 0%, rgba(150, 103, 247,0.02) 100%); border: 1px solid rgba(150, 103, 247,0.20); border-radius: 24px; padding: 56px 64px; position: relative; overflow: hidden; margin-top: 48px; }
-  .insight-card::before { content: '"'; position: absolute; top: -24px; left: 40px; font-family: var(--f-display); font-size: 220px; font-weight: 800; color: rgba(150, 103, 247,0.06); line-height: 1; pointer-events: none; }
-  .insight-text { font-family: var(--f-display); font-size: clamp(22px, 2.5vw, 34px); font-weight: 700; line-height: 1.3; letter-spacing: -0.02em; color: var(--c-text); max-width: 780px; position: relative; }
-  .insight-text em { color: var(--c-accent); font-style: normal; }
-  .insight-sub { margin-top: 24px; font-size: 13px; color: var(--c-text-d); letter-spacing: 0.04em; position: relative; }
+    /* HERO */
+    .hero {
+      margin-top: var(--nav-h);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 48px 80px;
+      position: relative;
+      overflow: hidden;
+    }
 
-  /* CONTEXT BLURB */
-  .context-blurb { background: rgba(150, 103, 247,0.03); border: 1px solid var(--c-border); border-left: 3px solid rgba(150, 103, 247,0.5); border-radius: 12px; padding: 28px 32px; margin-top: 32px; }
-  .context-blurb p { font-size: 15px; max-width: none; line-height: 1.78; color: var(--c-text-m); }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
 
-  /* OBJECTIVES */
-  .objectives-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--case-grid-gap); margin-top: 48px; }
-  .obj-card { background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: var(--case-radius); padding: 32px; display: flex; gap: 20px; align-items: flex-start; transition: border-color 0.3s, background 0.3s, transform 0.3s cubic-bezier(0.22,1,0.36,1); }
-  .obj-card:hover { border-color: rgba(150, 103, 247,0.25); background: var(--c-bg4); transform: translateY(-3px); }
-  .obj-num { font-family: var(--f-display); font-size: 13px; font-weight: 700; color: var(--c-accent); opacity: 0.6; min-width: 28px; padding-top: 2px; flex-shrink: 0; }
-  .obj-body h3 { font-size: 16px; font-weight: 600; color: var(--c-text); margin-bottom: 8px; }
-  .obj-body p { font-size: 14px; max-width: none; line-height: 1.65; }
+    .hero-glow {
+      position: absolute;
+      width: 900px;
+      height: 900px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(150, 103, 247, 0.10) 0%, transparent 70%);
+      top: -300px;
+      right: -200px;
+    }
 
-  /* PRINCIPLES */
-  .principles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--case-grid-gap); margin-top: 48px; }
-  .principle-card { background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: var(--case-radius); padding: 28px; position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22,1,0.36,1); }
-  .principle-card::after { content: ''; position: absolute; bottom: -40px; right: -40px; width: 120px; height: 120px; border-radius: 50%; background: rgba(150, 103, 247,0.04); pointer-events: none; }
-  .principle-card:hover { border-color: rgba(150, 103, 247,0.28); transform: translateY(-4px); }
-  .pr-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(150, 103, 247,0.08); border: 1px solid rgba(150, 103, 247,0.15); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 20px; }
-  .principle-card h3 { font-size: 15px; font-weight: 600; color: var(--c-text); margin-bottom: 8px; }
-  .principle-card p { font-size: 13px; max-width: none; line-height: 1.65; position: relative; }
+    .hero-glow2 {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(150, 103, 247, 0.05) 0%, transparent 70%);
+      bottom: 80px;
+      left: -100px;
+    }
 
-  /* ARCH */
-  .arch-layers { display: flex; flex-direction: column; gap: var(--case-grid-gap); margin-top: 48px; }
-  .arch-layer { display: flex; align-items: stretch; gap: 6px; min-height: 84px; cursor: default; transition: transform 0.35s cubic-bezier(0.22,1,0.36,1); border-radius: var(--case-radius); overflow: hidden; background: var(--c-bg); border: 1px solid var(--c-border); }
-  .arch-layer:hover { transform: translateX(8px); }
-  .arch-lbl { width: 200px; flex-shrink: 0; background: var(--c-bg3); display: flex; flex-direction: column; justify-content: center; padding: 0 22px; }
-  .arch-lbl .tier { font-size: 9px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-text-d); margin-bottom: 3px; }
-  .arch-lbl .name { font-family: var(--f-display); font-size: 14px; font-weight: 600; color: var(--c-text); }
-  .arch-items { flex: 1; display: flex; gap: 6px; padding: 10px; }
-  .arch-item { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; text-align: center; padding: 10px 8px; border-radius: 8px; transition: background 0.2s, color 0.2s; color: var(--c-text-d); }
-  .arch-item:hover { color: var(--c-text); }
-  .l0 .arch-lbl { border-left: 3px solid var(--c-accent); }
-  .l0 .arch-item { background: rgba(150, 103, 247,0.06); } .l0 .arch-item:hover { background: rgba(150, 103, 247,0.12); }
-  .l1 .arch-lbl { border-left: 3px solid rgba(150, 103, 247,0.7); }
-  .l1 .arch-item { background: rgba(150, 103, 247,0.05); } .l1 .arch-item:hover { background: rgba(150, 103, 247,0.10); }
-  .l2 .arch-lbl { border-left: 3px solid rgba(150, 103, 247,0.5); }
-  .l2 .arch-item { background: rgba(150, 103, 247,0.04); } .l2 .arch-item:hover { background: rgba(150, 103, 247,0.08); }
-  .l3 .arch-lbl { border-left: 3px solid rgba(150, 103, 247,0.35); }
-  .l3 .arch-item { background: rgba(150, 103, 247,0.03); } .l3 .arch-item:hover { background: rgba(150, 103, 247,0.06); }
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse at 60% 40%, black 20%, transparent 70%);
+    }
 
-  /* ARCH LEGEND */
-  .arch-legend { display: flex; align-items: center; gap: 24px; margin-top: 20px; padding: 0 4px; }
-  .arch-legend-item { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--c-text-d); }
-  .arch-legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-accent);
+      margin-bottom: 28px;
+      position: relative;
+    }
 
-  /* FLOW */
-  .flow-steps { display: flex; align-items: center; gap: 0; margin-top: 48px; padding-bottom: 8px; overflow-x: auto; scrollbar-width: none; }
-  .flow-steps::-webkit-scrollbar { display: none; }
-  .flow-step { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-  .flow-step-inner { background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: 14px; padding: 20px 16px; width: 120px; text-align: center; cursor: default; transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22,1,0.36,1), background 0.3s; }
-  .flow-step-inner:hover { border-color: rgba(150, 103, 247,0.4); transform: translateY(-5px); background: var(--c-bg4); }
-  .flow-step-icon { width: 36px; height: 36px; border-radius: 10px; background: rgba(150, 103, 247,0.10); display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; }
-  .flow-step-icon svg { width: 16px; height: 16px; stroke: var(--c-accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-  .flow-step-label { font-size: 12px; font-weight: 600; color: var(--c-text); letter-spacing: 0.02em; }
-  .flow-step-sub { font-size: 11px; color: var(--c-text-d); margin-top: 3px; line-height: 1.4; }
-  .flow-arrow { width: 32px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; padding-bottom: 28px; }
-  .flow-arrow svg { width: 18px; height: 18px; stroke: rgba(150, 103, 247,0.35); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--c-accent);
+    }
 
-  /* SCREENS */
-  .screens-group { margin-top: 56px; }
-  .screens-group:first-child { margin-top: 32px; }
-  .screen-group-header { display: flex; align-items: baseline; gap: 14px; margin-bottom: 12px; }
-  .screen-group-num { font-family: var(--f-display); font-size: 12px; font-weight: 700; color: var(--c-accent); opacity: 0.6; letter-spacing: 0.1em; }
-  .screen-group-title { font-family: var(--f-display); font-size: 22px; font-weight: 700; color: var(--c-text); }
-  .screen-group-desc { font-size: 14px; color: var(--c-text-m); max-width: 640px; margin-bottom: 28px; line-height: 1.65; }
-  .screen-grid { display: grid; gap: var(--case-grid-gap); }
-  .screen-grid--2 { grid-template-columns: repeat(2, 1fr); }
-  .screen-grid--3 { grid-template-columns: repeat(3, 1fr); }
-  .screen-grid--4 { grid-template-columns: repeat(4, 1fr); }
-  .screen-cell { background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: 16px; overflow: hidden; position: relative; transition: border-color 0.3s, transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s; }
-  .screen-cell:hover { border-color: rgba(150, 103, 247,0.28); transform: translateY(-4px); box-shadow: 0 20px 48px rgba(0,0,0,0.4); }
-  .screen-cell img { width: 100%; display: block; object-fit: cover; }
-  .screen-cell--natural img { aspect-ratio: auto; max-height: 420px; object-fit: contain; background: var(--c-bg2); padding: 16px; }
-  .screen-cell .sc-lbl { padding: 16px 20px; border-top: 1px solid var(--c-border); }
-  .screen-cell .sc-lbl h4 { font-size: 13px; font-weight: 600; color: var(--c-text); margin-bottom: 4px; }
-  .screen-cell .sc-lbl p { font-size: 12px; color: var(--c-text-d); max-width: none; line-height: 1.5; }
+    .hero-title {
+      font-family: var(--f-display);
+      font-size: clamp(60px, 9vw, 128px);
+      font-weight: 800;
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      margin-bottom: 40px;
+      position: relative;
+    }
 
-  /* DECISIONS */
-  .decisions-list { display: flex; flex-direction: column; gap: 12px; margin-top: 48px; }
-  .decision-card { background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: var(--case-radius); padding: 32px; display: grid; grid-template-columns: 52px 1fr; gap: 24px; align-items: start; transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22,1,0.36,1); }
-  .decision-card:hover { border-color: rgba(150, 103, 247,0.18); transform: translateX(4px); }
-  .decision-num { font-family: var(--f-display); font-size: 28px; font-weight: 800; color: var(--c-accent); opacity: 0.22; line-height: 1; }
-  .decision-body h3 { font-size: 17px; font-weight: 600; color: var(--c-text); margin-bottom: 10px; }
-  .decision-body p { font-size: 14px; max-width: none; line-height: 1.72; }
-  .decision-tag { display: inline-block; margin-top: 14px; padding: 4px 12px; border-radius: 100px; font-size: 11px; font-weight: 500; color: var(--c-accent); background: rgba(150, 103, 247,0.10); border: 1px solid rgba(150, 103, 247,0.20); letter-spacing: 0.04em; }
+    .hero-title .line-accent {
+      color: var(--c-accent);
+    }
 
-  /* IMPACT HEADLINE */
-  .impact-headline { margin-top: 48px; padding: 48px 56px; background: linear-gradient(135deg, rgba(150, 103, 247,0.09) 0%, rgba(150, 103, 247,0.03) 100%); border: 1px solid rgba(150, 103, 247,0.22); border-radius: 24px; text-align: center; position: relative; overflow: hidden; }
-  .impact-headline::before { content: ''; position: absolute; top: -60px; left: 50%; transform: translateX(-50%); width: 400px; height: 200px; background: radial-gradient(ellipse, rgba(150, 103, 247,0.15) 0%, transparent 70%); pointer-events: none; }
-  .ih-num { font-family: var(--f-display); font-size: clamp(64px, 8vw, 100px); font-weight: 800; color: var(--c-accent); line-height: 1; letter-spacing: -0.04em; margin-bottom: 12px; position: relative; }
-  .ih-label { font-family: var(--f-display); font-size: 20px; font-weight: 600; color: var(--c-text); margin-bottom: 8px; position: relative; }
-  .ih-context { font-size: 13px; color: var(--c-text-d); letter-spacing: 0.06em; text-transform: uppercase; position: relative; }
+    .hero-title .line-dim {
+      color: var(--c-text-d);
+    }
 
-  /* IMPACT STAT CARDS */
-  .impact-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--case-grid-gap); margin-top: var(--case-grid-gap); }
-  .impact-stat-card { background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: var(--case-radius); padding: 32px 28px; position: relative; overflow: hidden; text-align: center; transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22,1,0.36,1); }
-  .impact-stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: transparent; transition: background 0.3s; }
-  .impact-stat-card::after { content: ''; position: absolute; bottom: -30px; right: -30px; width: 120px; height: 120px; border-radius: 50%; background: rgba(150, 103, 247,0.04); }
-  .impact-stat-card:hover::before { background: var(--c-accent); }
-  .impact-stat-card:hover { border-color: rgba(150, 103, 247,0.35); transform: translateY(-4px); }
-  .impact-num { font-family: var(--f-display); font-size: 44px; font-weight: 800; color: var(--c-accent); line-height: 1; letter-spacing: -0.03em; margin-bottom: 10px; }
-  .impact-label { font-size: 14px; color: var(--c-text-m); line-height: 1.5; }
-  .impact-context { font-size: 11px; color: var(--c-text-d); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 8px; }
+    .hero-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--c-border);
+      margin-bottom: 40px;
+    }
 
-  /* IMPACT BAR CHART */
-  .impact-bars { display: flex; flex-direction: column; gap: 18px; margin-top: var(--case-grid-gap); padding: 36px; background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: var(--case-radius); }
-  .impact-bars-header { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-text-d); margin-bottom: 8px; }
-  .impact-bar-row { display: grid; grid-template-columns: 220px 1fr 72px; gap: 16px; align-items: center; }
-  .impact-bar-label { font-size: 12px; font-weight: 500; color: var(--c-text-m); line-height: 1.4; }
-  .impact-bar-track { height: 6px; background: rgba(255,255,255,0.06); border-radius: 100px; overflow: hidden; }
-  .impact-bar-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--c-accent-d), var(--c-accent), var(--c-accent-l)); width: 0; transition: none; }
-  /* Triggered by .reveal.visible on ancestor section */
-  .reveal.visible .impact-bar-fill { width: var(--w, 60%); transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1) var(--delay, 0s); }
-  .impact-bar-value { font-family: var(--f-display); font-size: 15px; font-weight: 700; color: var(--c-accent); white-space: nowrap; text-align: right; }
+    .hero-meta {
+      display: flex;
+      gap: 48px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+      position: relative;
+    }
 
-  /* CHALLENGES */
-  .challenges-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--case-grid-gap); margin-top: 48px; }
-  .challenge-card { background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: var(--case-radius); padding: 32px; transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22,1,0.36,1); }
-  .challenge-card:hover { border-color: var(--c-border-m); transform: translateY(-3px); }
-  .ch-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,0.04); border: 1px solid var(--c-border); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
-  .ch-icon svg { width: 18px; height: 18px; stroke: var(--c-text-d); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-  .challenge-card h3 { font-size: 15px; font-weight: 600; color: var(--c-text); margin-bottom: 8px; }
-  .challenge-card p { font-size: 13px; max-width: none; line-height: 1.65; }
+    .hero-meta-item label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-text-d);
+      margin-bottom: 4px;
+    }
 
-  /* REFLECTION */
-  .reflection-card { background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: 24px; padding: 56px 64px; margin-top: 48px; position: relative; overflow: hidden; }
-  .reflection-card::after { content: ''; position: absolute; top: -80px; right: -80px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(150, 103, 247,0.06) 0%, transparent 70%); }
-  .rf-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-accent); margin-bottom: 20px; }
-  .rf-text { font-family: var(--f-display); font-size: clamp(18px, 2vw, 24px); font-weight: 600; line-height: 1.45; color: var(--c-text); max-width: 720px; position: relative; }
-  .rf-sub { margin-top: 24px; font-size: 14px; color: var(--c-text-m); max-width: 640px; line-height: 1.78; position: relative; }
+    .hero-meta-item span {
+      font-size: 13px;
+      color: var(--c-text-m);
+    }
 
-  /* ROLE */
-  .role-card { background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: var(--case-radius); padding: 32px; margin-top: 32px; }
-  .role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-  .role-grid h3 { font-size: 14px; font-weight: 600; color: var(--c-text); margin-bottom: 12px; font-family: var(--f-display); }
-  .badges { display: flex; flex-wrap: wrap; gap: 8px; }
-  .badge { padding: 5px 12px; border-radius: 100px; font-size: 12px; font-weight: 500; border: 1px solid var(--c-border-m); color: var(--c-text-m); }
-  .badge.a { border-color: rgba(150, 103, 247,0.35); color: var(--c-accent); background: rgba(150, 103, 247,0.08); }
+    .hero-scroll {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11px;
+      color: var(--c-text-d);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
 
-  /* REVEAL (standalone preview only) */
-  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1); }
-  .reveal.visible { opacity: 1; transform: none; }
-  .rv-child { opacity: 0; transform: translateY(18px); transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1) var(--rv-d,0ms), transform 0.5s cubic-bezier(0.22,1,0.36,1) var(--rv-d,0ms); }
-  .rv-child.rv-on { opacity: 1; transform: none; }
-</style>
+    .scroll-line {
+      width: 40px;
+      height: 1px;
+      background: var(--c-text-d);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scroll-line::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--c-accent);
+      animation: slide 2s ease-in-out infinite;
+    }
+
+    @keyframes slide {
+      0% {
+        left: -100%
+      }
+
+      50% {
+        left: 0%
+      }
+
+      100% {
+        left: 100%
+      }
+    }
+
+    /* LAYOUT */
+    .case-layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      position: sticky;
+      top: calc(var(--nav-h) + 24px);
+      height: fit-content;
+      max-height: calc(100vh - var(--nav-h) - 48px);
+      overflow-y: auto;
+      padding: 16px 0;
+      margin-left: 24px;
+      border: 1px solid var(--c-border);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(12px);
+      z-index: 50;
+    }
+
+    .sidebar::-webkit-scrollbar {
+      width: 0;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .sidebar-nav a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 20px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--c-text-d);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      border-left: 2px solid transparent;
+      border-radius: 8px;
+      margin: 0 8px;
+      transition: color 0.25s, border-color 0.25s, background 0.25s;
+    }
+
+    .sidebar-nav a:hover {
+      color: var(--c-text-m);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .sidebar-nav a.active {
+      color: var(--c-accent);
+      font-weight: 600;
+      border-left-color: var(--c-accent);
+      background: rgba(150, 103, 247, 0.08);
+    }
+
+    .sidebar-nav a svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0.7;
+    }
+
+    .sidebar-nav a.active svg {
+      opacity: 1;
+    }
+
+    .sidebar-sep {
+      height: 1px;
+      background: var(--c-border);
+      margin: 12px 16px;
+    }
+
+    .main-content {
+      flex: 1;
+      min-width: 0;
+      padding-left: 32px;
+    }
+
+    /* SECTIONS */
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 100px 48px;
+    }
+
+    .section-band {
+      background: var(--c-bg2);
+      border-top: 1px solid var(--c-border);
+      border-bottom: 1px solid var(--c-border);
+    }
+
+    /* TYPOGRAPHY */
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-accent);
+      margin-bottom: 20px;
+    }
+
+    .section-label .num {
+      opacity: 0.5;
+    }
+
+    h2 {
+      font-family: var(--f-display);
+      font-size: clamp(32px, 3.5vw, 48px);
+      font-weight: 700;
+      line-height: 1.06;
+      letter-spacing: -0.025em;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      font-family: var(--f-display);
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: var(--c-text-m);
+      max-width: 640px;
+    }
+
+    p+p {
+      margin-top: 14px;
+    }
+
+    /* KPI */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--case-grid-gap);
+      margin-top: 48px;
+    }
+
+    .kpi-card {
+      background: var(--c-bg3);
+      border: 1px solid var(--c-border);
+      border-radius: var(--case-radius);
+      padding: 28px 24px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: transparent;
+      transition: background 0.3s;
+    }
+
+    .kpi-card:hover::before {
+      background: var(--c-accent);
+    }
+
+    .kpi-card:hover {
+      border-color: rgba(150, 103, 247, 0.35);
+      transform: translateY(-4px);
+    }
+
+    .kpi-num {
+      font-family: var(--f-display);
+      font-size: 40px;
+      font-weight: 800;
+      color: var(--c-accent);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+    }
+
+    .kpi-label {
+      font-size: 11px;
+      color: var(--c-text-d);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.4;
+    }
+
+    /* PROCESS STEPS */
+    .process-steps {
+      display: flex;
+      gap: 0;
+      margin-top: 48px;
+      border: 1px solid var(--c-border);
+      border-radius: var(--case-radius);
+      overflow: hidden;
+    }
+
+    .process-step {
+      flex: 1;
+      padding: 28px 24px;
+      position: relative;
+      transition: background 0.3s;
+      border-right: 1px solid var(--c-border);
+    }
+
+    .process-step:last-child {
+      border-right: none;
+    }
+
+    .process-step:hover {
+      background: var(--c-bg4);
+    }
+
+    .process-step.active {
+      background: rgba(150, 103, 247, 0.05);
+    }
+
+    .process-step.active::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--c-accent);
+    }
+
+    .ps-num {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--c-text-d);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .ps-title {
+      font-family: var(--f-display);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--c-text);
+      margin-bottom: 8px;
+    }
+
+    .process-step.active .ps-title {
+      color: var(--c-accent);
+    }
+
+    .ps-desc {
+      font-size: 13px;
+      color: var(--c-text-d);
+      line-height: 1.55;
+    }
+
+    /* PROBLEM / CHALLENGE */
+    .challenge-section {
+      position: relative;
+      isolation: isolate;
+    }
+
+    .challenge-section::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: -12%;
+      width: min(960px, calc(100% + 80px));
+      height: 92%;
+      transform: translateX(-50%);
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 72% 58% at 50% 0%, rgba(150, 103, 247, 0.13) 0%, transparent 58%),
+        radial-gradient(ellipse 48% 42% at 92% 28%, rgba(97, 49, 196, 0.07) 0%, transparent 52%);
+      opacity: 0.95;
+    }
+
+    .challenge-section>.reveal,
+    .challenge-section>.problem-grid {
+      position: relative;
+      z-index: 1;
+    }
+
+    .challenge-headline {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.06em;
+      margin-bottom: 20px;
+      font-family: var(--f-display);
+      font-size: clamp(32px, 3.5vw, 48px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.028em;
+    }
+
+    .challenge-headline__primary {
+      display: block;
+      font-weight: 800;
+      color: var(--c-text);
+      text-shadow: 0 0 52px rgba(150, 103, 247, 0.12);
+    }
+
+    .challenge-headline__secondary {
+      display: block;
+      font-size: clamp(26px, 2.75vw, 40px);
+      font-weight: 600;
+      letter-spacing: -0.024em;
+      color: var(--c-text-m);
+    }
+
+    .challenge-lead {
+      max-width: 640px;
+    }
+
+    .challenge-lead p {
+      font-size: 15px;
+      line-height: 1.62;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--case-grid-gap);
+      margin-top: 56px;
+      align-items: stretch;
+    }
+
+    .problem-card {
+      background: var(--c-bg3);
+      border: 1px solid var(--c-border);
+      border-radius: var(--case-radius);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      transition:
+        background 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .problem-card:hover {
+      background: var(--c-bg4);
+      border-color: rgba(150, 103, 247, 0.38);
+      transform: translateY(-5px);
+      box-shadow:
+        0 22px 56px rgba(0, 0, 0, 0.38),
+        0 0 0 1px rgba(150, 103, 247, 0.1),
+        0 0 40px rgba(150, 103, 247, 0.09);
+    }
+
+    .problem-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: transparent;
+      transition: background 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .problem-card:hover::before {
+      background: linear-gradient(90deg, var(--c-accent-d), var(--c-accent-l));
+    }
+
+    .p-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 11px;
+      background: rgba(150, 103, 247, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      transition:
+        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        background 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .problem-card:hover .p-icon {
+      transform: scale(1.06);
+      background: rgba(150, 103, 247, 0.16);
+      box-shadow: 0 0 24px rgba(150, 103, 247, 0.12);
+    }
+
+    .p-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--c-accent);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .problem-card h3 {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--c-text);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .problem-card p {
+      font-size: 14px;
+      max-width: none;
+      line-height: 1.65;
+      color: var(--c-text-m);
+    }
+
+    /* INSIGHT */
+    .insight-card {
+      background: linear-gradient(135deg, rgba(150, 103, 247, 0.08) 0%, rgba(150, 103, 247, 0.02) 100%);
+      border: 1px solid rgba(150, 103, 247, 0.20);
+      border-radius: 24px;
+      padding: 56px 64px;
+      position: relative;
+      overflow: hidden;
+      margin-top: 48px;
+    }
+
+    .insight-card::before {
+      content: '"';
+      position: absolute;
+      top: -24px;
+      left: 40px;
+      font-family: var(--f-display);
+      font-size: 220px;
+      font-weight: 800;
+      color: rgba(150, 103, 247, 0.06);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .insight-text {
+      font-family: var(--f-display);
+      font-size: clamp(22px, 2.5vw, 34px);
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+      color: var(--c-text);
+      max-width: 780px;
+      position: relative;
+    }
+
+    .insight-text em {
+      color: var(--c-accent);
+      font-style: normal;
+    }
+
+    .insight-sub {
+      margin-top: 24px;
+      font-size: 13px;
+      color: var(--c-text-d);
+      letter-spacing: 0.04em;
+      position: relative;
+    }
+
+    /* PRINCIPLES — 3×3 bento + title / visual / body hierarchy */
+    .principles-section {
+      position: relative;
+      isolation: isolate;
+    }
+
+    .principles-section::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: -8%;
+      width: min(1000px, calc(100% + 64px));
+      height: 70%;
+      transform: translateX(-50%);
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 65% 50% at 20% 0%, rgba(150, 103, 247, 0.10) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 45% at 95% 40%, rgba(97, 49, 196, 0.06) 0%, transparent 50%);
+      opacity: 0.9;
+    }
+
+    .principles-section>.reveal,
+    .principles-section>.principles-grid {
+      position: relative;
+      z-index: 1;
+    }
+
+    .principles-headline {
+      font-family: var(--f-display);
+      font-size: clamp(34px, 4.2vw, 52px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      color: var(--c-text);
+      margin-bottom: 14px;
+      text-shadow: 0 0 48px rgba(150, 103, 247, 0.08);
+    }
+
+    .principles-dek {
+      max-width: 38rem;
+      font-size: 14px;
+      line-height: 1.62;
+      color: rgba(237, 236, 234, 0.78);
+    }
+
+    .principles-grid {
+      margin-top: 48px;
+    }
+
+    .principles-grid--bento {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-rows: auto auto auto;
+      gap: clamp(12px, 1.5vw, 16px);
+    }
+
+    .principle-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--c-bg3);
+      border: 1px solid var(--c-border);
+      border-radius: 20px;
+      padding: clamp(20px, 2.2vw, 28px) clamp(20px, 2.4vw, 28px) clamp(22px, 2.5vw, 30px);
+      position: relative;
+      overflow: hidden;
+      min-height: 0;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045);
+      transition:
+        border-color 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .principles-grid--bento .principle-card:nth-child(1) {
+      grid-column: 1;
+      grid-row: 1 / 3;
+      background: #1c1628;
+      border-color: rgba(150, 103, 247, 0.14);
+    }
+
+    .principles-grid--bento .principle-card:nth-child(2) {
+      grid-column: 2 / 4;
+      grid-row: 1;
+      background: #241a2c;
+      border-color: rgba(200, 140, 210, 0.12);
+    }
+
+    .principles-grid--bento .principle-card:nth-child(3) {
+      grid-column: 2;
+      grid-row: 2;
+      background: #161f2c;
+      border-color: rgba(120, 160, 220, 0.12);
+    }
+
+    .principles-grid--bento .principle-card:nth-child(4) {
+      grid-column: 3;
+      grid-row: 2;
+      background: #142226;
+      border-color: rgba(100, 190, 170, 0.11);
+    }
+
+    .principles-grid--bento .principle-card:nth-child(5) {
+      grid-column: 1 / 3;
+      grid-row: 3;
+      background: #221c18;
+      border-color: rgba(220, 160, 110, 0.12);
+    }
+
+    .principles-grid--bento .principle-card:nth-child(6) {
+      grid-column: 3;
+      grid-row: 3;
+      background: #1a1e30;
+      border-color: rgba(130, 150, 240, 0.13);
+    }
+
+    .principles-grid--bento .principle-card::before,
+    .principles-grid--bento .principle-card::after {
+      display: none;
+    }
+
+    .principle-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      z-index: 0;
+      background: radial-gradient(ellipse 95% 78% at 100% 100%, rgba(150, 103, 247, 0.14) 0%, transparent 58%);
+      opacity: 0.55;
+      transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .principle-card::after {
+      content: '';
+      position: absolute;
+      bottom: -40%;
+      right: -25%;
+      width: 85%;
+      max-width: 220px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      background: radial-gradient(circle, rgba(150, 103, 247, 0.11) 0%, transparent 68%);
+      transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .principle-card:hover {
+      border-color: rgba(150, 103, 247, 0.32);
+      transform: translateY(-6px);
+      box-shadow:
+        0 26px 64px rgba(0, 0, 0, 0.38),
+        0 0 0 1px rgba(150, 103, 247, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06),
+        0 0 44px rgba(150, 103, 247, 0.07);
+    }
+
+    .principle-card:hover::before {
+      opacity: 0.9;
+    }
+
+    .principle-card:hover::after {
+      opacity: 1;
+      transform: scale(1.06);
+    }
+
+    .principle-card--hero,
+    .principle-card--wide {
+      flex-direction: row;
+      align-items: center;
+      gap: clamp(16px, 3vw, 36px);
+      min-height: clamp(168px, 20vw, 212px);
+    }
+
+    .principle-card__copy {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .principle-card--hero .pr-visual,
+    .principle-card--wide .pr-visual {
+      flex: 0 0 clamp(108px, 28%, 200px);
+      min-height: clamp(100px, 22vw, 168px);
+      margin: 0;
+    }
+
+    .principle-card:not(.principle-card--hero):not(.principle-card--wide) h3 {
+      margin-bottom: 4px;
+    }
+
+    .principle-card--tall {
+      min-height: clamp(320px, 52vw, 460px);
+    }
+
+    .principle-card--tall .pr-visual {
+      flex: 1;
+      min-height: clamp(120px, 22vw, 200px);
+      margin-top: 4px;
+      margin-bottom: 16px;
+    }
+
+    .pr-visual {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 6px 0 14px;
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .pr-visual__img {
+      display: block;
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      max-height: clamp(100px, 22vw, 200px);
+      object-fit: contain;
+      border-radius: 14px;
+      filter: drop-shadow(0 14px 40px rgba(150, 103, 247, 0.22));
+    }
+
+    .principle-card--tall .pr-visual__img {
+      max-height: clamp(120px, 30vw, 240px);
+    }
+
+    .principle-card:hover .pr-visual {
+      transform: scale(1.04);
+    }
+
+    .principle-card h3 {
+      position: relative;
+      z-index: 1;
+      font-family: var(--f-display);
+      font-size: clamp(17px, 1.65vw, 22px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      color: var(--c-text);
+      margin: 0;
+    }
+
+    .principle-card p {
+      position: relative;
+      z-index: 1;
+      font-size: 12.5px;
+      font-weight: 400;
+      max-width: none;
+      line-height: 1.65;
+      color: rgba(237, 236, 234, 0.82);
+    }
+
+    @media (max-width: 900px) {
+      .principles-grid--bento {
+        grid-template-columns: 1fr;
+        grid-template-rows: none;
+      }
+
+      .principles-grid--bento .principle-card:nth-child(n) {
+        grid-column: auto;
+        grid-row: auto;
+      }
+
+      .principle-card--hero,
+      .principle-card--wide {
+        flex-direction: column;
+        align-items: stretch;
+        min-height: 0;
+      }
+
+      .principle-card--hero .pr-visual,
+      .principle-card--wide .pr-visual {
+        flex: none;
+        width: 100%;
+        min-height: clamp(100px, 28vw, 140px);
+        order: -1;
+      }
+
+      .principle-card--tall {
+        min-height: 0;
+      }
+    }
+
+    /* ARCH */
+    .arch-layers {
+      display: flex;
+      flex-direction: column;
+      gap: var(--case-grid-gap);
+      margin-top: 48px;
+    }
+
+    .arch-layer {
+      display: flex;
+      align-items: stretch;
+      gap: 6px;
+      min-height: 84px;
+      cursor: default;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      border-radius: var(--case-radius);
+      overflow: hidden;
+      background: var(--c-bg);
+      border: 1px solid var(--c-border);
+    }
+
+    .arch-layer:hover {
+      transform: translateX(8px);
+    }
+
+    .arch-lbl {
+      width: 200px;
+      flex-shrink: 0;
+      background: var(--c-bg3);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 22px;
+    }
+
+    .arch-lbl .tier {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-text-d);
+      margin-bottom: 3px;
+    }
+
+    .arch-lbl .name {
+      font-family: var(--f-display);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--c-text);
+    }
+
+    .arch-items {
+      flex: 1;
+      display: flex;
+      gap: 6px;
+      padding: 10px;
+    }
+
+    .arch-item {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 500;
+      text-align: center;
+      padding: 10px 8px;
+      border-radius: 8px;
+      transition: background 0.2s, color 0.2s;
+      color: var(--c-text-d);
+    }
+
+    .arch-item:hover {
+      color: var(--c-text);
+    }
+
+    .l0 .arch-lbl {
+      border-left: 3px solid var(--c-accent);
+    }
+
+    .l0 .arch-item {
+      background: rgba(150, 103, 247, 0.06);
+    }
+
+    .l0 .arch-item:hover {
+      background: rgba(150, 103, 247, 0.12);
+    }
+
+    .l1 .arch-lbl {
+      border-left: 3px solid rgba(150, 103, 247, 0.7);
+    }
+
+    .l1 .arch-item {
+      background: rgba(150, 103, 247, 0.05);
+    }
+
+    .l1 .arch-item:hover {
+      background: rgba(150, 103, 247, 0.10);
+    }
+
+    .l2 .arch-lbl {
+      border-left: 3px solid rgba(150, 103, 247, 0.5);
+    }
+
+    .l2 .arch-item {
+      background: rgba(150, 103, 247, 0.04);
+    }
+
+    .l2 .arch-item:hover {
+      background: rgba(150, 103, 247, 0.08);
+    }
+
+    .l3 .arch-lbl {
+      border-left: 3px solid rgba(150, 103, 247, 0.35);
+    }
+
+    .l3 .arch-item {
+      background: rgba(150, 103, 247, 0.03);
+    }
+
+    .l3 .arch-item:hover {
+      background: rgba(150, 103, 247, 0.06);
+    }
+
+    /* ARCH LEGEND */
+    .arch-legend {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-top: 20px;
+      padding: 0 4px;
+    }
+
+    .arch-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--c-text-d);
+    }
+
+    .arch-legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* FLOW */
+    .flow-steps {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-top: 48px;
+      padding-bottom: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .flow-steps::-webkit-scrollbar {
+      display: none;
+    }
+
+    .flow-step {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .flow-step-inner {
+      background: var(--c-bg3);
+      border: 1px solid var(--c-border);
+      border-radius: 14px;
+      padding: 20px 16px;
+      width: 120px;
+      text-align: center;
+      cursor: default;
+      transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), background 0.3s;
+    }
+
+    .flow-step-inner:hover {
+      border-color: rgba(150, 103, 247, 0.4);
+      transform: translateY(-5px);
+      background: var(--c-bg4);
+    }
+
+    .flow-step-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(150, 103, 247, 0.10);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 10px;
+    }
+
+    .flow-step-icon svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--c-accent);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .flow-step-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--c-text);
+      letter-spacing: 0.02em;
+    }
+
+    .flow-step-sub {
+      font-size: 11px;
+      color: var(--c-text-d);
+      margin-top: 3px;
+      line-height: 1.4;
+    }
+
+    .flow-arrow {
+      width: 32px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 28px;
+    }
+
+    .flow-arrow svg {
+      width: 18px;
+      height: 18px;
+      stroke: rgba(150, 103, 247, 0.35);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* SCREENS */
+    .screens-group {
+      margin-top: 56px;
+    }
+
+    .screens-group:first-child {
+      margin-top: 32px;
+    }
+
+    .screen-group-header {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .screen-group-num {
+      font-family: var(--f-display);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--c-accent);
+      opacity: 0.6;
+      letter-spacing: 0.1em;
+    }
+
+    .screen-group-title {
+      font-family: var(--f-display);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--c-text);
+    }
+
+    .screen-group-desc {
+      font-size: 14px;
+      color: var(--c-text-m);
+      max-width: 640px;
+      margin-bottom: 28px;
+      line-height: 1.65;
+    }
+
+    .screen-grid {
+      display: grid;
+      gap: var(--case-grid-gap);
+    }
+
+    .screen-grid--2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .screen-grid--3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .screen-grid--4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .screen-cell {
+      background: var(--c-bg3);
+      border: 1px solid var(--c-border);
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      transition: border-color 0.3s, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s;
+    }
+
+    .screen-cell:hover {
+      border-color: rgba(150, 103, 247, 0.28);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4);
+    }
+
+    .screen-cell img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .screen-cell--natural img {
+      aspect-ratio: auto;
+      max-height: 420px;
+      object-fit: contain;
+      background: var(--c-bg2);
+      padding: 16px;
+    }
+
+    .screen-cell .sc-lbl {
+      padding: 16px 20px;
+      border-top: 1px solid var(--c-border);
+    }
+
+    .screen-cell .sc-lbl h4 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--c-text);
+      margin-bottom: 4px;
+    }
+
+    .screen-cell .sc-lbl p {
+      font-size: 12px;
+      color: var(--c-text-d);
+      max-width: none;
+      line-height: 1.5;
+    }
+
+    /* DECISIONS */
+    .decisions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 48px;
+    }
+
+    .decision-card {
+      background: var(--c-bg3);
+      border: 1px solid var(--c-border);
+      border-radius: var(--case-radius);
+      padding: 32px;
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 24px;
+      align-items: start;
+      transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .decision-card:hover {
+      border-color: rgba(150, 103, 247, 0.18);
+      transform: translateX(4px);
+    }
+
+    .decision-num {
+      font-family: var(--f-display);
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--c-accent);
+      opacity: 0.22;
+      line-height: 1;
+    }
+
+    .decision-body h3 {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--c-text);
+      margin-bottom: 10px;
+    }
+
+    .decision-body p {
+      font-size: 14px;
+      max-width: none;
+      line-height: 1.72;
+    }
+
+    .decision-tag {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--c-accent);
+      background: rgba(150, 103, 247, 0.10);
+      border: 1px solid rgba(150, 103, 247, 0.20);
+      letter-spacing: 0.04em;
+    }
+
+    /* IMPACT HEADLINE */
+    .impact-headline {
+      margin-top: 48px;
+      padding: 48px 56px;
+      background: linear-gradient(135deg, rgba(150, 103, 247, 0.09) 0%, rgba(150, 103, 247, 0.03) 100%);
+      border: 1px solid rgba(150, 103, 247, 0.22);
+      border-radius: 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .impact-headline::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      height: 200px;
+      background: radial-gradient(ellipse, rgba(150, 103, 247, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .ih-num {
+      font-family: var(--f-display);
+      font-size: clamp(64px, 8vw, 100px);
+      font-weight: 800;
+      color: var(--c-accent);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .ih-label {
+      font-family: var(--f-display);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--c-text);
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    .ih-context {
+      font-size: 13px;
+      color: var(--c-text-d);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      position: relative;
+    }
+
+    /* IMPACT STAT CARDS */
+    .impact-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--case-grid-gap);
+      margin-top: var(--case-grid-gap);
+    }
+
+    .impact-stat-card {
+      background: var(--c-bg3);
+      border: 1px solid var(--c-border);
+      border-radius: var(--case-radius);
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .impact-stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: transparent;
+      transition: background 0.3s;
+    }
+
+    .impact-stat-card::after {
+      content: '';
+      position: absolute;
+      bottom: -30px;
+      right: -30px;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: rgba(150, 103, 247, 0.04);
+    }
+
+    .impact-stat-card:hover::before {
+      background: var(--c-accent);
+    }
+
+    .impact-stat-card:hover {
+      border-color: rgba(150, 103, 247, 0.35);
+      transform: translateY(-4px);
+    }
+
+    .impact-num {
+      font-family: var(--f-display);
+      font-size: 44px;
+      font-weight: 800;
+      color: var(--c-accent);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 10px;
+    }
+
+    .impact-label {
+      font-size: 14px;
+      color: var(--c-text-m);
+      line-height: 1.5;
+    }
+
+    .impact-context {
+      font-size: 11px;
+      color: var(--c-text-d);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 8px;
+    }
+
+    /* IMPACT BAR CHART */
+    .impact-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-top: var(--case-grid-gap);
+      padding: 36px;
+      background: var(--c-bg3);
+      border: 1px solid var(--c-border);
+      border-radius: var(--case-radius);
+    }
+
+    .impact-bars-header {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-text-d);
+      margin-bottom: 8px;
+    }
+
+    .impact-bar-row {
+      display: grid;
+      grid-template-columns: 220px 1fr 72px;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .impact-bar-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--c-text-m);
+      line-height: 1.4;
+    }
+
+    .impact-bar-track {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .impact-bar-fill {
+      height: 100%;
+      border-radius: 100px;
+      background: linear-gradient(90deg, var(--c-accent-d), var(--c-accent), var(--c-accent-l));
+      width: 0;
+      transition: none;
+    }
+
+    /* Triggered by .reveal.visible on ancestor section */
+    .reveal.visible .impact-bar-fill {
+      width: var(--w, 60%);
+      transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1) var(--delay, 0s);
+    }
+
+    .impact-bar-value {
+      font-family: var(--f-display);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--c-accent);
+      white-space: nowrap;
+      text-align: right;
+    }
+
+    /* CHALLENGES */
+    .challenges-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--case-grid-gap);
+      margin-top: 48px;
+    }
+
+    .challenge-card {
+      background: var(--c-bg3);
+      border: 1px solid var(--c-border);
+      border-radius: var(--case-radius);
+      padding: 32px;
+      transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .challenge-card:hover {
+      border-color: var(--c-border-m);
+      transform: translateY(-3px);
+    }
+
+    .ch-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--c-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .ch-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--c-text-d);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .challenge-card h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--c-text);
+      margin-bottom: 8px;
+    }
+
+    .challenge-card p {
+      font-size: 13px;
+      max-width: none;
+      line-height: 1.65;
+    }
+
+    /* REFLECTION */
+    .reflection-card {
+      background: var(--c-bg3);
+      border: 1px solid var(--c-border);
+      border-radius: 24px;
+      padding: 56px 64px;
+      margin-top: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .reflection-card::after {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(150, 103, 247, 0.06) 0%, transparent 70%);
+    }
+
+    .rf-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-accent);
+      margin-bottom: 20px;
+    }
+
+    .rf-text {
+      font-family: var(--f-display);
+      font-size: clamp(18px, 2vw, 24px);
+      font-weight: 600;
+      line-height: 1.45;
+      color: var(--c-text);
+      max-width: 720px;
+      position: relative;
+    }
+
+    .rf-sub {
+      margin-top: 24px;
+      font-size: 14px;
+      color: var(--c-text-m);
+      max-width: 640px;
+      line-height: 1.78;
+      position: relative;
+    }
+
+    /* ROLE */
+    .role-card {
+      background: var(--c-bg3);
+      border: 1px solid var(--c-border);
+      border-radius: var(--case-radius);
+      padding: 32px;
+      margin-top: 32px;
+    }
+
+    .role-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .role-grid h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--c-text);
+      margin-bottom: 12px;
+      font-family: var(--f-display);
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .badge {
+      padding: 5px 12px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 500;
+      border: 1px solid var(--c-border-m);
+      color: var(--c-text-m);
+    }
+
+    .badge.a {
+      border-color: rgba(150, 103, 247, 0.35);
+      color: var(--c-accent);
+      background: rgba(150, 103, 247, 0.08);
+    }
+
+    /* REVEAL (standalone preview only) */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .rv-child {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1) var(--rv-d, 0ms), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) var(--rv-d, 0ms);
+    }
+
+    .rv-child.rv-on {
+      opacity: 1;
+      transform: none;
+    }
+  </style>
 </head>
+
 <body>
 
-<nav class="top-nav">
-  <a href="index.html" class="top-nav-name">
-    <span class="green-dot"></span>
-    Sayed Elmohamady
-  </a>
-  <a href="index.html" class="top-nav-back">&larr; Portfolio</a>
-</nav>
+  <nav class="top-nav">
+    <a href="index.html" class="top-nav-name">
+      <span class="green-dot"></span>
+      Sayed Elmohamady
+    </a>
+    <a href="index.html" class="top-nav-back">&larr; Portfolio</a>
+  </nav>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-bg">
-    <div class="hero-glow"></div>
-    <div class="hero-glow2"></div>
-    <div class="hero-grid"></div>
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg">
+      <div class="hero-glow"></div>
+      <div class="hero-glow2"></div>
+      <div class="hero-grid"></div>
+    </div>
+    <div class="hero-eyebrow">UX Case Study · Mobile App</div>
+    <h1 class="hero-title">
+      <span class="line-accent">Club</span><br>
+      <span>Experience</span><br>
+      <span class="line-dim">Redesign</span>
+    </h1>
+    <div class="hero-divider"></div>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <label>Company</label>
+        <span>Brandbassador / Club</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Product</label>
+        <span>Club — Ambassador &amp; Community Platform</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>My Role</label>
+        <span>Senior Product Designer</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Platform</label>
+        <span>Mobile App (iOS &amp; Android)</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Scope</label>
+        <span>UX Restructuring &amp; Engagement</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Year</label>
+        <span>2024–2025</span>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      Scroll to explore
+    </div>
   </div>
-  <div class="hero-eyebrow">UX Case Study · Mobile App</div>
-  <h1 class="hero-title">
-    <span class="line-accent">Club</span><br>
-    <span>Experience</span><br>
-    <span class="line-dim">Redesign</span>
-  </h1>
-  <div class="hero-divider"></div>
-  <div class="hero-meta">
-    <div class="hero-meta-item">
-      <label>Company</label>
-      <span>Brandbassador / Club</span>
-    </div>
-    <div class="hero-meta-item">
-      <label>Product</label>
-      <span>Club — Ambassador &amp; Community Platform</span>
-    </div>
-    <div class="hero-meta-item">
-      <label>My Role</label>
-      <span>Senior Product Designer</span>
-    </div>
-    <div class="hero-meta-item">
-      <label>Platform</label>
-      <span>Mobile App (iOS &amp; Android)</span>
-    </div>
-    <div class="hero-meta-item">
-      <label>Scope</label>
-      <span>UX Restructuring &amp; Engagement</span>
-    </div>
-    <div class="hero-meta-item">
-      <label>Year</label>
-      <span>2024–2025</span>
-    </div>
+
+  <!-- TWO-COLUMN LAYOUT -->
+  <div class="case-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <ul class="sidebar-nav">
+        <li><a href="#overview" data-section="overview">
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="3" width="7" height="7" rx="1" />
+              <rect x="14" y="3" width="7" height="7" rx="1" />
+              <rect x="3" y="14" width="7" height="7" rx="1" />
+              <rect x="14" y="14" width="7" height="7" rx="1" />
+            </svg>
+            Overview
+          </a></li>
+        <li><a href="#what-we-do" data-section="what-we-do">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
+            </svg>
+            What we do?
+          </a></li>
+        <li><a href="#challenge" data-section="challenge">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            The Challenge
+          </a></li>
+        <li><a href="#insight" data-section="insight">
+            <svg viewBox="0 0 24 24">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+            </svg>
+            Key Insight
+          </a></li>
+        <li><a href="#principles" data-section="principles">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+            Principles
+          </a></li>
+        <li><a href="#architecture" data-section="architecture">
+            <svg viewBox="0 0 24 24">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+            Architecture
+          </a></li>
+        <li><a href="#user-flow" data-section="user-flow">
+            <svg viewBox="0 0 24 24">
+              <polyline points="5 12 12 5 19 12" />
+              <polyline points="5 19 12 12 19 19" />
+            </svg>
+            User Flow
+          </a></li>
+        <div class="sidebar-sep"></div>
+        <li><a href="#screens" data-section="screens">
+            <svg viewBox="0 0 24 24">
+              <rect x="5" y="2" width="14" height="20" rx="2" />
+              <line x1="12" y1="18" x2="12.01" y2="18" />
+            </svg>
+            Screens
+          </a></li>
+        <div class="sidebar-sep"></div>
+        <li><a href="#decisions" data-section="decisions">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+            </svg>
+            Decisions
+          </a></li>
+        <li><a href="#impact" data-section="impact">
+            <svg viewBox="0 0 24 24">
+              <line x1="12" y1="20" x2="12" y2="10" />
+              <line x1="18" y1="20" x2="18" y2="4" />
+              <line x1="6" y1="20" x2="6" y2="16" />
+            </svg>
+            Impact
+          </a></li>
+        <li><a href="#challenges" data-section="challenges">
+            <svg viewBox="0 0 24 24">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+              <line x1="12" y1="9" x2="12" y2="13" />
+              <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>
+            Challenges
+          </a></li>
+        <li><a href="#reflection" data-section="reflection">
+            <svg viewBox="0 0 24 24">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+            Reflection
+          </a></li>
+      </ul>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+      <!-- ── 01 · OVERVIEW ────────────────────────────────────── -->
+      <section id="overview" class="reveal">
+        <div class="wrap">
+          <div class="section-label"><span class="num">01</span> Overview</div>
+          <h2>Built for engagement.<br>Designed for participation.</h2>
+          <p>Club connects brands with ambassadors through missions, rewards, and ongoing interaction.</p>
+          <p>As the platform scaled, the experience became harder to navigate. Features grew, but structure didn't.</p>
+          <p>The goal was to simplify the system — making actions clear, rewards visible, and progress easy to
+            understand.</p>
+
+          <div class="overview-video-wrap">
+            <video src="/videos/club-intro.mp4" autoplay muted loop playsinline></video>
+          </div>
+
+          <div class="kpi-row">
+            <div class="kpi-card">
+              <div class="kpi-num">550+</div>
+              <div class="kpi-label">Brands</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-num">1M+</div>
+              <div class="kpi-label">Members</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-num">3</div>
+              <div class="kpi-label">Core pillars</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-num">15yr</div>
+              <div class="kpi-label">Experience</div>
+            </div>
+          </div>
+
+          <div class="process-steps">
+            <div class="process-step">
+              <div class="ps-num">Phase 01</div>
+              <div class="ps-title">Activate</div>
+              <div class="ps-desc">Onboard and grow ambassador communities</div>
+            </div>
+            <div class="process-step active">
+              <div class="ps-num">Phase 02</div>
+              <div class="ps-title">Engage</div>
+              <div class="ps-desc">Drive action through missions and rewards</div>
+            </div>
+            <div class="process-step">
+              <div class="ps-num">Phase 03</div>
+              <div class="ps-title">Grow</div>
+              <div class="ps-desc">Make progress visible and sustainable</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 01.5 · WHAT WE DO ────────────────────────────────── -->
+      <section id="what-we-do" class="section-band reveal">
+        <div class="wrap">
+          <div class="section-label">What we do?</div>
+          <h2>Connecting brands with<br>the people who love them.</h2>
+          <p>Club is an ambassador marketing platform that turns genuine fans into brand advocates — giving them
+            missions to complete, rewards to earn, and a community to belong to. Brands get authentic content and
+            measurable ROI. Members get real value for real influence.</p>
+
+          <div class="what-we-do-img">
+            <img src="/images/projects/club-tie/club-trust.png"
+              alt="How Club works — brand trust and ambassador engagement" loading="lazy" decoding="async">
+          </div>
+
+          <!-- ── Stats Evidence ───────────────────────────────── -->
+          <div class="wwd-evidence reveal">
+            <!-- Left: Ambassador grid -->
+            <div class="wwd-ambassadors">
+              <div class="amb-grid">
+                <div class="amb-card" style="--rv-d: 0ms">
+                  <div class="amb-photo" style="background: linear-gradient(145deg, #2a1050 0%, #6131c4 100%)">
+                    <span class="amb-initials">MK</span>
+                    <div class="amb-glow"></div>
+                  </div>
+                  <div class="amb-info">
+                    <span class="amb-name">Megan Kennedy</span>
+                    <span class="amb-brand">Sleepy Sloth</span>
+                  </div>
+                </div>
+                <div class="amb-card" style="--rv-d: 80ms">
+                  <div class="amb-photo" style="background: linear-gradient(145deg, #0f1a3e 0%, #2040a0 100%)">
+                    <span class="amb-initials">ZG</span>
+                    <div class="amb-glow"></div>
+                  </div>
+                  <div class="amb-info">
+                    <span class="amb-name">Zavion Griffin</span>
+                    <span class="amb-brand">Phenom Elite</span>
+                  </div>
+                </div>
+                <div class="amb-card" style="--rv-d: 160ms">
+                  <div class="amb-photo" style="background: linear-gradient(145deg, #0d2a1a 0%, #1a6b40 100%)">
+                    <span class="amb-initials">ES</span>
+                    <div class="amb-glow"></div>
+                  </div>
+                  <div class="amb-info">
+                    <span class="amb-name">Erica Sanchez</span>
+                    <span class="amb-brand">Fore All</span>
+                  </div>
+                </div>
+                <div class="amb-card" style="--rv-d: 240ms">
+                  <div class="amb-photo" style="background: linear-gradient(145deg, #3a0f28 0%, #a0306a 100%)">
+                    <span class="amb-initials">KR</span>
+                    <div class="amb-glow"></div>
+                  </div>
+                  <div class="amb-info">
+                    <span class="amb-name">Key Renea</span>
+                    <span class="amb-brand">Vitamasques</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Stats grid -->
+            <div class="wwd-stats">
+              <div class="wwd-stat-card" style="--rv-d: 0ms">
+                <div class="wwd-stat-num">55%</div>
+                <p>55% of TikTok users say they are <strong>more likely to trust brands</strong> when they hear about
+                  them from creators, compared to other ads in their feed.</p>
+              </div>
+              <div class="wwd-stat-card" style="--rv-d: 80ms">
+                <div class="wwd-stat-num">7.5x</div>
+                <p>People are 7.5 times <strong>more likely to consider purchasing</strong> a product after seeing a
+                  positive post from someone they know.</p>
+              </div>
+              <div class="wwd-stat-card" style="--rv-d: 160ms">
+                <div class="wwd-stat-num">5x</div>
+                <p>Word-of-mouth marketing is even <strong>more effective than paid ads</strong>, resulting in five
+                  times more sales.</p>
+              </div>
+              <div class="wwd-stat-card" style="--rv-d: 240ms">
+                <div class="wwd-stat-num">69%</div>
+                <p>of consumers are <strong>likely to trust a friend</strong>, family member or influencer
+                  recommendation over information coming directly from a brand.</p>
+              </div>
+              <div class="wwd-stat-sources">Sources: Business Wire, Netcore, SEMrush</div>
+            </div>
+          </div>
+
+          <!-- ── Timeline: You're in good hands! ─────────────── -->
+          <div class="wwd-timeline-section reveal">
+            <div class="wwd-tl-headline">You're in <span class="tl-hl-accent">good hands!</span></div>
+
+            <div class="wwd-tl-container">
+
+              <!-- ═══ ABOVE ROW: 6 columns ════════════════════ -->
+              <div class="tl-row tl-row--above">
+
+                <!-- Col 1 · 2010: media + label + stem -->
+                <div class="tl-col" style="--rv-d: 0ms">
+                  <div class="tl-media tl-media--post tl-media--asset">
+                    <img src="/images/projects/club-tie/club-timeline-2010.png"
+                      alt="2010 — Onepiece PieceKeeper programme with Missions" width="285" height="273" loading="lazy"
+                      decoding="async" />
+                  </div>
+                  <div class="tl-label">
+                    <div class="tl-year">2010</div>
+                    <p>Onepiece launches the PieceKeeper programme with Missions</p>
+                  </div>
+                  <div class="tl-stem tl-stem--down"></div>
+                </div>
+
+                <!-- Col 2 · void (2015 is below) -->
+                <div class="tl-col tl-col--void"></div>
+
+                <!-- Col 3 · 2017: phone media + label + stem -->
+                <div class="tl-col" style="--rv-d: 200ms">
+                  <div class="tl-media tl-media--phone tl-media--asset">
+                    <img src="/images/projects/club-tie/club-timeline-2017.png"
+                      alt="2017 — Brandbassador launches on App Store and Google Play" width="307" height="349"
+                      loading="lazy" decoding="async" />
+                  </div>
+                  <div class="tl-label">
+                    <div class="tl-year">2017</div>
+                    <p>Brandbassador launches on App Store &amp; Google Play with 10 founding brands</p>
+                  </div>
+                  <div class="tl-stem tl-stem--down"></div>
+                </div>
+
+                <!-- Col 4 · void (2021 is below) -->
+                <div class="tl-col tl-col--void"></div>
+
+                <!-- Col 5 · 2022: label + stem only (no screenshot) -->
+                <div class="tl-col tl-col--no-media" style="--rv-d: 400ms">
+                  <div class="tl-label">
+                    <div class="tl-year">2022</div>
+                    <p>550 eCommerce brands have used Brandbassador to engage communities</p>
+                  </div>
+                  <div class="tl-stem tl-stem--down"></div>
+                </div>
+
+                <!-- Col 6 · 2024 phone mockup (text is in below row) -->
+                <div class="tl-col" style="--rv-d: 500ms">
+                  <div class="tl-media tl-media--phone-lg tl-media--asset">
+                    <img src="/images/projects/club-tie/club-timeline-2024.png"
+                      alt="2024 — Club launches: community marketing app" width="365" height="476" loading="lazy"
+                      decoding="async" />
+                  </div>
+                  <div class="tl-stem tl-stem--down tl-stem--lime"></div>
+                </div>
+
+              </div><!-- /tl-row--above -->
+
+              <!-- ═══ MIDDLE ROW: dots + connector ═══════════ -->
+              <div class="tl-row tl-row--middle">
+                <div class="tl-dot-col" style="--rv-d: 0ms">
+                  <div class="tl-dot"></div>
+                </div>
+                <div class="tl-dot-col" style="--rv-d: 100ms">
+                  <div class="tl-dot"></div>
+                </div>
+                <div class="tl-dot-col" style="--rv-d: 200ms">
+                  <div class="tl-dot"></div>
+                </div>
+                <div class="tl-dot-col" style="--rv-d: 300ms">
+                  <div class="tl-dot"></div>
+                </div>
+                <div class="tl-dot-col" style="--rv-d: 400ms">
+                  <div class="tl-dot"></div>
+                </div>
+                <div class="tl-dot-col" style="--rv-d: 500ms">
+                  <div class="tl-dot tl-dot--now"></div>
+                </div>
+              </div>
+
+              <!-- ═══ BELOW ROW: 6 columns ═════════════════════ -->
+              <div class="tl-row tl-row--below">
+
+                <!-- Col 1 · void (2010 is above) -->
+                <div class="tl-col tl-col--void"></div>
+
+                <!-- Col 2 · 2015 -->
+                <div class="tl-col" style="--rv-d: 100ms">
+                  <div class="tl-stem tl-stem--up"></div>
+                  <div class="tl-label">
+                    <div class="tl-year">2015</div>
+                    <p>Software development to help other brands build communities begins</p>
+                  </div>
+                </div>
+
+                <!-- Col 3 · void (2017 is above) -->
+                <div class="tl-col tl-col--void"></div>
+
+                <!-- Col 4 · 2021 -->
+                <div class="tl-col" style="--rv-d: 300ms">
+                  <div class="tl-stem tl-stem--up"></div>
+                  <div class="tl-label">
+                    <div class="tl-year">2021</div>
+                    <p>Brandbassador reaches over 1 million active users</p>
+                  </div>
+                </div>
+
+                <!-- Col 5 · void (2022 is above) -->
+                <div class="tl-col tl-col--void"></div>
+
+                <!-- Col 6 · 2024 text (phone is above) -->
+                <div class="tl-col" style="--rv-d: 500ms">
+                  <div class="tl-stem tl-stem--up tl-stem--lime"></div>
+                  <div class="tl-label">
+                    <div class="tl-year tl-year--now">2024</div>
+                    <p>Club launches: The future of community marketing</p>
+                  </div>
+                </div>
+
+              </div><!-- /tl-row--below -->
+
+            </div><!-- /wwd-tl-container -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 02 · THE CHALLENGE ────────────────────────────────── -->
+      <section id="challenge" class="section-band">
+        <div class="wrap challenge-section">
+          <div class="reveal">
+            <div class="section-label"><span class="num">02</span> The Challenge</div>
+            <h2 class="challenge-headline">
+              <span class="challenge-headline__primary">Audience without action.</span>
+              <span class="challenge-headline__secondary">Growth without engagement.</span>
+            </h2>
+            <div class="challenge-lead">
+              <p>Brands had communities, but no system to activate them.</p>
+              <p>Influencer campaigns were hard to scale, and engagement was fragmented across tools and workflows.</p>
+              <p>The challenge was to create a system that drives consistent participation — not just one-time
+                interaction.</p>
+            </div>
+          </div>
+
+          <div class="problem-grid reveal">
+            <div class="problem-card">
+              <div class="p-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              <h3>Passive Audiences</h3>
+              <p>Users existed, but had no clear reason to participate.</p>
+            </div>
+            <div class="problem-card">
+              <div class="p-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M3 3v18h18" />
+                  <path d="M7 16l4-4 4 4 6-7" />
+                </svg>
+              </div>
+              <h3>Unscalable Growth</h3>
+              <p>Managing ambassadors manually didn’t scale with demand.</p>
+            </div>
+            <div class="problem-card">
+              <div class="p-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                </svg>
+              </div>
+              <h3>Fragmented Engagement</h3>
+              <p>Actions, rewards, and communication were disconnected.</p>
+            </div>
+            <div class="problem-card">
+              <div class="p-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                  <path d="M3 3v5h5" />
+                  <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
+                  <path d="M16 16h5v5" />
+                </svg>
+              </div>
+              <h3>No Motivation Loop</h3>
+              <p>Lack of progress and feedback reduced long-term engagement.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 03 · KEY INSIGHT ──────────────────────────────────── -->
+      <section id="insight" class="reveal">
+        <div class="wrap">
+          <div class="section-label"><span class="num">03</span> Key Insight</div>
+
+          <div class="insight-card">
+            <div class="insight-text">
+              People don't engage with <em>features</em> —
+              they engage with <em>progress</em>.
+              The redesign needed to make earning feel inevitable.
+            </div>
+            <div class="insight-sub">Derived from usage data, session recordings, and qualitative interviews with
+              community members</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 04 · EXPERIENCE PRINCIPLES ───────────────────────── -->
+      <section id="principles">
+        <div class="wrap principles-section">
+          <div class="reveal">
+            <div class="section-label"><span class="num">04</span> Experience Principles</div>
+            <h2 class="principles-headline">The principles that<br>shaped every decision.</h2>
+            <p class="principles-dek">Before touching any screen, six experience principles were defined as a shared
+              design language for the team.</p>
+          </div>
+
+          <div class="principles-grid principles-grid--bento reveal">
+            <div class="principle-card principle-card--tall">
+              <h3>Clarity Over Capability</h3>
+              <div class="pr-visual" aria-hidden="true"><img class="pr-visual__img" src="club-exp-principle-clarity.png"
+                  alt="" width="400" height="400" /></div>
+              <p>Show users what they can do right now — not everything they could ever do. Surface the most relevant
+                missions and hide the rest until needed.</p>
+            </div>
+            <div class="principle-card principle-card--hero">
+              <div class="principle-card__copy">
+                <h3>Reward Visibility</h3>
+                <p>Every mission should show its reward upfront, above the fold. Users should never have to hunt for
+                  what they're earning — it should be impossible to miss.</p>
+              </div>
+              <div class="pr-visual" aria-hidden="true"><img class="pr-visual__img" src="club-exp-principle-reward.png"
+                  alt="" width="400" height="400" /></div>
+            </div>
+            <div class="principle-card">
+              <h3>Momentum by Design</h3>
+              <div class="pr-visual" aria-hidden="true"><img class="pr-visual__img"
+                  src="club-exp-principle-momentum.png" alt="" width="400" height="400" /></div>
+              <p>Every completed action should lead naturally to the next. Use progress indicators, streaks, and
+                level-up moments to keep users moving forward.</p>
+            </div>
+            <div class="principle-card">
+              <h3>Trust Through Transparency</h3>
+              <div class="pr-visual" aria-hidden="true"><img class="pr-visual__img" src="club-exp-principle-trust.png"
+                  alt="" width="400" height="400" /></div>
+              <p>Be explicit about how rewards are earned, when they'll be paid, and what's required. Ambiguity kills
+                participation — clarity builds it.</p>
+            </div>
+            <div class="principle-card principle-card--wide">
+              <div class="principle-card__copy">
+                <h3>Status as Motivation</h3>
+                <p>People care about where they stand. Leaderboards, club levels, and ambassador tiers should feel
+                  aspirational — within reach, worth chasing.</p>
+              </div>
+              <div class="pr-visual" aria-hidden="true"><img class="pr-visual__img" src="club-exp-principle-status.png"
+                  alt="" width="400" height="400" /></div>
+            </div>
+            <div class="principle-card">
+              <h3>System Consistency</h3>
+              <div class="pr-visual" aria-hidden="true"><img class="pr-visual__img"
+                  src="club-exp-principle-consistency.png" alt="" width="400" height="400" /></div>
+              <p>Whether in their first brand community or their tenth, the experience language should feel familiar.
+                Patterns should be learnable and predictable.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 06 · EXPERIENCE ARCHITECTURE ─────────────────────── -->
+      <section id="architecture" class="section-band reveal">
+        <div class="wrap">
+          <div class="section-label"><span class="num">05</span> Experience Architecture</div>
+          <h2>From hierarchy to journey.</h2>
+          <p>The existing IA was organised around features. The redesigned architecture is organised around the user's
+            journey — from discovery to deep participation. Each layer builds on the previous one.</p>
+
+          <div class="arch-layers">
+            <div class="arch-layer l0">
+              <div class="arch-lbl">
+                <span class="tier">Entry Point</span>
+                <span class="name">Discovery</span>
+              </div>
+              <div class="arch-items">
+                <div class="arch-item">Brand Search</div>
+                <div class="arch-item">Category Browse</div>
+                <div class="arch-item">Recommendations</div>
+                <div class="arch-item">Invite Links</div>
+                <div class="arch-item">Instagram / TikTok</div>
+              </div>
+            </div>
+            <div class="arch-layer l1">
+              <div class="arch-lbl">
+                <span class="tier">Brand Home</span>
+                <span class="name">Overview</span>
+              </div>
+              <div class="arch-items">
+                <div class="arch-item">Brand Profile</div>
+                <div class="arch-item">Mission Feed</div>
+                <div class="arch-item">Community Wall</div>
+                <div class="arch-item">Leaderboard</div>
+                <div class="arch-item">My Activity</div>
+              </div>
+            </div>
+            <div class="arch-layer l2">
+              <div class="arch-lbl">
+                <span class="tier">Core Loop</span>
+                <span class="name">Missions</span>
+              </div>
+              <div class="arch-items">
+                <div class="arch-item">Mission Detail</div>
+                <div class="arch-item">Task List</div>
+                <div class="arch-item">Submission</div>
+                <div class="arch-item">Proof Upload</div>
+                <div class="arch-item">Review Status</div>
+              </div>
+            </div>
+            <div class="arch-layer l3">
+              <div class="arch-lbl">
+                <span class="tier">Retention</span>
+                <span class="name">Rewards &amp; Progress</span>
+              </div>
+              <div class="arch-items">
+                <div class="arch-item">Cash Rewards</div>
+                <div class="arch-item">Gift Cards</div>
+                <div class="arch-item">Free Products</div>
+                <div class="arch-item">Club Levels</div>
+                <div class="arch-item">Affiliate Codes</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="arch-legend">
+            <div class="arch-legend-item">
+              <div class="arch-legend-dot" style="background: var(--c-accent);"></div>
+              Highest user intent
+            </div>
+            <div class="arch-legend-item">
+              <div class="arch-legend-dot" style="background: rgba(150, 103, 247,0.5);"></div>
+              Mid journey
+            </div>
+            <div class="arch-legend-item">
+              <div class="arch-legend-dot" style="background: rgba(150, 103, 247,0.25);"></div>
+              Retention depth
+            </div>
+            <div class="arch-legend-item" style="margin-left: auto;">
+              <svg viewBox="0 0 24 24"
+                style="width:14px;height:14px;stroke:var(--c-text-d);fill:none;stroke-width:1.5;stroke-linecap:round;">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+              <span>Hover rows to explore</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 07 · CORE USER FLOW ───────────────────────────────── -->
+      <section id="user-flow" class="reveal">
+        <div class="wrap">
+          <div class="section-label"><span class="num">06</span> Core User Flow</div>
+          <h2>One path.<br>Built to repeat.</h2>
+          <p>The engagement loop was designed around a clear, motivated journey — from app entry to earning rewards,
+            then back again. Every decision point removes friction and keeps members moving forward.</p>
+
+          <div class="uf-wrap" id="uf-wrap">
+            <svg class="uf-svg" id="uf-svg" aria-hidden="true"></svg>
+
+            <div class="uf-grid">
+
+              <!-- ═══ ONBOARDING FLOW  col 1, rows 1–4 ═══ -->
+              <div class="uf-node uf-node--side" data-uf-id="browse" data-uf-group="Onboarding" style="grid-row:1;grid-column:1">
+                <div class="uf-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+                <div class="uf-body"><div class="uf-title">Browse</div><div class="uf-sub">Find clubs</div></div>
+              </div>
+              <div class="uf-node uf-node--side" data-uf-id="details" style="grid-row:2;grid-column:1">
+                <div class="uf-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+                <div class="uf-body"><div class="uf-title">Details</div><div class="uf-sub">View club info</div></div>
+              </div>
+              <div class="uf-node uf-node--side" data-uf-id="join-onb" style="grid-row:3;grid-column:1">
+                <div class="uf-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="16" y1="11" x2="22" y2="11"/></svg></div>
+                <div class="uf-body"><div class="uf-title">Join</div><div class="uf-sub">Become member</div></div>
+              </div>
+              <div class="uf-node uf-node--side" data-uf-id="overview-onb" style="grid-row:4;grid-column:1">
+                <div class="uf-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+                <div class="uf-body"><div class="uf-title">Overview</div><div class="uf-sub">Enter club</div></div>
+              </div>
+
+              <!-- ═══ RE-ENGAGEMENT FLOW  col 1, rows 6–8 ═══ -->
+              <div class="uf-node uf-node--side" data-uf-id="inactive" data-uf-group="Re-engage" style="grid-row:6;grid-column:1">
+                <div class="uf-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                <div class="uf-body"><div class="uf-title">Inactive</div><div class="uf-sub">User pauses</div></div>
+              </div>
+              <div class="uf-node uf-node--side" data-uf-id="notified" style="grid-row:7;grid-column:1">
+                <div class="uf-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+                <div class="uf-body"><div class="uf-title">Notified</div><div class="uf-sub">Push prompt</div></div>
+              </div>
+              <div class="uf-node uf-node--side" data-uf-id="opens-app" style="grid-row:8;grid-column:1">
+                <div class="uf-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+                <div class="uf-body"><div class="uf-title">Opens App</div><div class="uf-sub">Resumes</div></div>
+              </div>
+
+              <!-- ═══ DROP-OFF FLOW  col 1, rows 10–12 ═══ -->
+              <div class="uf-node uf-node--side" data-uf-id="paused" data-uf-group="Drop-off" style="grid-row:10;grid-column:1">
+                <div class="uf-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="10" y1="15" x2="10" y2="9"/><line x1="14" y1="15" x2="14" y2="9"/></svg></div>
+                <div class="uf-body"><div class="uf-title">Paused</div><div class="uf-sub">Mission stalled</div></div>
+              </div>
+              <div class="uf-node uf-node--side" data-uf-id="reminder-drop" style="grid-row:11;grid-column:1">
+                <div class="uf-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+                <div class="uf-body"><div class="uf-title">Reminder</div><div class="uf-sub">Incentive sent</div></div>
+              </div>
+              <div class="uf-node uf-node--side" data-uf-id="resume-drop" style="grid-row:12;grid-column:1">
+                <div class="uf-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+                <div class="uf-body"><div class="uf-title">Resume</div><div class="uf-sub">Back to mission</div></div>
+              </div>
+
+              <!-- ═══ MAIN FLOW – BRANCH COL (col 2) ═══ -->
+              <div class="uf-node uf-node--branch" data-uf-id="join-club" style="grid-row:6;grid-column:2">
+                <div class="uf-icon">
+                  <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="16" y1="11" x2="22" y2="11"/></svg>
+                </div>
+                <div class="uf-body">
+                  <div class="uf-title">Join Club</div>
+                  <div class="uf-sub">Sign up as a member</div>
+                </div>
+              </div>
+              <div class="uf-node uf-node--branch" data-uf-id="edit-resubmit" style="grid-row:12;grid-column:2">
+                <div class="uf-icon">
+                  <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                </div>
+                <div class="uf-body">
+                  <div class="uf-title">Edit &amp; Resubmit</div>
+                  <div class="uf-sub">Refine and try again</div>
+                </div>
+              </div>
+
+              <!-- ═══ MAIN FLOW – CENTER COL (col 3) ═══ -->
+              <div class="uf-node" data-uf-id="enter-app" style="grid-row:3;grid-column:3">
+                <div class="uf-icon">
+                  <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                </div>
+                <div class="uf-body">
+                  <div class="uf-title">Enter App</div>
+                  <div class="uf-sub">Open the mobile experience</div>
+                </div>
+              </div>
+              <div class="uf-node" data-uf-id="access-club" style="grid-row:4;grid-column:3">
+                <div class="uf-icon">
+                  <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                </div>
+                <div class="uf-body">
+                  <div class="uf-title">Access Club</div>
+                  <div class="uf-sub">Navigate to a brand's club</div>
+                </div>
+              </div>
+              <div class="uf-decision" data-uf-id="member-check" style="grid-row:5;grid-column:3">
+                <div class="uf-diamond"><span class="uf-diamond-q">Member?</span></div>
+              </div>
+              <div class="uf-node" data-uf-id="dashboard" style="grid-row:6;grid-column:3">
+                <div class="uf-icon">
+                  <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                </div>
+                <div class="uf-body">
+                  <div class="uf-title">Club Overview</div>
+                  <div class="uf-sub">Progress, rewards, active missions</div>
+                </div>
+              </div>
+              <div class="uf-node" data-uf-id="discover" style="grid-row:7;grid-column:3">
+                <div class="uf-icon">
+                  <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </div>
+                <div class="uf-body">
+                  <div class="uf-title">Discover Missions</div>
+                  <div class="uf-sub">Browse available opportunities</div>
+                </div>
+              </div>
+              <div class="uf-node" data-uf-id="select-mission" style="grid-row:8;grid-column:3">
+                <div class="uf-icon">
+                  <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                </div>
+                <div class="uf-body">
+                  <div class="uf-title">Select Mission</div>
+                  <div class="uf-sub">View details, requirements, reward</div>
+                </div>
+              </div>
+              <div class="uf-node" data-uf-id="act" style="grid-row:9;grid-column:3">
+                <div class="uf-icon">
+                  <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                </div>
+                <div class="uf-body">
+                  <div class="uf-title">Complete Mission</div>
+                  <div class="uf-sub">Create content, referral, or action</div>
+                </div>
+              </div>
+              <div class="uf-node" data-uf-id="submit-proof" style="grid-row:10;grid-column:3">
+                <div class="uf-icon">
+                  <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                </div>
+                <div class="uf-body">
+                  <div class="uf-title">Submit Proof</div>
+                  <div class="uf-sub">Upload or verify completion</div>
+                </div>
+              </div>
+              <div class="uf-decision" data-uf-id="validation" style="grid-row:11;grid-column:3">
+                <div class="uf-diamond"><span class="uf-diamond-q">Approved?</span></div>
+              </div>
+              <div class="uf-node" data-uf-id="earn" style="grid-row:12;grid-column:3">
+                <div class="uf-icon">
+                  <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <div class="uf-body">
+                  <div class="uf-title">Earn Reward</div>
+                  <div class="uf-sub">Points, cash, or perks assigned</div>
+                </div>
+              </div>
+              <div class="uf-node" data-uf-id="progress" style="grid-row:13;grid-column:3">
+                <div class="uf-icon">
+                  <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                </div>
+                <div class="uf-body">
+                  <div class="uf-title">Progress Update</div>
+                  <div class="uf-sub">Level, status, achievements updated</div>
+                </div>
+              </div>
+              <div class="uf-node uf-node--loop" data-uf-id="return" style="grid-row:14;grid-column:3">
+                <div class="uf-icon">
+                  <svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.77"/></svg>
+                </div>
+                <div class="uf-body">
+                  <div class="uf-title">Return to Missions</div>
+                  <div class="uf-sub">Repeat the engagement loop</div>
+                </div>
+              </div>
+
+              <!-- ═══ PROFILE FLOW  col 4, rows 6–8 ═══ -->
+              <div class="uf-node uf-node--side" data-uf-id="stats" data-uf-group="Profile" style="grid-row:6;grid-column:4">
+                <div class="uf-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+                <div class="uf-body"><div class="uf-title">Stats</div><div class="uf-sub">View activity</div></div>
+              </div>
+              <div class="uf-node uf-node--side" data-uf-id="achievements" style="grid-row:7;grid-column:4">
+                <div class="uf-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+                <div class="uf-body"><div class="uf-title">Achievements</div><div class="uf-sub">Track badges</div></div>
+              </div>
+              <div class="uf-node uf-node--side" data-uf-id="edit-profile" style="grid-row:8;grid-column:4">
+                <div class="uf-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                <div class="uf-body"><div class="uf-title">Edit Profile</div><div class="uf-sub">Update info</div></div>
+              </div>
+
+              <!-- ═══ REWARD FLOW  col 4, rows 12–14 ═══ -->
+              <div class="uf-node uf-node--side" data-uf-id="view-reward" data-uf-group="Reward" style="grid-row:12;grid-column:4">
+                <div class="uf-icon"><svg viewBox="0 0 24 24"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></div>
+                <div class="uf-body"><div class="uf-title">View Reward</div><div class="uf-sub">Reward details</div></div>
+              </div>
+              <div class="uf-node uf-node--side" data-uf-id="redeem" style="grid-row:13;grid-column:4">
+                <div class="uf-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+                <div class="uf-body"><div class="uf-title">Redeem</div><div class="uf-sub">If eligible</div></div>
+              </div>
+              <div class="uf-node uf-node--side" data-uf-id="confirm-rwd" style="grid-row:14;grid-column:4">
+                <div class="uf-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+                <div class="uf-body"><div class="uf-title">Confirm</div><div class="uf-sub">Redemption done</div></div>
+              </div>
+
+              <!-- ═══ PROGRESS FLOW  col 4, rows 15–17 ═══ -->
+              <div class="uf-node uf-node--side" data-uf-id="gain-pts" data-uf-group="Progress" style="grid-row:15;grid-column:4">
+                <div class="uf-icon"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+                <div class="uf-body"><div class="uf-title">Gain Points</div><div class="uf-sub">Accumulate XP</div></div>
+              </div>
+              <div class="uf-node uf-node--side" data-uf-id="level-up" style="grid-row:16;grid-column:4">
+                <div class="uf-icon"><svg viewBox="0 0 24 24"><polyline points="17 11 12 6 7 11"/><polyline points="17 18 12 13 7 18"/></svg></div>
+                <div class="uf-body"><div class="uf-title">Level Up</div><div class="uf-sub">Rank increases</div></div>
+              </div>
+              <div class="uf-node uf-node--side" data-uf-id="unlock" style="grid-row:17;grid-column:4">
+                <div class="uf-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg></div>
+                <div class="uf-body"><div class="uf-title">Unlock</div><div class="uf-sub">New missions &amp; perks</div></div>
+              </div>
+
+            </div><!-- /.uf-grid -->
+
+            <div class="uf-loop-label" id="uf-loop-label">Repeat loop</div>
+          </div><!-- /.uf-wrap -->
+        </div>
+      </section>
+
+      <!-- ── 08 · SCREENS & FLOWS ──────────────────────────────── -->
+      <section id="screens" class="section-band reveal">
+        <div class="wrap">
+          <div class="section-label"><span class="num">07</span> Screens &amp; Flows</div>
+          <h2>The work in detail.</h2>
+          <p>Four core areas were redesigned. Each group shows the screens alongside the problem they solve and the
+            reasoning behind the design decisions.</p>
+
+          <!-- A: Brand Overview -->
+          <div class="screens-group">
+            <div class="screen-group-header">
+              <span class="screen-group-num">A</span>
+              <span class="screen-group-title">Overview &amp; Brand Discovery</span>
+            </div>
+            <p class="screen-group-desc">The brand page was the most visited screen but the least optimised. It needed
+              to act as a command centre — showing the most relevant missions, community activity, and earnings in a
+              single view.</p>
+            <div class="screen-grid screen-grid--2">
+              <div class="screen-cell">
+                <img src="/images/projects/club-tie/brand-template.png"
+                  alt="Brand page template showing missions, earn, and activity sections">
+                <div class="sc-lbl">
+                  <h4>Brand Page Template</h4>
+                  <p>Standardised layout with Missions, Wall, Earn, and Activity tabs — consistent across all 550+
+                    brands, with brand-specific customisation in the cover and bio.</p>
+                </div>
+              </div>
+              <div class="screen-cell">
+                <img src="/images/projects/club-tie/App%20template%2010.png"
+                  alt="App template showing the full brand experience structure">
+                <div class="sc-lbl">
+                  <h4>Full App Template</h4>
+                  <p>The unified template approach reduced brand setup time significantly while ensuring every community
+                    member gets a predictable, trustworthy experience.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- B: Missions -->
+          <div class="screens-group">
+            <div class="screen-group-header">
+              <span class="screen-group-num">B</span>
+              <span class="screen-group-title">Missions</span>
+            </div>
+            <p class="screen-group-desc">Missions are the heart of the platform. The challenge was to make available
+              missions instantly scannable, showing reward, effort, and deadline at a glance — without overwhelming
+              users with detail.</p>
+            <div class="screen-grid screen-grid--3">
+              <div class="screen-cell">
+                <img src="/images/projects/club-tie/Missions.png" alt="Missions overview screen">
+                <div class="sc-lbl">
+                  <h4>Mission Overview</h4>
+                  <p>A clean feed showing Available, In Progress, and Needs Attention states — reward amount always
+                    visible in the top right.</p>
+                </div>
+              </div>
+              <div class="screen-cell">
+                <img src="/images/projects/club-tie/mission-header.png" alt="Mission header with reward amount">
+                <div class="sc-lbl">
+                  <h4>Mission Header</h4>
+                  <p>Reward amount, type, and deadline shown above the fold on every mission. Users should never scroll
+                    to find what they're working towards.</p>
+                </div>
+              </div>
+              <div class="screen-cell">
+                <img src="/images/projects/club-tie/mission-list.png" alt="Mission list">
+                <div class="sc-lbl">
+                  <h4>Mission List</h4>
+                  <p>Compact card format allows users to scan multiple missions quickly. The reward badge is
+                    colour-coded by type for immediate recognition.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- C: Rewards -->
+          <div class="screens-group">
+            <div class="screen-group-header">
+              <span class="screen-group-num">C</span>
+              <span class="screen-group-title">Rewards System</span>
+            </div>
+            <p class="screen-group-desc">Three reward types — Cash, Gift Cards, and Free Products — each needed a
+              distinct visual identity. The redesign introduced a reward icon system and consistent card layouts that
+              make the reward type unmistakable.</p>
+            <div class="screen-grid screen-grid--4">
+              <div class="screen-cell screen-cell--natural">
+                <img src="/images/projects/club-tie/Cash%20reward.png" alt="Cash reward UI component">
+                <div class="sc-lbl">
+                  <h4>Cash Reward</h4>
+                  <p>Green currency icon with real-time earning estimate shown inline.</p>
+                </div>
+              </div>
+              <div class="screen-cell screen-cell--natural">
+                <img src="/images/projects/club-tie/Gift%20Card%20reward.png" alt="Gift card reward UI">
+                <div class="sc-lbl">
+                  <h4>Gift Card</h4>
+                  <p>Distinct card icon with brand logo — shows fixed value clearly upfront.</p>
+                </div>
+              </div>
+              <div class="screen-cell screen-cell--natural">
+                <img src="/images/projects/club-tie/Product%20reward.png" alt="Free product reward UI">
+                <div class="sc-lbl">
+                  <h4>Free Product</h4>
+                  <p>Product imagery with estimated retail value and shipping indicator.</p>
+                </div>
+              </div>
+              <div class="screen-cell screen-cell--natural">
+                <img src="/images/projects/club-tie/Reward%20icon%20group.png" alt="Reward icon system">
+                <div class="sc-lbl">
+                  <h4>Icon System</h4>
+                  <p>Three icons distinct in shape, colour, and metaphor — learnable in one session, recognisable
+                    forever.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- D: Templates -->
+          <div class="screens-group">
+            <div class="screen-group-header">
+              <span class="screen-group-num">D</span>
+              <span class="screen-group-title">Templates &amp; System Components</span>
+            </div>
+            <p class="screen-group-desc">To scale consistency across 550+ brands, a mission template system was built —
+              allowing brands to create high-quality missions from proven structures rather than starting from scratch.
+            </p>
+            <div class="screen-grid screen-grid--2">
+              <div class="screen-cell">
+                <img src="/images/projects/club-tie/templates-band-no-mission-list@2x.png" alt="Mission template band">
+                <div class="sc-lbl">
+                  <h4>Template Band</h4>
+                  <p>A horizontal scrollable band of mission templates categorised by goal type — Content, Sales,
+                    Community, and Feedback — dramatically reducing brand setup time.</p>
+                </div>
+              </div>
+              <div class="screen-cell screen-cell--natural">
+                <img src="/images/projects/club-tie/Value.png" alt="Value component">
+                <div class="sc-lbl">
+                  <h4>Value &amp; Stats Component</h4>
+                  <p>A reusable data visualisation component showing mission reach, engagement, and ROI — giving brands
+                    confidence and users context.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 09 · DECISION HIGHLIGHTS ─────────────────────────── -->
+      <section id="decisions" class="reveal">
+        <div class="wrap">
+          <div class="section-label"><span class="num">08</span> Decision Highlights</div>
+          <h2>Why we chose<br>what we chose.</h2>
+          <p>Product design is a series of trade-offs. Here are the most critical decisions made during this project —
+            and the thinking behind each one.</p>
+
+          <div class="decisions-list">
+            <div class="decision-card">
+              <div class="decision-num">01</div>
+              <div class="decision-body">
+                <h3>Reward amount above the fold — always</h3>
+                <p>Early designs showed reward information after the mission description. Testing revealed that users
+                  judged whether a mission was worth their time in under 3 seconds — and the most important signal was
+                  the reward. Moving reward to the top increased mission start rates significantly. This ran counter to
+                  conventional "lead with value proposition" thinking, but the data was clear: in a marketplace, the
+                  reward IS the value proposition.</p>
+                <span class="decision-tag">Interaction Design</span>
+              </div>
+            </div>
+            <div class="decision-card">
+              <div class="decision-num">02</div>
+              <div class="decision-body">
+                <h3>Three reward icons — not a generic tag</h3>
+                <p>The original design used a single "reward" icon with text indicating type. This required users to
+                  read — and reading takes cognitive load. The new system uses three distinct icons with different
+                  shapes, colours, and metaphors (coin for cash, card for gift, box for product). In usability testing,
+                  users identified reward type correctly 94% of the time without reading any text. A proper icon system
+                  over a shortcut paid off immediately in comprehension speed.</p>
+                <span class="decision-tag">Visual Design</span>
+              </div>
+            </div>
+            <div class="decision-card">
+              <div class="decision-num">03</div>
+              <div class="decision-body">
+                <h3>Template system before AI suggestions</h3>
+                <p>There was appetite to build an AI-powered mission suggestion system. While compelling, it would have
+                  required significant backend work and still couldn't solve the core problem: brands didn't know what
+                  mission structure worked. The template system gave brands access to proven, highest-performing mission
+                  formats immediately. Faster to ship, faster to validate, more reliable than a model trained on limited
+                  early data. We chose a solved problem over an exciting one.</p>
+                <span class="decision-tag">Product Strategy</span>
+              </div>
+            </div>
+            <div class="decision-card">
+              <div class="decision-num">04</div>
+              <div class="decision-body">
+                <h3>Clubs &amp; Levels: gamification with meaning</h3>
+                <p>Loyalty points and levels are ubiquitous — and often hollow. The Clubs &amp; Levels design avoided
+                  vanity mechanics by tying every level to a real, tangible perk (higher commission rates, earlier
+                  access to product seeding). Users needed to feel that levelling up meant something outside the app.
+                  Working with the product team, each level milestone was mapped to a concrete brand-side benefit,
+                  making progression genuinely motivating rather than cosmetically satisfying.</p>
+                <span class="decision-tag">UX Strategy</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 10 · IMPACT ───────────────────────────────────────── -->
+      <section id="impact" class="section-band reveal">
+        <div class="wrap">
+          <div class="section-label"><span class="num">09</span> Impact</div>
+          <h2>What changed<br>when it shipped.</h2>
+          <p>The redesign launched incrementally — key flows first, then broader structural changes. All tracked metrics
+            confirmed the design decisions were directionally correct.</p>
+
+          <!-- Headline stat -->
+          <div class="impact-headline">
+            <div class="ih-num">+32%</div>
+            <div class="ih-label">Mission completion rate</div>
+            <div class="ih-context">vs. pre-redesign baseline across all active brands</div>
+          </div>
+
+          <!-- 3 secondary stat cards -->
+          <div class="impact-stats">
+            <div class="impact-stat-card">
+              <div class="impact-num">−45%</div>
+              <div class="impact-label">Average reward claim time</div>
+              <div class="impact-context">users earning faster</div>
+            </div>
+            <div class="impact-stat-card">
+              <div class="impact-num">−60%</div>
+              <div class="impact-label">Time-to-first-mission</div>
+              <div class="impact-context">critical onboarding metric</div>
+            </div>
+            <div class="impact-stat-card">
+              <div class="impact-num">310%</div>
+              <div class="impact-label">ROI — top brand (Hunkemöller)</div>
+              <div class="impact-context">post-redesign campaign</div>
+            </div>
+          </div>
+
+          <!-- Animated bar chart — bars animate when section becomes visible -->
+          <div class="impact-bars">
+            <div class="impact-bars-header">All metrics vs. pre-redesign baseline</div>
+            <div class="impact-bar-row">
+              <div class="impact-bar-label">Mission completion rate</div>
+              <div class="impact-bar-track">
+                <div class="impact-bar-fill" style="--w: 72%; --delay: 0.00s"></div>
+              </div>
+              <div class="impact-bar-value">+32%</div>
+            </div>
+            <div class="impact-bar-row">
+              <div class="impact-bar-label">Time-to-first-mission reduction</div>
+              <div class="impact-bar-track">
+                <div class="impact-bar-fill" style="--w: 95%; --delay: 0.12s"></div>
+              </div>
+              <div class="impact-bar-value">−60%</div>
+            </div>
+            <div class="impact-bar-row">
+              <div class="impact-bar-label">Reward claim time reduction</div>
+              <div class="impact-bar-track">
+                <div class="impact-bar-fill" style="--w: 80%; --delay: 0.24s"></div>
+              </div>
+              <div class="impact-bar-value">−45%</div>
+            </div>
+            <div class="impact-bar-row">
+              <div class="impact-bar-label">ROI — Hunkemöller campaign</div>
+              <div class="impact-bar-track">
+                <div class="impact-bar-fill" style="--w: 100%; --delay: 0.36s"></div>
+              </div>
+              <div class="impact-bar-value">310%</div>
+            </div>
+            <div class="impact-bar-row">
+              <div class="impact-bar-label">Active ambassadors — single brand record</div>
+              <div class="impact-bar-track">
+                <div class="impact-bar-fill" style="--w: 87%; --delay: 0.48s"></div>
+              </div>
+              <div class="impact-bar-value">6,370</div>
+            </div>
+            <div class="impact-bar-row">
+              <div class="impact-bar-label">UGC content coverage — Popsockets EU</div>
+              <div class="impact-bar-track">
+                <div class="impact-bar-fill" style="--w: 100%; --delay: 0.60s"></div>
+              </div>
+              <div class="impact-bar-value">100%</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 11 · CHALLENGES ───────────────────────────────────── -->
+      <section id="challenges" class="reveal">
+        <div class="wrap">
+          <div class="section-label"><span class="num">10</span> Challenges</div>
+          <h2>What made this hard.</h2>
+          <p>Every project has constraints that shape decisions. Understanding these helps explain why certain
+            trade-offs were made.</p>
+
+          <div class="challenges-grid">
+            <div class="challenge-card">
+              <div class="ch-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+              </div>
+              <h3>Legacy content at scale</h3>
+              <p>550+ brands had existing mission libraries, brand pages, and community content. Any structural change
+                had to migrate gracefully — breaking changes were not an option when real users depended on continuity.
+              </p>
+            </div>
+            <div class="challenge-card">
+              <div class="ch-icon">
+                <svg viewBox="0 0 24 24">
+                  <rect x="5" y="2" width="14" height="20" rx="2" />
+                  <line x1="12" y1="18" x2="12.01" y2="18" />
+                </svg>
+              </div>
+              <h3>Feature parity across platforms</h3>
+              <p>The app runs on iOS and Android via Flutter. Platform-specific UI conventions had to be balanced
+                against the need for a consistent cross-platform design system — especially for gestures and navigation
+                patterns.</p>
+            </div>
+            <div class="challenge-card">
+              <div class="ch-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              <h3>Two-sided stakeholder balance</h3>
+              <p>Club serves both brands (who want customisation and control) and community members (who want simplicity
+                and clarity). Design decisions that help one side often create tension for the other — requiring
+                constant calibration.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 12 · REFLECTION ───────────────────────────────────── -->
+      <section id="reflection" class="section-band reveal">
+        <div class="wrap">
+          <div class="section-label"><span class="num">11</span> Reflection</div>
+
+          <div class="reflection-card">
+            <div class="rf-label">What I took away from this</div>
+            <div class="rf-text">
+              Designing for a two-sided marketplace taught me that the best product decisions feel invisible to both
+              sides. When the community member's experience is joyful, brands benefit automatically — and vice versa.
+            </div>
+            <div class="rf-sub">
+              The most impactful change in this project wasn't a single screen — it was the decision to restructure the
+              information architecture around the user's emotional journey rather than the product's feature set. That
+              shift in framing unlocked every other improvement that followed.
+              <br><br>
+              The other major learning: constraint is a design tool. The template system existed because we couldn't
+              afford to redesign 550 brand pages individually. That constraint forced a scalable, principled solution
+              that turned out to be better than the bespoke approach would have been.
+            </div>
+          </div>
+
+          <div class="role-card">
+            <div class="role-grid">
+              <div>
+                <h3>My Contributions</h3>
+                <div class="badges">
+                  <span class="badge a">UX Architecture</span>
+                  <span class="badge a">Interaction Design</span>
+                  <span class="badge a">Visual Design</span>
+                  <span class="badge a">User Research</span>
+                  <span class="badge a">Design System</span>
+                  <span class="badge">Prototyping</span>
+                  <span class="badge">Usability Testing</span>
+                  <span class="badge">Stakeholder Alignment</span>
+                </div>
+              </div>
+              <div>
+                <h3>Tools &amp; Methods</h3>
+                <div class="badges">
+                  <span class="badge">Figma</span>
+                  <span class="badge">ProtoPie</span>
+                  <span class="badge">Maze</span>
+                  <span class="badge">Hotjar</span>
+                  <span class="badge">Jobs-to-be-Done</span>
+                  <span class="badge">Card Sorting</span>
+                  <span class="badge">A/B Testing</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
   </div>
-  <div class="hero-scroll">
-    <div class="scroll-line"></div>
-    Scroll to explore
-  </div>
-</div>
-
-<!-- TWO-COLUMN LAYOUT -->
-<div class="case-layout">
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <ul class="sidebar-nav">
-      <li><a href="#overview" data-section="overview">
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-        Overview
-      </a></li>
-      <li><a href="#what-we-do" data-section="what-we-do">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
-        What we do?
-      </a></li>
-      <li><a href="#challenge" data-section="challenge">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        The Challenge
-      </a></li>
-      <li><a href="#insight" data-section="insight">
-        <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        Key Insight
-      </a></li>
-      <li><a href="#objectives" data-section="objectives">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        Objectives
-      </a></li>
-      <li><a href="#principles" data-section="principles">
-        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        Principles
-      </a></li>
-      <li><a href="#architecture" data-section="architecture">
-        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        Architecture
-      </a></li>
-      <li><a href="#user-flow" data-section="user-flow">
-        <svg viewBox="0 0 24 24"><polyline points="5 12 12 5 19 12"/><polyline points="5 19 12 12 19 19"/></svg>
-        User Flow
-      </a></li>
-      <div class="sidebar-sep"></div>
-      <li><a href="#screens" data-section="screens">
-        <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-        Screens
-      </a></li>
-      <div class="sidebar-sep"></div>
-      <li><a href="#decisions" data-section="decisions">
-        <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-        Decisions
-      </a></li>
-      <li><a href="#impact" data-section="impact">
-        <svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
-        Impact
-      </a></li>
-      <li><a href="#challenges" data-section="challenges">
-        <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        Challenges
-      </a></li>
-      <li><a href="#reflection" data-section="reflection">
-        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Reflection
-      </a></li>
-    </ul>
-  </aside>
-
-  <!-- MAIN CONTENT -->
-  <main class="main-content">
-
-    <!-- ── 01 · OVERVIEW ────────────────────────────────────── -->
-    <section id="overview" class="reveal">
-      <div class="wrap">
-        <div class="section-label"><span class="num">01</span> Overview</div>
-        <h2>Built for engagement.<br>Designed for participation.</h2>
-        <p>Club connects brands with ambassadors through missions, rewards, and ongoing interaction.</p>
-        <p>As the platform scaled, the experience became harder to navigate. Features grew, but structure didn't.</p>
-        <p>The goal was to simplify the system — making actions clear, rewards visible, and progress easy to understand.</p>
-
-        <div class="overview-video-wrap">
-          <video src="/videos/club-intro.mp4" autoplay muted loop playsinline></video>
-        </div>
-
-        <div class="kpi-row">
-          <div class="kpi-card">
-            <div class="kpi-num">550+</div>
-            <div class="kpi-label">Brands</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-num">1M+</div>
-            <div class="kpi-label">Members</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-num">3</div>
-            <div class="kpi-label">Core pillars</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-num">15yr</div>
-            <div class="kpi-label">Experience</div>
-          </div>
-        </div>
-
-        <div class="process-steps">
-          <div class="process-step">
-            <div class="ps-num">Phase 01</div>
-            <div class="ps-title">Activate</div>
-            <div class="ps-desc">Onboard and grow ambassador communities</div>
-          </div>
-          <div class="process-step active">
-            <div class="ps-num">Phase 02</div>
-            <div class="ps-title">Engage</div>
-            <div class="ps-desc">Drive action through missions and rewards</div>
-          </div>
-          <div class="process-step">
-            <div class="ps-num">Phase 03</div>
-            <div class="ps-title">Grow</div>
-            <div class="ps-desc">Make progress visible and sustainable</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── 01.5 · WHAT WE DO ────────────────────────────────── -->
-    <section id="what-we-do" class="section-band reveal">
-      <div class="wrap">
-        <div class="section-label">What we do?</div>
-        <h2>Connecting brands with<br>the people who love them.</h2>
-        <p>Club is an ambassador marketing platform that turns genuine fans into brand advocates — giving them missions to complete, rewards to earn, and a community to belong to. Brands get authentic content and measurable ROI. Members get real value for real influence.</p>
-
-        <div class="what-we-do-img">
-          <img src="/images/projects/club-tie/club-trust.png" alt="How Club works — brand trust and ambassador engagement" loading="lazy" decoding="async">
-        </div>
-
-        <!-- ── Stats Evidence ───────────────────────────────── -->
-        <div class="wwd-evidence reveal">
-          <!-- Left: Ambassador grid -->
-          <div class="wwd-ambassadors">
-            <div class="amb-grid">
-              <div class="amb-card" style="--rv-d: 0ms">
-                <div class="amb-photo" style="background: linear-gradient(145deg, #2a1050 0%, #6131c4 100%)">
-                  <span class="amb-initials">MK</span>
-                  <div class="amb-glow"></div>
-                </div>
-                <div class="amb-info">
-                  <span class="amb-name">Megan Kennedy</span>
-                  <span class="amb-brand">Sleepy Sloth</span>
-                </div>
-              </div>
-              <div class="amb-card" style="--rv-d: 80ms">
-                <div class="amb-photo" style="background: linear-gradient(145deg, #0f1a3e 0%, #2040a0 100%)">
-                  <span class="amb-initials">ZG</span>
-                  <div class="amb-glow"></div>
-                </div>
-                <div class="amb-info">
-                  <span class="amb-name">Zavion Griffin</span>
-                  <span class="amb-brand">Phenom Elite</span>
-                </div>
-              </div>
-              <div class="amb-card" style="--rv-d: 160ms">
-                <div class="amb-photo" style="background: linear-gradient(145deg, #0d2a1a 0%, #1a6b40 100%)">
-                  <span class="amb-initials">ES</span>
-                  <div class="amb-glow"></div>
-                </div>
-                <div class="amb-info">
-                  <span class="amb-name">Erica Sanchez</span>
-                  <span class="amb-brand">Fore All</span>
-                </div>
-              </div>
-              <div class="amb-card" style="--rv-d: 240ms">
-                <div class="amb-photo" style="background: linear-gradient(145deg, #3a0f28 0%, #a0306a 100%)">
-                  <span class="amb-initials">KR</span>
-                  <div class="amb-glow"></div>
-                </div>
-                <div class="amb-info">
-                  <span class="amb-name">Key Renea</span>
-                  <span class="amb-brand">Vitamasques</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right: Stats grid -->
-          <div class="wwd-stats">
-            <div class="wwd-stat-card" style="--rv-d: 0ms">
-              <div class="wwd-stat-num">55%</div>
-              <p>55% of TikTok users say they are <strong>more likely to trust brands</strong> when they hear about them from creators, compared to other ads in their feed.</p>
-            </div>
-            <div class="wwd-stat-card" style="--rv-d: 80ms">
-              <div class="wwd-stat-num">7.5x</div>
-              <p>People are 7.5 times <strong>more likely to consider purchasing</strong> a product after seeing a positive post from someone they know.</p>
-            </div>
-            <div class="wwd-stat-card" style="--rv-d: 160ms">
-              <div class="wwd-stat-num">5x</div>
-              <p>Word-of-mouth marketing is even <strong>more effective than paid ads</strong>, resulting in five times more sales.</p>
-            </div>
-            <div class="wwd-stat-card" style="--rv-d: 240ms">
-              <div class="wwd-stat-num">69%</div>
-              <p>of consumers are <strong>likely to trust a friend</strong>, family member or influencer recommendation over information coming directly from a brand.</p>
-            </div>
-            <div class="wwd-stat-sources">Sources: Business Wire, Netcore, SEMrush</div>
-          </div>
-        </div>
-
-        <!-- ── Timeline: You're in good hands! ─────────────── -->
-        <div class="wwd-timeline-section reveal">
-          <div class="wwd-tl-headline">You're in <span class="tl-hl-accent">good hands!</span></div>
-
-          <div class="wwd-tl-container">
-
-            <!-- ═══ ABOVE ROW: 6 columns ════════════════════ -->
-            <div class="tl-row tl-row--above">
-
-              <!-- Col 1 · 2010: media + label + stem -->
-              <div class="tl-col" style="--rv-d: 0ms">
-                <div class="tl-media tl-media--post">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                  <span>Add media</span>
-                </div>
-                <div class="tl-label">
-                  <div class="tl-year">2010</div>
-                  <p>Onepiece launches the PieceKeeper programme with Missions</p>
-                </div>
-                <div class="tl-stem tl-stem--down"></div>
-              </div>
-
-              <!-- Col 2 · void (2015 is below) -->
-              <div class="tl-col tl-col--void"></div>
-
-              <!-- Col 3 · 2017: phone media + label + stem -->
-              <div class="tl-col" style="--rv-d: 200ms">
-                <div class="tl-media tl-media--phone">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                  <span>Add media</span>
-                </div>
-                <div class="tl-label">
-                  <div class="tl-year">2017</div>
-                  <p>Brandbassador launches on App Store &amp; Google Play with 10 founding brands</p>
-                </div>
-                <div class="tl-stem tl-stem--down"></div>
-              </div>
-
-              <!-- Col 4 · void (2021 is below) -->
-              <div class="tl-col tl-col--void"></div>
-
-              <!-- Col 5 · 2022: label + stem only (no screenshot) -->
-              <div class="tl-col tl-col--no-media" style="--rv-d: 400ms">
-                <div class="tl-label">
-                  <div class="tl-year">2022</div>
-                  <p>550 eCommerce brands have used Brandbassador to engage communities</p>
-                </div>
-                <div class="tl-stem tl-stem--down"></div>
-              </div>
-
-              <!-- Col 6 · 2024 phone mockup (text is in below row) -->
-              <div class="tl-col" style="--rv-d: 500ms">
-                <div class="tl-media tl-media--phone-lg">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                  <span>Add media</span>
-                </div>
-                <div class="tl-stem tl-stem--down tl-stem--lime"></div>
-              </div>
-
-            </div><!-- /tl-row--above -->
-
-            <!-- ═══ MIDDLE ROW: dots + connector ═══════════ -->
-            <div class="tl-row tl-row--middle">
-              <div class="tl-dot-col" style="--rv-d: 0ms"><div class="tl-dot"></div></div>
-              <div class="tl-dot-col" style="--rv-d: 100ms"><div class="tl-dot"></div></div>
-              <div class="tl-dot-col" style="--rv-d: 200ms"><div class="tl-dot"></div></div>
-              <div class="tl-dot-col" style="--rv-d: 300ms"><div class="tl-dot"></div></div>
-              <div class="tl-dot-col" style="--rv-d: 400ms"><div class="tl-dot"></div></div>
-              <div class="tl-dot-col" style="--rv-d: 500ms"><div class="tl-dot tl-dot--now"></div></div>
-            </div>
-
-            <!-- ═══ BELOW ROW: 6 columns ═════════════════════ -->
-            <div class="tl-row tl-row--below">
-
-              <!-- Col 1 · void (2010 is above) -->
-              <div class="tl-col tl-col--void"></div>
-
-              <!-- Col 2 · 2015 -->
-              <div class="tl-col" style="--rv-d: 100ms">
-                <div class="tl-stem tl-stem--up"></div>
-                <div class="tl-label">
-                  <div class="tl-year">2015</div>
-                  <p>Software development to help other brands build communities begins</p>
-                </div>
-              </div>
-
-              <!-- Col 3 · void (2017 is above) -->
-              <div class="tl-col tl-col--void"></div>
-
-              <!-- Col 4 · 2021 -->
-              <div class="tl-col" style="--rv-d: 300ms">
-                <div class="tl-stem tl-stem--up"></div>
-                <div class="tl-label">
-                  <div class="tl-year">2021</div>
-                  <p>Brandbassador reaches over 1 million active users</p>
-                </div>
-              </div>
-
-              <!-- Col 5 · void (2022 is above) -->
-              <div class="tl-col tl-col--void"></div>
-
-              <!-- Col 6 · 2024 text (phone is above) -->
-              <div class="tl-col" style="--rv-d: 500ms">
-                <div class="tl-stem tl-stem--up tl-stem--lime"></div>
-                <div class="tl-label">
-                  <div class="tl-year tl-year--now">2024</div>
-                  <p>Club launches: The future of community marketing</p>
-                </div>
-              </div>
-
-            </div><!-- /tl-row--below -->
-
-          </div><!-- /wwd-tl-container -->
-        </div>
-      </div>
-    </section>
-
-    <!-- ── 02 · THE CHALLENGE ────────────────────────────────── -->
-    <section id="challenge" class="section-band reveal">
-      <div class="wrap">
-        <div class="section-label"><span class="num">02</span> The Challenge</div>
-        <h2>Feature-rich.<br>Experience-poor.</h2>
-        <p>As Club grew rapidly, new capabilities were continuously layered on top of the existing structure. The result: a powerful platform that was increasingly hard to navigate. Users were getting lost, missions were being missed, and rewards felt unclear.</p>
-
-        <div class="problem-grid">
-          <div class="problem-card">
-            <div class="p-icon">
-              <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-            </div>
-            <h3>Low Mission Visibility</h3>
-            <p>Available missions were buried under navigation layers. New members couldn't quickly discover what was available, leading to high drop-off in the first session.</p>
-          </div>
-          <div class="problem-card">
-            <div class="p-icon">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            </div>
-            <h3>Reward Ambiguity</h3>
-            <p>Three distinct reward types — cash, gift cards, and free products — were presented inconsistently. Users struggled to understand what they'd earn and when they'd receive it.</p>
-          </div>
-          <div class="problem-card">
-            <div class="p-icon">
-              <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-            </div>
-            <h3>No Sense of Progress</h3>
-            <p>Without a visible progression system, members had no reason to return after completing a mission. There was no momentum — no path to better rewards or higher status.</p>
-          </div>
-          <div class="problem-card">
-            <div class="p-icon">
-              <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-            </div>
-            <h3>Brand Inconsistency</h3>
-            <p>Each brand page felt like a different product. Without a template system, experience quality varied wildly — making it hard for users to build trust across brand communities.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── 03 · KEY INSIGHT ──────────────────────────────────── -->
-    <section id="insight" class="reveal">
-      <div class="wrap">
-        <div class="section-label"><span class="num">03</span> Key Insight</div>
-
-        <div class="insight-card">
-          <div class="insight-text">
-            People don't engage with <em>features</em> —
-            they engage with <em>progress</em>.
-            The redesign needed to make earning feel inevitable.
-          </div>
-          <div class="insight-sub">Derived from usage data, session recordings, and qualitative interviews with community members</div>
-        </div>
-
-        <div class="context-blurb">
-          <p>When we analysed why users dropped off, it wasn't confusion about <em>what the app does</em> — it was a lack of forward momentum. Users understood missions. They understood rewards. What they couldn't see was <strong style="color:var(--c-text);">where they were going</strong>. The redesign centred on making progress tangible, rewards visible, and the next step always obvious.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── 04 · OBJECTIVES ───────────────────────────────────── -->
-    <section id="objectives" class="section-band reveal">
-      <div class="wrap">
-        <div class="section-label"><span class="num">04</span> Objectives</div>
-        <h2>Four goals.<br>One coherent experience.</h2>
-        <p>Rather than patching individual screens, clear design objectives were defined to guide every decision — from information architecture to micro-interaction.</p>
-
-        <div class="objectives-grid">
-          <div class="obj-card">
-            <div class="obj-num">01</div>
-            <div class="obj-body">
-              <h3>Reduce time-to-first-mission</h3>
-              <p>New users should find and start their first mission within the first session. Eliminate the onboarding friction causing early drop-off.</p>
-            </div>
-          </div>
-          <div class="obj-card">
-            <div class="obj-num">02</div>
-            <div class="obj-body">
-              <h3>Make reward types instantly clear</h3>
-              <p>Cash, gift cards, and free products should each have a distinct visual identity — no ambiguity about what a user is working towards.</p>
-            </div>
-          </div>
-          <div class="obj-card">
-            <div class="obj-num">03</div>
-            <div class="obj-body">
-              <h3>Create a visible progression system</h3>
-              <p>Design a Clubs &amp; Levels mechanic that gives users a sense of status, momentum, and a reason to keep participating after their first mission.</p>
-            </div>
-          </div>
-          <div class="obj-card">
-            <div class="obj-num">04</div>
-            <div class="obj-body">
-              <h3>Standardise the brand experience</h3>
-              <p>Build a template system that ensures every brand page delivers a consistent, high-quality experience while allowing meaningful brand customisation.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── 05 · EXPERIENCE PRINCIPLES ───────────────────────── -->
-    <section id="principles" class="reveal">
-      <div class="wrap">
-        <div class="section-label"><span class="num">05</span> Experience Principles</div>
-        <h2>The principles that<br>shaped every decision.</h2>
-        <p>Before touching any screen, six experience principles were defined as a shared design language for the team.</p>
-
-        <div class="principles-grid">
-          <div class="principle-card">
-            <div class="pr-icon">🎯</div>
-            <h3>Clarity Over Capability</h3>
-            <p>Show users what they can do right now — not everything they could ever do. Surface the most relevant missions and hide the rest until needed.</p>
-          </div>
-          <div class="principle-card">
-            <div class="pr-icon">💰</div>
-            <h3>Reward Visibility</h3>
-            <p>Every mission should show its reward upfront, above the fold. Users should never have to hunt for what they're earning — it should be impossible to miss.</p>
-          </div>
-          <div class="principle-card">
-            <div class="pr-icon">⚡</div>
-            <h3>Momentum by Design</h3>
-            <p>Every completed action should lead naturally to the next. Use progress indicators, streaks, and level-up moments to keep users moving forward.</p>
-          </div>
-          <div class="principle-card">
-            <div class="pr-icon">🤝</div>
-            <h3>Trust Through Transparency</h3>
-            <p>Be explicit about how rewards are earned, when they'll be paid, and what's required. Ambiguity kills participation — clarity builds it.</p>
-          </div>
-          <div class="principle-card">
-            <div class="pr-icon">🏆</div>
-            <h3>Status as Motivation</h3>
-            <p>People care about where they stand. Leaderboards, club levels, and ambassador tiers should feel aspirational — within reach, worth chasing.</p>
-          </div>
-          <div class="principle-card">
-            <div class="pr-icon">🧩</div>
-            <h3>System Consistency</h3>
-            <p>Whether in their first brand community or their tenth, the experience language should feel familiar. Patterns should be learnable and predictable.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── 06 · EXPERIENCE ARCHITECTURE ─────────────────────── -->
-    <section id="architecture" class="section-band reveal">
-      <div class="wrap">
-        <div class="section-label"><span class="num">06</span> Experience Architecture</div>
-        <h2>From hierarchy to journey.</h2>
-        <p>The existing IA was organised around features. The redesigned architecture is organised around the user's journey — from discovery to deep participation. Each layer builds on the previous one.</p>
-
-        <div class="arch-layers">
-          <div class="arch-layer l0">
-            <div class="arch-lbl">
-              <span class="tier">Entry Point</span>
-              <span class="name">Discovery</span>
-            </div>
-            <div class="arch-items">
-              <div class="arch-item">Brand Search</div>
-              <div class="arch-item">Category Browse</div>
-              <div class="arch-item">Recommendations</div>
-              <div class="arch-item">Invite Links</div>
-              <div class="arch-item">Instagram / TikTok</div>
-            </div>
-          </div>
-          <div class="arch-layer l1">
-            <div class="arch-lbl">
-              <span class="tier">Brand Home</span>
-              <span class="name">Overview</span>
-            </div>
-            <div class="arch-items">
-              <div class="arch-item">Brand Profile</div>
-              <div class="arch-item">Mission Feed</div>
-              <div class="arch-item">Community Wall</div>
-              <div class="arch-item">Leaderboard</div>
-              <div class="arch-item">My Activity</div>
-            </div>
-          </div>
-          <div class="arch-layer l2">
-            <div class="arch-lbl">
-              <span class="tier">Core Loop</span>
-              <span class="name">Missions</span>
-            </div>
-            <div class="arch-items">
-              <div class="arch-item">Mission Detail</div>
-              <div class="arch-item">Task List</div>
-              <div class="arch-item">Submission</div>
-              <div class="arch-item">Proof Upload</div>
-              <div class="arch-item">Review Status</div>
-            </div>
-          </div>
-          <div class="arch-layer l3">
-            <div class="arch-lbl">
-              <span class="tier">Retention</span>
-              <span class="name">Rewards &amp; Progress</span>
-            </div>
-            <div class="arch-items">
-              <div class="arch-item">Cash Rewards</div>
-              <div class="arch-item">Gift Cards</div>
-              <div class="arch-item">Free Products</div>
-              <div class="arch-item">Club Levels</div>
-              <div class="arch-item">Affiliate Codes</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="arch-legend">
-          <div class="arch-legend-item">
-            <div class="arch-legend-dot" style="background: var(--c-accent);"></div>
-            Highest user intent
-          </div>
-          <div class="arch-legend-item">
-            <div class="arch-legend-dot" style="background: rgba(150, 103, 247,0.5);"></div>
-            Mid journey
-          </div>
-          <div class="arch-legend-item">
-            <div class="arch-legend-dot" style="background: rgba(150, 103, 247,0.25);"></div>
-            Retention depth
-          </div>
-          <div class="arch-legend-item" style="margin-left: auto;">
-            <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:var(--c-text-d);fill:none;stroke-width:1.5;stroke-linecap:round;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            <span>Hover rows to explore</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── 07 · CORE USER FLOW ───────────────────────────────── -->
-    <section id="user-flow" class="reveal">
-      <div class="wrap">
-        <div class="section-label"><span class="num">07</span> Core User Flow</div>
-        <h2>Seven steps.<br>One clear path.</h2>
-        <p>The core engagement loop was reduced to seven distinct steps, each with a clear entry, defined action, and visible outcome. This flow became the blueprint for every screen-level decision.</p>
-
-        <div class="flow-steps">
-          <div class="flow-step">
-            <div class="flow-step-inner">
-              <div class="flow-step-icon">
-                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-              </div>
-              <div class="flow-step-label">Discover</div>
-              <div class="flow-step-sub">Find brands you love</div>
-            </div>
-          </div>
-          <div class="flow-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-          <div class="flow-step">
-            <div class="flow-step-inner">
-              <div class="flow-step-icon">
-                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              </div>
-              <div class="flow-step-label">Join</div>
-              <div class="flow-step-sub">Become a member</div>
-            </div>
-          </div>
-          <div class="flow-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-          <div class="flow-step">
-            <div class="flow-step-inner">
-              <div class="flow-step-icon">
-                <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-              </div>
-              <div class="flow-step-label">Browse</div>
-              <div class="flow-step-sub">Explore missions</div>
-            </div>
-          </div>
-          <div class="flow-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-          <div class="flow-step">
-            <div class="flow-step-inner">
-              <div class="flow-step-icon">
-                <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-              </div>
-              <div class="flow-step-label">Complete</div>
-              <div class="flow-step-sub">Do the mission tasks</div>
-            </div>
-          </div>
-          <div class="flow-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-          <div class="flow-step">
-            <div class="flow-step-inner">
-              <div class="flow-step-icon">
-                <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-              </div>
-              <div class="flow-step-label">Submit</div>
-              <div class="flow-step-sub">Share your proof</div>
-            </div>
-          </div>
-          <div class="flow-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-          <div class="flow-step">
-            <div class="flow-step-inner">
-              <div class="flow-step-icon">
-                <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-              </div>
-              <div class="flow-step-label">Earn</div>
-              <div class="flow-step-sub">Claim your reward</div>
-            </div>
-          </div>
-          <div class="flow-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-          <div class="flow-step">
-            <div class="flow-step-inner">
-              <div class="flow-step-icon">
-                <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-              </div>
-              <div class="flow-step-label">Level Up</div>
-              <div class="flow-step-sub">Unlock better perks</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── 08 · SCREENS & FLOWS ──────────────────────────────── -->
-    <section id="screens" class="section-band reveal">
-      <div class="wrap">
-        <div class="section-label"><span class="num">08</span> Screens &amp; Flows</div>
-        <h2>The work in detail.</h2>
-        <p>Four core areas were redesigned. Each group shows the screens alongside the problem they solve and the reasoning behind the design decisions.</p>
-
-        <!-- A: Brand Overview -->
-        <div class="screens-group">
-          <div class="screen-group-header">
-            <span class="screen-group-num">A</span>
-            <span class="screen-group-title">Overview &amp; Brand Discovery</span>
-          </div>
-          <p class="screen-group-desc">The brand page was the most visited screen but the least optimised. It needed to act as a command centre — showing the most relevant missions, community activity, and earnings in a single view.</p>
-          <div class="screen-grid screen-grid--2">
-            <div class="screen-cell">
-              <img src="/images/projects/club-tie/brand-template.png" alt="Brand page template showing missions, earn, and activity sections">
-              <div class="sc-lbl">
-                <h4>Brand Page Template</h4>
-                <p>Standardised layout with Missions, Wall, Earn, and Activity tabs — consistent across all 550+ brands, with brand-specific customisation in the cover and bio.</p>
-              </div>
-            </div>
-            <div class="screen-cell">
-              <img src="/images/projects/club-tie/App%20template%2010.png" alt="App template showing the full brand experience structure">
-              <div class="sc-lbl">
-                <h4>Full App Template</h4>
-                <p>The unified template approach reduced brand setup time significantly while ensuring every community member gets a predictable, trustworthy experience.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- B: Missions -->
-        <div class="screens-group">
-          <div class="screen-group-header">
-            <span class="screen-group-num">B</span>
-            <span class="screen-group-title">Missions</span>
-          </div>
-          <p class="screen-group-desc">Missions are the heart of the platform. The challenge was to make available missions instantly scannable, showing reward, effort, and deadline at a glance — without overwhelming users with detail.</p>
-          <div class="screen-grid screen-grid--3">
-            <div class="screen-cell">
-              <img src="/images/projects/club-tie/Missions.png" alt="Missions overview screen">
-              <div class="sc-lbl">
-                <h4>Mission Overview</h4>
-                <p>A clean feed showing Available, In Progress, and Needs Attention states — reward amount always visible in the top right.</p>
-              </div>
-            </div>
-            <div class="screen-cell">
-              <img src="/images/projects/club-tie/mission-header.png" alt="Mission header with reward amount">
-              <div class="sc-lbl">
-                <h4>Mission Header</h4>
-                <p>Reward amount, type, and deadline shown above the fold on every mission. Users should never scroll to find what they're working towards.</p>
-              </div>
-            </div>
-            <div class="screen-cell">
-              <img src="/images/projects/club-tie/mission-list.png" alt="Mission list">
-              <div class="sc-lbl">
-                <h4>Mission List</h4>
-                <p>Compact card format allows users to scan multiple missions quickly. The reward badge is colour-coded by type for immediate recognition.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- C: Rewards -->
-        <div class="screens-group">
-          <div class="screen-group-header">
-            <span class="screen-group-num">C</span>
-            <span class="screen-group-title">Rewards System</span>
-          </div>
-          <p class="screen-group-desc">Three reward types — Cash, Gift Cards, and Free Products — each needed a distinct visual identity. The redesign introduced a reward icon system and consistent card layouts that make the reward type unmistakable.</p>
-          <div class="screen-grid screen-grid--4">
-            <div class="screen-cell screen-cell--natural">
-              <img src="/images/projects/club-tie/Cash%20reward.png" alt="Cash reward UI component">
-              <div class="sc-lbl">
-                <h4>Cash Reward</h4>
-                <p>Green currency icon with real-time earning estimate shown inline.</p>
-              </div>
-            </div>
-            <div class="screen-cell screen-cell--natural">
-              <img src="/images/projects/club-tie/Gift%20Card%20reward.png" alt="Gift card reward UI">
-              <div class="sc-lbl">
-                <h4>Gift Card</h4>
-                <p>Distinct card icon with brand logo — shows fixed value clearly upfront.</p>
-              </div>
-            </div>
-            <div class="screen-cell screen-cell--natural">
-              <img src="/images/projects/club-tie/Product%20reward.png" alt="Free product reward UI">
-              <div class="sc-lbl">
-                <h4>Free Product</h4>
-                <p>Product imagery with estimated retail value and shipping indicator.</p>
-              </div>
-            </div>
-            <div class="screen-cell screen-cell--natural">
-              <img src="/images/projects/club-tie/Reward%20icon%20group.png" alt="Reward icon system">
-              <div class="sc-lbl">
-                <h4>Icon System</h4>
-                <p>Three icons distinct in shape, colour, and metaphor — learnable in one session, recognisable forever.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- D: Templates -->
-        <div class="screens-group">
-          <div class="screen-group-header">
-            <span class="screen-group-num">D</span>
-            <span class="screen-group-title">Templates &amp; System Components</span>
-          </div>
-          <p class="screen-group-desc">To scale consistency across 550+ brands, a mission template system was built — allowing brands to create high-quality missions from proven structures rather than starting from scratch.</p>
-          <div class="screen-grid screen-grid--2">
-            <div class="screen-cell">
-              <img src="/images/projects/club-tie/templates-band-no-mission-list@2x.png" alt="Mission template band">
-              <div class="sc-lbl">
-                <h4>Template Band</h4>
-                <p>A horizontal scrollable band of mission templates categorised by goal type — Content, Sales, Community, and Feedback — dramatically reducing brand setup time.</p>
-              </div>
-            </div>
-            <div class="screen-cell screen-cell--natural">
-              <img src="/images/projects/club-tie/Value.png" alt="Value component">
-              <div class="sc-lbl">
-                <h4>Value &amp; Stats Component</h4>
-                <p>A reusable data visualisation component showing mission reach, engagement, and ROI — giving brands confidence and users context.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── 09 · DECISION HIGHLIGHTS ─────────────────────────── -->
-    <section id="decisions" class="reveal">
-      <div class="wrap">
-        <div class="section-label"><span class="num">09</span> Decision Highlights</div>
-        <h2>Why we chose<br>what we chose.</h2>
-        <p>Product design is a series of trade-offs. Here are the most critical decisions made during this project — and the thinking behind each one.</p>
-
-        <div class="decisions-list">
-          <div class="decision-card">
-            <div class="decision-num">01</div>
-            <div class="decision-body">
-              <h3>Reward amount above the fold — always</h3>
-              <p>Early designs showed reward information after the mission description. Testing revealed that users judged whether a mission was worth their time in under 3 seconds — and the most important signal was the reward. Moving reward to the top increased mission start rates significantly. This ran counter to conventional "lead with value proposition" thinking, but the data was clear: in a marketplace, the reward IS the value proposition.</p>
-              <span class="decision-tag">Interaction Design</span>
-            </div>
-          </div>
-          <div class="decision-card">
-            <div class="decision-num">02</div>
-            <div class="decision-body">
-              <h3>Three reward icons — not a generic tag</h3>
-              <p>The original design used a single "reward" icon with text indicating type. This required users to read — and reading takes cognitive load. The new system uses three distinct icons with different shapes, colours, and metaphors (coin for cash, card for gift, box for product). In usability testing, users identified reward type correctly 94% of the time without reading any text. A proper icon system over a shortcut paid off immediately in comprehension speed.</p>
-              <span class="decision-tag">Visual Design</span>
-            </div>
-          </div>
-          <div class="decision-card">
-            <div class="decision-num">03</div>
-            <div class="decision-body">
-              <h3>Template system before AI suggestions</h3>
-              <p>There was appetite to build an AI-powered mission suggestion system. While compelling, it would have required significant backend work and still couldn't solve the core problem: brands didn't know what mission structure worked. The template system gave brands access to proven, highest-performing mission formats immediately. Faster to ship, faster to validate, more reliable than a model trained on limited early data. We chose a solved problem over an exciting one.</p>
-              <span class="decision-tag">Product Strategy</span>
-            </div>
-          </div>
-          <div class="decision-card">
-            <div class="decision-num">04</div>
-            <div class="decision-body">
-              <h3>Clubs &amp; Levels: gamification with meaning</h3>
-              <p>Loyalty points and levels are ubiquitous — and often hollow. The Clubs &amp; Levels design avoided vanity mechanics by tying every level to a real, tangible perk (higher commission rates, earlier access to product seeding). Users needed to feel that levelling up meant something outside the app. Working with the product team, each level milestone was mapped to a concrete brand-side benefit, making progression genuinely motivating rather than cosmetically satisfying.</p>
-              <span class="decision-tag">UX Strategy</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── 10 · IMPACT ───────────────────────────────────────── -->
-    <section id="impact" class="section-band reveal">
-      <div class="wrap">
-        <div class="section-label"><span class="num">10</span> Impact</div>
-        <h2>What changed<br>when it shipped.</h2>
-        <p>The redesign launched incrementally — key flows first, then broader structural changes. All tracked metrics confirmed the design decisions were directionally correct.</p>
-
-        <!-- Headline stat -->
-        <div class="impact-headline">
-          <div class="ih-num">+32%</div>
-          <div class="ih-label">Mission completion rate</div>
-          <div class="ih-context">vs. pre-redesign baseline across all active brands</div>
-        </div>
-
-        <!-- 3 secondary stat cards -->
-        <div class="impact-stats">
-          <div class="impact-stat-card">
-            <div class="impact-num">−45%</div>
-            <div class="impact-label">Average reward claim time</div>
-            <div class="impact-context">users earning faster</div>
-          </div>
-          <div class="impact-stat-card">
-            <div class="impact-num">−60%</div>
-            <div class="impact-label">Time-to-first-mission</div>
-            <div class="impact-context">critical onboarding metric</div>
-          </div>
-          <div class="impact-stat-card">
-            <div class="impact-num">310%</div>
-            <div class="impact-label">ROI — top brand (Hunkemöller)</div>
-            <div class="impact-context">post-redesign campaign</div>
-          </div>
-        </div>
-
-        <!-- Animated bar chart — bars animate when section becomes visible -->
-        <div class="impact-bars">
-          <div class="impact-bars-header">All metrics vs. pre-redesign baseline</div>
-          <div class="impact-bar-row">
-            <div class="impact-bar-label">Mission completion rate</div>
-            <div class="impact-bar-track">
-              <div class="impact-bar-fill" style="--w: 72%; --delay: 0.00s"></div>
-            </div>
-            <div class="impact-bar-value">+32%</div>
-          </div>
-          <div class="impact-bar-row">
-            <div class="impact-bar-label">Time-to-first-mission reduction</div>
-            <div class="impact-bar-track">
-              <div class="impact-bar-fill" style="--w: 95%; --delay: 0.12s"></div>
-            </div>
-            <div class="impact-bar-value">−60%</div>
-          </div>
-          <div class="impact-bar-row">
-            <div class="impact-bar-label">Reward claim time reduction</div>
-            <div class="impact-bar-track">
-              <div class="impact-bar-fill" style="--w: 80%; --delay: 0.24s"></div>
-            </div>
-            <div class="impact-bar-value">−45%</div>
-          </div>
-          <div class="impact-bar-row">
-            <div class="impact-bar-label">ROI — Hunkemöller campaign</div>
-            <div class="impact-bar-track">
-              <div class="impact-bar-fill" style="--w: 100%; --delay: 0.36s"></div>
-            </div>
-            <div class="impact-bar-value">310%</div>
-          </div>
-          <div class="impact-bar-row">
-            <div class="impact-bar-label">Active ambassadors — single brand record</div>
-            <div class="impact-bar-track">
-              <div class="impact-bar-fill" style="--w: 87%; --delay: 0.48s"></div>
-            </div>
-            <div class="impact-bar-value">6,370</div>
-          </div>
-          <div class="impact-bar-row">
-            <div class="impact-bar-label">UGC content coverage — Popsockets EU</div>
-            <div class="impact-bar-track">
-              <div class="impact-bar-fill" style="--w: 100%; --delay: 0.60s"></div>
-            </div>
-            <div class="impact-bar-value">100%</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── 11 · CHALLENGES ───────────────────────────────────── -->
-    <section id="challenges" class="reveal">
-      <div class="wrap">
-        <div class="section-label"><span class="num">11</span> Challenges</div>
-        <h2>What made this hard.</h2>
-        <p>Every project has constraints that shape decisions. Understanding these helps explain why certain trade-offs were made.</p>
-
-        <div class="challenges-grid">
-          <div class="challenge-card">
-            <div class="ch-icon">
-              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <h3>Legacy content at scale</h3>
-            <p>550+ brands had existing mission libraries, brand pages, and community content. Any structural change had to migrate gracefully — breaking changes were not an option when real users depended on continuity.</p>
-          </div>
-          <div class="challenge-card">
-            <div class="ch-icon">
-              <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-            </div>
-            <h3>Feature parity across platforms</h3>
-            <p>The app runs on iOS and Android via Flutter. Platform-specific UI conventions had to be balanced against the need for a consistent cross-platform design system — especially for gestures and navigation patterns.</p>
-          </div>
-          <div class="challenge-card">
-            <div class="ch-icon">
-              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            </div>
-            <h3>Two-sided stakeholder balance</h3>
-            <p>Club serves both brands (who want customisation and control) and community members (who want simplicity and clarity). Design decisions that help one side often create tension for the other — requiring constant calibration.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── 12 · REFLECTION ───────────────────────────────────── -->
-    <section id="reflection" class="section-band reveal">
-      <div class="wrap">
-        <div class="section-label"><span class="num">12</span> Reflection</div>
-
-        <div class="reflection-card">
-          <div class="rf-label">What I took away from this</div>
-          <div class="rf-text">
-            Designing for a two-sided marketplace taught me that the best product decisions feel invisible to both sides. When the community member's experience is joyful, brands benefit automatically — and vice versa.
-          </div>
-          <div class="rf-sub">
-            The most impactful change in this project wasn't a single screen — it was the decision to restructure the information architecture around the user's emotional journey rather than the product's feature set. That shift in framing unlocked every other improvement that followed.
-            <br><br>
-            The other major learning: constraint is a design tool. The template system existed because we couldn't afford to redesign 550 brand pages individually. That constraint forced a scalable, principled solution that turned out to be better than the bespoke approach would have been.
-          </div>
-        </div>
-
-        <div class="role-card">
-          <div class="role-grid">
-            <div>
-              <h3>My Contributions</h3>
-              <div class="badges">
-                <span class="badge a">UX Architecture</span>
-                <span class="badge a">Interaction Design</span>
-                <span class="badge a">Visual Design</span>
-                <span class="badge a">User Research</span>
-                <span class="badge a">Design System</span>
-                <span class="badge">Prototyping</span>
-                <span class="badge">Usability Testing</span>
-                <span class="badge">Stakeholder Alignment</span>
-              </div>
-            </div>
-            <div>
-              <h3>Tools &amp; Methods</h3>
-              <div class="badges">
-                <span class="badge">Figma</span>
-                <span class="badge">ProtoPie</span>
-                <span class="badge">Maze</span>
-                <span class="badge">Hotjar</span>
-                <span class="badge">Jobs-to-be-Done</span>
-                <span class="badge">Card Sorting</span>
-                <span class="badge">A/B Testing</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-</div>
 
 </body>
+
 </html>

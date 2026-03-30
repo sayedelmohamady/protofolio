@@ -410,22 +410,51 @@ export function HomeInteractions({ children }: { children: ReactNode }) {
       });
     }
 
-    /* ── Avatar tilt on mouse move ── */
-    const avatarContainer = root.querySelector<HTMLElement>(".hero-avatar-container");
-    let avatarTiltHandlers: { move: (e: MouseEvent) => void; leave: () => void } | null = null;
-    if (avatarContainer && !prefersReducedMotion) {
+    /* ── Hero showcase tilt + spotlight ── */
+    const heroShowcaseShell = root.querySelector<HTMLElement>(
+      ".hero-showcase-shell",
+    );
+    let heroShowcaseHandlers: {
+      move: (e: MouseEvent) => void;
+      leave: () => void;
+    } | null = null;
+    if (heroShowcaseShell && !prefersReducedMotion) {
       const move = (e: MouseEvent) => {
-        const rect = avatarContainer.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-        avatarContainer.style.transform = `perspective(600px) rotateX(${y * -7}deg) rotateY(${x * 7}deg)`;
+        const rect = heroShowcaseShell.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = (e.clientY - rect.top) / rect.height;
+        if (x < 0 || x > 1 || y < 0 || y > 1) return;
+
+        heroShowcaseShell.style.setProperty(
+          "--hero-tilt-x",
+          `${(x - 0.5) * 10}deg`,
+        );
+        heroShowcaseShell.style.setProperty(
+          "--hero-tilt-y",
+          `${(0.5 - y) * 10}deg`,
+        );
+        heroShowcaseShell.style.setProperty(
+          "--hero-shift-x",
+          `${(x - 0.5) * 18}px`,
+        );
+        heroShowcaseShell.style.setProperty(
+          "--hero-shift-y",
+          `${(y - 0.5) * 18}px`,
+        );
+        heroShowcaseShell.style.setProperty("--hero-glow-x", `${x * 100}%`);
+        heroShowcaseShell.style.setProperty("--hero-glow-y", `${y * 100}%`);
       };
       const leave = () => {
-        avatarContainer.style.transform = "";
+        heroShowcaseShell.style.removeProperty("--hero-tilt-x");
+        heroShowcaseShell.style.removeProperty("--hero-tilt-y");
+        heroShowcaseShell.style.removeProperty("--hero-shift-x");
+        heroShowcaseShell.style.removeProperty("--hero-shift-y");
+        heroShowcaseShell.style.removeProperty("--hero-glow-x");
+        heroShowcaseShell.style.removeProperty("--hero-glow-y");
       };
-      avatarContainer.addEventListener("mousemove", move);
-      avatarContainer.addEventListener("mouseleave", leave);
-      avatarTiltHandlers = { move, leave };
+      heroShowcaseShell.addEventListener("mousemove", move);
+      heroShowcaseShell.addEventListener("mouseleave", leave);
+      heroShowcaseHandlers = { move, leave };
     }
 
     /* ── Magnetic buttons ── */
@@ -558,9 +587,16 @@ export function HomeInteractions({ children }: { children: ReactNode }) {
     return () => {
       cancelAnimationFrame(parallaxRaf);
       mqMobile.removeEventListener("change", onMQChange);
-      if (avatarContainer && avatarTiltHandlers) {
-        avatarContainer.removeEventListener("mousemove", avatarTiltHandlers.move);
-        avatarContainer.removeEventListener("mouseleave", avatarTiltHandlers.leave);
+      if (heroShowcaseShell && heroShowcaseHandlers) {
+        heroShowcaseShell.removeEventListener(
+          "mousemove",
+          heroShowcaseHandlers.move,
+        );
+        heroShowcaseShell.removeEventListener(
+          "mouseleave",
+          heroShowcaseHandlers.leave,
+        );
+        heroShowcaseHandlers.leave();
       }
       document.removeEventListener("mousemove", onMouseMove);
       cancelAnimationFrame(glowRaf);

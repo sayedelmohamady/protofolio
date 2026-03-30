@@ -134,38 +134,124 @@ export function getCaseStudyBodyHtml(slug: CaseStudySlug): string {
   return inner;
 }
 
+function extractHtmlBetweenComments(
+  raw: string,
+  startComment: string,
+  endComment: string,
+): string {
+  const start = raw.indexOf(startComment);
+  const end = raw.indexOf(endComment, start);
+  if (start === -1 || end === -1) return "";
+  return raw.slice(start + startComment.length, end).trim();
+}
+
+function rewriteCaseStudyHrefs(html: string): string {
+  return html
+    .replace(
+      /href="halan-design-system-case-study\.html"/g,
+      'href="/work/halan-design-system"',
+    )
+    .replace(/href="mabaat-case-study\.html"/g, 'href="/work/mabaat"')
+    .replace(/href="otida-case-study\.html"/g, 'href="/work/otida"')
+    .replace(/href="project-case-study\.html"/g, 'href="/work/mnt-halan"')
+    .replace(
+      /href="club-design-system-case-study\.html"/g,
+      'href="/work/club-tie"',
+    )
+    .replace(
+      /href="club-experience-case-study\.html"/g,
+      'href="/work/club-experience"',
+    )
+    .replace(/href="etar-case-study\.html"/g, 'href="/work/etar"');
+}
+
+export function getWorkPageHtml(): string {
+  const full = path.join(process.cwd(), "reference/html/index.html");
+  const raw = fs.readFileSync(full, "utf8");
+
+  let nav = extractHtmlBetweenComments(
+    raw,
+    "<!-- ═══ NAV ═══ -->",
+    "<!-- ═══ HERO ═══ -->",
+  );
+  nav = nav
+    .replace(/href="#about"/g, 'href="/#about"')
+    .replace(/href="#experience"/g, 'href="/#experience"')
+    .replace(/href="#contact"/g, 'href="/#contact"')
+    .replace(
+      'href="/work" class="pressable" data-section="work"',
+      'href="/work" class="pressable is-active" data-section="work"',
+    );
+
+  let section = extractHtmlBetweenComments(
+    raw,
+    "<!-- ═══ CASE STUDIES ═══ -->",
+    "<!-- ═══ ARTICLES",
+  );
+  section = rewriteCaseStudyHrefs(section);
+  section = rewriteImgSrc(section);
+  section = rewriteVideoPoster(section);
+  section = enhanceImageLoading(section);
+
+  const footer = extractHtmlBetweenComments(
+    raw,
+    "<!-- ═══ FOOTER ═══ -->",
+    "<!-- ═══ SCRIPTS ═══ -->",
+  );
+
+  return `<div class="cursor-glow" id="cursorGlow"></div>\n${nav}\n${section}\n${footer}`;
+}
+
+export function getArticlesPageHtml(): string {
+  const full = path.join(process.cwd(), "reference/html/index.html");
+  const raw = fs.readFileSync(full, "utf8");
+
+  let nav = extractHtmlBetweenComments(
+    raw,
+    "<!-- ═══ NAV ═══ -->",
+    "<!-- ═══ HERO ═══ -->",
+  );
+  nav = nav
+    .replace(/href="#about"/g, 'href="/#about"')
+    .replace(/href="#experience"/g, 'href="/#experience"')
+    .replace(/href="#contact"/g, 'href="/#contact"')
+    .replace(
+      'href="/articles" class="pressable" data-section="articles"',
+      'href="/articles" class="pressable is-active" data-section="articles"',
+    );
+
+  let section = extractHtmlBetweenComments(
+    raw,
+    "<!-- ═══ ARTICLES & COMMUNITY — horizontal rail ═══ -->",
+    "<!-- ═══ ABOUT",
+  );
+  section = section
+    .replace(
+      'class="articles-rail-outer rv" data-reveal-delay="100"',
+      'class="articles-grid-outer rv" data-reveal-delay="100"',
+    )
+    .replace(
+      /class="articles-rail"[^>]*>/,
+      'class="articles-grid" role="list" aria-label="Featured writing and appearances">',
+    )
+    .replace(/href="#contact"/g, 'href="/#contact"');
+  section = rewriteImgSrc(section);
+  section = enhanceImageLoading(section);
+
+  const footer = extractHtmlBetweenComments(
+    raw,
+    "<!-- ═══ FOOTER ═══ -->",
+    "<!-- ═══ SCRIPTS ═══ -->",
+  );
+
+  return `<div class="cursor-glow" id="cursorGlow"></div>\n${nav}\n${section}\n${footer}`;
+}
+
 export function getHomeBodyHtml(): string {
   const full = path.join(process.cwd(), "reference/html/index.html");
   const raw = fs.readFileSync(full, "utf8");
   let inner = extractBodyInner(raw);
-  inner = inner.replace(
-    /href="halan-design-system-case-study\.html"/g,
-    'href="/work/halan-design-system"',
-  );
-  inner = inner.replace(
-    /href="mabaat-case-study\.html"/g,
-    'href="/work/mabaat"',
-  );
-  inner = inner.replace(
-    /href="otida-case-study\.html"/g,
-    'href="/work/otida"',
-  );
-  inner = inner.replace(
-    /href="project-case-study\.html"/g,
-    'href="/work/mnt-halan"',
-  );
-  inner = inner.replace(
-    /href="club-design-system-case-study\.html"/g,
-    'href="/work/club-tie"',
-  );
-  inner = inner.replace(
-    /href="club-experience-case-study\.html"/g,
-    'href="/work/club-experience"',
-  );
-  inner = inner.replace(
-    /href="etar-case-study\.html"/g,
-    'href="/work/etar"',
-  );
+  inner = rewriteCaseStudyHrefs(inner);
   inner = rewriteImgSrc(inner);
   inner = rewriteVideoPoster(inner);
   inner = injectHomeTimelineLogoSrc(inner);
