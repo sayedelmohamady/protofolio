@@ -181,7 +181,7 @@
 
     .nav-links {
       display: flex;
-      gap: 32px;
+      gap: 16px;
       list-style: none;
       position: relative;
       align-items: center;
@@ -1873,6 +1873,11 @@
       line-height: 1.7;
       max-width: 42ch;
       margin: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: calc(1.7em * 2);
     }
 
     .case-card-visual {
@@ -2509,10 +2514,10 @@
 
   <!-- ═══ NAV ═══ -->
   <nav id="mainNav">
-    <div class="nav-name">
+    <a href="/" class="nav-name">
       <span class="dot"></span>
-      Sayed El Mohamady
-    </div>
+      Sayed
+    </a>
     <ul class="nav-links" id="navLinks">
       <span class="nav-active-pill" id="navPill" aria-hidden="true"></span>
       <li><a href="/work" class="pressable" data-section="work">Work</a></li>
@@ -2522,7 +2527,6 @@
       <li><a href="/resume" class="pressable">Resume</a></li>
       <li><a href="/beyond-the-interface" class="pressable">Beyond</a></li>
     </ul>
-    <a href="#contact" class="nav-cta magnetic pressable">Let's talk</a>
   </nav>
 
   <!-- ═══ HERO ═══ -->

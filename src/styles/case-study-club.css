@@ -193,19 +193,7 @@
     isolation: isolate;
   }
   .case-study-club .challenge-section::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: -12%;
-    width: min(960px, calc(100% + 80px));
-    height: 92%;
-    transform: translateX(-50%);
-    pointer-events: none;
-    z-index: 0;
-    background:
-      radial-gradient(ellipse 72% 58% at 50% 0%, rgba(var(--c-accent-rgb), 0.13) 0%, transparent 58%),
-      radial-gradient(ellipse 48% 42% at 92% 28%, rgba(97, 49, 196, 0.07) 0%, transparent 52%);
-    opacity: 0.95;
+    display: none;
   }
   .case-study-club .challenge-section > .reveal,
   .case-study-club .challenge-section > .problem-grid {

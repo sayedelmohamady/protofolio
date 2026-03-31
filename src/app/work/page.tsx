@@ -13,7 +13,7 @@ export default function WorkPage() {
   const html = getWorkPageHtml();
   return (
     <HomeInteractions>
-      <div className="home-page">
+      <div className="home-page work-page">
         <div dangerouslySetInnerHTML={{ __html: html }} />
       </div>
     </HomeInteractions>
