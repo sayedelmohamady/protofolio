@@ -161,109 +161,6 @@
   p { color: var(--c-text-m); max-width: 640px; }
   p + p { margin-top: 14px; }
 
-  /* PROBLEM / CHALLENGE */
-  .challenge-section { position: relative; isolation: isolate; }
-  .challenge-section::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: -12%;
-    width: min(960px, calc(100% + 80px));
-    height: 92%;
-    transform: translateX(-50%);
-    pointer-events: none;
-    z-index: 0;
-    background:
-      radial-gradient(ellipse 72% 58% at 50% 0%, rgba(150,103,247,0.13) 0%, transparent 58%),
-      radial-gradient(ellipse 48% 42% at 92% 28%, rgba(97,49,196,0.07) 0%, transparent 52%);
-    opacity: 0.95;
-  }
-  .challenge-section > .reveal,
-  .challenge-section > .problem-grid { position: relative; z-index: 1; }
-  .challenge-headline {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.06em;
-    margin-bottom: 20px;
-    font-family: var(--f-display);
-    font-size: clamp(32px, 3.5vw, 48px);
-    font-weight: 700;
-    line-height: 1.05;
-    letter-spacing: -0.028em;
-  }
-  .challenge-headline__primary {
-    display: block;
-    font-weight: 800;
-    color: var(--c-text);
-    text-shadow: 0 0 52px rgba(150,103,247,0.12);
-  }
-  .challenge-headline__secondary {
-    display: block;
-    font-size: clamp(26px, 2.75vw, 40px);
-    font-weight: 600;
-    letter-spacing: -0.024em;
-    color: var(--c-text-m);
-  }
-  .challenge-lead { max-width: 640px; }
-  .challenge-lead p { font-size: 15px; line-height: 1.62; }
-
-  .problem-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 56px; }
-  .problem-card {
-    background: var(--c-bg3);
-    border: 1px solid var(--c-border);
-    border-radius: 14px;
-    padding: 28px;
-    position: relative;
-    overflow: hidden;
-    transition:
-      background 0.5s cubic-bezier(0.22,1,0.36,1),
-      border-color 0.5s cubic-bezier(0.22,1,0.36,1),
-      transform 0.5s cubic-bezier(0.22,1,0.36,1),
-      box-shadow 0.55s cubic-bezier(0.22,1,0.36,1);
-  }
-  .problem-card:hover {
-    background: var(--c-bg4);
-    border-color: rgba(150,103,247,0.38);
-    transform: translateY(-5px);
-    box-shadow:
-      0 22px 56px rgba(0,0,0,0.38),
-      0 0 0 1px rgba(150,103,247,0.1),
-      0 0 40px rgba(150,103,247,0.09);
-  }
-  .problem-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: transparent;
-    transition: background 0.45s cubic-bezier(0.22,1,0.36,1);
-  }
-  .problem-card:hover::before {
-    background: linear-gradient(90deg, var(--c-accent-d), var(--c-accent-l));
-  }
-  .p-icon {
-    width: 38px; height: 38px;
-    border-radius: 10px;
-    background: rgba(150,103,247,0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 18px;
-    transition:
-      transform 0.45s cubic-bezier(0.22,1,0.36,1),
-      background 0.45s cubic-bezier(0.22,1,0.36,1),
-      box-shadow 0.5s cubic-bezier(0.22,1,0.36,1);
-  }
-  .problem-card:hover .p-icon {
-    transform: scale(1.06);
-    background: rgba(150,103,247,0.16);
-    box-shadow: 0 0 24px rgba(150,103,247,0.12);
-  }
-  .p-icon svg { width: 18px; height: 18px; stroke: var(--c-accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-  .problem-card h3 { font-size: 17px; font-weight: 600; color: var(--c-text); margin-bottom: 10px; letter-spacing: -0.01em; }
-  .problem-card p { font-size: 14px; max-width: none; line-height: 1.65; color: var(--c-text-m); }
-
   /* ROLE */
   .role-split { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; margin-top: 56px; }
   .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
@@ -597,12 +494,6 @@
         </a>
       </li>
       <li>
-        <a href="#problem" data-section="problem">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-          The Challenge
-        </a>
-      </li>
-      <li>
         <a href="#process" data-section="process">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           Process
@@ -682,43 +573,6 @@
     </div>
 
     <!-- PROBLEM -->
-    <div class="wrap challenge-section" id="problem">
-      <div class="reveal">
-        <div class="section-label"><span class="num">01 /</span> The Challenge</div>
-        <h2 class="challenge-headline">
-          <span class="challenge-headline__primary">Audience without action.</span>
-          <span class="challenge-headline__secondary">Growth without engagement.</span>
-        </h2>
-        <div class="challenge-lead">
-          <p>Brands had communities, but no system to activate them.</p>
-          <p>Influencer campaigns were hard to scale, and engagement was fragmented across tools and workflows.</p>
-          <p>The challenge was to create a system that drives consistent participation — not just one-time interaction.</p>
-        </div>
-      </div>
-      <div class="problem-grid reveal">
-        <div class="problem-card">
-          <div class="p-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-          <h3>Passive Audiences</h3>
-          <p>Users existed, but had no clear reason to participate.</p>
-        </div>
-        <div class="problem-card">
-          <div class="p-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-4 4 4 6-7"/></svg></div>
-          <h3>Unscalable Growth</h3>
-          <p>Managing ambassadors manually didn’t scale with demand.</p>
-        </div>
-        <div class="problem-card">
-          <div class="p-icon"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
-          <h3>Fragmented Engagement</h3>
-          <p>Actions, rewards, and communication were disconnected.</p>
-        </div>
-        <div class="problem-card">
-          <div class="p-icon"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg></div>
-          <h3>No Motivation Loop</h3>
-          <p>Lack of progress and feedback reduced long-term engagement.</p>
-        </div>
-      </div>
-    </div>
-
     <!-- PROCESS DEEP-DIVE -->
     <div class="band band--rounded">
       <div class="wrap" id="process">
@@ -1082,24 +936,6 @@
           </div>
         </div>
 
-        <div class="process-full-row reveal">
-          <div class="pf-item">
-            <h4>Design-first, then code</h4>
-            <p>Full Figma spec coverage before any code was written.</p>
-          </div>
-          <div class="pf-item">
-            <h4>Parallel shipping</h4>
-            <p>Design and code landed in Figma and production simultaneously.</p>
-          </div>
-          <div class="pf-item">
-            <h4>Foundations as a forcing function</h4>
-            <p>Tokens meant design choices propagated automatically across the system.</p>
-          </div>
-          <div class="pf-item">
-            <h4>Progressive documentation</h4>
-            <p>Each component documented as it was built — usable from day one.</p>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -1134,7 +970,6 @@
         <div class="arch-layer l0 active">
           <div class="arch-lbl">
             <div class="tier">Tier 0</div><div class="name">Primitives</div>
-            <svg class="arch-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
           <div class="arch-items">
             <div class="arch-item">Colour Tokens</div>
@@ -1148,7 +983,6 @@
         <div class="arch-layer l1">
           <div class="arch-lbl">
             <div class="tier">Tier 1</div><div class="name">Foundations</div>
-            <svg class="arch-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
           <div class="arch-items">
             <div class="arch-item">Semantic Colours</div>
@@ -1161,7 +995,6 @@
         <div class="arch-layer l2">
           <div class="arch-lbl">
             <div class="tier">Tier 2</div><div class="name">Core Components</div>
-            <svg class="arch-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
           <div class="arch-items">
             <div class="arch-item">Buttons</div>
@@ -1175,7 +1008,6 @@
         <div class="arch-layer l3">
           <div class="arch-lbl">
             <div class="tier">Tier 3</div><div class="name">Platform Components</div>
-            <svg class="arch-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
           <div class="arch-items">
             <div class="arch-item">Flutter App</div>
@@ -1188,7 +1020,6 @@
         <div class="arch-layer l4">
           <div class="arch-lbl">
             <div class="tier">Tier 4</div><div class="name">Patterns &amp; Templates</div>
-            <svg class="arch-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
           <div class="arch-items">
             <div class="arch-item">App Templates</div>
@@ -1486,24 +1317,6 @@
             <div class="swatch swatch--alpha" style="background:#0000000d" data-step="05" data-hex="#0000000d"></div>
           </div>
         </div>
-        <!-- Alpha Grey 500 -->
-        <div class="palette-row palette-row--alpha">
-          <div class="palette-label">Alpha / Grey 500</div>
-          <div class="palette-swatches">
-            <div class="swatch swatch--alpha" style="background:#69727ae5" data-step="90" data-hex="#69727ae5"></div>
-            <div class="swatch swatch--alpha" style="background:#69727acc" data-step="80" data-hex="#69727acc"></div>
-            <div class="swatch swatch--alpha" style="background:#69727ab2" data-step="70" data-hex="#69727ab2"></div>
-            <div class="swatch swatch--alpha" style="background:#69727a99" data-step="60" data-hex="#69727a99"></div>
-            <div class="swatch swatch--alpha" style="background:#69727a80" data-step="50" data-hex="#69727a80"></div>
-            <div class="swatch swatch--alpha" style="background:#69727a66" data-step="40" data-hex="#69727a66"></div>
-            <div class="swatch swatch--alpha" style="background:#69727a4d" data-step="30" data-hex="#69727a4d"></div>
-            <div class="swatch swatch--alpha" style="background:#69727a40" data-step="25" data-hex="#69727a40"></div>
-            <div class="swatch swatch--alpha" style="background:#69727a33" data-step="20" data-hex="#69727a33"></div>
-            <div class="swatch swatch--alpha" style="background:#69727a26" data-step="15" data-hex="#69727a26"></div>
-            <div class="swatch swatch--alpha" style="background:#69727a1a" data-step="10" data-hex="#69727a1a"></div>
-            <div class="swatch swatch--alpha" style="background:#69727a0d" data-step="05" data-hex="#69727a0d"></div>
-          </div>
-        </div>
       </div>
       <div class="palette-footer">
         <span class="palette-source">Source: Figma &mdash; TIE Primitives (ALPHA)</span>
@@ -1515,6 +1328,10 @@
       <div class="foundation-header">
         <div class="foundation-eyebrow"><span class="foundation-tier">Tier 1</span> Foundation semantic colours</div>
         <p class="foundation-desc">Resolved from the <strong>Theme</strong> variable collection &mdash; <em>Light</em> and <em>Dark</em> modes. Values alias to Tier 0 primitives.</p>
+      </div>
+
+      <div class="foundation-screens-img reveal">
+        <img src="club-them.png" width="1200" height="675" alt="Club theme overview" loading="lazy" decoding="async" style="width:100%;border-radius:12px;display:block;">
       </div>
 
       <div class="foundation-screens reveal">
@@ -1661,6 +1478,25 @@
       </div>
       <div class="foundation-footer">
         <span class="foundation-source">Source: Figma &mdash; <a href="https://www.figma.com/design/X6KYrCWNziNKbCebpNTCMP/%F0%9F%92%A0-1--Tie-----Foundations---ALPHA?node-id=111-9796" target="_blank" rel="noopener noreferrer">TIE Foundations (ALPHA)</a> &middot; Theme &middot; Light / Dark</span>
+      </div>
+    </div>
+
+    <!-- VERTICAL STACK -->
+    <div class="ss-strip ss-strip--stack">
+      <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
+        <div class="ss-cell"><img src="club-ds.png" alt="Club design system" loading="lazy" decoding="async"><div class="ss-lbl">Club DS</div></div>
+      </div>
+      <div class="ss-cell-sticky-wrap reveal" style="--card-z: 2">
+        <div class="ss-cell"><img src="club-ds-img-01.png" alt="Design system image 1" loading="lazy" decoding="async"><div class="ss-lbl">club-ds-img-01</div></div>
+      </div>
+      <div class="ss-cell-sticky-wrap reveal" style="--card-z: 3">
+        <div class="ss-cell"><img src="club-ds-img-02.png" alt="Design system image 2" loading="lazy" decoding="async"><div class="ss-lbl">club-ds-img-02</div></div>
+      </div>
+      <div class="ss-cell-sticky-wrap reveal" style="--card-z: 4">
+        <div class="ss-cell"><img src="club-ds-img-03.png" alt="Design system image 3" loading="lazy" decoding="async"><div class="ss-lbl">club-ds-img-03</div></div>
+      </div>
+      <div class="ss-cell-sticky-wrap reveal" style="--card-z: 5">
+        <div class="ss-cell"><img src="club-ds-img-04.png" alt="Design system image 4" loading="lazy" decoding="async"><div class="ss-lbl">club-ds-img-04</div></div>
       </div>
     </div>
 
@@ -1890,6 +1726,21 @@
           <div class="cag-legend-item"><div class="cag-legend-line" style="background:#06b6d4"></div>Platform &amp; App → Design Patterns</div>
         </div>
       </div>
+
+    <div class="ss-strip ss-strip--stack">
+      <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
+        <div class="ss-cell"><img src="club-component-01.png" alt="Component overview 1" loading="lazy" decoding="async"><div class="ss-lbl">Components</div></div>
+      </div>
+      <div class="ss-cell-sticky-wrap reveal" style="--card-z: 2">
+        <div class="ss-cell"><img src="club-component-02.png" alt="Component overview 2" loading="lazy" decoding="async"><div class="ss-lbl">Components</div></div>
+      </div>
+      <div class="ss-cell-sticky-wrap reveal" style="--card-z: 3">
+        <div class="ss-cell"><img src="club-component-03.png" alt="Component overview 3" loading="lazy" decoding="async"><div class="ss-lbl">Components</div></div>
+      </div>
+      <div class="ss-cell-sticky-wrap reveal" style="--card-z: 4">
+        <div class="ss-cell"><img src="club-component-04.png" alt="Component overview 4" loading="lazy" decoding="async"><div class="ss-lbl">Components</div></div>
+      </div>
+    </div>
 
       <!-- ── Button Component Explorer ────────────────────────────────── -->
       <style>
@@ -2922,29 +2773,6 @@
         </div>
       </div>
 
-      <div class="tools-divider reveal">
-        <div>
-          <h3>Design token pipeline</h3>
-          <p>Tokens defined in Figma Variables flow through to both codebases — React consumes them as CSS custom properties, Flutter consumes them via a generated theme file. A single change in Figma propagates to both platforms.</p>
-          <div class="stack-row">
-            <span class="stack-tag">Figma Variables</span>
-            <span class="stack-tag">→ CSS custom properties</span>
-            <span class="stack-tag">→ Flutter ThemeData</span>
-            <span class="stack-tag">→ Storybook</span>
-            <span class="stack-tag">→ Widgetbook</span>
-          </div>
-        </div>
-        <div>
-          <h3>Collaboration workflow</h3>
-          <p>Design and engineering operated on a shared cadence — weekly design system syncs, vibe coding sessions for new components, and asynchronous Figma comment threads for spec review.</p>
-          <div class="stack-row">
-            <span class="stack-tag">Weekly DS sync</span>
-            <span class="stack-tag">Figma comments</span>
-            <span class="stack-tag">Vibe coding sessions</span>
-            <span class="stack-tag">PR reviews</span>
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- LEARNINGS -->
