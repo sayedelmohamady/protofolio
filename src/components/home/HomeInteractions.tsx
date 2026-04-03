@@ -631,6 +631,286 @@ export function HomeInteractions({ children }: { children: ReactNode }) {
     };
   }, []);
 
+  /* ── Hero Carousel ── */
+  useEffect(() => {
+    const source = document.getElementById("hero-carousel");
+    if (!source) return;
+
+    const section = source.closest<HTMLElement>(".hc-section");
+    if (!section) return;
+
+    const stage = section.querySelector<HTMLElement>(".hc-stage");
+    const placeholder = section.querySelector<HTMLElement>(".hc-placeholder");
+    const dotsOuter = section.querySelector<HTMLElement>(".hc-dots-outer");
+    const sourceCards = Array.from(
+      source.querySelectorAll<HTMLElement>("[data-hc-card]"),
+    );
+    if (!stage || sourceCards.length < 2) return;
+
+    const cardCount = sourceCards.length;
+    const VIRTUAL = cardCount * 100;
+    const CENTER = 3;
+
+    const KFS = [
+      { tx: -800, sc: 0.55, ry: 28, op: 0, z: 5 },
+      { tx: -600, sc: 0.68, ry: 22, op: 0.5, z: 10 },
+      { tx: -440, sc: 0.82, ry: 14, op: 1, z: 20 },
+      { tx: 0, sc: 1.0, ry: 0, op: 1, z: 30 },
+      { tx: 440, sc: 0.82, ry: -14, op: 1, z: 20 },
+      { tx: 600, sc: 0.68, ry: -22, op: 0.5, z: 10 },
+      { tx: 800, sc: 0.55, ry: -28, op: 0, z: 5 },
+    ] as const;
+
+    function lerpKF(slotF: number) {
+      const lo = Math.max(0, Math.min(KFS.length - 2, Math.floor(slotF)));
+      const hi = lo + 1;
+      const t = slotF - lo;
+      const a = KFS[lo], b = KFS[hi];
+      return {
+        tx: a.tx + (b.tx - a.tx) * t,
+        sc: a.sc + (b.sc - a.sc) * t,
+        ry: a.ry + (b.ry - a.ry) * t,
+        op: a.op + (b.op - a.op) * t,
+        z: Math.round(a.z + (b.z - a.z) * t),
+      };
+    }
+
+    function getCfg() {
+      const w = window.innerWidth;
+      // 16:9 landscape cards
+      if (w >= 1024) return { cw: 400, ch: 225, persp: 1400 };
+      if (w >= 640) return { cw: 320, ch: 180, persp: 1100 };
+      return { cw: 240, ch: 135, persp: 900 };
+    }
+
+    const wrap = document.createElement("div");
+    wrap.className = "hc-wrap";
+    wrap.setAttribute("tabindex", "0");
+
+    const perspEl = document.createElement("div");
+    perspEl.className = "hc-perspective";
+
+    const visual = document.createElement("div");
+    visual.className = "hc-visual";
+
+    const scrollEl = document.createElement("div");
+    scrollEl.className = "hc-scroll";
+
+    const spacerL = document.createElement("div");
+    spacerL.className = "hc-spacer";
+    const canvas = document.createElement("div");
+    canvas.className = "hc-canvas";
+    const spacerR = document.createElement("div");
+    spacerR.className = "hc-spacer";
+
+    scrollEl.append(spacerL, canvas, spacerR);
+    perspEl.append(visual, scrollEl);
+    wrap.append(perspEl);
+    stage.append(wrap);
+
+    const cards: HTMLElement[] = [];
+    const dotEls: HTMLElement[] = [];
+
+    for (let i = 0; i < cardCount; i++) {
+      const card = document.createElement("div");
+      card.className = "hc-card";
+      const inner = document.createElement("div");
+      inner.className = "hc-card-inner";
+      inner.appendChild(sourceCards[i].cloneNode(true));
+      card.appendChild(inner);
+      visual.appendChild(card);
+      cards.push(card);
+
+      if (dotsOuter) {
+        const dot = document.createElement("button");
+        dot.className = "hc-dot";
+        dot.setAttribute("aria-label", `Card ${i + 1}`);
+        dotsOuter.appendChild(dot);
+        dotEls.push(dot);
+      }
+    }
+
+    let cfg = getCfg();
+    let activeReal = Math.floor(cardCount / 2);
+
+    function applyLayout() {
+      cfg = getCfg();
+      perspEl.style.perspective = cfg.persp + "px";
+      const spacerW = Math.floor(stage!.offsetWidth / 2);
+      canvas.style.width = VIRTUAL * cfg.cw + "px";
+      spacerL.style.width = spacerW + "px";
+      spacerR.style.width = spacerW + "px";
+      cards.forEach((c) => {
+        c.style.width = cfg.cw + "px";
+        c.style.height = cfg.ch + "px";
+      });
+      const virtualCenter = Math.floor(VIRTUAL / 2);
+      scrollEl.scrollLeft = (virtualCenter + activeReal) * cfg.cw;
+    }
+
+    function updateCards() {
+      const offset = scrollEl.scrollLeft;
+      const centerFloat = offset / cfg.cw;
+      const centerInCards = centerFloat % cardCount;
+      const half = cardCount / 2;
+
+      for (let i = 0; i < cardCount; i++) {
+        let dist = i - centerInCards;
+        dist = ((dist % cardCount) + cardCount + half) % cardCount - half;
+        const kf = lerpKF(CENTER + dist);
+        cards[i].style.transform = `translateX(${kf.tx}px) scale(${kf.sc}) rotateY(${kf.ry}deg)`;
+        cards[i].style.opacity = String(kf.op);
+        cards[i].style.zIndex = String(kf.z);
+      }
+
+      const center = ((Math.round(centerFloat) % cardCount) + cardCount) % cardCount;
+      activeReal = center;
+      dotEls.forEach((d, i) => {
+        d.dataset.active = i === center ? "true" : "false";
+      });
+    }
+
+    let snapTimer: ReturnType<typeof setTimeout>;
+
+    function onScroll() {
+      updateCards();
+      clearTimeout(snapTimer);
+      snapTimer = setTimeout(() => {
+        const offset = scrollEl.scrollLeft;
+        const snapped = Math.round(offset / cfg.cw) * cfg.cw;
+        if (Math.abs(offset - snapped) > 1)
+          scrollEl.scrollTo({ left: snapped, behavior: "smooth" });
+      }, 80);
+    }
+
+    scrollEl.addEventListener("scroll", onScroll, { passive: true });
+
+    visual.addEventListener("click", (e) => {
+      const card = (e.target as HTMLElement).closest<HTMLElement>(".hc-card");
+      if (!card) return;
+      const idx = cards.indexOf(card);
+      if (idx < 0) return;
+      const offset = scrollEl.scrollLeft;
+      const cv = ((Math.round(offset / cfg.cw) % cardCount) + cardCount) % cardCount;
+      let diff = idx - cv;
+      const half = cardCount / 2;
+      if (diff > half) diff -= cardCount;
+      if (diff < -half) diff += cardCount;
+      scrollEl.scrollBy({ left: diff * cfg.cw, behavior: "smooth" });
+    });
+
+    if (dotsOuter) {
+      dotsOuter.addEventListener("click", (e) => {
+        const dot = (e.target as HTMLElement).closest<HTMLElement>(".hc-dot");
+        if (!dot) return;
+        const idx = dotEls.indexOf(dot);
+        if (idx < 0) return;
+        const offset = scrollEl.scrollLeft;
+        const cv = ((Math.round(offset / cfg.cw) % cardCount) + cardCount) % cardCount;
+        let diff = idx - cv;
+        const half = cardCount / 2;
+        if (diff > half) diff -= cardCount;
+        if (diff < -half) diff += cardCount;
+        scrollEl.scrollBy({ left: diff * cfg.cw, behavior: "smooth" });
+      });
+    }
+
+    wrap.addEventListener("keydown", (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") { scrollEl.scrollBy({ left: -cfg.cw, behavior: "smooth" }); e.preventDefault(); }
+      if (e.key === "ArrowRight") { scrollEl.scrollBy({ left: cfg.cw, behavior: "smooth" }); e.preventDefault(); }
+    });
+
+    /* ── Arrow buttons ── */
+    const btnPrev = document.createElement("button");
+    btnPrev.className = "hc-arrow hc-arrow--prev";
+    btnPrev.setAttribute("aria-label", "Previous");
+    btnPrev.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>`;
+
+    const btnNext = document.createElement("button");
+    btnNext.className = "hc-arrow hc-arrow--next";
+    btnNext.setAttribute("aria-label", "Next");
+    btnNext.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>`;
+
+    btnPrev.addEventListener("click", () => scrollEl.scrollBy({ left: -cfg.cw, behavior: "smooth" }));
+    btnNext.addEventListener("click", () => scrollEl.scrollBy({ left: cfg.cw, behavior: "smooth" }));
+
+    perspEl.appendChild(btnPrev);
+    perspEl.appendChild(btnNext);
+
+    /* ── Pointer drag (right→left = next, left→right = prev) ── */
+    let dragStartX = 0;
+    let dragScrollStart = 0;
+    let isDragging = false;
+
+    const onPointerDown = (e: PointerEvent) => {
+      if ((e.target as HTMLElement).closest(".hc-arrow")) return;
+      dragStartX = e.clientX;
+      dragScrollStart = scrollEl.scrollLeft;
+      isDragging = true;
+      perspEl.setPointerCapture(e.pointerId);
+      perspEl.style.cursor = "grabbing";
+    };
+
+    const onPointerMove = (e: PointerEvent) => {
+      if (!isDragging) return;
+      const delta = dragStartX - e.clientX;
+      scrollEl.scrollLeft = dragScrollStart + delta;
+    };
+
+    const onPointerUp = (e: PointerEvent) => {
+      if (!isDragging) return;
+      isDragging = false;
+      perspEl.style.cursor = "grab";
+      const delta = dragStartX - e.clientX;
+      if (Math.abs(delta) > 40) {
+        const dir = delta > 0 ? 1 : -1;
+        const snapped = (Math.round(dragScrollStart / cfg.cw) + dir) * cfg.cw;
+        scrollEl.scrollTo({ left: snapped, behavior: "smooth" });
+      } else {
+        const snapped = Math.round(scrollEl.scrollLeft / cfg.cw) * cfg.cw;
+        scrollEl.scrollTo({ left: snapped, behavior: "smooth" });
+      }
+    };
+
+    perspEl.style.cursor = "grab";
+    perspEl.addEventListener("pointerdown", onPointerDown);
+    perspEl.addEventListener("pointermove", onPointerMove);
+    perspEl.addEventListener("pointerup", onPointerUp);
+    perspEl.addEventListener("pointercancel", onPointerUp);
+
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    const onResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => { applyLayout(); updateCards(); }, 150);
+    };
+    window.addEventListener("resize", onResize, { passive: true });
+
+    requestAnimationFrame(() => {
+      applyLayout();
+      updateCards();
+      setTimeout(() => {
+        wrap.style.opacity = "1";
+        if (placeholder) placeholder.style.opacity = "0";
+        setTimeout(() => {
+          if (placeholder) placeholder.style.display = "none";
+        }, 400);
+      }, 250);
+    });
+
+    return () => {
+      clearTimeout(snapTimer);
+      clearTimeout(resizeTimer);
+      window.removeEventListener("resize", onResize);
+      scrollEl.removeEventListener("scroll", onScroll);
+      perspEl.removeEventListener("pointerdown", onPointerDown);
+      perspEl.removeEventListener("pointermove", onPointerMove);
+      perspEl.removeEventListener("pointerup", onPointerUp);
+      perspEl.removeEventListener("pointercancel", onPointerUp);
+      wrap.remove();
+      if (dotsOuter) dotsOuter.innerHTML = "";
+    };
+  }, []);
+
   /* Persist scroll position across reloads */
   useEffect(() => {
     const key = `scroll-y:${window.location.pathname}`;
