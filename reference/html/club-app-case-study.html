@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Club App — Gamified Loyalty System Case Study</title>
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       LAYOUT
+  ══════════════════════════════════════════════════════════════ -->
+
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-glow"></div>
+      <div class="hero-glow2"></div>
+      <div class="hero-grid"></div>
+    </div>
+
+    <div class="hero-eyebrow">Club App &mdash; Gamified Loyalty</div>
+
+    <h1 class="hero-title">
+      <span class="line-dim">Gamifying</span><br>
+      <span class="line-brand">Loyalty</span><br>
+      <span>Through Clubs</span>
+    </h1>
+
+    <div class="hero-divider"></div>
+
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <label>Role</label>
+        <span>Senior Product Designer</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Platform</label>
+        <span>iOS &amp; Android</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Timeline</label>
+        <span>2023 – 2024</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Team</label>
+        <span>Product, Engineering, Growth</span>
+      </div>
+    </div>
+
+    <div class="hero-screens">
+      <img src="club-app-mockup.png" alt="Club App overview" class="hero-screen hero-screen--main hero-photo" loading="eager">
+      <img src="mission-header.png" alt="Missions screen" class="hero-screen">
+      <img src="mission-list.png" alt="Mission list" class="hero-screen">
+      <img src="tie-reward.png" alt="Rewards screen" class="hero-screen">
+    </div>
+
+    <div class="hero-scroll">
+      <span class="scroll-line"></span>
+      Scroll to explore
+    </div>
+  </section>
+
+  <div class="case-layout">
+
+    <!-- ══ SIDEBAR ══ -->
+    <aside class="sidebar">
+      <ul class="sidebar-nav">
+        <li><a href="#overview" data-section="overview">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          Overview
+        </a></li>
+        <li><a href="#problem" data-section="problem">
+          <svg viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+          Problem Space
+        </a></li>
+        <li><a href="#system" data-section="system">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          Gamification System
+        </a></li>
+        <li><a href="#architecture" data-section="architecture">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          Architecture
+        </a></li>
+        <li><a href="#user-flow" data-section="user-flow">
+          <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>
+          User Flows
+        </a></li>
+        <li><a href="#features" data-section="features">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          Key Features
+        </a></li>
+        <li class="sidebar-sep"></li>
+        <li><a href="#deep-dive" data-section="deep-dive">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          Deep Dive
+        </a></li>
+        <li><a href="#mechanics" data-section="mechanics">
+          <svg viewBox="0 0 24 24"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+          Mechanics
+        </a></li>
+        <li><a href="#screens" data-section="screens">
+          <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+          Final Screens
+        </a></li>
+        <li><a href="#design-system" data-section="design-system">
+          <svg viewBox="0 0 24 24"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2z"/></svg>
+          Design System
+        </a></li>
+        <li class="sidebar-sep"></li>
+        <li><a href="#decisions" data-section="decisions">
+          <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          Decisions
+        </a></li>
+        <li><a href="#impact" data-section="impact">
+          <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          Impact
+        </a></li>
+        <li><a href="#challenges" data-section="challenges">
+          <svg viewBox="0 0 24 24"><path d="M3 3h18v13H3z"/><path d="M8 21h8M12 17v4"/></svg>
+          Challenges
+        </a></li>
+        <li><a href="#reflection" data-section="reflection">
+          <svg viewBox="0 0 24 24"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3H14z"/><path d="M7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg>
+          Reflection
+        </a></li>
+      </ul>
+    </aside>
+
+    <!-- ══ MAIN ══ -->
+    <main class="main-content">
+
+      <!-- ── 1. OVERVIEW ── -->
+      <section class="band reveal" id="overview">
+        <div class="wrap">
+          <p class="section-label"><span class="num">01 /</span> Overview</p>
+          <h2>A loyalty platform that feels like a game — and performs like one</h2>
+          <p>Club App is a brand loyalty and ambassador platform where users join goal-based communities called Clubs, complete behavior-driven Missions, earn Coins, and compete on Leaderboards. Every action is meaningful. Every reward is earned. Every brand gets measurable engagement.</p>
+          <p>As the Senior Product Designer, I owned the end-to-end UX of the core gamification engine: from the initial concept and system architecture through user flows, interaction design, and final UI delivery.</p>
+
+          <div class="kpi-row">
+            <div class="kpi-card">
+              <div class="kpi-num">3.2×</div>
+              <div class="kpi-label">Engagement vs traditional loyalty</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-num">68%</div>
+              <div class="kpi-label">Mission completion rate</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-num">41%</div>
+              <div class="kpi-label">Day-30 retention lift</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-num">1M+</div>
+              <div class="kpi-label">Community members</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 2. PROBLEM SPACE ── -->
+      <section class="band reveal" id="problem">
+        <div class="wrap challenge-section">
+          <p class="section-label"><span class="num">02 /</span> Problem Space</p>
+
+          <div class="challenge-headline">
+            <span class="challenge-headline__primary">Traditional loyalty is broken.</span>
+            <span class="challenge-headline__secondary">Passive programs don't drive behavior.</span>
+          </div>
+
+          <div class="challenge-lead">
+            <p>Points-based loyalty programs accumulate quietly in the background. Users forget they exist. Brands collect data but gain no advocacy. The disconnect between action and reward is too long, too abstract, and emotionally empty.</p>
+          </div>
+
+          <div class="problem-grid">
+            <div class="problem-card">
+              <div class="p-icon">
+                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+              </div>
+              <h3>Passive Participation</h3>
+              <p>Users earn points automatically without any meaningful effort or intention. There's no sense of achievement — just accumulation.</p>
+            </div>
+            <div class="problem-card">
+              <div class="p-icon">
+                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+              </div>
+              <h3>No Emotional Connection</h3>
+              <p>Transactional systems reward spending, not belonging. Users feel no attachment to the brand or community around it.</p>
+            </div>
+            <div class="problem-card">
+              <div class="p-icon">
+                <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              </div>
+              <h3>Poor Data for Brands</h3>
+              <p>Swipe-and-earn models generate transactional data, but brands can't identify advocates, understand intent, or trigger behavioral actions.</p>
+            </div>
+            <div class="problem-card">
+              <div class="p-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <h3>Low Re-engagement</h3>
+              <p>Without progression systems or social mechanics, users churn after their first redemption. There's nothing pulling them back.</p>
+            </div>
+          </div>
+
+          <div class="insight-card">
+            <p class="insight-text">
+              Users don't want to be <em>rewarded for spending</em> —
+              they want to <em>earn recognition</em> for who they are as fans.
+            </p>
+            <p class="insight-sub">Core insight from 24 user interviews and competitive loyalty audit, Q2 2023</p>
+          </div>
+
+          <div style="margin-top: 48px;">
+            <h3 style="font-family:var(--f-display);font-size:22px;font-weight:700;margin-bottom:24px;color:var(--c-text)">Traditional vs. Gamified</h3>
+            <div class="comparison-split">
+              <div class="comparison-col">
+                <div class="comparison-col-header">
+                  <span class="comp-badge">Traditional Loyalty</span>
+                </div>
+                <ul class="comparison-list">
+                  <li>Passive points accumulation</li>
+                  <li>Anonymous, transactional</li>
+                  <li>Delayed, abstract rewards</li>
+                  <li>No social layer or community</li>
+                  <li>One-size-fits-all program</li>
+                  <li>No behavioral triggers for brands</li>
+                </ul>
+              </div>
+              <div class="comparison-col comparison-col--good">
+                <div class="comparison-col-header">
+                  <span class="comp-badge comp-badge--good">Club Gamification</span>
+                </div>
+                <ul class="comparison-list">
+                  <li>Active missions with clear intent</li>
+                  <li>Named identity, ranked standing</li>
+                  <li>Instant coin rewards + visible progress</li>
+                  <li>Club community + leaderboard competition</li>
+                  <li>Brand-specific goals and tiers</li>
+                  <li>Real-time Klaviyo event integration</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ── 3. GAMIFICATION SYSTEM ── -->
+      <section class="band reveal" id="system">
+        <div class="wrap">
+          <p class="section-label"><span class="num">03 /</span> Gamification System</p>
+          <h2>The core loop: Action → Reward → Progress → Recognition → Repeat</h2>
+          <p>Every gamification system lives or dies by its loop. We designed Club App's loop to be tight, emotionally satisfying, and driven by real-world brand behaviors — not arbitrary point farming.</p>
+
+          <div class="loop-diagram">
+            <div class="loop-step loop-step--1">
+              <div class="loop-step-icon">
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.17 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+              </div>
+              <div class="loop-step-num">Step 01</div>
+              <div class="loop-step-title">Action</div>
+              <p class="loop-step-desc">User completes a brand-defined mission — a purchase, a social share, a review, a referral. Real behaviors, real stakes.</p>
+              <span class="loop-arrow">→</span>
+            </div>
+            <div class="loop-step loop-step--2">
+              <div class="loop-step-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              </div>
+              <div class="loop-step-num">Step 02</div>
+              <div class="loop-step-title">Reward</div>
+              <p class="loop-step-desc">Coins drop instantly. The amount, rarity, and animation vary by mission type — making every reward feel earned and distinct.</p>
+              <span class="loop-arrow">→</span>
+            </div>
+            <div class="loop-step loop-step--3">
+              <div class="loop-step-icon">
+                <svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+              </div>
+              <div class="loop-step-num">Step 03</div>
+              <div class="loop-step-title">Progress</div>
+              <p class="loop-step-desc">Club level advances. Mission streaks build. The user sees exactly how close they are to the next tier, the next reward, the next recognition.</p>
+              <span class="loop-arrow">→</span>
+            </div>
+            <div class="loop-step loop-step--4">
+              <div class="loop-step-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <div class="loop-step-num">Step 04</div>
+              <div class="loop-step-title">Recognition</div>
+              <p class="loop-step-desc">Leaderboard ranking updates. Badges unlock. The community sees who's leading. Social visibility makes achievement meaningful beyond the self.</p>
+            </div>
+          </div>
+
+          <div style="margin-top:48px">
+            <h3 style="font-family:var(--f-display);font-size:20px;font-weight:700;margin-bottom:24px;color:var(--c-text)">Five pillars of the system</h3>
+            <div class="pillars-grid">
+              <div class="pillar-card">
+                <div class="pillar-icon">
+                  <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                </div>
+                <h3>Clubs</h3>
+                <p>Goal-based communities owned by brands. Users opt in, join a purpose, and belong to something larger than a purchase history.</p>
+              </div>
+              <div class="pillar-card">
+                <div class="pillar-icon">
+                  <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                </div>
+                <h3>Missions</h3>
+                <p>Discrete, completable tasks tied to brand KPIs. Each mission has a clear action, a coin reward, and an expiry — creating urgency.</p>
+              </div>
+              <div class="pillar-card">
+                <div class="pillar-icon">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                </div>
+                <h3>Coins</h3>
+                <p>The universal in-platform currency. Earned through missions and Club-level bonuses. Spent on cash-back, gift cards, or branded rewards.</p>
+              </div>
+              <div class="pillar-card">
+                <div class="pillar-icon">
+                  <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                </div>
+                <h3>Leaderboards</h3>
+                <p>Per-Club rankings that reset monthly. Competitive visibility drives re-engagement. Top performers unlock exclusive rewards and brand recognition.</p>
+              </div>
+              <div class="pillar-card">
+                <div class="pillar-icon">
+                  <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+                <h3>Levels</h3>
+                <p>Five-tier progression inside each Club: Newcomer → Member → Regular → Champion → Ambassador. Each level unlocks new mission types and exclusive perks.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 4. SYSTEM ARCHITECTURE ── -->
+      <section class="band reveal" id="architecture">
+        <div class="wrap">
+          <p class="section-label"><span class="num">04 /</span> System Architecture</p>
+          <h2>From user action to integration — the full event pipeline</h2>
+          <p>Behind the product, every user interaction flows through a structured event pipeline. Understanding this architecture shaped every design decision — from loading states to error handling to async reward delivery.</p>
+
+          <div class="arch-layers">
+            <div class="arch-layer l0">
+              <div class="arch-lbl">
+                <div class="tier">Entry Point</div>
+                <div class="name">User Action</div>
+              </div>
+              <div class="arch-items">
+                <div class="arch-item">Complete Mission</div>
+                <div class="arch-item">Submit Proof</div>
+                <div class="arch-item">Social Share</div>
+                <div class="arch-item">Purchase Trigger</div>
+                <div class="arch-item">Referral</div>
+              </div>
+            </div>
+            <div class="arch-layer l1">
+              <div class="arch-lbl">
+                <div class="tier">Processing</div>
+                <div class="name">Club Engine</div>
+              </div>
+              <div class="arch-items">
+                <div class="arch-item">Event Validation</div>
+                <div class="arch-item">Mission Logic</div>
+                <div class="arch-item">Fraud Checks</div>
+                <div class="arch-item">Club Rules</div>
+                <div class="arch-item">Eligibility</div>
+              </div>
+            </div>
+            <div class="arch-layer l2">
+              <div class="arch-lbl">
+                <div class="tier">Rewards</div>
+                <div class="name">Coin Ledger</div>
+              </div>
+              <div class="arch-items">
+                <div class="arch-item">Coin Credit</div>
+                <div class="arch-item">Level Update</div>
+                <div class="arch-item">Badge Award</div>
+                <div class="arch-item">Leaderboard Rank</div>
+                <div class="arch-item">Streak Tracking</div>
+              </div>
+            </div>
+            <div class="arch-layer l3">
+              <div class="arch-lbl">
+                <div class="tier">Integration</div>
+                <div class="name">Klaviyo Sync</div>
+              </div>
+              <div class="arch-items">
+                <div class="arch-item">Event Emit</div>
+                <div class="arch-item">Profile Update</div>
+                <div class="arch-item">Segment Tag</div>
+                <div class="arch-item">Flow Trigger</div>
+                <div class="arch-item">Push &amp; Email</div>
+              </div>
+            </div>
+            <div class="arch-layer l4">
+              <div class="arch-lbl">
+                <div class="tier">Output</div>
+                <div class="name">Brand Dashboard</div>
+              </div>
+              <div class="arch-items">
+                <div class="arch-item">Member Analytics</div>
+                <div class="arch-item">Mission Performance</div>
+                <div class="arch-item">Cohort Segments</div>
+                <div class="arch-item">ROI Reporting</div>
+                <div class="arch-item">Ambassador List</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="arch-note">
+            <div class="arch-note-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            </div>
+            <div>
+              <strong>Design implication:</strong> This async architecture meant users needed clear feedback at every stage — pending states, in-progress animations, and success confirmations. We designed a three-state reward UI: <em>Pending validation → Processing → Coins arrived</em>. Each state has distinct motion design to reduce anxiety and build anticipation.
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ── 5. USER FLOWS ── -->
+      <section class="band reveal" id="user-flow">
+        <div class="wrap">
+          <p class="section-label"><span class="num">05 /</span> User Flows</p>
+          <h2>Every journey mapped — from first open to loyal ambassador</h2>
+          <p>We mapped six distinct user journeys within the platform. The core loop — joining a Club, completing Missions, earning Coins — sits at the center. Re-engagement, reward redemption, and profile progression branch from it.</p>
+
+          <div class="uf-wrap" id="uf-wrap">
+            <svg class="uf-svg" id="uf-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+            <span class="uf-loop-label" id="uf-loop-label">↺ Repeat loop</span>
+
+            <div class="uf-grid">
+              <!-- Col 1: Branch nodes -->
+              <div data-uf-id="join-club" class="uf-node uf-node--branch" style="grid-column:1;grid-row:3">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="#f59e0b"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></div>
+                <div><div class="uf-title">Join Club</div><div class="uf-sub">Onboarding</div></div>
+              </div>
+              <div data-uf-id="edit-resubmit" class="uf-node uf-node--branch" style="grid-column:1;grid-row:10">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="#f59e0b"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+                <div><div class="uf-title">Edit &amp; Resubmit</div><div class="uf-sub">Fix &amp; retry</div></div>
+              </div>
+
+              <!-- Col 2: Main flow -->
+              <div data-uf-id="enter-app" class="uf-node" style="grid-column:2;grid-row:1">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
+                <div><div class="uf-title">Enter App</div><div class="uf-sub">Launch screen</div></div>
+              </div>
+              <div data-uf-id="access-club" class="uf-node" style="grid-column:2;grid-row:2">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+                <div><div class="uf-title">Browse Clubs</div><div class="uf-sub">Discovery tab</div></div>
+              </div>
+              <div data-uf-id="member-check" class="uf-decision" style="grid-column:2;grid-row:3">
+                <div class="uf-diamond"><div class="uf-diamond-q">Member?</div></div>
+              </div>
+              <div data-uf-id="dashboard" class="uf-node" style="grid-column:2;grid-row:4">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg></div>
+                <div><div class="uf-title">Club Dashboard</div><div class="uf-sub">Overview &amp; stats</div></div>
+              </div>
+              <div data-uf-id="discover" class="uf-node" style="grid-column:2;grid-row:5">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
+                <div><div class="uf-title">Discover Missions</div><div class="uf-sub">Active list</div></div>
+              </div>
+              <div data-uf-id="select-mission" class="uf-node" style="grid-column:2;grid-row:6">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+                <div><div class="uf-title">Select Mission</div><div class="uf-sub">Detail view</div></div>
+              </div>
+              <div data-uf-id="act" class="uf-node" style="grid-column:2;grid-row:7">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+                <div><div class="uf-title">Complete Action</div><div class="uf-sub">Real-world task</div></div>
+              </div>
+              <div data-uf-id="submit-proof" class="uf-node" style="grid-column:2;grid-row:8">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+                <div><div class="uf-title">Submit Proof</div><div class="uf-sub">Photo / link / auto</div></div>
+              </div>
+              <div data-uf-id="validation" class="uf-decision" style="grid-column:2;grid-row:9">
+                <div class="uf-diamond"><div class="uf-diamond-q">Approved?</div></div>
+              </div>
+              <div data-uf-id="earn" class="uf-node" style="grid-column:2;grid-row:11">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+                <div><div class="uf-title">Earn Coins</div><div class="uf-sub">Instant credit</div></div>
+              </div>
+              <div data-uf-id="progress" class="uf-node" style="grid-column:2;grid-row:12">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg></div>
+                <div><div class="uf-title">Update Progress</div><div class="uf-sub">Level &amp; leaderboard</div></div>
+              </div>
+              <div data-uf-id="return" class="uf-node uf-node--loop" style="grid-column:2;grid-row:13">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="#22d3ee"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg></div>
+                <div><div class="uf-title">Return Next Day</div><div class="uf-sub">Habit loop closes</div></div>
+              </div>
+
+              <!-- Col 3: Side flows (onboarding, re-engagement, drop-off) -->
+              <div data-uf-id="browse" class="uf-node uf-node--side" data-uf-group="Onboarding" style="grid-column:3;grid-row:1">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
+                <div><div class="uf-title">Browse Brands</div></div>
+              </div>
+              <div data-uf-id="details" class="uf-node uf-node--side" style="grid-column:3;grid-row:2">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+                <div><div class="uf-title">Club Details</div></div>
+              </div>
+              <div data-uf-id="join-onb" class="uf-node uf-node--side" style="grid-column:3;grid-row:3">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></div>
+                <div><div class="uf-title">Join Club</div></div>
+              </div>
+              <div data-uf-id="overview-onb" class="uf-node uf-node--side" style="grid-column:3;grid-row:4">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg></div>
+                <div><div class="uf-title">Club Overview</div></div>
+              </div>
+              <div data-uf-id="inactive" class="uf-node uf-node--side" data-uf-group="Re-engagement" style="grid-column:3;grid-row:6">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+                <div><div class="uf-title">Inactive User</div></div>
+              </div>
+              <div data-uf-id="notified" class="uf-node uf-node--side" style="grid-column:3;grid-row:7">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg></div>
+                <div><div class="uf-title">Push / Email</div></div>
+              </div>
+              <div data-uf-id="opens-app" class="uf-node uf-node--side" style="grid-column:3;grid-row:8">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg></div>
+                <div><div class="uf-title">Re-opens App</div></div>
+              </div>
+
+              <!-- Col 4: Profile, reward, progress flows -->
+              <div data-uf-id="stats" class="uf-node uf-node--side" data-uf-group="Profile" style="grid-column:4;grid-row:5">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+                <div><div class="uf-title">View Stats</div></div>
+              </div>
+              <div data-uf-id="achievements" class="uf-node uf-node--side" style="grid-column:4;grid-row:6">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+                <div><div class="uf-title">Achievements</div></div>
+              </div>
+              <div data-uf-id="edit-profile" class="uf-node uf-node--side" style="grid-column:4;grid-row:7">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                <div><div class="uf-title">Edit Profile</div></div>
+              </div>
+              <div data-uf-id="view-reward" class="uf-node uf-node--side" data-uf-group="Rewards" style="grid-column:4;grid-row:10">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><path d="M20 12v10H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></div>
+                <div><div class="uf-title">View Rewards</div></div>
+              </div>
+              <div data-uf-id="redeem" class="uf-node uf-node--side" style="grid-column:4;grid-row:11">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+                <div><div class="uf-title">Select Reward</div></div>
+              </div>
+              <div data-uf-id="confirm-rwd" class="uf-node uf-node--side" style="grid-column:4;grid-row:12">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div><div class="uf-title">Confirm &amp; Redeem</div></div>
+              </div>
+              <div data-uf-id="gain-pts" class="uf-node uf-node--side" data-uf-group="Levels" style="grid-column:3;grid-row:11">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg></div>
+                <div><div class="uf-title">Gain XP Points</div></div>
+              </div>
+              <div data-uf-id="level-up" class="uf-node uf-node--side" style="grid-column:3;grid-row:12">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+                <div><div class="uf-title">Level Up!</div></div>
+              </div>
+              <div data-uf-id="unlock" class="uf-node uf-node--side" style="grid-column:3;grid-row:13">
+                <div class="uf-icon"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+                <div><div class="uf-title">Unlock Perks</div></div>
+              </div>
+            </div><!-- /uf-grid -->
+          </div><!-- /uf-wrap -->
+        </div>
+      </section>
+
+      <!-- ── 6. KEY FEATURES ── -->
+      <section class="band reveal" id="features">
+        <div class="wrap">
+          <p class="section-label"><span class="num">06 /</span> Key Features</p>
+          <h2>The five modules that power the experience</h2>
+          <p>Each feature is a standalone product module, yet they're deeply connected through the shared coin economy and user identity system.</p>
+
+          <div class="feature-grid">
+            <div class="feature-card feature-card--wide">
+              <div>
+                <div class="feature-card-header">
+                  <div class="feature-icon">
+                    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                  </div>
+                  <div>
+                    <h3>Clubs</h3>
+                    <div class="feature-tag">Community Engine</div>
+                  </div>
+                </div>
+                <p>Clubs are goal-based micro-communities created by brands. When a user joins a Club, they're not just opting into a program — they're committing to a shared goal. Each Club has a purpose (e.g. "Complete 5 missions this month"), a leaderboard, an exclusive mission set, and a progress dashboard. Brands define the rules; users execute against them.</p>
+                <p>The join flow was designed to feel like signing up for a team — clear expectations upfront, immediate belonging signals on entry.</p>
+              </div>
+              <div class="feature-img-wrap">
+                <img src="club-funnel-ambassadors.png" alt="Club ambassador funnel" loading="lazy">
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">
+                  <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                </div>
+                <div>
+                  <h3>Missions</h3>
+                  <div class="feature-tag">Behavior Loop</div>
+                </div>
+              </div>
+              <p>Discrete tasks with clear rewards and expiry dates. Mission types include social shares, purchases, reviews, referrals, and offline check-ins. Each mission communicates coin value before starting — there are no surprises.</p>
+              <div class="feature-img-wrap">
+                <img src="mission-header.png" alt="Mission header component" loading="lazy">
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                </div>
+                <div>
+                  <h3>Coins</h3>
+                  <div class="feature-tag">Currency System</div>
+                </div>
+              </div>
+              <p>The universal platform currency. Earned through missions and Club-level bonuses. Spent on cash-back (via Wise), gift cards, or brand-specific rewards. The coin balance is always visible in the nav — a persistent pull to stay active.</p>
+              <div class="feature-img-wrap">
+                <img src="tie-reward.png" alt="Coin rewards screen" loading="lazy">
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">
+                  <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                </div>
+                <div>
+                  <h3>Leaderboard</h3>
+                  <div class="feature-tag">Social Motivation</div>
+                </div>
+              </div>
+              <p>Per-Club monthly rankings. Users can see their position and the gap to the next rank, creating constant micro-motivation. Top 3 spots are highlighted with tier-specific rewards. Rankings reset monthly to give everyone a fair shot.</p>
+              <div class="feature-img-wrap">
+                <img src="club-otto-08.png" alt="Leaderboard screen" loading="lazy">
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">
+                  <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+                <div>
+                  <h3>Levels &amp; Rewards</h3>
+                  <div class="feature-tag">Progression</div>
+                </div>
+              </div>
+              <p>Five-tier Club progression from Newcomer to Ambassador. Each level unlocks new mission types, higher coin multipliers, and exclusive brand rewards. The level-up animation was designed to feel like a genuine celebration — not just a UI toast.</p>
+              <div class="feature-img-wrap">
+                <img src="mission-list.png" alt="Mission list with levels" loading="lazy">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 7. DEEP DIVE ── -->
+      <section class="band reveal" id="deep-dive">
+        <div class="wrap">
+          <p class="section-label"><span class="num">07 /</span> Deep Dive</p>
+          <h2>Clubs as a Gamification Engine</h2>
+          <p>Clubs are the structural heart of the product. Getting them right meant resolving a fundamental tension: Clubs need to be flexible enough for any brand's goals, yet structured enough to reliably produce engagement loops.</p>
+
+          <!-- Problem -->
+          <div class="deep-block">
+            <div class="deep-block-header">
+              <span class="deep-tag">Problem</span>
+            </div>
+            <div class="deep-split">
+              <div class="deep-split-text">
+                <h3>Brands needed customization. Users needed clarity.</h3>
+                <p>Early prototypes gave brands full control over Club structure — custom mission flows, arbitrary point values, freeform goals. The result was chaos: users couldn't understand what a Club was for, why they should join, or how close they were to any reward.</p>
+                <p>At the same time, brands were asking for <strong>more flexibility</strong> — more mission types, more reward configurations, more control over who gets what. The opposing forces were pulling the design apart.</p>
+              </div>
+              <div class="deep-split-visual">
+                <img src="club-them.png" alt="Club structure problem visualization" loading="lazy">
+              </div>
+            </div>
+          </div>
+
+          <!-- Insight -->
+          <div class="deep-block">
+            <div class="deep-block-header">
+              <span class="deep-tag deep-tag--insight">Insight</span>
+            </div>
+            <div class="insight-card">
+              <p class="insight-text">
+                The solution wasn't to restrict brands —
+                it was to give users a <em>consistent mental model</em>
+                regardless of what a brand configured underneath.
+              </p>
+              <p class="insight-sub">Derived from 3 rounds of usability testing, July 2023</p>
+            </div>
+            <p style="margin-top:24px;font-size:14px;line-height:1.7;color:var(--c-text-m);max-width:680px">We separated the <strong style="color:var(--c-text)">brand configuration layer</strong> from the <strong style="color:var(--c-text)">user-facing layer</strong>. Brands could set any goal — we'd always surface it through the same three-frame structure: <em>What is this Club? → What do I need to do? → What do I get?</em></p>
+          </div>
+
+          <!-- Solution -->
+          <div class="deep-block">
+            <div class="deep-block-header">
+              <span class="deep-tag deep-tag--solution">Solution</span>
+            </div>
+            <div class="deep-split">
+              <div class="deep-split-text">
+                <h3>A three-frame onboarding system with persistent progress context</h3>
+                <p>The Club join flow was rebuilt around three required frames: <strong>Identity</strong> (what this brand is about), <strong>Mission preview</strong> (the first three tasks, always visible before joining), and <strong>Reward preview</strong> (what's unlockable at each level).</p>
+                <p>After joining, the Club dashboard always shows the user's current level, coins to next tier, rank on leaderboard, and available missions — all above the fold. Users should never open the app wondering what to do next.</p>
+              </div>
+              <div class="deep-split-visual">
+                <img src="club-trust.png" alt="Club trust and onboarding solution" loading="lazy">
+              </div>
+            </div>
+          </div>
+
+          <!-- Wireframes → Final UI progression -->
+          <div class="deep-block">
+            <div class="deep-block-header">
+              <span class="deep-tag">Design Evolution</span>
+            </div>
+            <p style="font-size:14px;color:var(--c-text-m);line-height:1.7;margin-bottom:28px;max-width:640px">From rough wireframes to high-fidelity UI — the Club dashboard evolved across 11 iterations, with each round addressing feedback from usability sessions.</p>
+            <div class="evolution-grid">
+              <div class="evolution-item">
+                <div class="evolution-label">Early Wireframe — Round 1</div>
+                <div class="evolution-img"><img src="club-ds-img-01.png" alt="Early wireframe" loading="lazy"></div>
+                <div class="evolution-note">Linear list layout. No visual hierarchy between mission types. Coin balance buried.</div>
+              </div>
+              <div class="evolution-item">
+                <div class="evolution-label">Mid-Fi — Round 5</div>
+                <div class="evolution-img"><img src="club-ds-img-02.png" alt="Mid-fidelity mockup" loading="lazy"></div>
+                <div class="evolution-note">Introduced card-based missions. Progress indicator added. Still missing leaderboard context.</div>
+              </div>
+              <div class="evolution-item">
+                <div class="evolution-label">Final UI — Shipped</div>
+                <div class="evolution-img"><img src="club-ds-img-03.png" alt="Final shipped UI" loading="lazy"></div>
+                <div class="evolution-note">Hero stat bar, leaderboard rank always visible, missions grouped by type and urgency.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interaction States -->
+          <div class="deep-block">
+            <div class="deep-block-header">
+              <span class="deep-tag">Interaction States</span>
+            </div>
+            <p style="font-size:14px;color:var(--c-text-m);line-height:1.7;margin-bottom:28px;max-width:640px">Mission cards are the most interaction-heavy component in the product. Each state carries specific design intent.</p>
+            <div class="states-grid">
+              <div class="state-card">
+                <div class="state-label">Available</div>
+                <img src="club-otto-01.png" alt="Mission available state" loading="lazy">
+              </div>
+              <div class="state-card">
+                <div class="state-label">In Progress</div>
+                <img src="club-otto-02.png" alt="Mission in progress state" loading="lazy">
+              </div>
+              <div class="state-card">
+                <div class="state-label">Completed</div>
+                <img src="club-otto-03.png" alt="Mission completed state" loading="lazy">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ── 8. GAMIFICATION MECHANICS ── -->
+      <section class="band reveal" id="mechanics">
+        <div class="wrap">
+          <p class="section-label"><span class="num">08 /</span> Mechanics Breakdown</p>
+          <h2>How each system was designed to drive behavior</h2>
+
+          <!-- Coins -->
+          <div class="mechanic-block">
+            <div class="mechanic-header">
+              <div class="mechanic-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              </div>
+              <div>
+                <h3>Coins System</h3>
+                <div class="mechanic-sub">How users earn, hold, and spend the platform currency</div>
+              </div>
+            </div>
+            <div class="mechanic-split">
+              <div class="mechanic-content">
+                <p>Coins are the engine of the economic loop. Every coin earned is tied to a specific action — not time, not visits, not passive behavior. This was a deliberate design decision: we wanted coins to feel <strong>earned</strong>, not gifted.</p>
+                <p>The earn rate is calibrated per mission type. High-effort missions (purchase, referral, in-person event) earn more. Low-effort missions (social follow, survey) earn less but encourage daily habits.</p>
+                <div style="margin-top:24px">
+                  <div class="mechanic-item-label">Earn Actions</div>
+                  <div class="mechanic-item-list">
+                    <span class="coin-badge">Purchase → 500 coins</span>
+                    <span class="coin-badge">Referral → 300 coins</span>
+                    <span class="coin-badge">Social Share → 100 coins</span>
+                    <span class="coin-badge">Review → 150 coins</span>
+                    <span class="coin-badge">Check-in → 80 coins</span>
+                    <span class="coin-badge">Survey → 50 coins</span>
+                  </div>
+                </div>
+                <div style="margin-top:20px">
+                  <div class="mechanic-item-label">Spend Options</div>
+                  <div class="mechanic-item-list">
+                    <span class="coin-badge coin-badge--spend">Cash Back (Wise)</span>
+                    <span class="coin-badge coin-badge--spend">Gift Cards</span>
+                    <span class="coin-badge coin-badge--spend">Brand Products</span>
+                    <span class="coin-badge coin-badge--spend">Exclusive Experiences</span>
+                  </div>
+                </div>
+              </div>
+              <div class="mechanic-visual">
+                <img src="tie-reward.png" alt="Coin reward screen" loading="lazy">
+              </div>
+            </div>
+          </div>
+
+          <!-- Leaderboard -->
+          <div class="mechanic-block">
+            <div class="mechanic-header">
+              <div class="mechanic-icon">
+                <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              </div>
+              <div>
+                <h3>Leaderboard</h3>
+                <div class="mechanic-sub">Competitive ranking that resets monthly to stay fair</div>
+              </div>
+            </div>
+            <div class="mechanic-split">
+              <div class="mechanic-content">
+                <p>The leaderboard was one of the most contested features in the product. The risk: it could demotivate users who are far behind, creating a top-5-win-everything dynamic that kills participation for everyone else.</p>
+                <p>Our solution was a <strong>proximity-first ranking view</strong>. Instead of showing the full global ranking, the default view shows the user's position ±5 places — creating an achievable competitive target at all times. Full ranking is accessible but secondary.</p>
+                <ul class="mechanic-list">
+                  <li><strong>Monthly reset</strong> — Levels the playing field. Any user can compete for top spot next month.</li>
+                  <li><strong>Milestone rewards</strong> — Top 10 always get something. Not just #1. Reduces winner-take-all dynamic.</li>
+                  <li><strong>Rank velocity</strong> — Shows users how many ranks they moved in 24h, not just their absolute position.</li>
+                </ul>
+              </div>
+              <div class="mechanic-visual">
+                <img src="club-otto-08.png" alt="Leaderboard screen" loading="lazy">
+              </div>
+            </div>
+          </div>
+
+          <!-- Missions -->
+          <div class="mechanic-block">
+            <div class="mechanic-header">
+              <div class="mechanic-icon">
+                <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+              </div>
+              <div>
+                <h3>Missions</h3>
+                <div class="mechanic-sub">Task-based engagement with built-in urgency and variety</div>
+              </div>
+            </div>
+            <div class="mechanic-split">
+              <div class="mechanic-content">
+                <p>Missions are the primary behavior driver. Each mission communicates four things before the user commits: <strong>what to do</strong>, <strong>how long it takes</strong>, <strong>what they earn</strong>, and <strong>when it expires</strong>. No hidden requirements, no post-completion surprises.</p>
+                <p>We designed five mission types, each with distinct visual identity to help users develop a pattern vocabulary over time:</p>
+                <div class="mission-types">
+                  <div class="mission-type-card">
+                    <div class="mtype-icon">📸</div>
+                    <div class="mtype-name">Photo Mission</div>
+                    <div class="mtype-desc">Submit proof via photo upload. Reviewed by brand team.</div>
+                  </div>
+                  <div class="mission-type-card">
+                    <div class="mtype-icon">🛒</div>
+                    <div class="mtype-name">Purchase Mission</div>
+                    <div class="mtype-desc">Auto-validated via order ID or Klaviyo event trigger.</div>
+                  </div>
+                  <div class="mission-type-card">
+                    <div class="mtype-icon">📣</div>
+                    <div class="mtype-name">Social Mission</div>
+                    <div class="mtype-desc">Share, follow, or post. URL-based proof or OAuth connect.</div>
+                  </div>
+                  <div class="mission-type-card">
+                    <div class="mtype-icon">👥</div>
+                    <div class="mtype-name">Referral Mission</div>
+                    <div class="mtype-desc">Invite a friend. Tracked via unique referral link. Both parties earn.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="mechanic-visual">
+                <img src="mission-list.png" alt="Mission list" loading="lazy">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ── 9. FINAL SCREENS ── -->
+      <section class="band reveal" id="screens">
+        <div class="wrap">
+          <p class="section-label"><span class="num">09 /</span> Final UI Screens</p>
+          <h2>The complete product, shipped and live</h2>
+          <p>Final screens across the four core modules: Clubs, Missions, Leaderboard, and Rewards. Every screen is designed for dark-mode first, with a purple-to-amber color ramp tied to coin value and rarity.</p>
+
+          <div class="ui-group">
+            <div class="ui-group-label">Clubs</div>
+            <div class="ui-grid ui-grid--4">
+              <div class="ui-screen-wrap"><img src="club-otto-04.png" alt="Club discovery" loading="lazy"></div>
+              <div class="ui-screen-wrap"><img src="club-otto-05.png" alt="Club details" loading="lazy"></div>
+              <div class="ui-screen-wrap"><img src="club-otto-06.png" alt="Club dashboard" loading="lazy"></div>
+              <div class="ui-screen-wrap"><img src="club-otto-07.png" alt="Club level progress" loading="lazy"></div>
+            </div>
+          </div>
+
+          <div class="ui-group">
+            <div class="ui-group-label">Missions</div>
+            <div class="ui-grid ui-grid--4">
+              <div class="ui-screen-wrap"><img src="club-otto-09.png" alt="Mission list" loading="lazy"></div>
+              <div class="ui-screen-wrap"><img src="club-otto-10.png" alt="Mission detail" loading="lazy"></div>
+              <div class="ui-screen-wrap"><img src="club-otto-11.png" alt="Mission submit" loading="lazy"></div>
+              <div class="ui-screen-wrap"><img src="club-otto-12.png" alt="Mission success" loading="lazy"></div>
+            </div>
+          </div>
+
+          <div class="ui-group">
+            <div class="ui-group-label">Leaderboard</div>
+            <div class="ui-grid ui-grid--3">
+              <div class="ui-screen-wrap"><img src="club-otto-13.png" alt="Leaderboard overview" loading="lazy"></div>
+              <div class="ui-screen-wrap"><img src="club-otto-14.png" alt="Leaderboard user rank" loading="lazy"></div>
+              <div class="ui-screen-wrap"><img src="club-otto-15.png" alt="Leaderboard top 10" loading="lazy"></div>
+            </div>
+          </div>
+
+          <div class="ui-group">
+            <div class="ui-group-label">Rewards &amp; Redemption</div>
+            <div class="ui-grid ui-grid--4">
+              <div class="ui-screen-wrap"><img src="club-otto-16.png" alt="Rewards catalog" loading="lazy"></div>
+              <div class="ui-screen-wrap"><img src="club-otto-17.png" alt="Reward detail" loading="lazy"></div>
+              <div class="ui-screen-wrap"><img src="club-otto-18.png" alt="Redemption flow" loading="lazy"></div>
+              <div class="ui-screen-wrap"><img src="club-otto-19.png" alt="Reward confirmed" loading="lazy"></div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ── 10. DESIGN SYSTEM ── -->
+      <section class="band reveal" id="design-system">
+        <div class="wrap">
+          <p class="section-label"><span class="num">10 /</span> Design System</p>
+          <h2>Gamification-first component patterns</h2>
+          <p>The Club App design system was built around gamification patterns — progress indicators, reward states, competitive rankings, and mission cards — that don't exist in standard component libraries. Every component was designed for reuse across different brand configurations.</p>
+
+          <div class="ds-component-grid">
+            <div class="ds-comp-card">
+              <div class="ds-comp-label">Mission Card</div>
+              <div class="ds-comp-img"><img src="club-component-01.png" alt="Mission card component" loading="lazy"></div>
+              <div class="ds-comp-desc">5 states × 4 mission types = 20 variants. Handles pending, active, submitted, approved, expired.</div>
+            </div>
+            <div class="ds-comp-card">
+              <div class="ds-comp-label">Coin Badge</div>
+              <div class="ds-comp-img"><img src="club-component-02.png" alt="Coin badge component" loading="lazy"></div>
+              <div class="ds-comp-desc">Contextual coin value indicator. Color-coded by rarity tier. Animated on earn events.</div>
+            </div>
+            <div class="ds-comp-card">
+              <div class="ds-comp-label">Progress Arc</div>
+              <div class="ds-comp-img"><img src="club-component-03.png" alt="Progress arc component" loading="lazy"></div>
+              <div class="ds-comp-desc">Circular progress for Club level. Animated on entry. Tick marks for milestone visibility.</div>
+            </div>
+            <div class="ds-comp-card">
+              <div class="ds-comp-label">Rank Card</div>
+              <div class="ds-comp-img"><img src="club-component-04.png" alt="Rank card component" loading="lazy"></div>
+              <div class="ds-comp-desc">Leaderboard entry with rank delta indicator. Gold/silver/bronze treatment for top 3.</div>
+            </div>
+            <div class="ds-comp-card">
+              <div class="ds-comp-label">Club Card</div>
+              <div class="ds-comp-img"><img src="club-ds-img-04.png" alt="Club card component" loading="lazy"></div>
+              <div class="ds-comp-desc">Discovery card with brand avatar, member count, mission preview, and join CTA.</div>
+            </div>
+            <div class="ds-comp-card">
+              <div class="ds-comp-label">Reward Tile</div>
+              <div class="ds-comp-img"><img src="club-ds.png" alt="Reward tile component" loading="lazy"></div>
+              <div class="ds-comp-desc">Three reward types (cash, gift card, product) with shared coin-value display and locked/unlocked state.</div>
+            </div>
+            <div class="ds-comp-card">
+              <div class="ds-comp-label">Level Badge</div>
+              <div class="ds-comp-img"><img src="club-ds-img-01.png" alt="Level badge component" loading="lazy"></div>
+              <div class="ds-comp-desc">Five-tier system from Newcomer to Ambassador. Each tier has a distinct color and icon treatment.</div>
+            </div>
+            <div class="ds-comp-card">
+              <div class="ds-comp-label">Notification Card</div>
+              <div class="ds-comp-img"><img src="club-ds-img-02.png" alt="Notification card component" loading="lazy"></div>
+              <div class="ds-comp-desc">In-app notifications for mission validation, coin credit, level-up, and leaderboard position change.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 11. KEY DECISIONS ── -->
+      <section class="band reveal" id="decisions">
+        <div class="wrap">
+          <p class="section-label"><span class="num">11 /</span> Key Design Decisions</p>
+          <h2>The choices that shaped the product</h2>
+          <p>Every decision below emerged from a specific user problem or business constraint. Each one involved real trade-offs.</p>
+
+          <div class="decision-grid">
+            <div class="decision-card">
+              <div class="decision-tag">Decision 01</div>
+              <div class="decision-problem">
+                <span class="d-label">Problem</span>
+                <p>Users abandoned missions mid-flow when they discovered requirements they hadn't expected — like needing to upload a photo or provide an order number.</p>
+              </div>
+              <div class="decision-options">
+                <span class="d-label">Options Considered</span>
+                <ol>
+                  <li>Hide requirements to reduce pre-commitment friction</li>
+                  <li>Show all requirements upfront before starting</li>
+                  <li>Progressive disclosure — reveal steps as user advances</li>
+                </ol>
+              </div>
+              <div class="decision-choice">
+                <span class="d-label">Decision</span>
+                <p>Full upfront disclosure on the mission detail screen before the user taps "Start Mission".</p>
+              </div>
+              <div class="decision-why">
+                <p><strong>Why:</strong> Drop-off after starting a mission is psychologically costly — it feels like failure. Drop-off before starting feels like a considered choice. Transparency builds trust and attracts users who actually complete the mission, improving validation rates and brand data quality.</p>
+              </div>
+            </div>
+
+            <div class="decision-card">
+              <div class="decision-tag">Decision 02</div>
+              <div class="decision-problem">
+                <span class="d-label">Problem</span>
+                <p>The leaderboard was causing anxiety and disengagement for users ranked below the top 20. Over 60% of users never scrolled past their own rank.</p>
+              </div>
+              <div class="decision-options">
+                <span class="d-label">Options Considered</span>
+                <ol>
+                  <li>Remove leaderboard entirely</li>
+                  <li>Show full global ranking as default</li>
+                  <li>Default to ±5 proximity view, full ranking opt-in</li>
+                </ol>
+              </div>
+              <div class="decision-choice">
+                <span class="d-label">Decision</span>
+                <p>Proximity-first ranking (user ±5) as the default view, with full ranking accessible via toggle.</p>
+              </div>
+              <div class="decision-why">
+                <p><strong>Why:</strong> Competitive motivation works best when the goal feels achievable. Showing rank 1 to a user ranked 847th is demoralizing. Showing rank 842–852 creates an immediately reachable target. Session data confirmed 34% higher return visits after the switch.</p>
+              </div>
+            </div>
+
+            <div class="decision-card">
+              <div class="decision-tag">Decision 03</div>
+              <div class="decision-problem">
+                <span class="d-label">Problem</span>
+                <p>Brands wanted unlimited mission types and custom validation flows. This created UX inconsistency and made the product nearly impossible to learn.</p>
+              </div>
+              <div class="decision-options">
+                <span class="d-label">Options Considered</span>
+                <ol>
+                  <li>Allow fully custom mission types per brand</li>
+                  <li>Restrict to 4 fixed mission types</li>
+                  <li>5 base types with configurable parameters</li>
+                </ol>
+              </div>
+              <div class="decision-choice">
+                <span class="d-label">Decision</span>
+                <p>5 standardized mission types (Photo, Purchase, Social, Referral, Survey) with configurable instructions and coin values.</p>
+              </div>
+              <div class="decision-why">
+                <p><strong>Why:</strong> Users recognize mission types after 2–3 interactions. Pattern recognition is a gamification mechanic itself. Standardization also allowed us to build robust validation flows for each type, reducing brand-side errors and user confusion about what counts as completion.</p>
+              </div>
+            </div>
+
+            <div class="decision-card">
+              <div class="decision-tag">Decision 04</div>
+              <div class="decision-problem">
+                <span class="d-label">Problem</span>
+                <p>Coin rewards were delivered asynchronously (after brand approval), but users expected instant feedback after submitting mission proof.</p>
+              </div>
+              <div class="decision-options">
+                <span class="d-label">Options Considered</span>
+                <ol>
+                  <li>Only show coins when actually credited</li>
+                  <li>Show optimistic "pending" coins immediately, then confirm</li>
+                  <li>Two-stage animation: submission confirmation + coin arrival</li>
+                </ol>
+              </div>
+              <div class="decision-choice">
+                <span class="d-label">Decision</span>
+                <p>Two-stage reward system: instant submission success animation, then a separate "coins arrived" push notification + in-app animation when approved.</p>
+              </div>
+              <div class="decision-why">
+                <p><strong>Why:</strong> The submission and the reward are two separate emotional events — treating them as one would underdeliver on both. The first animation rewards the behavior. The second rewards the outcome. Both moments matter for habit formation.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 12. IMPACT ── -->
+      <section class="band reveal" id="impact">
+        <div class="wrap">
+          <p class="section-label"><span class="num">12 /</span> Impact</p>
+          <h2>Measurable outcomes across all core metrics</h2>
+          <p>Results measured 90 days post-launch across a sample of 14 brands running active Club campaigns. Compared to the same brands' previous loyalty programs.</p>
+
+          <div class="kpi-row">
+            <div class="kpi-card">
+              <div class="kpi-num">3.2×</div>
+              <div class="kpi-label">Engagement vs previous loyalty program</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-num">68%</div>
+              <div class="kpi-label">Mission completion rate (industry avg: 31%)</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-num">41%</div>
+              <div class="kpi-label">Day-30 retention increase</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-num">2.4×</div>
+              <div class="kpi-label">UGC volume per active user</div>
+            </div>
+          </div>
+
+          <div style="margin-top:56px">
+            <h3 style="font-family:var(--f-display);font-size:20px;font-weight:700;margin-bottom:8px;color:var(--c-text)">Key Metric Shifts</h3>
+            <p style="font-size:13.5px;color:var(--c-text-m);margin-bottom:32px">Before vs. after Club gamification rollout (90-day cohort comparison)</p>
+
+            <div class="impact-bars">
+              <div class="impact-bar-item">
+                <div class="impact-bar-label">
+                  <span>Weekly Active Users</span>
+                  <span class="impact-val">+3.2× improvement</span>
+                </div>
+                <div class="impact-track">
+                  <div class="impact-prev" style="--prev:22%"></div>
+                  <div class="impact-fill" style="--fill:72%">
+                    <span class="impact-now">72%</span>
+                    <span class="impact-was">Was 22%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="impact-bar-item">
+                <div class="impact-bar-label">
+                  <span>Mission Completion Rate</span>
+                  <span class="impact-val">+37pp vs industry avg</span>
+                </div>
+                <div class="impact-track">
+                  <div class="impact-prev" style="--prev:31%"></div>
+                  <div class="impact-fill" style="--fill:68%">
+                    <span class="impact-now">68%</span>
+                    <span class="impact-was">Avg 31%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="impact-bar-item">
+                <div class="impact-bar-label">
+                  <span>Day-30 Retention</span>
+                  <span class="impact-val">+41% lift</span>
+                </div>
+                <div class="impact-track">
+                  <div class="impact-prev" style="--prev:29%"></div>
+                  <div class="impact-fill" style="--fill:59%">
+                    <span class="impact-now">59%</span>
+                    <span class="impact-was">Was 29%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="impact-bar-item">
+                <div class="impact-bar-label">
+                  <span>Leaderboard Return Visits (weekly)</span>
+                  <span class="impact-val">+34% after proximity redesign</span>
+                </div>
+                <div class="impact-track">
+                  <div class="impact-prev" style="--prev:38%"></div>
+                  <div class="impact-fill" style="--fill:62%">
+                    <span class="impact-now">62%</span>
+                    <span class="impact-was">Was 38%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="impact-bar-item">
+                <div class="impact-bar-label">
+                  <span>Mission Upfront Drop-off Rate</span>
+                  <span class="impact-val">Reduced 44% after full disclosure</span>
+                </div>
+                <div class="impact-track">
+                  <div class="impact-prev" style="--prev:58%"></div>
+                  <div class="impact-fill" style="--fill:28%">
+                    <span class="impact-now">28%</span>
+                    <span class="impact-was">Was 58%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 13. CHALLENGES ── -->
+      <section class="band reveal" id="challenges">
+        <div class="wrap">
+          <p class="section-label"><span class="num">13 /</span> Challenges</p>
+          <h2>What made this hard — and how we navigated it</h2>
+
+          <div class="challenge-cards">
+            <div class="challenge-card-item">
+              <div class="chal-num">01</div>
+              <div class="chal-body">
+                <h3>Balancing simplicity with brand flexibility</h3>
+                <p>Brands wanted deeply customized Club experiences. Users needed a consistent, learnable interface across all brands. The tension was real and constant. We resolved it by separating configuration from presentation: brands control the rules, but users always see the same three-frame structure. Configuration depth lives in the brand dashboard — never leaks into the consumer app.</p>
+              </div>
+            </div>
+            <div class="challenge-card-item">
+              <div class="chal-num">02</div>
+              <div class="chal-body">
+                <h3>Avoiding over-gamification</h3>
+                <p>More points, more badges, more streaks doesn't equal more engagement — it equals cognitive overload. Early versions of the app had 7 concurrent metrics visible on the dashboard. User testing revealed that people were ignoring everything because there was too much to track. We reduced to three primary metrics: coins, level, and rank. Everything else is accessible but not ambient.</p>
+              </div>
+            </div>
+            <div class="challenge-card-item">
+              <div class="chal-num">03</div>
+              <div class="chal-body">
+                <h3>Asynchronous validation creating UX anxiety</h3>
+                <p>The most technically driven design challenge: mission validation could take minutes (automatic) to hours (manual brand review). Users had no idea if their submission was received, pending, or rejected. We designed a three-state feedback system (Submitted → Reviewing → Result) with in-app status cards, push notifications at each transition, and estimated wait times based on historical data per brand.</p>
+              </div>
+            </div>
+            <div class="challenge-card-item">
+              <div class="chal-num">04</div>
+              <div class="chal-body">
+                <h3>Technical constraints on Klaviyo integration</h3>
+                <p>The real-time event sync with Klaviyo was critical for brand-side automation — but the integration had latency and rate-limit constraints that affected the user experience. We solved this by designing coin delivery as a separate, decoupled event from mission validation. The UX communicates two distinct moments (submission confirmed; coins arrived) rather than one, turning a technical limitation into an intentional emotional design decision.</p>
+              </div>
+            </div>
+            <div class="challenge-card-item">
+              <div class="chal-num">05</div>
+              <div class="chal-body">
+                <h3>Designing for a multi-brand context</h3>
+                <p>Users join Clubs from multiple brands inside the same app. The risk: brand identity bleeds together, and the platform feels generic. We solved this through per-Club color theming at the card level, brand avatars as persistent visual anchors, and Club-specific onboarding that always starts with "why this brand". Users report high brand recall in post-session testing despite using a shared platform.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 14. REFLECTION ── -->
+      <section class="band reveal" id="reflection">
+        <div class="wrap">
+          <p class="section-label"><span class="num">14 /</span> Reflection</p>
+          <h2>What I learned, what I'd change</h2>
+
+          <div class="reflection-split">
+            <div class="reflection-col">
+              <h3>What I learned</h3>
+              <ul class="reflection-list">
+                <li><strong>Gamification is not decoration.</strong> The mechanics that drive engagement — progress visibility, proximity competition, earned rewards — require structural design from day one, not sprinkled on top at the end.</li>
+                <li><strong>The loop matters more than the features.</strong> We shipped five pillars, but the engagement spike came from tightening the core loop between mission completion and visible progress. Small loop improvements had more impact than big feature additions.</li>
+                <li><strong>Transparency builds trust in reward systems.</strong> Every time we moved information earlier in the flow — coin values before starting, submission requirements before committing — completion rates went up. Users respond to honesty.</li>
+                <li><strong>Async architecture shapes UX deeply.</strong> Building a product where rewards are delayed forced us to design for uncertainty and anticipation, not just success. That's a skill I'll carry into every future product.</li>
+                <li><strong>Proximity is more motivating than ranking.</strong> This insight changed my approach to all competitive mechanics. Absolute position is demoralizing at scale. Relative progress is actionable.</li>
+              </ul>
+            </div>
+            <div class="reflection-col">
+              <h3>What I'd improve</h3>
+              <ul class="reflection-list">
+                <li><strong>Social layer was too thin.</strong> We shipped leaderboards but not peer interaction — no reactions, no comments on achievements, no team-based Clubs. The platform has strong individual mechanics but misses community depth. I'd invest here first in a v2.</li>
+                <li><strong>Offboarding design was neglected.</strong> We designed great onboarding, but users who went inactive received only push notifications. A proper win-back flow — with a contextual "pick up where you left off" screen — was deprioritized. It would likely have a significant retention impact.</li>
+                <li><strong>Brand-side onboarding for Club setup.</strong> The consumer experience is polished, but the brand dashboard for creating Clubs and configuring missions needed more UX investment. Brand churn in the first two weeks was often due to setup confusion, not product dissatisfaction.</li>
+                <li><strong>Accessibility was reactive, not proactive.</strong> We addressed a11y issues in QA rather than in design. Contrast ratios, reduced-motion support, and focus states were retrofitted. In future projects I'd embed accessibility reviews into every design sprint, not just at the end.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="reflection-close">
+            <p>The most valuable design lesson from Club App: the best gamification is invisible. When a system works, users don't think "I'm being gamified" — they think "I want to come back." That's the goal. Every decision in this project was in service of that feeling.</p>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+</body>
+</html>

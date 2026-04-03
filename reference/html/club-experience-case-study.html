@@ -364,9 +364,7 @@
     }
 
     .section-band {
-      background: var(--c-bg2);
-      border-top: 1px solid var(--c-border);
-      border-bottom: 1px solid var(--c-border);
+      background: var(--c-bg);
     }
 
     /* TYPOGRAPHY */
@@ -747,19 +745,7 @@
     }
 
     .principles-section::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: -8%;
-      width: min(1000px, calc(100% + 64px));
-      height: 70%;
-      transform: translateX(-50%);
-      pointer-events: none;
-      z-index: 0;
-      background:
-        radial-gradient(ellipse 65% 50% at 20% 0%, rgba(150, 103, 247, 0.10) 0%, transparent 55%),
-        radial-gradient(ellipse 50% 45% at 95% 40%, rgba(97, 49, 196, 0.06) 0%, transparent 50%);
-      opacity: 0.9;
+      display: none;
     }
 
     .principles-section>.reveal,
@@ -907,12 +893,20 @@
       transform: scale(1.06);
     }
 
-    .principle-card--hero,
     .principle-card--wide {
       flex-direction: row;
       align-items: center;
       gap: clamp(16px, 3vw, 36px);
       min-height: clamp(168px, 20vw, 212px);
+    }
+
+    .principle-card--hero {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: 40px;
+      min-height: clamp(168px, 20vw, 212px);
+      padding-bottom: 24px;
     }
 
     .principle-card__copy {
@@ -924,13 +918,32 @@
       flex-direction: column;
       gap: 10px;
       justify-content: center;
+      height: fit-content;
     }
 
-    .principle-card--hero .pr-visual,
+    .principle-card--hero .principle-card__copy {
+      flex: 0 1 auto;
+      height: fit-content;
+    }
+
     .principle-card--wide .pr-visual {
       flex: 0 0 clamp(108px, 28%, 200px);
       min-height: clamp(100px, 22vw, 168px);
       margin: 0;
+    }
+
+    .principle-card--hero .pr-visual {
+      flex: none;
+      min-height: 0;
+      height: fit-content;
+      margin: 0;
+      align-self: flex-start;
+    }
+
+    .principle-card--hero .pr-visual__img {
+      height: 140px;
+      max-height: 140px;
+      width: auto;
     }
 
     .principle-card:not(.principle-card--hero):not(.principle-card--wide) h3 {
@@ -938,14 +951,19 @@
     }
 
     .principle-card--tall {
-      min-height: clamp(320px, 52vw, 460px);
+      min-height: clamp(500px, 65vw, 580px);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      overflow: hidden;
+      padding-bottom: 0 !important;
     }
 
     .principle-card--tall .pr-visual {
+      position: relative;
       flex: 1;
-      min-height: clamp(120px, 22vw, 200px);
-      margin-top: 4px;
-      margin-bottom: 16px;
+      margin: 20px -28px -2px;
+      overflow: hidden;
     }
 
     .pr-visual {
@@ -970,7 +988,17 @@
     }
 
     .principle-card--tall .pr-visual__img {
-      max-height: clamp(120px, 30vw, 240px);
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: auto;
+      height: calc(100% + 2px);
+      max-width: none;
+      max-height: none;
+      object-fit: contain;
+      border-radius: 0;
+      filter: drop-shadow(0 24px 48px rgba(0,0,0,0.55));
     }
 
     .principle-card:hover .pr-visual {
@@ -1010,18 +1038,29 @@
         grid-row: auto;
       }
 
-      .principle-card--hero,
       .principle-card--wide {
         flex-direction: column;
         align-items: stretch;
         min-height: 0;
       }
 
-      .principle-card--hero .pr-visual,
+      .principle-card--hero {
+        align-items: stretch;
+        min-height: 0;
+      }
+
       .principle-card--wide .pr-visual {
         flex: none;
         width: 100%;
         min-height: clamp(100px, 28vw, 140px);
+        order: -1;
+      }
+
+      .principle-card--hero .pr-visual {
+        flex: none;
+        width: 100%;
+        min-height: 0;
+        height: fit-content;
         order: -1;
       }
 
@@ -1822,19 +1861,19 @@
     </div>
     <div class="hero-eyebrow">UX Case Study · Mobile App</div>
     <h1 class="hero-title">
-      <span class="line-accent">Club</span><br>
-      <span>Experience</span><br>
-      <span class="line-dim">Redesign</span>
+      <span class="line-accent">Community</span><br>
+      <span>Marketing</span><br>
+      <span class="line-dim">Made Easy</span>
     </h1>
     <div class="hero-divider"></div>
     <div class="hero-meta">
       <div class="hero-meta-item">
         <label>Company</label>
-        <span>Brandbassador / Club</span>
+        <span>Club / Brandbassador</span>
       </div>
       <div class="hero-meta-item">
         <label>Product</label>
-        <span>Club — Ambassador &amp; Community Platform</span>
+        <span>Ambassador &amp; Community Platform</span>
       </div>
       <div class="hero-meta-item">
         <label>My Role</label>
@@ -1845,12 +1884,8 @@
         <span>Mobile App (iOS &amp; Android)</span>
       </div>
       <div class="hero-meta-item">
-        <label>Scope</label>
-        <span>UX Restructuring &amp; Engagement</span>
-      </div>
-      <div class="hero-meta-item">
         <label>Year</label>
-        <span>2024–2025</span>
+        <span>2023–2026</span>
       </div>
     </div>
     <div class="hero-scroll">
@@ -1882,20 +1917,6 @@
             </svg>
             What we do?
           </a></li>
-        <li><a href="#challenge" data-section="challenge">
-            <svg viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10" />
-              <line x1="12" y1="8" x2="12" y2="12" />
-              <line x1="12" y1="16" x2="12.01" y2="16" />
-            </svg>
-            The Challenge
-          </a></li>
-        <li><a href="#insight" data-section="insight">
-            <svg viewBox="0 0 24 24">
-              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-            </svg>
-            Key Insight
-          </a></li>
         <li><a href="#principles" data-section="principles">
             <svg viewBox="0 0 24 24">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -1922,7 +1943,15 @@
               <rect x="5" y="2" width="14" height="20" rx="2" />
               <line x1="12" y1="18" x2="12.01" y2="18" />
             </svg>
-            Screens
+            Product Flows
+          </a></li>
+        <li><a href="#website-ui" data-section="website-ui">
+            <svg viewBox="0 0 24 24">
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <line x1="8" y1="21" x2="16" y2="21" />
+              <line x1="12" y1="17" x2="12" y2="21" />
+            </svg>
+            Website UI
           </a></li>
         <div class="sidebar-sep"></div>
         <li><a href="#decisions" data-section="decisions">
@@ -1965,33 +1994,12 @@
         <div class="wrap">
           <div class="section-label"><span class="num">01</span> Overview</div>
           <h2>Built for engagement.<br>Designed for participation.</h2>
-          <p>Club connects brands with ambassadors through missions, rewards, and ongoing interaction.</p>
-          <p>As the platform scaled, the experience became harder to navigate. Features grew, but structure didn't.</p>
-          <p>The goal was to simplify the system — making actions clear, rewards visible, and progress easy to
-            understand.</p>
+          <p>Club connects brands with ambassadors through missions, rewards, and ongoing interaction. As the platform scaled, structure didn't keep up — the goal was to make actions clear, rewards visible, and progress easy to understand.</p>
 
           <div class="overview-video-wrap">
             <video src="/videos/club-intro.mp4" autoplay muted loop playsinline></video>
           </div>
 
-          <div class="kpi-row">
-            <div class="kpi-card">
-              <div class="kpi-num">550+</div>
-              <div class="kpi-label">Brands</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-num">1M+</div>
-              <div class="kpi-label">Members</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-num">3</div>
-              <div class="kpi-label">Core pillars</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-num">15yr</div>
-              <div class="kpi-label">Experience</div>
-            </div>
-          </div>
 
           <div class="process-steps">
             <div class="process-step">
@@ -2018,9 +2026,7 @@
         <div class="wrap">
           <div class="section-label">What we do?</div>
           <h2>Connecting brands with<br>the people who love them.</h2>
-          <p>Club is an ambassador marketing platform that turns genuine fans into brand advocates — giving them
-            missions to complete, rewards to earn, and a community to belong to. Brands get authentic content and
-            measurable ROI. Members get real value for real influence.</p>
+          <p>An ambassador platform that turns fans into brand advocates — missions, rewards, and community in one place.</p>
 
           <div class="what-we-do-img">
             <img src="/images/projects/club-tie/club-trust.png"
@@ -2172,39 +2178,34 @@
           <div class="principles-grid principles-grid--bento reveal">
             <div class="principle-card principle-card--tall">
               <h3>Clarity Over Capability</h3>
+              <p>Surface what's relevant now. Hide the rest until needed.</p>
               <div class="pr-visual" aria-hidden="true"><img class="pr-visual__img" src="club-exp-principle-clarity.png"
                   alt="" width="400" height="400" /></div>
-              <p>Show users what they can do right now — not everything they could ever do. Surface the most relevant
-                missions and hide the rest until needed.</p>
             </div>
             <div class="principle-card principle-card--hero">
               <div class="principle-card__copy">
                 <h3>Reward Visibility</h3>
-                <p>Every mission should show its reward upfront, above the fold. Users should never have to hunt for
-                  what they're earning — it should be impossible to miss.</p>
+                <p>Show the reward upfront — users should never have to hunt for what they're earning.</p>
               </div>
-              <div class="pr-visual" aria-hidden="true"><img class="pr-visual__img" src="club-exp-principle-reward.png"
+              <div class="pr-visual" aria-hidden="true"><img class="pr-visual__img" src="tie-reward.png"
                   alt="" width="400" height="400" /></div>
             </div>
             <div class="principle-card">
               <h3>Momentum by Design</h3>
               <div class="pr-visual" aria-hidden="true"><img class="pr-visual__img"
                   src="club-exp-principle-momentum.png" alt="" width="400" height="400" /></div>
-              <p>Every completed action should lead naturally to the next. Use progress indicators, streaks, and
-                level-up moments to keep users moving forward.</p>
+              <p>Each action leads to the next. Progress indicators and streaks keep momentum alive.</p>
             </div>
             <div class="principle-card">
               <h3>Trust Through Transparency</h3>
               <div class="pr-visual" aria-hidden="true"><img class="pr-visual__img" src="club-exp-principle-trust.png"
                   alt="" width="400" height="400" /></div>
-              <p>Be explicit about how rewards are earned, when they'll be paid, and what's required. Ambiguity kills
-                participation — clarity builds it.</p>
+              <p>Be explicit about how rewards are earned and when they're paid. Ambiguity kills participation.</p>
             </div>
             <div class="principle-card principle-card--wide">
               <div class="principle-card__copy">
                 <h3>Status as Motivation</h3>
-                <p>People care about where they stand. Leaderboards, club levels, and ambassador tiers should feel
-                  aspirational — within reach, worth chasing.</p>
+                <p>Leaderboards and tiers should feel aspirational — within reach, worth chasing.</p>
               </div>
               <div class="pr-visual" aria-hidden="true"><img class="pr-visual__img" src="club-exp-principle-status.png"
                   alt="" width="400" height="400" /></div>
@@ -2213,99 +2214,48 @@
               <h3>System Consistency</h3>
               <div class="pr-visual" aria-hidden="true"><img class="pr-visual__img"
                   src="club-exp-principle-consistency.png" alt="" width="400" height="400" /></div>
-              <p>Whether in their first brand community or their tenth, the experience language should feel familiar.
-                Patterns should be learnable and predictable.</p>
+              <p>The experience language should feel familiar across every brand — learnable and predictable.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ── 06 · EXPERIENCE ARCHITECTURE ─────────────────────── -->
-      <section id="architecture" class="section-band reveal">
-        <div class="wrap">
-          <div class="section-label"><span class="num">05</span> Experience Architecture</div>
-          <h2>From hierarchy to journey.</h2>
-          <p>The existing IA was organised around features. The redesigned architecture is organised around the user's
-            journey — from discovery to deep participation. Each layer builds on the previous one.</p>
+      <style>
+        .ss-strip--stack { display: flex; flex-direction: column; gap: 0; width: 100%; max-width: 1100px; margin: 56px auto; padding: 0 48px; box-sizing: border-box; }
+        .ss-strip--stack .ss-cell-sticky-wrap { position: sticky; top: calc(56px + (var(--card-z, 1) - 1) * 32px); z-index: var(--card-z, 1); padding-bottom: 24px; }
+        .ss-strip--stack .ss-cell-sticky-wrap:last-child { padding-bottom: 0; }
+        .ss-strip--stack .ss-cell { width: 100%; aspect-ratio: 16 / 9; position: relative; overflow: hidden; background: var(--c-bg3, #1a1a1a); border-radius: 20px; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 16px 48px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04); }
+        .ss-strip--stack .ss-cell img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.45s cubic-bezier(0.22,1,0.36,1); }
+        .ss-strip--stack .ss-cell:hover img { transform: scale(1.03); }
+        .ss-strip--stack .ss-cell .ss-lbl { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.78); backdrop-filter: blur(8px); padding: 12px 16px; font-size: 11px; color: rgba(255,255,255,0.6); letter-spacing: 0.06em; text-transform: uppercase; transform: translateY(100%); transition: transform 0.3s; }
+        .ss-strip--stack .ss-cell:hover .ss-lbl { transform: translateY(0); }
+        @media (max-width: 768px) {
+          .ss-strip--stack { margin: 40px auto; padding: 0 20px; }
+          .ss-strip--stack .ss-cell-sticky-wrap { top: calc(56px + (var(--card-z, 1) - 1) * 24px); padding-bottom: 20px; }
+          .ss-strip--stack .ss-cell { border-radius: 16px; }
+        }
+      </style>
 
-          <div class="arch-layers">
-            <div class="arch-layer l0">
-              <div class="arch-lbl">
-                <span class="tier">Entry Point</span>
-                <span class="name">Discovery</span>
-              </div>
-              <div class="arch-items">
-                <div class="arch-item">Brand Search</div>
-                <div class="arch-item">Category Browse</div>
-                <div class="arch-item">Recommendations</div>
-                <div class="arch-item">Invite Links</div>
-                <div class="arch-item">Instagram / TikTok</div>
-              </div>
-            </div>
-            <div class="arch-layer l1">
-              <div class="arch-lbl">
-                <span class="tier">Brand Home</span>
-                <span class="name">Overview</span>
-              </div>
-              <div class="arch-items">
-                <div class="arch-item">Brand Profile</div>
-                <div class="arch-item">Mission Feed</div>
-                <div class="arch-item">Community Wall</div>
-                <div class="arch-item">Leaderboard</div>
-                <div class="arch-item">My Activity</div>
-              </div>
-            </div>
-            <div class="arch-layer l2">
-              <div class="arch-lbl">
-                <span class="tier">Core Loop</span>
-                <span class="name">Missions</span>
-              </div>
-              <div class="arch-items">
-                <div class="arch-item">Mission Detail</div>
-                <div class="arch-item">Task List</div>
-                <div class="arch-item">Submission</div>
-                <div class="arch-item">Proof Upload</div>
-                <div class="arch-item">Review Status</div>
-              </div>
-            </div>
-            <div class="arch-layer l3">
-              <div class="arch-lbl">
-                <span class="tier">Retention</span>
-                <span class="name">Rewards &amp; Progress</span>
-              </div>
-              <div class="arch-items">
-                <div class="arch-item">Cash Rewards</div>
-                <div class="arch-item">Gift Cards</div>
-                <div class="arch-item">Free Products</div>
-                <div class="arch-item">Club Levels</div>
-                <div class="arch-item">Affiliate Codes</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="arch-legend">
-            <div class="arch-legend-item">
-              <div class="arch-legend-dot" style="background: var(--c-accent);"></div>
-              Highest user intent
-            </div>
-            <div class="arch-legend-item">
-              <div class="arch-legend-dot" style="background: rgba(150, 103, 247,0.5);"></div>
-              Mid journey
-            </div>
-            <div class="arch-legend-item">
-              <div class="arch-legend-dot" style="background: rgba(150, 103, 247,0.25);"></div>
-              Retention depth
-            </div>
-            <div class="arch-legend-item" style="margin-left: auto;">
-              <svg viewBox="0 0 24 24"
-                style="width:14px;height:14px;stroke:var(--c-text-d);fill:none;stroke-width:1.5;stroke-linecap:round;">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-              <span>Hover rows to explore</span>
-            </div>
-          </div>
+      <div class="ss-strip--stack">
+        <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
+          <div class="ss-cell"><img src="club-exp-01.png" alt="Club experience 1" loading="lazy" decoding="async"><div class="ss-lbl">Experience</div></div>
         </div>
-      </section>
+        <div class="ss-cell-sticky-wrap reveal" style="--card-z: 2">
+          <div class="ss-cell"><img src="club-exp-02.png" alt="Club experience 2" loading="lazy" decoding="async"><div class="ss-lbl">Experience</div></div>
+        </div>
+        <div class="ss-cell-sticky-wrap reveal" style="--card-z: 3">
+          <div class="ss-cell"><img src="club-exp-03.png" alt="Club experience 3" loading="lazy" decoding="async"><div class="ss-lbl">Experience</div></div>
+        </div>
+        <div class="ss-cell-sticky-wrap reveal" style="--card-z: 4">
+          <div class="ss-cell"><img src="club-exp-04.png" alt="Club experience 4" loading="lazy" decoding="async"><div class="ss-lbl">Experience</div></div>
+        </div>
+        <div class="ss-cell-sticky-wrap reveal" style="--card-z: 5">
+          <div class="ss-cell"><img src="club-exp-05.png" alt="Club experience 5" loading="lazy" decoding="async"><div class="ss-lbl">Experience</div></div>
+        </div>
+        <div class="ss-cell-sticky-wrap reveal" style="--card-z: 6">
+          <div class="ss-cell"><img src="club-exp-06.png" alt="Club experience 6" loading="lazy" decoding="async"><div class="ss-lbl">Experience</div></div>
+        </div>
+      </div>
 
       <!-- ── 07 · CORE USER FLOW ───────────────────────────────── -->
       <section id="user-flow" class="reveal">
@@ -2533,159 +2483,368 @@
         </div>
       </section>
 
-      <!-- ── 08 · SCREENS & FLOWS ──────────────────────────────── -->
+      <!-- ── 08 · PRODUCT FLOWS ───────────────────────────────── -->
       <section id="screens" class="section-band reveal">
         <div class="wrap">
-          <div class="section-label"><span class="num">07</span> Screens &amp; Flows</div>
-          <h2>The work in detail.</h2>
-          <p>Four core areas were redesigned. Each group shows the screens alongside the problem they solve and the
-            reasoning behind the design decisions.</p>
+          <div class="section-label"><span class="num">07</span> Product Flows</div>
+          <h2>How the app works,<br>end to end.</h2>
+          <p>Eight user journeys that define the Club experience. Each flow shows the key steps a user takes — from first
+            open to loyal ambassador — with emphasis on decision points, emotional moments, and earned rewards.</p>
+        </div>
 
-          <!-- A: Brand Overview -->
-          <div class="screens-group">
-            <div class="screen-group-header">
-              <span class="screen-group-num">A</span>
-              <span class="screen-group-title">Overview &amp; Brand Discovery</span>
+        <!-- ─── 01 · ONBOARDING ─────────────────────────────────────── -->
+        <div class="pf-flow reveal">
+          <div class="wrap pf-header">
+            <div class="pf-meta">
+              <span class="pf-index">01</span>
+              <div>
+                <h3 class="pf-title">Onboarding Flow</h3>
+                <p class="pf-desc">The user's first impression. From splash screen to joined community — the goal is to
+                  communicate value and reduce friction before the first mission is taken.</p>
+              </div>
             </div>
-            <p class="screen-group-desc">The brand page was the most visited screen but the least optimised. It needed
-              to act as a command centre — showing the most relevant missions, community activity, and earnings in a
-              single view.</p>
-            <div class="screen-grid screen-grid--2">
-              <div class="screen-cell">
-                <img src="/images/projects/club-tie/brand-template.png"
-                  alt="Brand page template showing missions, earn, and activity sections">
-                <div class="sc-lbl">
-                  <h4>Brand Page Template</h4>
-                  <p>Standardised layout with Missions, Wall, Earn, and Activity tabs — consistent across all 550+
-                    brands, with brand-specific customisation in the cover and bio.</p>
-                </div>
-              </div>
-              <div class="screen-cell">
-                <img src="/images/projects/club-tie/App%20template%2010.png"
-                  alt="App template showing the full brand experience structure">
-                <div class="sc-lbl">
-                  <h4>Full App Template</h4>
-                  <p>The unified template approach reduced brand setup time significantly while ensuring every community
-                    member gets a predictable, trustworthy experience.</p>
-                </div>
-              </div>
+            <div class="pf-steps">
+              <span class="pf-step">Splash &amp; Sign Up</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Discover Brands</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Join First Club</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Club Overview</span>
             </div>
           </div>
-
-          <!-- B: Missions -->
-          <div class="screens-group">
-            <div class="screen-group-header">
-              <span class="screen-group-num">B</span>
-              <span class="screen-group-title">Missions</span>
+          <div class="ss-strip ss-strip--stack">
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
+              <div class="ss-cell"><img src="/images/projects/club-tie/onboarding-screen-01.png" alt="Splash and sign up screen" loading="lazy" decoding="async"><div class="ss-lbl">Splash &amp; Sign Up</div></div>
             </div>
-            <p class="screen-group-desc">Missions are the heart of the platform. The challenge was to make available
-              missions instantly scannable, showing reward, effort, and deadline at a glance — without overwhelming
-              users with detail.</p>
-            <div class="screen-grid screen-grid--3">
-              <div class="screen-cell">
-                <img src="/images/projects/club-tie/Missions.png" alt="Missions overview screen">
-                <div class="sc-lbl">
-                  <h4>Mission Overview</h4>
-                  <p>A clean feed showing Available, In Progress, and Needs Attention states — reward amount always
-                    visible in the top right.</p>
-                </div>
-              </div>
-              <div class="screen-cell">
-                <img src="/images/projects/club-tie/mission-header.png" alt="Mission header with reward amount">
-                <div class="sc-lbl">
-                  <h4>Mission Header</h4>
-                  <p>Reward amount, type, and deadline shown above the fold on every mission. Users should never scroll
-                    to find what they're working towards.</p>
-                </div>
-              </div>
-              <div class="screen-cell">
-                <img src="/images/projects/club-tie/mission-list.png" alt="Mission list">
-                <div class="sc-lbl">
-                  <h4>Mission List</h4>
-                  <p>Compact card format allows users to scan multiple missions quickly. The reward badge is
-                    colour-coded by type for immediate recognition.</p>
-                </div>
-              </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 2">
+              <div class="ss-cell"><img src="/images/projects/club-tie/onboarding-screen-02.png" alt="Discover brands screen" loading="lazy" decoding="async"><div class="ss-lbl">Discover Brands</div></div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 3">
+              <div class="ss-cell"><img src="/images/projects/club-tie/onboarding-screen-03.png" alt="Join first club screen" loading="lazy" decoding="async"><div class="ss-lbl">Join First Club</div></div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 4">
+              <div class="ss-cell"><img src="/images/projects/club-tie/onboarding-screen-04.png" alt="Club overview after joining" loading="lazy" decoding="async"><div class="ss-lbl">Club Overview</div></div>
             </div>
           </div>
+        </div>
 
-          <!-- C: Rewards -->
-          <div class="screens-group">
-            <div class="screen-group-header">
-              <span class="screen-group-num">C</span>
-              <span class="screen-group-title">Rewards System</span>
+        <!-- ─── 02 · HOME / DASHBOARD ───────────────────────────────── -->
+        <div class="pf-flow reveal">
+          <div class="wrap pf-header">
+            <div class="pf-meta">
+              <span class="pf-index">02</span>
+              <div>
+                <h3 class="pf-title">Home &amp; Dashboard Flow</h3>
+                <p class="pf-desc">The command centre. On every session open, the user needs to know their current
+                  standing, what's new, and what action to take next — without a single extra tap.</p>
+              </div>
             </div>
-            <p class="screen-group-desc">Three reward types — Cash, Gift Cards, and Free Products — each needed a
-              distinct visual identity. The redesign introduced a reward icon system and consistent card layouts that
-              make the reward type unmistakable.</p>
-            <div class="screen-grid screen-grid--4">
-              <div class="screen-cell screen-cell--natural">
-                <img src="/images/projects/club-tie/Cash%20reward.png" alt="Cash reward UI component">
-                <div class="sc-lbl">
-                  <h4>Cash Reward</h4>
-                  <p>Green currency icon with real-time earning estimate shown inline.</p>
-                </div>
-              </div>
-              <div class="screen-cell screen-cell--natural">
-                <img src="/images/projects/club-tie/Gift%20Card%20reward.png" alt="Gift card reward UI">
-                <div class="sc-lbl">
-                  <h4>Gift Card</h4>
-                  <p>Distinct card icon with brand logo — shows fixed value clearly upfront.</p>
-                </div>
-              </div>
-              <div class="screen-cell screen-cell--natural">
-                <img src="/images/projects/club-tie/Product%20reward.png" alt="Free product reward UI">
-                <div class="sc-lbl">
-                  <h4>Free Product</h4>
-                  <p>Product imagery with estimated retail value and shipping indicator.</p>
-                </div>
-              </div>
-              <div class="screen-cell screen-cell--natural">
-                <img src="/images/projects/club-tie/Reward%20icon%20group.png" alt="Reward icon system">
-                <div class="sc-lbl">
-                  <h4>Icon System</h4>
-                  <p>Three icons distinct in shape, colour, and metaphor — learnable in one session, recognisable
-                    forever.</p>
-                </div>
-              </div>
+            <div class="pf-steps">
+              <span class="pf-step">Home Feed</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Brand Dashboard</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Earnings Summary</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Activity Feed</span>
             </div>
           </div>
+          <div class="ss-strip ss-strip--stack">
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
+              <div class="ss-cell"><img src="/images/projects/club-tie/dashboard-screen-01.png" alt="Home feed screen" loading="lazy" decoding="async"><div class="ss-lbl">Home Feed</div></div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 2">
+              <div class="ss-cell"><img src="/images/projects/club-tie/dashboard-screen-02.png" alt="Brand dashboard screen" loading="lazy" decoding="async"><div class="ss-lbl">Brand Dashboard</div></div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 3">
+              <div class="ss-cell"><img src="/images/projects/club-tie/dashboard-screen-03.png" alt="Earnings summary screen" loading="lazy" decoding="async"><div class="ss-lbl">Earnings Summary</div></div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 4">
+              <div class="ss-cell"><img src="/images/projects/club-tie/dashboard-screen-04.png" alt="Activity feed screen" loading="lazy" decoding="async"><div class="ss-lbl">Activity Feed</div></div>
+            </div>
+          </div>
+        </div>
 
-          <!-- D: Templates -->
-          <div class="screens-group">
-            <div class="screen-group-header">
-              <span class="screen-group-num">D</span>
-              <span class="screen-group-title">Templates &amp; System Components</span>
-            </div>
-            <p class="screen-group-desc">To scale consistency across 550+ brands, a mission template system was built —
-              allowing brands to create high-quality missions from proven structures rather than starting from scratch.
-            </p>
-            <div class="screen-grid screen-grid--2">
-              <div class="screen-cell">
-                <img src="/images/projects/club-tie/templates-band-no-mission-list@2x.png" alt="Mission template band">
-                <div class="sc-lbl">
-                  <h4>Template Band</h4>
-                  <p>A horizontal scrollable band of mission templates categorised by goal type — Content, Sales,
-                    Community, and Feedback — dramatically reducing brand setup time.</p>
-                </div>
-              </div>
-              <div class="screen-cell screen-cell--natural">
-                <img src="/images/projects/club-tie/Value.png" alt="Value component">
-                <div class="sc-lbl">
-                  <h4>Value &amp; Stats Component</h4>
-                  <p>A reusable data visualisation component showing mission reach, engagement, and ROI — giving brands
-                    confidence and users context.</p>
-                </div>
+        <!-- ─── 03 · BRAND INTERACTION ─────────────────────────────── -->
+        <div class="pf-flow reveal">
+          <div class="wrap pf-header">
+            <div class="pf-meta">
+              <span class="pf-index">03</span>
+              <div>
+                <h3 class="pf-title">Brand Interaction Flow</h3>
+                <p class="pf-desc">How users explore brands, view campaigns, and engage with brand missions — from browsing the brand list to joining a campaign and starting their first action.</p>
               </div>
             </div>
+            <div class="pf-steps">
+              <span class="pf-step">Brands List</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Brand Profile</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Campaigns</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Campaign Details</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Join Mission</span>
+            </div>
+          </div>
+          <div class="ss-strip ss-strip--stack">
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
+              <div class="ss-cell"><img src="brand-screen-01.png" alt="Brands list screen" loading="lazy" decoding="async"><div class="ss-lbl">Brands List</div></div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 2">
+              <div class="ss-cell"><img src="brand-screen-02.png" alt="Brand profile screen" loading="lazy" decoding="async"><div class="ss-lbl">Brand Profile</div></div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 3">
+              <div class="ss-cell"><img src="brand-screen-03.png" alt="Campaign list inside brand" loading="lazy" decoding="async"><div class="ss-lbl">Campaigns</div></div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 4">
+              <div class="ss-cell"><img src="brand-screen-04.png" alt="Campaign details screen" loading="lazy" decoding="async"><div class="ss-lbl">Campaign Details</div></div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 5">
+              <div class="ss-cell"><img src="brand-screen-05.png" alt="Join mission screen" loading="lazy" decoding="async"><div class="ss-lbl">Join Mission</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── 04 · MISSIONS ───────────────────────────────────────── -->
+        <div class="pf-flow reveal">
+          <div class="wrap pf-header">
+            <div class="pf-meta">
+              <span class="pf-index">04</span>
+              <div>
+                <h3 class="pf-title">Missions Flow <span class="pf-tag">Core Experience</span></h3>
+                <p class="pf-desc">The primary engagement loop. The user selects a mission, completes a real-world
+                  action, submits proof, and waits for validation — all within a flow designed to minimise
+                  drop-off at every step.</p>
+              </div>
+            </div>
+            <div class="pf-steps">
+              <span class="pf-step">Mission List</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Mission Detail</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Submit Proof</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Confirmation</span>
+            </div>
+          </div>
+          <div class="ss-strip ss-strip--stack">
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
+              <div class="ss-cell"><img src="/images/projects/club-tie/missions-screen-01.png" alt="Mission list screen" loading="lazy" decoding="async"><div class="ss-lbl">Mission List</div></div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 2">
+              <div class="ss-cell"><img src="/images/projects/club-tie/missions-screen-02.png" alt="Mission detail screen" loading="lazy" decoding="async"><div class="ss-lbl">Mission Detail</div></div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 3">
+              <div class="ss-cell"><img src="/images/projects/club-tie/missions-screen-03.png" alt="Submit proof screen" loading="lazy" decoding="async"><div class="ss-lbl">Submit Proof</div></div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 4">
+              <div class="ss-cell"><img src="/images/projects/club-tie/missions-screen-04.png" alt="Mission submitted confirmation" loading="lazy" decoding="async"><div class="ss-lbl">Submitted ✓</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── 05 · WALLET ─────────────────────────────────────────── -->
+        <div class="pf-flow reveal">
+          <div class="wrap pf-header">
+            <div class="pf-meta">
+              <span class="pf-index">05</span>
+              <div>
+                <h3 class="pf-title">Wallet Flow</h3>
+                <p class="pf-desc">Where earned value becomes real. The wallet shows coin balance, transaction history,
+                  and pending earnings — giving users a clear, trusted picture of what they've built.</p>
+              </div>
+            </div>
+            <div class="pf-steps">
+              <span class="pf-step">Wallet Overview</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Balance &amp; History</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Pending Earnings</span>
+            </div>
+          </div>
+          <div class="ss-strip ss-strip--stack">
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
+              <div class="ss-cell"><img src="/images/projects/club-tie/wallet-screen-01.png" alt="Wallet overview screen" loading="lazy" decoding="async"><div class="ss-lbl">Wallet Overview</div></div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 2">
+              <div class="ss-cell"><img src="/images/projects/club-tie/wallet-screen-02.png" alt="Balance and transaction history" loading="lazy" decoding="async"><div class="ss-lbl">Balance &amp; History</div></div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 3">
+              <div class="ss-cell"><img src="/images/projects/club-tie/wallet-screen-03.png" alt="Pending earnings screen" loading="lazy" decoding="async"><div class="ss-lbl">Pending Earnings</div></div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 4">
+              <div class="ss-cell"><img src="wallet-screen-04.png" alt="Wallet screen 4" loading="lazy" decoding="async"><div class="ss-lbl">Wallet</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── 06 · PROGRESS & GAMIFICATION ────────────────────────── -->
+        <div class="pf-flow reveal">
+          <div class="wrap pf-header">
+            <div class="pf-meta">
+              <span class="pf-index">06</span>
+              <div>
+                <h3 class="pf-title">Progress &amp; Gamification Flow</h3>
+                <p class="pf-desc">The recognition loop. Users see their rank climb, levels unlock, and badges
+                  accumulate — each moment designed to feel earned, not automatic.</p>
+              </div>
+            </div>
+            <div class="pf-steps">
+              <span class="pf-step">Leaderboard</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Level Progress</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Level Up!</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Badges &amp; Achievements</span>
+            </div>
+          </div>
+          <div class="ss-strip ss-strip--stack">
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
+              <div class="ss-cell"><img src="/images/projects/club-tie/progress-screen-01.png" alt="Leaderboard screen" loading="lazy" decoding="async"><div class="ss-lbl">Leaderboard</div></div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 2">
+              <div class="ss-cell"><img src="/images/projects/club-tie/progress-screen-02.png" alt="Level progress screen" loading="lazy" decoding="async"><div class="ss-lbl">Level Progress</div></div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 3">
+              <div class="ss-cell"><img src="/images/projects/club-tie/progress-screen-03.png" alt="Level up celebration screen" loading="lazy" decoding="async"><div class="ss-lbl">Level Up!</div></div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 4">
+              <div class="ss-cell"><img src="/images/projects/club-tie/progress-screen-04.png" alt="Badges and achievements screen" loading="lazy" decoding="async"><div class="ss-lbl">Badges &amp; Achievements</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── 07 · BRAND HUB ──────────────────────────────────────── -->
+        <div class="pf-flow reveal">
+          <div class="wrap pf-header">
+            <div class="pf-meta">
+              <span class="pf-index">07</span>
+              <div>
+                <h3 class="pf-title">Brand Hub Flow</h3>
+                <p class="pf-desc">How users explore and engage with a brand's Club. From discovery to deep
+                  membership — the brand page acts as a living hub showing missions, community activity,
+                  and the user's personal standing.</p>
+              </div>
+            </div>
+            <div class="pf-steps">
+              <span class="pf-step">Brand Discovery</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Brand Page</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Community Wall</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">My Contributions</span>
+            </div>
+          </div>
+          <div class="ss-strip ss-strip--stack">
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
+              <div class="ss-cell"><img src="brand-hub-screen-01.png" alt="Brand discovery screen" loading="lazy" decoding="async"><div class="ss-lbl">Brand Discovery</div></div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 2">
+              <div class="ss-cell"><img src="brand-hub-screen-02.png" alt="Brand page screen" loading="lazy" decoding="async"><div class="ss-lbl">Brand Page</div></div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 3">
+              <div class="ss-cell"><img src="brand-hub-screen-03.png" alt="Community wall screen" loading="lazy" decoding="async"><div class="ss-lbl">Community Wall</div></div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 4">
+              <div class="ss-cell"><img src="brand-hub-screen-04.png" alt="My contributions screen" loading="lazy" decoding="async"><div class="ss-lbl">My Contributions</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── 08 · NOTIFICATIONS ──────────────────────────────────── -->
+        <div class="pf-flow reveal">
+          <div class="wrap pf-header">
+            <div class="pf-meta">
+              <span class="pf-index">08</span>
+              <div>
+                <h3 class="pf-title">Notifications Flow</h3>
+                <p class="pf-desc">The re-engagement layer. Push notifications and in-app alerts bring users back
+                  at the right moment — mission approved, coins arrived, rank changed. Designed to inform,
+                  not interrupt.</p>
+              </div>
+            </div>
+            <div class="pf-steps">
+              <span class="pf-step">Push Alert</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">In-App Inbox</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Notification Detail</span>
+            </div>
+          </div>
+          <div class="ss-strip ss-strip--stack">
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
+              <div class="ss-cell"><img src="/images/projects/club-tie/notifications-screen-01.png" alt="Push notification screen" loading="lazy" decoding="async"><div class="ss-lbl">Push Alert</div></div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 2">
+              <div class="ss-cell"><img src="/images/projects/club-tie/notifications-screen-02.png" alt="In-app notification inbox" loading="lazy" decoding="async"><div class="ss-lbl">In-App Inbox</div></div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 3">
+              <div class="ss-cell"><img src="/images/projects/club-tie/notifications-screen-03.png" alt="Notification detail screen" loading="lazy" decoding="async"><div class="ss-lbl">Notification Detail</div></div>
+            </div>
+          </div>
+        </div>
+
+
+      </section>
+
+      <!-- ── WEBSITE UI ────────────────────────────────────────── -->
+      <section id="website-ui" class="reveal">
+        <div class="wrap">
+          <div class="section-label"><span class="num">08</span> Website UI</div>
+          <h2>The marketing<br>website experience.</h2>
+          <p>Designed to visually communicate the Club product — from gamification mechanics like missions and clubs to the rewards system. Each section of the site uses storytelling and immersive visuals to help users understand and feel the experience before they even sign up.</p>
+        </div>
+        <div class="ss-strip ss-strip--stack">
+          <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
+            <div class="ss-cell"><img src="/images/projects/club-tie/website-ui-01.png" alt="Website section 1" loading="lazy" decoding="async"><div class="ss-lbl">Website UI</div></div>
+          </div>
+          <div class="ss-cell-sticky-wrap reveal" style="--card-z: 2">
+            <div class="ss-cell"><img src="/images/projects/club-tie/website-ui-02.png" alt="Website section 2" loading="lazy" decoding="async"><div class="ss-lbl">Website UI</div></div>
+          </div>
+          <div class="ss-cell-sticky-wrap reveal" style="--card-z: 3">
+            <div class="ss-cell"><img src="/images/projects/club-tie/website-ui-03.png" alt="Website section 3" loading="lazy" decoding="async"><div class="ss-lbl">Website UI</div></div>
+          </div>
+          <div class="ss-cell-sticky-wrap reveal" style="--card-z: 4">
+            <div class="ss-cell"><img src="/images/projects/club-tie/website-ui-04.png" alt="Website section 4" loading="lazy" decoding="async"><div class="ss-lbl">Website UI</div></div>
+          </div>
+          <div class="ss-cell-sticky-wrap reveal" style="--card-z: 5">
+            <div class="ss-cell"><img src="/images/projects/club-tie/website-ui-05.png" alt="Website section 5" loading="lazy" decoding="async"><div class="ss-lbl">Website UI</div></div>
+          </div>
+          <div class="ss-cell-sticky-wrap reveal" style="--card-z: 6">
+            <div class="ss-cell"><img src="/images/projects/club-tie/website-ui-06.png" alt="Website section 6" loading="lazy" decoding="async"><div class="ss-lbl">Website UI</div></div>
+          </div>
+          <div class="ss-cell-sticky-wrap reveal" style="--card-z: 7">
+            <div class="ss-cell"><img src="/images/projects/club-tie/website-ui-07.png" alt="Website section 7" loading="lazy" decoding="async"><div class="ss-lbl">Website UI</div></div>
+          </div>
+          <div class="ss-cell-sticky-wrap reveal" style="--card-z: 8">
+            <div class="ss-cell"><img src="/images/projects/club-tie/website-ui-08.png" alt="Website section 8" loading="lazy" decoding="async"><div class="ss-lbl">Website UI</div></div>
+          </div>
+          <div class="ss-cell-sticky-wrap reveal" style="--card-z: 9">
+            <div class="ss-cell"><img src="/images/projects/club-tie/website-ui-09.png" alt="Website section 9" loading="lazy" decoding="async"><div class="ss-lbl">Website UI</div></div>
+          </div>
+          <div class="ss-cell-sticky-wrap reveal" style="--card-z: 10">
+            <div class="ss-cell"><img src="/images/projects/club-tie/website-ui-10.png" alt="Website section 10" loading="lazy" decoding="async"><div class="ss-lbl">Website UI</div></div>
+          </div>
+          <div class="ss-cell-sticky-wrap reveal" style="--card-z: 11">
+            <div class="ss-cell"><img src="/images/projects/club-tie/website-ui-11.png" alt="Website section 11" loading="lazy" decoding="async"><div class="ss-lbl">Website UI</div></div>
+          </div>
+          <div class="ss-cell-sticky-wrap reveal" style="--card-z: 12">
+            <div class="ss-cell"><img src="/images/projects/club-tie/website-ui-12.png" alt="Website section 12" loading="lazy" decoding="async"><div class="ss-lbl">Website UI</div></div>
+          </div>
+          <div class="ss-cell-sticky-wrap reveal" style="--card-z: 13">
+            <div class="ss-cell"><img src="/images/projects/club-tie/website-ui-13.png" alt="Website section 13" loading="lazy" decoding="async"><div class="ss-lbl">Website UI</div></div>
           </div>
         </div>
       </section>
 
-      <!-- ── 09 · DECISION HIGHLIGHTS ─────────────────────────── -->
+      <!-- ── 10 · DECISION HIGHLIGHTS ─────────────────────────── -->
       <section id="decisions" class="reveal">
         <div class="wrap">
-          <div class="section-label"><span class="num">08</span> Decision Highlights</div>
+          <div class="section-label"><span class="num">09</span> Decision Highlights</div>
           <h2>Why we chose<br>what we chose.</h2>
           <p>Product design is a series of trade-offs. Here are the most critical decisions made during this project —
             and the thinking behind each one.</p>

@@ -7,6 +7,7 @@ export type CaseStudySlug =
   | "mnt-halan"
   | "club-tie"
   | "club-experience"
+  | "club-app"
   | "halan-design-system"
   | "etar";
 
@@ -16,6 +17,7 @@ const HTML_FILES: Record<CaseStudySlug, string> = {
   "mnt-halan": "project-case-study.html",
   "club-tie": "club-design-system-case-study.html",
   "club-experience": "club-experience-case-study.html",
+  "club-app": "club-app-case-study.html",
   "halan-design-system": "halan-design-system-case-study.html",
   etar: "etar-case-study.html",
 };
@@ -38,7 +40,20 @@ function mapImageSrc(filename: string): string {
     return `/images/projects/halan-design-system/${filename}`;
   if (filename.startsWith("halan-"))
     return `/images/projects/mnt-halan/${filename}`;
-  if (filename.startsWith("club-"))
+  if (
+    filename.startsWith("club-") ||
+    filename.startsWith("tie-") ||
+    filename.startsWith("mission-") ||
+    filename.startsWith("onboarding-") ||
+    filename.startsWith("dashboard-") ||
+    filename.startsWith("missions-") ||
+    filename.startsWith("wallet-") ||
+    filename.startsWith("rewards-") ||
+    filename.startsWith("brand-") ||
+    filename.startsWith("progress-") ||
+    filename.startsWith("notifications-") ||
+    filename.startsWith("settings-")
+  )
     return `/images/projects/club-tie/${filename}`;
   if (filename === "mabaat-card-bg.png")
     return "/images/projects/mabaat/mabaat-card-bg.png";
