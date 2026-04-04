@@ -2257,18 +2257,109 @@
         </div>
       </div>
 
+      <!-- ── 05 · AUDIENCE ARCHITECTURE ──────────────────────── -->
+      <section id="architecture">
+        <div class="wrap">
+          <div class="reveal">
+            <div class="section-label"><span class="num">05</span> Audience Architecture</div>
+            <h2>Three tiers.<br>One system.</h2>
+            <p class="ag-dek">Club's audience model lets brands move from mass reach to targeted action — filtering followers through market criteria to create clubs with unique, personalised experiences.</p>
+          </div>
+
+          <div class="ag-layout reveal">
+
+            <!-- ── Left: SVG diagram ── -->
+            <div class="ag-graph-wrap">
+              <svg class="ag-svg" viewBox="0 0 440 420" aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                <!-- Connector: Followers → Market Filter -->
+                <line class="ag-line" x1="220" y1="78" x2="220" y2="106" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" style="--ag-delay: 80ms"/>
+                <!-- Connector: Market Filter → Community -->
+                <line class="ag-line" x1="220" y1="166" x2="220" y2="194" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" style="--ag-delay: 280ms"/>
+                <!-- Connector: Community → branch point -->
+                <line class="ag-line" x1="220" y1="256" x2="220" y2="278" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" style="--ag-delay: 460ms"/>
+                <!-- Connector: horizontal branch -->
+                <line class="ag-line" x1="110" y1="278" x2="330" y2="278" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" style="--ag-delay: 520ms"/>
+                <!-- Connector: down to Club #1 -->
+                <line class="ag-line" x1="110" y1="278" x2="110" y2="304" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" style="--ag-delay: 580ms"/>
+                <!-- Connector: down to Club #2 -->
+                <line class="ag-line" x1="330" y1="278" x2="330" y2="304" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" style="--ag-delay: 580ms"/>
+
+                <!-- ── Node 1: Followers ── -->
+                <g class="ag-node" style="--ag-delay: 0ms">
+                  <path d="M55,18 L385,18 L345,78 L95,78 Z" stroke="rgba(255,255,255,0.28)" stroke-width="1.5"/>
+                  <text class="ag-svg-text" x="220" y="53">Followers</text>
+                </g>
+
+                <!-- ── Node 2: Market Filter (purple) ── -->
+                <g class="ag-node" style="--ag-delay: 150ms">
+                  <path d="M80,106 L360,106 L320,166 L120,166 Z" fill="rgba(150,103,247,0.82)" stroke="rgb(150,103,247)" stroke-width="1.5" stroke-dasharray="7 5"/>
+                  <path d="M197,122 L243,122 L233,136 L207,136 Z" fill="rgba(255,255,255,0.58)"/>
+                  <line x1="212" y1="136" x2="212" y2="148" stroke="rgba(255,255,255,0.58)" stroke-width="2" stroke-linecap="round"/>
+                  <line x1="228" y1="136" x2="228" y2="144" stroke="rgba(255,255,255,0.58)" stroke-width="2" stroke-linecap="round"/>
+                  <text class="ag-svg-text ag-svg-text--filter" x="220" y="162">Market filter</text>
+                </g>
+
+                <!-- ── Node 3: Community Club ── -->
+                <g class="ag-node" style="--ag-delay: 300ms">
+                  <path d="M100,194 L340,194 L300,256 L140,256 Z" stroke="rgba(255,255,255,0.28)" stroke-width="1.5"/>
+                  <text class="ag-svg-text" x="220" y="229">Community Club</text>
+                </g>
+
+                <!-- ── Node 4: Club #1 (dashed) ── -->
+                <g class="ag-node" style="--ag-delay: 600ms">
+                  <rect x="18" y="304" width="184" height="60" rx="10" stroke="rgba(255,255,255,0.28)" stroke-width="1.5" stroke-dasharray="7 5"/>
+                  <path d="M68,322 L96,322 L90,334 L74,334 Z" fill="rgba(255,255,255,0.28)"/>
+                  <line x1="77" y1="334" x2="77" y2="342" stroke="rgba(255,255,255,0.28)" stroke-width="1.5" stroke-linecap="round"/>
+                  <line x1="87" y1="334" x2="87" y2="339" stroke="rgba(255,255,255,0.28)" stroke-width="1.5" stroke-linecap="round"/>
+                  <text class="ag-svg-text ag-svg-text--club" x="110" y="337">Club #1</text>
+                </g>
+
+                <!-- ── Node 5: Club #2 (dashed) ── -->
+                <g class="ag-node" style="--ag-delay: 700ms">
+                  <rect x="238" y="304" width="184" height="60" rx="10" stroke="rgba(255,255,255,0.28)" stroke-width="1.5" stroke-dasharray="7 5"/>
+                  <path d="M287,316 C292,308 308,308 313,316 L313,330 C308,335 292,335 287,330 Z" fill="rgba(255,255,255,0.28)"/>
+                  <ellipse cx="293" cy="333" rx="3.5" ry="3" fill="rgba(255,255,255,0.15)"/>
+                  <ellipse cx="307" cy="333" rx="3.5" ry="3" fill="rgba(255,255,255,0.15)"/>
+                  <text class="ag-svg-text ag-svg-text--club" x="330" y="337">Club #2</text>
+                </g>
+
+              </svg>
+            </div>
+
+            <!-- ── Right: descriptions ── -->
+            <div class="ag-legend">
+              <div class="ag-leg-item" style="--ag-delay: 60ms">
+                <h3 class="ag-leg-title">Followers</h3>
+                <p class="ag-leg-desc">Similar to a FB, IG, TikTok page, anyone can Follow you on Club to receive a basic experience.</p>
+              </div>
+              <div class="ag-leg-item" style="--ag-delay: 320ms">
+                <h3 class="ag-leg-title">Community</h3>
+                <p class="ag-leg-desc">Set predefined filters, if a Follower meets your criteria, they become part of the Community. e.g gender, location, age.</p>
+              </div>
+              <div class="ag-leg-item" style="--ag-delay: 600ms">
+                <h3 class="ag-leg-title">Clubs</h3>
+                <p class="ag-leg-desc">Split your Community into different Clubs to give them unique experiences.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       <!-- ── 07 · CORE USER FLOW ───────────────────────────────── -->
       <section id="user-flow" class="reveal">
         <div class="wrap">
           <div class="section-label"><span class="num">06</span> Core User Flow</div>
-          <h2>One path.<br>Built to repeat.</h2>
-          <p>The engagement loop was designed around a clear, motivated journey — from app entry to earning rewards,
-            then back again. Every decision point removes friction and keeps members moving forward.</p>
+          <h2>Built for engagement. Designed for participation.</h2>
+          <p>Club connects brands with ambassadors through missions, rewards, and ongoing interaction. As the platform scaled, structure didn't keep up — the goal was to make actions clear, rewards visible, and progress easy to understand.</p>
 
-          <div class="uf-wrap" id="uf-wrap">
-            <svg class="uf-svg" id="uf-svg" aria-hidden="true"></svg>
+          <div class="flow-map-card" id="uf-flow-card">
+            <div class="flow-map-card__preview">
+              <div class="uf-wrap" id="uf-wrap">
+                <svg class="uf-svg" id="uf-svg" aria-hidden="true"></svg>
 
-            <div class="uf-grid">
+                <div class="uf-grid">
 
               <!-- ═══ ONBOARDING FLOW  col 1, rows 1–4 ═══ -->
               <div class="uf-node uf-node--side" data-uf-id="browse" data-uf-group="Onboarding" style="grid-row:1;grid-column:1">
@@ -2476,10 +2567,17 @@
                 <div class="uf-body"><div class="uf-title">Unlock</div><div class="uf-sub">New missions &amp; perks</div></div>
               </div>
 
-            </div><!-- /.uf-grid -->
+                </div><!-- /.uf-grid -->
 
-            <div class="uf-loop-label" id="uf-loop-label">Repeat loop</div>
-          </div><!-- /.uf-wrap -->
+                <div class="uf-loop-label" id="uf-loop-label">Repeat loop</div>
+              </div><!-- /.uf-wrap -->
+              <div class="flow-map-card__fade"></div>
+            </div><!-- /.flow-map-card__preview -->
+            <button class="flow-map-card__toggle" data-flow-expand="uf-flow-card" data-flow-label="View full user journey" aria-expanded="false" type="button">
+              <span class="flow-map-card__toggle-label">View full user journey</span>
+              <svg class="flow-map-card__toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+          </div><!-- /.flow-map-card -->
         </div>
       </section>
 
@@ -2853,11 +2951,7 @@
               <div class="decision-num">01</div>
               <div class="decision-body">
                 <h3>Reward amount above the fold — always</h3>
-                <p>Early designs showed reward information after the mission description. Testing revealed that users
-                  judged whether a mission was worth their time in under 3 seconds — and the most important signal was
-                  the reward. Moving reward to the top increased mission start rates significantly. This ran counter to
-                  conventional "lead with value proposition" thinking, but the data was clear: in a marketplace, the
-                  reward IS the value proposition.</p>
+                <p>Users judge a mission in under 3 seconds. The reward is the value proposition — so it leads.</p>
                 <span class="decision-tag">Interaction Design</span>
               </div>
             </div>
@@ -2865,7 +2959,7 @@
               <div class="decision-num">02</div>
               <div class="decision-body">
                 <h3>Three reward icons — not a generic tag</h3>
-                <p>Early prototypes used a single "reward" icon with a text label indicating type — but that required reading, which adds cognitive load. We replaced it with three distinct icons with different shapes, colours, and metaphors: coin for cash, card for gift card, box for product. In usability testing, users identified reward type correctly 94% of the time without reading any text.</p>
+                <p>Icon + text label required reading. Three distinct icons — coin, card, box — got 94% recognition without any text.</p>
                 <span class="decision-tag">Visual Design</span>
               </div>
             </div>
@@ -2873,11 +2967,7 @@
               <div class="decision-num">03</div>
               <div class="decision-body">
                 <h3>Template system before AI suggestions</h3>
-                <p>There was appetite to build an AI-powered mission suggestion system. While compelling, it would have
-                  required significant backend work and still couldn't solve the core problem: brands didn't know what
-                  mission structure worked. The template system gave brands access to proven, highest-performing mission
-                  formats immediately. Faster to ship, faster to validate, more reliable than a model trained on limited
-                  early data. We chose a solved problem over an exciting one.</p>
+                <p>AI sounded exciting but couldn't solve the real problem. Templates gave brands proven mission formats immediately — faster to ship, faster to validate.</p>
                 <span class="decision-tag">Product Strategy</span>
               </div>
             </div>
@@ -2885,11 +2975,7 @@
               <div class="decision-num">04</div>
               <div class="decision-body">
                 <h3>Clubs &amp; Levels: gamification with meaning</h3>
-                <p>Loyalty points and levels are ubiquitous — and often hollow. The Clubs &amp; Levels design avoided
-                  vanity mechanics by tying every level to a real, tangible perk (higher commission rates, earlier
-                  access to product seeding). Users needed to feel that levelling up meant something outside the app.
-                  Working with the product team, each level milestone was mapped to a concrete brand-side benefit,
-                  making progression genuinely motivating rather than cosmetically satisfying.</p>
+                <p>Every level tied to a real perk — higher commission, earlier product access. Progress had to mean something outside the app.</p>
                 <span class="decision-tag">UX Strategy</span>
               </div>
             </div>

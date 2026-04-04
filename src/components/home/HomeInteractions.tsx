@@ -928,5 +928,168 @@ export function HomeInteractions({ children }: { children: ReactNode }) {
     return () => window.removeEventListener("beforeunload", onBeforeUnload);
   }, []);
 
+  /* ── Carousel Lightbox ── */
+  useEffect(() => {
+    // Build lightbox DOM once
+    const lb = document.createElement("div");
+    lb.id = "hc-lightbox";
+    lb.className = "hc-lb";
+    lb.setAttribute("role", "dialog");
+    lb.setAttribute("aria-modal", "true");
+    lb.setAttribute("aria-label", "Image preview");
+    lb.innerHTML = `
+      <div class="hc-lb-backdrop"></div>
+      <div class="hc-lb-frame">
+        <button class="hc-lb-close" aria-label="Close">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+        <div class="hc-lb-img-wrap">
+          <img class="hc-lb-img" src="" alt="" />
+        </div>
+        <button class="hc-lb-nav hc-lb-prev" aria-label="Previous">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+        <button class="hc-lb-nav hc-lb-next" aria-label="Next">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </button>
+      </div>
+    `;
+    document.body.appendChild(lb);
+
+    const lbImg = lb.querySelector<HTMLImageElement>(".hc-lb-img")!;
+    const lbWrap = lb.querySelector<HTMLElement>(".hc-lb-img-wrap")!;
+    const closeBtn = lb.querySelector<HTMLElement>(".hc-lb-close")!;
+    const prevBtn = lb.querySelector<HTMLElement>(".hc-lb-prev")!;
+    const nextBtn = lb.querySelector<HTMLElement>(".hc-lb-next")!;
+    const backdrop = lb.querySelector<HTMLElement>(".hc-lb-backdrop")!;
+
+    let images: string[] = [];
+    let current = 0;
+    let isOpen = false;
+
+    function collectImages() {
+      const cards = document.querySelectorAll<HTMLElement>(".hc-card-inner img");
+      images = Array.from(cards).map(img => (img as HTMLImageElement).src).filter(Boolean);
+    }
+
+    function showImage(idx: number, dir: "left" | "right" | "none" = "none") {
+      current = ((idx % images.length) + images.length) % images.length;
+      const src = images[current];
+
+      if (dir === "none") {
+        lbImg.src = src;
+        return;
+      }
+      // Slide out old, slide in new
+      const outClass = dir === "right" ? "hc-lb-slide-out-left" : "hc-lb-slide-out-right";
+      const inClass  = dir === "right" ? "hc-lb-slide-in-right"  : "hc-lb-slide-in-left";
+      lbWrap.classList.add(outClass);
+      setTimeout(() => {
+        lbWrap.classList.remove(outClass);
+        lbImg.src = src;
+        lbWrap.classList.add(inClass);
+        requestAnimationFrame(() => requestAnimationFrame(() => lbWrap.classList.remove(inClass)));
+      }, 200);
+    }
+
+    function open(idx: number) {
+      collectImages();
+      if (images.length === 0) return;
+      current = ((idx % images.length) + images.length) % images.length;
+      lbImg.src = images[current];
+      lb.classList.add("hc-lb--open");
+      document.body.style.overflow = "hidden";
+      isOpen = true;
+      // Show/hide nav arrows
+      prevBtn.style.display = images.length > 1 ? "" : "none";
+      nextBtn.style.display = images.length > 1 ? "" : "none";
+      closeBtn.focus();
+    }
+
+    function close() {
+      lb.classList.remove("hc-lb--open");
+      document.body.style.overflow = "";
+      isOpen = false;
+    }
+
+    // The .hc-scroll layer (z-index:35) sits on top of all cards and intercepts
+    // every pointer event. We detect a "tap" (pointer didn't move) on the scroll
+    // layer, then find whichever .hc-card currently has the highest z-index
+    // (that is the centered card) and open the lightbox for it.
+    const scrollLayer = document.querySelector<HTMLElement>(".hc-scroll");
+    let tapStartX = 0;
+    let tapStartY = 0;
+    let tapMoved = false;
+
+    const onTapStart = (e: PointerEvent) => {
+      tapStartX = e.clientX;
+      tapStartY = e.clientY;
+      tapMoved = false;
+    };
+    const onTapMove = (e: PointerEvent) => {
+      if (Math.abs(e.clientX - tapStartX) > 6 || Math.abs(e.clientY - tapStartY) > 6) {
+        tapMoved = true;
+      }
+    };
+    const onScrollClick = () => {
+      if (tapMoved) return; // was a drag, not a tap
+      // Find the card with highest z-index — that's the centered card
+      const allCards = Array.from(document.querySelectorAll<HTMLElement>(".hc-card"));
+      if (allCards.length === 0) return;
+      let centerCard = allCards[0];
+      let maxZ = parseInt(centerCard.style.zIndex || "0", 10);
+      allCards.forEach(card => {
+        const z = parseInt(card.style.zIndex || "0", 10);
+        if (z > maxZ) { maxZ = z; centerCard = card; }
+      });
+      collectImages();
+      if (images.length === 0) return;
+      const cardImg = centerCard.querySelector<HTMLImageElement>("img");
+      if (!cardImg) return;
+      const idx = images.findIndex(s => s === cardImg.src);
+      open(idx >= 0 ? idx : 0);
+    };
+
+    scrollLayer?.addEventListener("pointerdown", onTapStart);
+    scrollLayer?.addEventListener("pointermove", onTapMove);
+    scrollLayer?.addEventListener("click", onScrollClick);
+
+    closeBtn.addEventListener("click", close);
+    backdrop.addEventListener("click", close);
+    nextBtn.addEventListener("click", () => showImage(current + 1, "right"));
+    prevBtn.addEventListener("click", () => showImage(current - 1, "left"));
+
+    const onKey = (e: KeyboardEvent) => {
+      if (!isOpen) return;
+      if (e.key === "Escape") close();
+      if (e.key === "ArrowRight") showImage(current + 1, "right");
+      if (e.key === "ArrowLeft")  showImage(current - 1, "left");
+    };
+    document.addEventListener("keydown", onKey);
+
+    // Touch swipe
+    let touchStartX = 0;
+    lb.addEventListener("touchstart", (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    lb.addEventListener("touchend", (e) => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 50) showImage(dx < 0 ? current + 1 : current - 1, dx < 0 ? "right" : "left");
+    }, { passive: true });
+
+    return () => {
+      scrollLayer?.removeEventListener("pointerdown", onTapStart);
+      scrollLayer?.removeEventListener("pointermove", onTapMove);
+      scrollLayer?.removeEventListener("click", onScrollClick);
+      document.removeEventListener("keydown", onKey);
+      lb.remove();
+      document.body.style.overflow = "";
+    };
+  }, []);
+
   return <div id="home-root">{children}</div>;
 }

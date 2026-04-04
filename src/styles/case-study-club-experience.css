@@ -1019,8 +1019,8 @@
 /* ─── DECISION CARDS ─────────────────────────────────────────────── */
 
 .case-study-club .decisions-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   margin-top: 48px;
 }
@@ -1029,17 +1029,20 @@
   background: var(--c-bg3);
   border: 1px solid var(--c-border);
   border-radius: var(--case-radius);
-  padding: 32px;
-  display: grid;
-  grid-template-columns: 52px 1fr;
-  gap: 24px;
-  align-items: start;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .case-study-club .decision-card:hover {
   border-color: rgba(var(--c-accent-rgb), 0.22);
-  transform: translateX(4px);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .case-study-club .decisions-list { grid-template-columns: 1fr; }
 }
 
 .case-study-club .decision-num {
@@ -2285,6 +2288,91 @@
   flex-shrink: 0;
 }
 
+/* ─── COLLAPSIBLE USER FLOW CARD ─────────────────────────────────── */
+
+.case-study-club.club-exp .flow-map-card {
+  margin-top: 40px;
+  border: 1px solid var(--c-border);
+  border-radius: 16px;
+  background: var(--c-bg3);
+  overflow: hidden;
+}
+
+.case-study-club.club-exp .flow-map-card__preview {
+  position: relative;
+  max-height: 260px;
+  overflow: hidden;
+  transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.case-study-club.club-exp .flow-map-card.is-expanded .flow-map-card__preview {
+  max-height: 3000px;
+}
+
+/* Remove uf-wrap's own top margin when inside the card */
+.case-study-club.club-exp .flow-map-card .uf-wrap {
+  margin-top: 0;
+  padding: 24px 16px 16px;
+}
+
+.case-study-club.club-exp .flow-map-card__fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, var(--c-bg3));
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.case-study-club.club-exp .flow-map-card.is-expanded .flow-map-card__fade {
+  opacity: 0;
+}
+
+.case-study-club.club-exp .flow-map-card__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 24px;
+  border: none;
+  border-top: 1px solid var(--c-border);
+  background: transparent;
+  color: var(--c-accent);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.case-study-club.club-exp .flow-map-card__toggle:hover {
+  background: rgba(var(--c-accent-rgb), 0.06);
+}
+
+.case-study-club.club-exp .flow-map-card__toggle-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.case-study-club.club-exp .flow-map-card.is-expanded .flow-map-card__toggle-icon {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 640px) {
+  .case-study-club.club-exp .flow-map-card__preview {
+    max-height: 200px;
+  }
+
+  .case-study-club.club-exp .flow-map-card__toggle {
+    padding: 14px 16px;
+  }
+}
+
 /* ── Website UI ── */
 .case-study-club #website-ui {
   padding-block: clamp(80px, 10vw, 140px) 0;
@@ -2313,5 +2401,156 @@
   .case-study-club .pf-header {
     padding-bottom: 32px;
     gap: 20px;
+  }
+}
+
+/* ─── AUDIENCE ARCHITECTURE GRAPH ──────────────────────────────── */
+
+.case-study-club .ag-dek {
+  max-width: 580px;
+  margin-top: 16px;
+  color: var(--c-text-m);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.case-study-club .ag-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: center;
+  margin-top: 72px;
+}
+
+/* ── Graph container ── */
+
+.case-study-club .ag-graph-wrap {
+  position: relative;
+}
+
+.case-study-club .ag-svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* ── SVG text ── */
+
+.case-study-club .ag-svg-text {
+  font-family: var(--f-display);
+  font-size: 15px;
+  font-weight: 500;
+  text-anchor: middle;
+  fill: rgba(255, 255, 255, 0.85);
+}
+
+.case-study-club .ag-svg-text--filter {
+  fill: rgba(255, 255, 255, 0.95);
+  font-weight: 600;
+}
+
+.case-study-club .ag-svg-text--club {
+  font-size: 13px;
+  fill: rgba(255, 255, 255, 0.7);
+}
+
+/* ── Connector draw animation ── */
+
+.case-study-club .ag-line {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  transition: stroke-dashoffset 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--ag-delay, 0ms);
+}
+
+.case-study-club .reveal.visible .ag-line {
+  stroke-dashoffset: 0;
+}
+
+/* ── Node fade-in ── */
+
+.case-study-club .ag-node {
+  opacity: 0;
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1) var(--ag-delay, 0ms);
+}
+
+.case-study-club .reveal.visible .ag-node {
+  opacity: 1;
+}
+
+/* ── Legend (right panel) ── */
+
+.case-study-club .ag-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 44px;
+}
+
+.case-study-club .ag-leg-item {
+  opacity: 0;
+  transform: translateX(20px);
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1) var(--ag-delay, 0ms),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) var(--ag-delay, 0ms);
+}
+
+.case-study-club .reveal.visible .ag-leg-item {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.case-study-club .ag-leg-title {
+  font-family: var(--f-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--c-accent);
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+
+.case-study-club .ag-leg-desc {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--c-text-m);
+  max-width: 360px;
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 900px) {
+  .case-study-club .ag-layout {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    margin-top: 48px;
+  }
+
+  .case-study-club .ag-svg {
+    max-width: 380px;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .case-study-club .ag-leg-item {
+    transform: translateX(0);
+    opacity: 0;
+  }
+}
+
+/* ── Reduced motion ── */
+
+@media (prefers-reduced-motion: reduce) {
+  .case-study-club .ag-line {
+    transition: none;
+    stroke-dashoffset: 0;
+  }
+
+  .case-study-club .ag-node {
+    transition: none;
+    opacity: 1;
+  }
+
+  .case-study-club .ag-leg-item {
+    transition: none;
+    opacity: 1;
+    transform: none;
   }
 }

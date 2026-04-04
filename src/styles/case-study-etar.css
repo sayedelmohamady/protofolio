@@ -14,10 +14,10 @@
   --c-text:     #EDECEA;
   --c-text-m:   #A8A6A0;
   --c-text-d:   #5E5C58;
-  --c-accent:   #1DA882;
-  --c-accent-m: #17916f;
-  --c-accent-l: #5DCAA5;
-  --c-accent-rgb: 29,168,130;
+  --c-accent:   #2A72EF;
+  --c-accent-m: #1D5FCC;
+  --c-accent-l: #6B9FF5;
+  --c-accent-rgb: 42,114,239;
   --f-display:  'Syne', sans-serif;
   --f-body:     'DM Sans', sans-serif;
   --nav-h:      56px;
@@ -33,8 +33,8 @@
   position: relative; overflow: hidden;
 }
 .case-study--etar .hero-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
-.case-study--etar .hero-glow { position: absolute; width: 900px; height: 900px; border-radius: 50%; background: radial-gradient(circle, rgba(29,168,130,0.12) 0%, transparent 70%); top: -300px; right: -200px; }
-.case-study--etar .hero-glow2 { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(29,168,130,0.06) 0%, transparent 70%); bottom: 80px; left: -100px; }
+.case-study--etar .hero-glow { position: absolute; width: 900px; height: 900px; border-radius: 50%; background: radial-gradient(circle, rgba(42,114,239,0.12) 0%, transparent 70%); top: -300px; right: -200px; }
+.case-study--etar .hero-glow2 { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(42,114,239,0.06) 0%, transparent 70%); bottom: 80px; left: -100px; }
 .case-study--etar .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px); background-size: 48px 48px; mask-image: radial-gradient(ellipse at 60% 40%, black 20%, transparent 70%); }
 .case-study--etar .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-accent); margin-bottom: 28px; position: relative; }
 .case-study--etar .hero-eyebrow::before { content: ''; display: block; width: 28px; height: 1px; background: var(--c-accent); }

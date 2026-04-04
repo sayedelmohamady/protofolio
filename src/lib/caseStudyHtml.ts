@@ -8,6 +8,7 @@ export type CaseStudySlug =
   | "club-tie"
   | "club-experience"
   | "club-app"
+  | "club-dashboard"
   | "halan-design-system"
   | "etar";
 
@@ -18,6 +19,7 @@ const HTML_FILES: Record<CaseStudySlug, string> = {
   "club-tie": "club-design-system-case-study.html",
   "club-experience": "club-experience-case-study.html",
   "club-app": "club-app-case-study.html",
+  "club-dashboard": "club-dashboard-case-study.html",
   "halan-design-system": "halan-design-system-case-study.html",
   etar: "etar-case-study.html",
 };
@@ -36,6 +38,8 @@ function mapImageSrc(filename: string): string {
     return `/images/projects/mnt-halan/${filename}`;
   if (filename.startsWith("etar-"))
     return `/images/projects/etar/${filename}`;
+  if (filename.startsWith("club-dashboard-"))
+    return `/images/projects/club-dashboard/${filename}`;
   if (filename.startsWith("halan-ds-"))
     return `/images/projects/halan-design-system/${filename}`;
   if (filename.startsWith("halan-"))

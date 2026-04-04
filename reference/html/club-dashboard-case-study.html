@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Club Dashboard — Brand Admin Platform Case Study</title>
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       LAYOUT
+  ══════════════════════════════════════════════════════════════ -->
+
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-glow"></div>
+      <div class="hero-glow2"></div>
+      <div class="hero-grid"></div>
+    </div>
+
+    <div class="hero-eyebrow">Club Dashboard &mdash; Brand Admin Platform</div>
+
+    <h1 class="hero-title">
+      <span class="line-dim">Managing</span><br>
+      <span class="line-brand">Engagement</span><br>
+      <span>At Scale</span>
+    </h1>
+
+    <div class="hero-divider"></div>
+
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <label>Role</label>
+        <span>Senior Product Designer</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Platform</label>
+        <span>Web &mdash; SaaS Dashboard</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Timeline</label>
+        <span>2023 &ndash; 2024</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Team</label>
+        <span>Product, Engineering, Growth</span>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <span class="scroll-line"></span>
+      Scroll to explore
+    </div>
+  </section>
+
+  <div class="case-layout">
+
+    <!-- ══ SIDEBAR ══ -->
+    <aside class="sidebar">
+      <ul class="sidebar-nav">
+        <li><a href="#overview" data-section="overview">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          Overview
+        </a></li>
+        <li><a href="#problem" data-section="problem">
+          <svg viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+          Problem Space
+        </a></li>
+        <li><a href="#product-thinking" data-section="product-thinking">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          Product Thinking
+        </a></li>
+        <li><a href="#architecture" data-section="architecture">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          Architecture
+        </a></li>
+        <li><a href="#ux-flows" data-section="ux-flows">
+          <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>
+          UX Flows
+        </a></li>
+        <li><a href="#features" data-section="features">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          Key Features
+        </a></li>
+        <li class="sidebar-sep"></li>
+        <li><a href="#deep-dive" data-section="deep-dive">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          Deep Dive
+        </a></li>
+        <li><a href="#screens" data-section="screens">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          Final Screens
+        </a></li>
+        <li class="sidebar-sep"></li>
+        <li><a href="#decisions" data-section="decisions">
+          <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          Decisions
+        </a></li>
+        <li><a href="#impact" data-section="impact">
+          <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          Impact
+        </a></li>
+        <li><a href="#challenges" data-section="challenges">
+          <svg viewBox="0 0 24 24"><path d="M3 3h18v13H3z"/><path d="M8 21h8M12 17v4"/></svg>
+          Challenges
+        </a></li>
+        <li><a href="#reflection" data-section="reflection">
+          <svg viewBox="0 0 24 24"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3H14z"/><path d="M7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg>
+          Reflection
+        </a></li>
+      </ul>
+    </aside>
+
+    <!-- ══ MAIN ══ -->
+    <main class="main-content">
+
+      <!-- ── 1. OVERVIEW ── -->
+      <section class="band reveal" id="overview">
+        <div class="wrap">
+          <p class="section-label"><span class="num">01 /</span> Overview</p>
+          <h2>Built for engagement. Designed for participation.</h2>
+          <p>Club connects brands with ambassadors through missions, rewards, and ongoing interaction. As the platform scaled, structure didn't keep up — the goal was to make actions clear, rewards visible, and progress easy to understand.</p>
+
+          <div class="kpi-row">
+            <div class="kpi-card">
+              <div class="kpi-num">65%</div>
+              <div class="kpi-label">Faster mission creation vs. previous process</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-num">2.8×</div>
+              <div class="kpi-label">Engagement lift on dashboard-optimized campaigns</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-num">18+</div>
+              <div class="kpi-label">Active brands running live campaigns</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-num">$2M+</div>
+              <div class="kpi-label">Ambassador-driven revenue tracked</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 2. PROBLEM SPACE ── -->
+      <section class="band reveal" id="problem">
+        <div class="wrap challenge-section">
+          <p class="section-label"><span class="num">02 /</span> Problem Space</p>
+
+          <div class="challenge-headline">
+            <span class="challenge-headline__primary">Brands had the intent.</span>
+            <span class="challenge-headline__secondary">They lacked the tools to act on it.</span>
+          </div>
+
+          <div class="challenge-lead">
+            <p>Before Club Dashboard, brands managed ambassador programs through disconnected spreadsheets, manual Slack threads, and generic SaaS tools that weren't built for gamified engagement. The result: high-potential campaigns were limited by operational friction rather than strategy.</p>
+          </div>
+
+          <div style="margin-top: 40px;">
+            <h3 style="font-family:var(--f-display);font-size:18px;font-weight:700;margin-bottom:20px;color:var(--c-text);letter-spacing:-0.01em;">Business Problems</h3>
+            <div class="problem-grid">
+              <div class="problem-card">
+                <div class="p-icon">
+                  <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                </div>
+                <h3>No Performance Visibility</h3>
+                <p>Brands couldn't measure ROI on ambassador activity. Campaign performance was a black box — they saw cost, not impact.</p>
+              </div>
+              <div class="problem-card">
+                <div class="p-icon">
+                  <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                </div>
+                <h3>Passive Ambassador Base</h3>
+                <p>Without structured missions, ambassadors self-organized inconsistently. Brands couldn't drive specific behaviors or measure which actions correlated with revenue.</p>
+              </div>
+              <div class="problem-card">
+                <div class="p-icon">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <h3>Slow Campaign Iteration</h3>
+                <p>Modifying a campaign required developer involvement. Brands waited days to change a mission description or adjust a reward — killing responsiveness to market feedback.</p>
+              </div>
+              <div class="problem-card">
+                <div class="p-icon">
+                  <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                </div>
+                <h3>Fragmented Tooling</h3>
+                <p>Brands juggled 4–6 tools for what should be a unified workflow: mission planning in Notion, user lists in Sheets, comms in Slack, analytics in Looker — none of it connected.</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 48px;">
+            <h3 style="font-family:var(--f-display);font-size:18px;font-weight:700;margin-bottom:20px;color:var(--c-text);letter-spacing:-0.01em;">Admin (User) Problems</h3>
+            <div class="problem-grid">
+              <div class="problem-card">
+                <div class="p-icon">
+                  <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                </div>
+                <h3>Complex Mission Creation</h3>
+                <p>Creating a mission involved too many decisions at once — type, reward, proof, audience, timing — without clear guidance on what good configuration looks like.</p>
+              </div>
+              <div class="problem-card">
+                <div class="p-icon">
+                  <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+                </div>
+                <h3>Unclear Insights</h3>
+                <p>Raw data was available, but it wasn't actionable. Admins saw numbers — not answers. "What should I do next?" was never answered by the analytics layer.</p>
+              </div>
+              <div class="problem-card">
+                <div class="p-icon">
+                  <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+                <h3>User Management Blind Spots</h3>
+                <p>Admins couldn't identify high-value ambassadors, at-risk churners, or segmented cohorts without exporting data to external tools first.</p>
+              </div>
+              <div class="problem-card">
+                <div class="p-icon">
+                  <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </div>
+                <h3>No Optimization Workflow</h3>
+                <p>When a mission underperformed, there was no guided path to diagnose why or fix it. Admins edited blindly, hoping something would improve completion rates.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="insight-card">
+            <p class="insight-text">
+              The biggest barrier wasn't brand commitment —
+              it was <em>operational friction</em>.
+              Brands that wanted to run great campaigns
+              were stuck fighting their tools instead of serving their ambassadors.
+            </p>
+            <p class="insight-sub">Synthesized from 18 brand admin interviews, stakeholder sessions, and support ticket analysis — Q2 2023</p>
+          </div>
+
+          <div style="margin-top: 56px;">
+            <h3 style="font-family:var(--f-display);font-size:20px;font-weight:700;margin-bottom:24px;color:var(--c-text)">Goals &amp; Constraints</h3>
+            <div class="comparison-split">
+              <div class="comparison-col">
+                <div class="comparison-col-header">
+                  <span class="comp-badge">Design Goals</span>
+                </div>
+                <ul class="comparison-list comparison-list--check">
+                  <li>Reduce mission creation time from 23 min avg to under 10 min</li>
+                  <li>Surface actionable insights — not just data</li>
+                  <li>Enable brands to run and iterate campaigns without dev involvement</li>
+                  <li>Give user management enough depth to identify high-value segments</li>
+                  <li>Create a scalable system that supports 100+ brands without UI complexity</li>
+                </ul>
+              </div>
+              <div class="comparison-col comparison-col--good">
+                <div class="comparison-col-header">
+                  <span class="comp-badge comp-badge--good">Constraints</span>
+                </div>
+                <ul class="comparison-list">
+                  <li>Existing event pipeline and data schema — we couldn't redesign the backend</li>
+                  <li>Analytics refresh rate: every 4 hours — real-time wasn't possible at MVP</li>
+                  <li>No white-labeling in MVP — single dashboard skin for all brands</li>
+                  <li>Manual mission review for proof-based types — no auto-AI validation yet</li>
+                  <li>MVP scope: Club creation, Mission builder, Analytics, User management</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ── 3. PRODUCT THINKING ── -->
+      <section class="band reveal" id="product-thinking">
+        <div class="wrap">
+          <p class="section-label"><span class="num">03 /</span> Product Thinking</p>
+          <h2>The dashboard is the flywheel — it determines everything downstream</h2>
+          <p>The Club ecosystem is a feedback loop system. The dashboard is where that loop gets configured, measured, and improved. Every decision a brand makes in the dashboard directly shapes the experience millions of ambassadors have in the app.</p>
+
+          <div class="loop-diagram">
+            <div class="loop-step loop-step--1">
+              <div class="loop-step-icon">
+                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+              </div>
+              <div class="loop-step-num">Step 01</div>
+              <div class="loop-step-title">Create</div>
+              <p class="loop-step-desc">Brand admin creates a Club, defines Missions, configures rewards and entry criteria. The system is configured — nothing moves until this is done.</p>
+              <span class="loop-arrow">→</span>
+            </div>
+            <div class="loop-step loop-step--2">
+              <div class="loop-step-icon">
+                <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <div class="loop-step-num">Step 02</div>
+              <div class="loop-step-title">Engage</div>
+              <p class="loop-step-desc">Ambassadors discover the Club in the app, complete Missions, and earn Coins. Real-world behaviors — purchases, reviews, referrals — are executed and logged.</p>
+              <span class="loop-arrow">→</span>
+            </div>
+            <div class="loop-step loop-step--3">
+              <div class="loop-step-icon">
+                <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              </div>
+              <div class="loop-step-num">Step 03</div>
+              <div class="loop-step-title">Measure</div>
+              <p class="loop-step-desc">Every action generates data: completion rates, drop-off points, cohort behavior, coin distribution, ROI attribution. The dashboard surfaces this as insight.</p>
+              <span class="loop-arrow">→</span>
+            </div>
+            <div class="loop-step loop-step--4">
+              <div class="loop-step-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+              </div>
+              <div class="loop-step-num">Step 04</div>
+              <div class="loop-step-title">Optimize</div>
+              <p class="loop-step-desc">Brand admin reviews performance, identifies underperforming missions, adjusts rewards or requirements — and publishes improvements. The loop closes and repeats.</p>
+            </div>
+          </div>
+
+          <div style="margin-top:56px">
+            <h3 style="font-family:var(--f-display);font-size:20px;font-weight:700;margin-bottom:8px;color:var(--c-text)">Why the system view matters</h3>
+            <p style="max-width:680px;margin-bottom:32px">Most dashboard products treat each feature as independent. The mission builder is "the mission builder." Analytics is "the analytics page." We designed each module as a node in the feedback loop — decisions made in one feature ripple through the rest.</p>
+
+            <div class="pillars-grid" style="grid-template-columns: repeat(3, 1fr);">
+              <div class="pillar-card">
+                <div class="pillar-icon">
+                  <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+                <h3>Configuration → Behavior</h3>
+                <p>The quality of a mission config directly predicts its completion rate. We designed the builder to guide admins toward high-performing patterns, not just allow arbitrary configuration.</p>
+              </div>
+              <div class="pillar-card">
+                <div class="pillar-icon">
+                  <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                </div>
+                <h3>Data → Action</h3>
+                <p>Every data point in the analytics layer is connected to an action. When completion rate drops below threshold, the system surfaces the exact mission and suggests next steps — not just a number.</p>
+              </div>
+              <div class="pillar-card">
+                <div class="pillar-icon">
+                  <svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+                </div>
+                <h3>Iteration → Improvement</h3>
+                <p>The system preserves campaign history. Every edit to a mission creates a version. Admins see trend lines, not snapshots — so improvements are visible and attributable.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 4. SYSTEM ARCHITECTURE ── -->
+      <section class="band reveal" id="architecture">
+        <div class="wrap">
+          <p class="section-label"><span class="num">04 /</span> System Architecture</p>
+          <h2>How five interconnected modules form one coherent system</h2>
+          <p>The dashboard isn't five separate pages — it's five views onto one shared data model. Clubs contain Missions. Missions generate Events. Events create User profiles. Profiles inform Analytics. Analytics drives the next Missions. Understanding this shaped every navigation, permission, and data-display decision.</p>
+
+          <div class="arch-layers">
+            <div class="arch-layer l0">
+              <div class="arch-lbl">
+                <div class="tier">Layer 1</div>
+                <div class="name">Club Management</div>
+              </div>
+              <div class="arch-items">
+                <div class="arch-item">Create Club</div>
+                <div class="arch-item">Entry Criteria</div>
+                <div class="arch-item">Club Goals</div>
+                <div class="arch-item">Publish State</div>
+                <div class="arch-item">Club Overview</div>
+              </div>
+            </div>
+            <div class="arch-layer l1">
+              <div class="arch-lbl">
+                <div class="tier">Layer 2</div>
+                <div class="name">Mission Builder</div>
+              </div>
+              <div class="arch-items">
+                <div class="arch-item">Mission Type</div>
+                <div class="arch-item">Requirements</div>
+                <div class="arch-item">Rewards Config</div>
+                <div class="arch-item">Audience Rules</div>
+                <div class="arch-item">Scheduling</div>
+              </div>
+            </div>
+            <div class="arch-layer l2">
+              <div class="arch-lbl">
+                <div class="tier">Layer 3</div>
+                <div class="name">User Management</div>
+              </div>
+              <div class="arch-items">
+                <div class="arch-item">Ambassador List</div>
+                <div class="arch-item">User Profiles</div>
+                <div class="arch-item">Activity Timeline</div>
+                <div class="arch-item">Tags &amp; Levels</div>
+                <div class="arch-item">Segmentation</div>
+              </div>
+            </div>
+            <div class="arch-layer l3">
+              <div class="arch-lbl">
+                <div class="tier">Layer 4</div>
+                <div class="name">Analytics Engine</div>
+              </div>
+              <div class="arch-items">
+                <div class="arch-item">KPI Overview</div>
+                <div class="arch-item">Mission Funnels</div>
+                <div class="arch-item">Cohort Analysis</div>
+                <div class="arch-item">ROI Attribution</div>
+                <div class="arch-item">Export</div>
+              </div>
+            </div>
+            <div class="arch-layer l4">
+              <div class="arch-lbl">
+                <div class="tier">Layer 5</div>
+                <div class="name">Optimization Loop</div>
+              </div>
+              <div class="arch-items">
+                <div class="arch-item">Drop-off Detection</div>
+                <div class="arch-item">Smart Suggestions</div>
+                <div class="arch-item">Mission Editing</div>
+                <div class="arch-item">Version History</div>
+                <div class="arch-item">Impact Tracking</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="arch-note">
+            <div class="arch-note-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            </div>
+            <div>
+              <strong>Design implication:</strong> Because these layers are tightly coupled, context needed to flow between them. A mission completion event in Layer 2 should surface immediately in Layer 3 (user profile) and Layer 4 (analytics). We designed the sidebar navigation to always show live counters — pending approvals, active members, completion rate — so admins never had to navigate blind.
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ── 5. UX FLOWS ── -->
+      <section class="band reveal" id="ux-flows">
+        <div class="wrap">
+          <p class="section-label"><span class="num">05 /</span> UX Flows</p>
+          <h2>Five admin journeys — mapped from first action to system response</h2>
+          <p>Every flow is documented with decision points, system states, and feedback loops. These aren't wireflow screenshots — they're behavioral specifications that drove implementation decisions.</p>
+
+          <!-- ── MEMBER APP USER FLOW — collapsible ── -->
+          <div class="flow-map-card reveal" id="user-flow">
+            <div class="flow-map-card__header">
+              <span class="flow-map-card__eyebrow">Context — Ambassador Side</span>
+              <div class="flow-map-card__title">Member App User Journey</div>
+              <p class="flow-map-card__desc">The complete ambassador flow across the Club App — from first discovery through mission completion. Mapping this helped me design admin tools around the exact moments that drive (or stall) engagement downstream.</p>
+            </div>
+            <div class="flow-map-card__preview">
+              <div class="uf-wrap" id="uf-wrap">
+                <svg class="uf-svg" id="uf-svg" aria-hidden="true"></svg>
+                <div class="uf-grid">
+                  <!-- ═══ ONBOARDING FLOW  col 1, rows 1–4 ═══ -->
+                  <div class="uf-node uf-node--side" data-uf-id="browse" data-uf-group="Onboarding" style="grid-row:1;grid-column:1">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Browse</div><div class="uf-sub">Find clubs</div></div>
+                  </div>
+                  <div class="uf-node uf-node--side" data-uf-id="details" style="grid-row:2;grid-column:1">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Details</div><div class="uf-sub">View club info</div></div>
+                  </div>
+                  <div class="uf-node uf-node--side" data-uf-id="join-onb" style="grid-row:3;grid-column:1">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="16" y1="11" x2="22" y2="11"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Join</div><div class="uf-sub">Become member</div></div>
+                  </div>
+                  <div class="uf-node uf-node--side" data-uf-id="overview-onb" style="grid-row:4;grid-column:1">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Overview</div><div class="uf-sub">Enter club</div></div>
+                  </div>
+                  <!-- ═══ RE-ENGAGEMENT FLOW  col 1, rows 6–8 ═══ -->
+                  <div class="uf-node uf-node--side" data-uf-id="inactive" data-uf-group="Re-engage" style="grid-row:6;grid-column:1">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Inactive</div><div class="uf-sub">User pauses</div></div>
+                  </div>
+                  <div class="uf-node uf-node--side" data-uf-id="notified" style="grid-row:7;grid-column:1">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Notified</div><div class="uf-sub">Push prompt</div></div>
+                  </div>
+                  <div class="uf-node uf-node--side" data-uf-id="opens-app" style="grid-row:8;grid-column:1">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Opens App</div><div class="uf-sub">Resumes</div></div>
+                  </div>
+                  <!-- ═══ DROP-OFF FLOW  col 1, rows 10–12 ═══ -->
+                  <div class="uf-node uf-node--side" data-uf-id="paused" data-uf-group="Drop-off" style="grid-row:10;grid-column:1">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="10" y1="15" x2="10" y2="9"/><line x1="14" y1="15" x2="14" y2="9"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Paused</div><div class="uf-sub">Mission stalled</div></div>
+                  </div>
+                  <div class="uf-node uf-node--side" data-uf-id="reminder-drop" style="grid-row:11;grid-column:1">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Reminder</div><div class="uf-sub">Incentive sent</div></div>
+                  </div>
+                  <div class="uf-node uf-node--side" data-uf-id="resume-drop" style="grid-row:12;grid-column:1">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Resume</div><div class="uf-sub">Back to mission</div></div>
+                  </div>
+                  <!-- ═══ MAIN FLOW – BRANCH COL (col 2) ═══ -->
+                  <div class="uf-node uf-node--branch" data-uf-id="join-club" style="grid-row:6;grid-column:2">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="16" y1="11" x2="22" y2="11"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Join Club</div><div class="uf-sub">Sign up as a member</div></div>
+                  </div>
+                  <div class="uf-node uf-node--branch" data-uf-id="edit-resubmit" style="grid-row:12;grid-column:2">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Edit &amp; Resubmit</div><div class="uf-sub">Refine and try again</div></div>
+                  </div>
+                  <!-- ═══ MAIN FLOW – CENTER COL (col 3) ═══ -->
+                  <div class="uf-node" data-uf-id="enter-app" style="grid-row:3;grid-column:3">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Enter App</div><div class="uf-sub">Open the mobile experience</div></div>
+                  </div>
+                  <div class="uf-node" data-uf-id="access-club" style="grid-row:4;grid-column:3">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Access Club</div><div class="uf-sub">Navigate to a brand's club</div></div>
+                  </div>
+                  <div class="uf-decision" data-uf-id="member-check" style="grid-row:5;grid-column:3">
+                    <div class="uf-diamond"><span class="uf-diamond-q">Member?</span></div>
+                  </div>
+                  <div class="uf-node" data-uf-id="dashboard" style="grid-row:6;grid-column:3">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Club Overview</div><div class="uf-sub">Progress, rewards, active missions</div></div>
+                  </div>
+                  <div class="uf-node" data-uf-id="discover" style="grid-row:7;grid-column:3">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Discover Missions</div><div class="uf-sub">Browse available opportunities</div></div>
+                  </div>
+                  <div class="uf-node" data-uf-id="select-mission" style="grid-row:8;grid-column:3">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Select Mission</div><div class="uf-sub">View details, requirements, reward</div></div>
+                  </div>
+                  <div class="uf-node" data-uf-id="act" style="grid-row:9;grid-column:3">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Complete Mission</div><div class="uf-sub">Create content, referral, or action</div></div>
+                  </div>
+                  <div class="uf-node" data-uf-id="submit-proof" style="grid-row:10;grid-column:3">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Submit Proof</div><div class="uf-sub">Upload or verify completion</div></div>
+                  </div>
+                  <div class="uf-decision" data-uf-id="validation" style="grid-row:11;grid-column:3">
+                    <div class="uf-diamond"><span class="uf-diamond-q">Approved?</span></div>
+                  </div>
+                  <div class="uf-node" data-uf-id="earn" style="grid-row:12;grid-column:3">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Earn Reward</div><div class="uf-sub">Points, cash, or perks assigned</div></div>
+                  </div>
+                  <div class="uf-node" data-uf-id="progress" style="grid-row:13;grid-column:3">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Progress Update</div><div class="uf-sub">Level, status, achievements updated</div></div>
+                  </div>
+                  <div class="uf-node uf-node--loop" data-uf-id="return" style="grid-row:14;grid-column:3">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.77"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Return to Missions</div><div class="uf-sub">Repeat the engagement loop</div></div>
+                  </div>
+                  <!-- ═══ PROFILE FLOW  col 4, rows 6–8 ═══ -->
+                  <div class="uf-node uf-node--side" data-uf-id="stats" data-uf-group="Profile" style="grid-row:6;grid-column:4">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Stats</div><div class="uf-sub">View activity</div></div>
+                  </div>
+                  <div class="uf-node uf-node--side" data-uf-id="achievements" style="grid-row:7;grid-column:4">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Achievements</div><div class="uf-sub">Track badges</div></div>
+                  </div>
+                  <div class="uf-node uf-node--side" data-uf-id="edit-profile" style="grid-row:8;grid-column:4">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Edit Profile</div><div class="uf-sub">Update info</div></div>
+                  </div>
+                  <!-- ═══ REWARD FLOW  col 4, rows 12–14 ═══ -->
+                  <div class="uf-node uf-node--side" data-uf-id="view-reward" data-uf-group="Reward" style="grid-row:12;grid-column:4">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">View Reward</div><div class="uf-sub">Reward details</div></div>
+                  </div>
+                  <div class="uf-node uf-node--side" data-uf-id="redeem" style="grid-row:13;grid-column:4">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Redeem</div><div class="uf-sub">If eligible</div></div>
+                  </div>
+                  <div class="uf-node uf-node--side" data-uf-id="confirm-rwd" style="grid-row:14;grid-column:4">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Confirm</div><div class="uf-sub">Redemption done</div></div>
+                  </div>
+                  <!-- ═══ PROGRESS FLOW  col 4, rows 15–17 ═══ -->
+                  <div class="uf-node uf-node--side" data-uf-id="gain-pts" data-uf-group="Progress" style="grid-row:15;grid-column:4">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Gain Points</div><div class="uf-sub">Accumulate XP</div></div>
+                  </div>
+                  <div class="uf-node uf-node--side" data-uf-id="level-up" style="grid-row:16;grid-column:4">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><polyline points="17 11 12 6 7 11"/><polyline points="17 18 12 13 7 18"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Level Up</div><div class="uf-sub">Rank increases</div></div>
+                  </div>
+                  <div class="uf-node uf-node--side" data-uf-id="unlock" style="grid-row:17;grid-column:4">
+                    <div class="uf-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg></div>
+                    <div class="uf-body"><div class="uf-title">Unlock</div><div class="uf-sub">New missions &amp; perks</div></div>
+                  </div>
+                </div><!-- /uf-grid -->
+                <div class="uf-loop-label" id="uf-loop-label">Repeat loop</div>
+              </div><!-- /uf-wrap -->
+              <div class="flow-map-card__fade"></div>
+            </div>
+            <button class="flow-map-card__toggle" data-flow-expand="user-flow" data-flow-label="View full member journey" aria-expanded="false" type="button">
+              <span class="flow-map-card__toggle-label">View full member journey</span>
+              <svg class="flow-map-card__toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+          </div>
+
+          <div class="tabs" style="margin-top:40px">
+            <button class="tab-btn active" data-case-tab="flow1">Create a Club</button>
+            <button class="tab-btn" data-case-tab="flow2">Create a Mission</button>
+            <button class="tab-btn" data-case-tab="flow3">Track Performance</button>
+            <button class="tab-btn" data-case-tab="flow4">Manage Users</button>
+            <button class="tab-btn" data-case-tab="flow5">Optimize Campaign</button>
+          </div>
+
+          <!-- ── FLOW 1: Create a Club ── -->
+          <div class="tab-panel active" id="tab-flow1">
+            <div class="cd-flow-header">
+              <div class="cd-flow-meta">
+                <span class="cd-flow-num">Flow 01</span>
+                <h3 class="cd-flow-title">Create a Club</h3>
+                <p class="cd-flow-dek">Brand admin creates a new goal-based community for their ambassadors. Entry point: Clubs section → Create Club button.</p>
+              </div>
+            </div>
+
+            <div class="cd-timeline">
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">01</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Navigate to Clubs section</div>
+                  <p class="cd-tl-detail">Admin selects "Clubs" from the primary sidebar. If this is the first club for the brand, an empty state is displayed: illustration + headline "You haven't created any clubs yet" + CTA button "Create your first club". If clubs exist, a list/grid of club cards is shown with status badges (Active, Draft, Paused) and quick stats (member count, active missions, completion rate).</p>
+                  <div class="cd-tl-state cd-tl-state--empty">
+                    <span class="cd-state-icon">○</span>
+                    <span><strong>Empty state:</strong> Shown on first visit. Includes a brief explainer of what clubs are, so new admins understand the concept before creating one.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">02</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Click "Create Club"</div>
+                  <p class="cd-tl-detail">A right-side panel slides in (or a full-page form opens) — the Club Builder. It is divided into 3 clear sections: Identity, Criteria, Goals. A progress indicator at the top shows which section is active. The header always shows a live preview of the club card as it will appear in the app — changes reflect in real time.</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">03</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Section 1 — Club Identity</div>
+                  <p class="cd-tl-detail">Admin fills in: Club name (required), Tagline / short description (max 120 chars), Cover image (upload or pick from brand library), Brand accent color (hex picker or presets from brand kit). Character limits shown inline. Live preview updates with each change. Tooltip hints for best practices: "Clubs with a photo get 2.3× more joins."</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">04</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Section 2 — Entry Criteria</div>
+                  <p class="cd-tl-detail">Admin selects how users can join: <strong>Open to all</strong> (any ambassador can join), <strong>Invite only</strong> (admin sends invites, or users request to join), or <strong>Level-gated</strong> (only ambassadors at or above a certain Club level). If Level-gated: a dropdown appears to set the minimum level (1–5). A note explains the tradeoff: "Open clubs grow faster. Gated clubs drive higher engagement per member."</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">05</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Section 3 — Club Goal (optional)</div>
+                  <p class="cd-tl-detail">Admin can optionally define a campaign goal: total missions to complete, engagement score target, or revenue attribution target. This goal is used in the analytics layer to show progress-toward-goal charts. If no goal is set, analytics defaults to "no target set" state — always accessible but never blocking.</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">06</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Review &amp; Preview</div>
+                  <p class="cd-tl-detail">Admin sees a side-by-side: the raw form data on the left, and the exact club card + detail screen (as it will look in the app) on the right. A checklist at the bottom shows: "Add a cover image ✓ | Set entry criteria ✓ | Add at least one mission before publishing ⚠". The mission warning is advisory — publishing a club with no missions is allowed but not recommended.</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step cd-tl-step--decision">
+                <div class="cd-tl-marker cd-tl-marker--decision">⬟</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Decision: Publish or Save Draft?</div>
+                  <div class="cd-branches">
+                    <div class="cd-branch cd-branch--yes">
+                      <span class="cd-branch-label">Publish</span>
+                      <p>Club goes live immediately. Visible to ambassadors in the Club App's discovery feed. Analytics baseline initialized. Admin redirected to Club detail page.</p>
+                    </div>
+                    <div class="cd-branch cd-branch--no">
+                      <span class="cd-branch-label">Save Draft</span>
+                      <p>Club saved with Draft status. Not visible to users. Admin can continue editing at any time. Drafts appear in the Clubs list with a "Draft" status badge.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="cd-tl-step cd-tl-step--success">
+                <div class="cd-tl-marker cd-tl-marker--success">
+                  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">System: Club Published Successfully</div>
+                  <p class="cd-tl-detail">Toast notification: "Club published. Ambassadors can now discover and join." Club detail page loads showing: 0 members, empty mission list with CTA "Add your first mission", analytics section showing "Awaiting first activity." Onboarding checklist appears in the right panel to guide next steps.</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step cd-tl-step--error">
+                <div class="cd-tl-marker cd-tl-marker--error">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                </div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Error State: Validation Failed</div>
+                  <p class="cd-tl-detail">If Club name is missing or entry criteria not selected: fields highlighted in red with inline error messages. Form does not submit. Admin is not navigated away — they fix the field and try again. No data is lost.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ── FLOW 2: Create a Mission ── -->
+          <div class="tab-panel" id="tab-flow2">
+            <div class="cd-flow-header">
+              <div class="cd-flow-meta">
+                <span class="cd-flow-num">Flow 02</span>
+                <h3 class="cd-flow-title">Create a Mission</h3>
+                <p class="cd-flow-dek">Brand admin builds a new mission — a discrete, completable task that drives a specific brand behavior. Entry points: Missions section → Add Mission, or Club detail → Add Mission.</p>
+              </div>
+            </div>
+
+            <div class="cd-timeline">
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">01</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Open the Mission Builder</div>
+                  <p class="cd-tl-detail">The Mission Builder opens in a dedicated full-width view (not a modal — mission creation is complex enough to warrant its own context). The builder is split into a left-side form and a right-side live preview of the mission card as it will appear to ambassadors. A horizontal stepper at the top shows: Type → Details → Requirements → Reward → Availability → Review.</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">02</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Step 1 — Select Mission Type</div>
+                  <p class="cd-tl-detail">Admin selects a mission type from 6 options. Each type is shown as a card with icon, label, example use case, and typical coin range. Types: Purchase, Social Share, Review, Referral, Survey, Check-in. Hovering a type shows a tooltip with "Completion rate avg: X%" based on platform-wide data. The selected type determines which requirement fields appear in Step 3.</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">03</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Step 2 — Mission Details</div>
+                  <p class="cd-tl-detail">Admin fills in: Mission title (required, max 60 chars), Description / what to do (required, max 400 chars, rich text), Instructions / how to complete (optional, markdown supported), Hero image (optional, shown at top of mission detail in the app). Character counters shown. Placeholder hints use actual examples: "e.g., Share a photo of your purchase on Instagram with #[brand]".</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">04</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Step 3 — Requirements</div>
+                  <p class="cd-tl-detail">Fields vary by mission type. Common fields: Proof type (photo upload / URL / order number / automatic via Klaviyo event), Verification method (automatic / manual brand review), Minimum threshold (e.g., "Purchase must be ≥ $25"). For Social missions: hashtag required, optional platform filter (Instagram / TikTok / X). Manual review missions show: estimated review time field (used to set user expectations in the app).</p>
+                  <div class="cd-tl-state cd-tl-state--warning">
+                    <span class="cd-state-icon">⚠</span>
+                    <span><strong>Validation warning:</strong> If manual review is selected but no review time is set, a warning appears: "Add an estimated review time so ambassadors know what to expect." Not blocking, but prominently shown.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">05</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Step 4 — Reward Configuration</div>
+                  <p class="cd-tl-detail">Admin sets the coin reward value using a slider (10–2000 coins) with manual input fallback. A recommendation band is shown: "Typical for this mission type: 100–300 coins." Below the slider, an optional multiplier section allows higher coin rates for specific ambassador levels (e.g., "Champions earn 1.5× for this mission"). Projected cost estimate shown: "At current engagement levels, this mission may distribute ~X coins total."</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">06</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Step 5 — Availability</div>
+                  <p class="cd-tl-detail">Admin configures: Start date (required, defaults to now), End date (optional — missions without end dates run indefinitely), Max completions (unlimited / cap at X — useful for limited-time reward budgets). Audience rules: assign to specific Club(s) or make available across all clubs. An urgency toggle adds a countdown timer visible to users (automatically activates when ≤72 hours remain to deadline).</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">07</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Step 6 — Review Summary</div>
+                  <p class="cd-tl-detail">Full mission summary displayed: all configured fields in read-only format, the app preview card on the right, and a pre-publish checklist. Checklist items: "Mission type selected ✓ | Instructions clear ✓ | Coin value set ✓ | At least one club assigned ✓". Admin can jump back to any section by clicking the stepper or an inline "Edit" link next to each summary block.</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step cd-tl-step--decision">
+                <div class="cd-tl-marker cd-tl-marker--decision">⬟</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Decision: Publish or Save Draft?</div>
+                  <div class="cd-branches">
+                    <div class="cd-branch cd-branch--yes">
+                      <span class="cd-branch-label">Publish</span>
+                      <p>Mission goes live to all eligible ambassadors in assigned clubs. Status badge = "Active." Performance tracking begins immediately.</p>
+                    </div>
+                    <div class="cd-branch cd-branch--no">
+                      <span class="cd-branch-label">Save Draft</span>
+                      <p>Mission saved with "Draft" status. Not visible to users. Can be edited and published at any time. Draft count badge visible on Missions nav item.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="cd-tl-step cd-tl-step--success">
+                <div class="cd-tl-marker cd-tl-marker--success">
+                  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">System: Mission Published</div>
+                  <p class="cd-tl-detail">Toast: "Mission live. Ambassadors in [Club Name] can now see it." Admin is redirected to the mission detail page. Initial state: 0 views, 0 starts, 0 completions. A note explains: "Performance data will appear here once ambassadors interact with this mission."</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step cd-tl-step--error">
+                <div class="cd-tl-marker cd-tl-marker--error">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                </div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Error States</div>
+                  <p class="cd-tl-detail"><strong>Coin value missing:</strong> Field highlighted, stepper shows error indicator on Step 4. <strong>End date before start date:</strong> Inline date error. <strong>No club assigned:</strong> Warning in Step 5 + pre-publish checklist shows unchecked. <strong>Large reward alert:</strong> If coin value is set to 5× above the type's average, a confirmation dialog appears: "This reward is significantly higher than average. Confirm?"</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ── FLOW 3: Track Performance ── -->
+          <div class="tab-panel" id="tab-flow3">
+            <div class="cd-flow-header">
+              <div class="cd-flow-meta">
+                <span class="cd-flow-num">Flow 03</span>
+                <h3 class="cd-flow-title">Track Performance</h3>
+                <p class="cd-flow-dek">Brand admin reviews campaign analytics to understand what's working and what needs attention. Entry point: Analytics section from main nav.</p>
+              </div>
+            </div>
+
+            <div class="cd-timeline">
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">01</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Navigate to Analytics Overview</div>
+                  <p class="cd-tl-detail">Analytics section loads. Top-level KPI row shows: Total Members (all clubs), Active This Week (users who completed ≥1 mission), Missions Completed (total), Coins Distributed, and Campaign ROI Estimate. KPIs have a ±% change indicator vs. the previous period. A banner shows the last analytics refresh timestamp with countdown to next refresh (every 4 hours).</p>
+                  <div class="cd-tl-state cd-tl-state--empty">
+                    <span class="cd-state-icon">○</span>
+                    <span><strong>Empty state:</strong> New accounts see "Your analytics will appear here once you have at least 10 ambassador interactions." Motivates them to publish missions and drive activity.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">02</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Select Time Range</div>
+                  <p class="cd-tl-detail">Admin applies a time filter: presets (Last 7 days / 30 days / 90 days / This month / Custom). Custom range opens a calendar date picker. All KPIs and charts update immediately to reflect the selected range. The period comparison always shows vs. the equivalent prior period (e.g., 30-day view compares to the 30 days before that). Custom ranges show "Compared to equivalent prior period" in a tooltip.</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">03</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">View Club-Level Breakdown</div>
+                  <p class="cd-tl-detail">Below the top-level KPIs, a Club Performance table lists all active clubs. Columns: Club name, Members, Active Rate (%), Missions Completed, Avg Completion Time, Top Mission. Sortable by any column. Color-coded performance bands: green (above 60% active rate), amber (30–60%), red (below 30%). Admin clicks a club row to drill into club-specific analytics.</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">04</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Drill Into Club Analytics</div>
+                  <p class="cd-tl-detail">Club analytics view shows: member growth chart (joined vs. churned per week), mission completion funnel, top 5 ambassadors by coins earned, level distribution chart. Mission Performance table shows all missions for this club with: views, start rate, completion rate, approval rate (for manual missions), coins distributed. Table rows are clickable — each leads to individual mission analytics.</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">05</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Filter by Segment</div>
+                  <p class="cd-tl-detail">Admin applies user segment filters to scope analytics: by ambassador Level (1–5), Join Date Cohort (joined this month / last month / 3+ months ago), Activity Status (Active / At-Risk / Churned). Filters stack — admin can view "Level 3+ ambassadors who joined last month and are at risk." Filtered analytics help identify specific cohort problems before they affect the overall numbers.</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">06</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Export Report</div>
+                  <p class="cd-tl-detail">Admin clicks "Export" in the top-right. Options: CSV (raw event data) or PDF (formatted summary report). PDF includes the current filters, time range, KPI summary, club table, and top insights. Generation takes 5–15 seconds — a progress indicator is shown. On completion: "Report ready" toast with download link that expires in 24 hours.</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step cd-tl-step--success">
+                <div class="cd-tl-marker cd-tl-marker--success">
+                  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">System: Insight Surfaced</div>
+                  <p class="cd-tl-detail">When the analytics engine detects a significant pattern (mission below 25% completion, user churn spike, engagement drop vs. previous period), a contextual Insight card appears at the top of the relevant section: "3 missions are underperforming. Review and optimize →". These insights are not alerts — they're contextual, not modal, and always linked to an action.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ── FLOW 4: Manage Users ── -->
+          <div class="tab-panel" id="tab-flow4">
+            <div class="cd-flow-header">
+              <div class="cd-flow-meta">
+                <span class="cd-flow-num">Flow 04</span>
+                <h3 class="cd-flow-title">Manage Users</h3>
+                <p class="cd-flow-dek">Brand admin views, filters, and takes action on their ambassador base. Entry point: Members section from main nav.</p>
+              </div>
+            </div>
+
+            <div class="cd-timeline">
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">01</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">View Ambassador List</div>
+                  <p class="cd-tl-detail">Members section shows a sortable data table: columns include Avatar, Name/Email, Club Membership, Level, Missions Completed, Coins Earned, Last Active, Status (Active / At-Risk / Churned). Defaults sort: Last Active descending. Color-coded status badge helps admins spot disengaging users at a glance. Pagination at 50 rows per page.</p>
+                  <div class="cd-tl-state cd-tl-state--empty">
+                    <span class="cd-state-icon">○</span>
+                    <span><strong>Empty state:</strong> "No ambassadors yet. Once users join your clubs, they'll appear here." Includes a link to the Club Invite feature.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">02</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Filter and Search</div>
+                  <p class="cd-tl-detail">Filter bar above the table: search by name or email (debounced, 300ms), filter by Club (multi-select dropdown), Level (1–5 checkboxes), Status (Active / At-Risk / Churned), Tags (custom label filter). Filters stack and combine. Active filter count shown in badge. One-click "Clear all filters" resets to default view. Applied filters persist in URL params — shareable.</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">03</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Open User Profile</div>
+                  <p class="cd-tl-detail">Admin clicks a user row → a right-side profile drawer slides open (the main table remains visible and scrollable). Drawer contains: user avatar + name, member since, current level across each club, coins earned (total + by club), missions completed (with status breakdown: approved / pending / rejected), and an activity timeline showing the last 30 events.</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">04</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Review Activity Timeline</div>
+                  <p class="cd-tl-detail">Timeline entries include: "Joined Club [X]", "Completed mission [Y] — earned 200 coins", "Mission [Z] — proof under review", "Reached Level 3 in [Club]", "Redeemed reward: $10 gift card". Entries are timestamped and filterable by type. Admins can click a mission entry to jump directly to that mission's detail page.</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">05</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Take Actions on User</div>
+                  <p class="cd-tl-detail">Action buttons in the profile drawer: "Assign Tag" (add custom label like "VIP", "High Value", "Review Needed"), "Adjust Level" (manual override with required reason field — "Override: Manual adjustment by admin [date]"), "Send Notification" (send a custom push notification to this user), and "View Full Profile" (opens dedicated user profile page with full history).</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step cd-tl-step--decision">
+                <div class="cd-tl-marker cd-tl-marker--decision">⬟</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Decision: Suspend Account?</div>
+                  <div class="cd-branches">
+                    <div class="cd-branch cd-branch--yes">
+                      <span class="cd-branch-label">Suspend</span>
+                      <p>Confirmation dialog: "Suspend [User Name]? They will be unable to complete missions or earn coins until reinstated." Requires reason field. User sees "Account suspended" in the app.</p>
+                    </div>
+                    <div class="cd-branch cd-branch--no">
+                      <span class="cd-branch-label">No Action</span>
+                      <p>Dismiss dialog. No changes to user account. Profile drawer remains open for further review.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="cd-tl-step cd-tl-step--success">
+                <div class="cd-tl-marker cd-tl-marker--success">
+                  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">System: Action Confirmed</div>
+                  <p class="cd-tl-detail">Tag assigned: Toast "Tag 'VIP Ambassador' applied to [Name]." Level adjusted: Toast "Level updated. This override will appear in [Name]'s activity log." Suspension: Toast "Account suspended. [Name] cannot access missions until reinstated." All actions are reversible and logged in the user's audit trail.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ── FLOW 5: Optimize Campaign ── -->
+          <div class="tab-panel" id="tab-flow5">
+            <div class="cd-flow-header">
+              <div class="cd-flow-meta">
+                <span class="cd-flow-num">Flow 05</span>
+                <h3 class="cd-flow-title">Optimize Campaign</h3>
+                <p class="cd-flow-dek">Brand admin identifies underperforming missions, diagnoses the cause, and iterates to improve completion rates. Entry point: Analytics → Mission Performance, or an in-dashboard Insight card.</p>
+              </div>
+            </div>
+
+            <div class="cd-timeline">
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">01</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Identify Underperforming Missions</div>
+                  <p class="cd-tl-detail">Analytics → Mission Performance view shows a sortable table of all active missions with completion rates. Missions below the platform threshold (25% completion) are flagged with an amber warning badge. If the system has detected a significant drop from a mission's own historical baseline, a "Trending down" indicator is also shown. Admin can sort by completion rate ascending to prioritize the worst performers.</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">02</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Open Mission Funnel</div>
+                  <p class="cd-tl-detail">Admin clicks a mission row → Mission Funnel detail view opens. The funnel shows step-by-step drop-off: Visible to eligible users → Viewed mission detail → Started mission → Submitted proof → Approved. Each step shows absolute count and % conversion from the previous step. The biggest drop-off point is highlighted with a red ring and label: "68% of users who start this mission abandon at proof submission."</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">03</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Read System Insight</div>
+                  <p class="cd-tl-detail">Below the funnel, a contextual Insight card displays a system-generated suggestion based on the drop-off pattern: "Most users abandon this mission at proof submission. Consider simplifying the proof requirement or adding example images to the instructions." The insight is deterministic — it reads from a predefined set of patterns (proof drop-off, start rate drop, approval rate low) rather than ML inference, ensuring reliability at MVP scale.</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">04</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Click "Optimize Mission"</div>
+                  <p class="cd-tl-detail">Admin clicks the "Optimize Mission" CTA in the insight card (or "Edit Mission" from the mission detail header). The Mission Builder reopens with all current fields pre-populated. A change summary panel on the right shows: "You are editing a live mission. Changes will apply to all ambassadors who have not yet started it." In-progress submissions are not affected.</p>
+                </div>
+              </div>
+
+              <div class="cd-tl-step cd-tl-step--decision">
+                <div class="cd-tl-marker cd-tl-marker--decision">⬟</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Decision: What to change?</div>
+                  <div class="cd-branches">
+                    <div class="cd-branch cd-branch--yes">
+                      <span class="cd-branch-label">Edit Content</span>
+                      <p>Simplify instructions, clarify proof requirements, add example images. For proof drop-off: change proof type from "photo + order number" to "photo only."</p>
+                    </div>
+                    <div class="cd-branch cd-branch--no">
+                      <span class="cd-branch-label">Adjust Reward or Deadline</span>
+                      <p>Increase coin value to drive more starts, extend the deadline to reduce urgency pressure, or cap completions to create scarcity. Each change has a projected impact note.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="cd-tl-step">
+                <div class="cd-tl-marker cd-tl-marker--num">06</div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">Save Changes → Version Created</div>
+                  <p class="cd-tl-detail">Admin saves changes. The mission's version history is updated: "Version 2 — [Date] — Edited by [Admin]. Changed proof type from 'photo + order number' to 'photo only'. Changed description." Previous version preserved for rollback. A confirmation banner: "Changes saved. Updated mission is now live."</p>
+                  <div class="cd-tl-state cd-tl-state--warning">
+                    <span class="cd-state-icon">⚠</span>
+                    <span><strong>Large reward alert:</strong> If coin value is increased by more than 2× the original, a confirmation dialog: "This significantly increases reward value. At current engagement levels, this may distribute ~X additional coins. Confirm?"</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="cd-tl-step cd-tl-step--success">
+                <div class="cd-tl-marker cd-tl-marker--success">
+                  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="cd-tl-body">
+                  <div class="cd-tl-title">System: Impact Tracked</div>
+                  <p class="cd-tl-detail">The mission analytics page now shows a version change marker on the completion rate trend chart — a vertical dotted line labeled "v2 published." This allows the admin to visually attribute any subsequent improvement (or decline) to the specific change. After the next analytics refresh (4 hours), the before/after completion rate comparison is shown. If rate improves by ≥10pp, a "Optimization successful" badge appears on the mission card.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ── 6. KEY FEATURES ── -->
+      <section class="band reveal" id="features">
+        <div class="wrap">
+          <p class="section-label"><span class="num">06 /</span> Key Features</p>
+          <h2>Five modules. One connected admin experience.</h2>
+          <p>Each module solves a specific operational problem for brand admins. Together, they form a complete campaign management system that replaces the 4–6 disconnected tools brands previously used.</p>
+
+          <div class="feature-grid">
+            <div class="feature-card feature-card--wide">
+              <div>
+                <div class="feature-card-header">
+                  <div class="feature-icon">
+                    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                  </div>
+                  <div>
+                    <h3>Club Management</h3>
+                    <div class="feature-tag">Campaign Container</div>
+                  </div>
+                </div>
+                <p>Clubs are the top-level containers for brand campaigns. Each Club has its own identity, entry rules, mission set, and analytics. The Club management module lets brands create, configure, and manage multiple clubs simultaneously — each targeting a different audience segment, goal, or product line. The live preview during creation ensures brands see exactly what ambassadors will see before publishing.</p>
+                <p>Status management (Active, Paused, Draft, Archived) lets brands season campaigns seasonally without losing historical data. Pausing a club freezes missions without deleting ambassador progress.</p>
+              </div>
+              <div class="feature-img-wrap">
+                <img src="club-dashboard-clubs-view.png" alt="Club management view" loading="lazy">
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">
+                  <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                </div>
+                <div>
+                  <h3>Mission Builder</h3>
+                  <div class="feature-tag">Behavior Engine</div>
+                </div>
+              </div>
+              <p>The Mission Builder reduced average creation time from 23 minutes to 8 minutes by guiding admins through a structured 6-step wizard. Live preview, type-specific fields, and inline best-practice hints eliminate guesswork. Brands configure exactly what behavior they want, with coin rewards that reflect the effort required.</p>
+              <div class="feature-img-wrap">
+                <img src="club-dashboard-mission-builder.png" alt="Mission builder interface" loading="lazy">
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">
+                  <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                </div>
+                <div>
+                  <h3>Analytics Dashboard</h3>
+                  <div class="feature-tag">Insight Engine</div>
+                </div>
+              </div>
+              <p>Campaign performance is displayed across three levels: top-level KPIs, club-level breakdown, and mission-level funnels. Contextual insight cards surface when the system detects anomalies — always linked to a specific action. Export to CSV or PDF for stakeholder reporting. Time range filters and cohort segmentation allow brands to analyze specific user groups without leaving the dashboard.</p>
+              <div class="feature-img-wrap">
+                <img src="club-dashboard-analytics.png" alt="Analytics dashboard" loading="lazy">
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">
+                  <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+                <div>
+                  <h3>User Segmentation</h3>
+                  <div class="feature-tag">Ambassador Intelligence</div>
+                </div>
+              </div>
+              <p>The Members module gives brands actionable visibility into their ambassador base. Filter and search across multiple dimensions simultaneously. User profiles surface the full activity timeline, club memberships, and performance history. Tags let brands create custom segments (VIP, At-Risk, Product Tester) that persist across analytics filters and notification campaigns.</p>
+              <div class="feature-img-wrap">
+                <img src="club-dashboard-members.png" alt="User management interface" loading="lazy">
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-icon">
+                  <svg viewBox="0 0 24 24"><path d="M20 12v10H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>
+                </div>
+                <div>
+                  <h3>Rewards Configuration</h3>
+                  <div class="feature-tag">Incentive Design</div>
+                </div>
+              </div>
+              <p>Brands configure the full reward stack: coin earn rates per mission, level-based multipliers, and what coins can be redeemed for (cash-back, gift cards, branded perks). Budget controls let brands cap total coin distribution per campaign to manage cost. The projected spend estimate in the Mission Builder ensures brands make reward decisions with cost context — not in the dark.</p>
+              <div class="feature-img-wrap">
+                <img src="club-dashboard-rewards.png" alt="Rewards configuration" loading="lazy">
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 7. DEEP DIVE ── -->
+      <section class="band reveal" id="deep-dive">
+        <div class="wrap">
+          <p class="section-label"><span class="num">07 /</span> Deep Dive: Mission Builder</p>
+          <h2>The feature that determines campaign quality — and brand satisfaction</h2>
+          <p>The Mission Builder is the highest-frequency and highest-stakes action in the dashboard. A well-built mission drives engagement and completion. A poorly configured one generates support tickets, confused ambassadors, and wasted reward budget. Getting this right was the central UX challenge of the entire product.</p>
+
+          <!-- Problem -->
+          <div class="deep-block">
+            <div class="deep-block-header">
+              <span class="deep-tag">Problem</span>
+            </div>
+            <div class="deep-split">
+              <div class="deep-split-text">
+                <h3>Admins were making consequential decisions without context.</h3>
+                <p>Early versions of the mission form were a flat list of fields: name, description, reward, proof type, end date. No guidance. No previews. No indication of what "good" looked like. Admins filled in the form based on intuition — which meant wildly inconsistent missions with unpredictable performance.</p>
+                <p>The result: <strong>our top 5 support ticket categories were all mission-related</strong>. "Ambassadors are confused about what proof to submit." "My mission has 0 completions." "I set the wrong coin value — can you change it?" These weren't user errors — they were UX failures.</p>
+              </div>
+              <div class="deep-split-visual">
+                <img src="club-dashboard-mission-v1.png" alt="Early mission form — flat field list" loading="lazy">
+              </div>
+            </div>
+          </div>
+
+          <!-- Insight -->
+          <div class="deep-block">
+            <div class="deep-block-header">
+              <span class="deep-tag deep-tag--insight">Insight</span>
+            </div>
+            <div class="insight-card">
+              <p class="insight-text">
+                Admins don't need more <em>fields</em>.
+                They need <em>scaffolding</em> — a structure that reduces the cognitive load
+                of making 15 interdependent decisions in sequence.
+              </p>
+              <p class="insight-sub">Derived from 6 usability sessions with brand admins, session recordings, and support ticket analysis — July 2023</p>
+            </div>
+            <p style="margin-top:24px;font-size:14px;line-height:1.7;color:var(--c-text-m);max-width:680px">The problem wasn't the form fields themselves — it was how they were presented. Admins were being asked to make reward decisions before they'd defined requirements, and availability decisions before they'd built the mission content. The sequence was wrong, and there was no feedback between decisions.</p>
+          </div>
+
+          <!-- Exploration -->
+          <div class="deep-block">
+            <div class="deep-block-header">
+              <span class="deep-tag">Exploration</span>
+            </div>
+            <div class="deep-split">
+              <div class="deep-split-text">
+                <h3>Three directions tested in prototyping</h3>
+                <p><strong>Option A — Modal wizard:</strong> Multi-step modal with 4 steps. Tested well for simplicity but felt constraining for complex missions. Admins wanted to go back and adjust earlier decisions after seeing later ones — the modal's linear flow made that awkward.</p>
+                <p><strong>Option B — Single long form:</strong> All fields on one scrollable page. Admins liked the overview but felt overwhelmed. No clear sense of progress. High cognitive load when first encountering the form.</p>
+                <p><strong>Option C — Horizontal stepper + live preview:</strong> Side-by-side: structured steps on left, live app preview on right. Admins could see consequences of their decisions as they made them. Went back and forth between steps naturally. Highest task completion and lowest error rate in testing.</p>
+              </div>
+              <div class="deep-split-visual">
+                <img src="club-dashboard-mission-exploration.png" alt="Mission builder exploration — 3 directions" loading="lazy">
+              </div>
+            </div>
+          </div>
+
+          <!-- Solution -->
+          <div class="deep-block">
+            <div class="deep-block-header">
+              <span class="deep-tag deep-tag--solution">Solution</span>
+            </div>
+            <div class="deep-split">
+              <div class="deep-split-text">
+                <h3>A guided wizard with live consequences</h3>
+                <p>The final Mission Builder uses a horizontal stepper (6 steps) with persistent live preview. Every field change updates the app preview card in real time — admins see exactly what ambassadors will see, before publishing. Best-practice tooltips are contextual, not instructional: shown on hover when a field is filled in suboptimally.</p>
+                <p>Critically, the <strong>sequence was redesigned</strong>: Type → Content → Requirements → Reward → Availability → Review. You define what the mission is before you decide what it's worth. Reward configuration shows type-appropriate coin ranges, so admins make calibrated decisions — not guesses.</p>
+              </div>
+              <div class="deep-split-visual">
+                <img src="club-dashboard-mission-builder.png" alt="Final Mission Builder with live preview" loading="lazy">
+              </div>
+            </div>
+          </div>
+
+          <!-- Design Evolution -->
+          <div class="deep-block">
+            <div class="deep-block-header">
+              <span class="deep-tag">Design Evolution</span>
+            </div>
+            <p style="font-size:14px;color:var(--c-text-m);line-height:1.7;margin-bottom:28px;max-width:640px">The Mission Builder went through 8 iterations. The key inflection points were: adding live preview (Round 3), restructuring the step sequence (Round 5), and adding contextual best-practice hints (Round 7).</p>
+            <div class="evolution-grid">
+              <div class="evolution-item">
+                <div class="evolution-label">V1 — Flat Form</div>
+                <div class="evolution-img"><img src="club-dashboard-mission-v1.png" alt="Mission builder V1" loading="lazy"></div>
+                <div class="evolution-note">Flat field list. No guidance, no preview, no step structure. High error rate in usability testing.</div>
+              </div>
+              <div class="evolution-item">
+                <div class="evolution-label">V2 — Stepped Wizard</div>
+                <div class="evolution-img"><img src="club-dashboard-mission-v2.png" alt="Mission builder V2" loading="lazy"></div>
+                <div class="evolution-note">Introduced stepper. Better progress visibility. Still no preview. Sequence still suboptimal.</div>
+              </div>
+              <div class="evolution-item">
+                <div class="evolution-label">V3 — Preview + Hints (Shipped)</div>
+                <div class="evolution-img"><img src="club-dashboard-mission-v3.png" alt="Mission builder V3 — shipped" loading="lazy"></div>
+                <div class="evolution-note">Live preview added. Sequence restructured. Contextual hints. 65% reduction in mission-related support tickets.</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ── 8. FINAL SCREENS ── -->
+      <section class="band reveal" id="screens">
+        <div class="wrap">
+          <p class="section-label"><span class="num">08 /</span> Final Screens</p>
+          <h2>The complete admin experience — key views</h2>
+
+          <div class="ui-group">
+            <div class="ui-group-label">Overview &amp; Navigation</div>
+            <div class="ui-grid ui-grid--3">
+              <div class="ui-screen-wrap"><img src="club-dashboard-home.png" alt="Dashboard home" loading="lazy"></div>
+              <div class="ui-screen-wrap"><img src="club-dashboard-nav.png" alt="Dashboard navigation" loading="lazy"></div>
+              <div class="ui-screen-wrap"><img src="club-dashboard-clubs-view.png" alt="Clubs list view" loading="lazy"></div>
+            </div>
+          </div>
+
+          <div class="ui-group">
+            <div class="ui-group-label">Mission Builder</div>
+            <div class="ui-grid ui-grid--4">
+              <div class="ui-screen-wrap"><img src="club-dashboard-mb-type.png" alt="Mission type selection" loading="lazy"></div>
+              <div class="ui-screen-wrap"><img src="club-dashboard-mb-details.png" alt="Mission details step" loading="lazy"></div>
+              <div class="ui-screen-wrap"><img src="club-dashboard-mb-reward.png" alt="Mission reward step" loading="lazy"></div>
+              <div class="ui-screen-wrap"><img src="club-dashboard-mb-review.png" alt="Mission review step" loading="lazy"></div>
+            </div>
+          </div>
+
+          <div class="ui-group">
+            <div class="ui-group-label">Analytics</div>
+            <div class="ui-grid ui-grid--3">
+              <div class="ui-screen-wrap"><img src="club-dashboard-analytics.png" alt="Analytics overview" loading="lazy"></div>
+              <div class="ui-screen-wrap"><img src="club-dashboard-funnel.png" alt="Mission funnel view" loading="lazy"></div>
+              <div class="ui-screen-wrap"><img src="club-dashboard-insights.png" alt="Insights panel" loading="lazy"></div>
+            </div>
+          </div>
+
+          <div class="ui-group">
+            <div class="ui-group-label">User Management</div>
+            <div class="ui-grid ui-grid--4">
+              <div class="ui-screen-wrap"><img src="club-dashboard-members.png" alt="Members list" loading="lazy"></div>
+              <div class="ui-screen-wrap"><img src="club-dashboard-user-profile.png" alt="User profile drawer" loading="lazy"></div>
+              <div class="ui-screen-wrap"><img src="club-dashboard-user-activity.png" alt="User activity timeline" loading="lazy"></div>
+              <div class="ui-screen-wrap"><img src="club-dashboard-user-actions.png" alt="User action panel" loading="lazy"></div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ── 9. KEY DECISIONS ── -->
+      <section class="band reveal" id="decisions">
+        <div class="wrap">
+          <p class="section-label"><span class="num">09 /</span> Key Design Decisions</p>
+          <h2>The choices that shaped the product</h2>
+          <p>Each decision emerged from a specific admin pain point or business constraint. Each one involved real trade-offs.</p>
+
+          <div class="decision-grid">
+            <div class="decision-card">
+              <div class="decision-tag">Decision 01</div>
+              <div class="decision-problem">
+                <span class="d-label">Problem</span>
+                <p>Admins creating missions had no idea if their coin reward values were appropriate — they were setting random amounts with no calibration to expected effort or platform norms.</p>
+              </div>
+              <div class="decision-options">
+                <span class="d-label">Options Considered</span>
+                <ol>
+                  <li>Free text input — admin sets any number</li>
+                  <li>Fixed coin values per mission type</li>
+                  <li>Slider with recommended range + free override</li>
+                </ol>
+              </div>
+              <div class="decision-choice">
+                <span class="d-label">Decision</span>
+                <p>Slider with a highlighted "recommended range" band based on mission type, plus a manual input field to override if needed.</p>
+              </div>
+              <div class="decision-why">
+                <p><strong>Why:</strong> Fixed values are too restrictive — brands have different economics and ambassador expectations. Free input is too unconstrained — it produces miscalibrated rewards that hurt mission performance. The slider with a nudge zone preserves flexibility while anchoring decisions to real platform data. Mission-related support tickets dropped 41% after this change.</p>
+              </div>
+            </div>
+
+            <div class="decision-card">
+              <div class="decision-tag">Decision 02</div>
+              <div class="decision-problem">
+                <span class="d-label">Problem</span>
+                <p>Analytics data refreshed every 4 hours — an infrastructure constraint, not a design choice. But showing stale data without context caused admins to make incorrect optimization decisions based on outdated numbers.</p>
+              </div>
+              <div class="decision-options">
+                <span class="d-label">Options Considered</span>
+                <ol>
+                  <li>Show data as-is, no refresh indicator</li>
+                  <li>Show "as of [timestamp]" on every chart</li>
+                  <li>Persistent refresh banner with countdown + timestamp on all data points</li>
+                </ol>
+              </div>
+              <div class="decision-choice">
+                <span class="d-label">Decision</span>
+                <p>A persistent, non-intrusive "Last updated: X ago / Next refresh in Y" banner in the analytics header, plus a subtle timestamp on each chart.</p>
+              </div>
+              <div class="decision-why">
+                <p><strong>Why:</strong> Data without context of freshness is a trust problem. An admin who doesn't know data is 3 hours old may interpret a flat chart as "nothing's happening" when actually 2 hours of activity hasn't been captured yet. Surfacing the refresh cycle explicitly sets expectations and prevents false optimization decisions. It also communicates technical honesty — which builds long-term brand trust in the product.</p>
+              </div>
+            </div>
+
+            <div class="decision-card">
+              <div class="decision-tag">Decision 03</div>
+              <div class="decision-problem">
+                <span class="d-label">Problem</span>
+                <p>The analytics section surfaced data — but not direction. Admins could see that a mission had a 18% completion rate, but had no guidance on whether that was bad, why it was happening, or what to do next.</p>
+              </div>
+              <div class="decision-options">
+                <span class="d-label">Options Considered</span>
+                <ol>
+                  <li>Raw data only — admins interpret themselves</li>
+                  <li>Static benchmarks ("18% is below the 30% average")</li>
+                  <li>Contextual insight cards with pattern-matched suggestions</li>
+                </ol>
+              </div>
+              <div class="decision-choice">
+                <span class="d-label">Decision</span>
+                <p>Contextual insight cards that surface specific, actionable suggestions based on detected drop-off patterns — always linked to a CTA that takes the admin directly to the relevant edit flow.</p>
+              </div>
+              <div class="decision-why">
+                <p><strong>Why:</strong> Benchmarks tell you you're below average — they don't tell you why or what to do. By mapping drop-off patterns to known causes (proof complexity → submission drop-off; low coin value → low start rate), we could surface relevant suggestions without ML or extensive data science investment. It made admins feel guided, not just informed. Campaigns that received at least one insight interaction saw 34% higher subsequent completion rates.</p>
+              </div>
+            </div>
+
+            <div class="decision-card">
+              <div class="decision-tag">Decision 04</div>
+              <div class="decision-problem">
+                <span class="d-label">Problem</span>
+                <p>When editing a live mission, admins didn't know which ambassadors would be affected — would changes apply retroactively? Would in-progress submissions be impacted? The ambiguity caused admins to avoid editing live missions entirely, leaving underperforming missions running unchanged.</p>
+              </div>
+              <div class="decision-options">
+                <span class="d-label">Options Considered</span>
+                <ol>
+                  <li>Block edits on live missions — require duplicating to change</li>
+                  <li>Allow edits silently, no state communicated</li>
+                  <li>Allow edits with explicit scope confirmation ("Changes apply to: new starts only")</li>
+                </ol>
+              </div>
+              <div class="decision-choice">
+                <span class="d-label">Decision</span>
+                <p>Allow edits on live missions with a persistent edit scope banner: "Changes apply to ambassadors who have not yet started this mission. In-progress submissions are not affected."</p>
+              </div>
+              <div class="decision-why">
+                <p><strong>Why:</strong> Blocking edits means underperforming campaigns can't be fixed — hurting brands and reducing platform value. Allowing silent edits creates uncertainty and potential trust issues. Making the edit scope explicit removes ambiguity. Admins need to know the boundary of their action before taking it — especially in a live system affecting real users. This change reduced "I accidentally broke my mission" support tickets to zero.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 10. IMPACT ── -->
+      <section class="band reveal" id="impact">
+        <div class="wrap">
+          <p class="section-label"><span class="num">10 /</span> Impact</p>
+          <h2>Measurable improvements across every admin workflow</h2>
+          <p>Results measured 90 days post-launch across 18 brands actively running Club Dashboard. Compared to the manual/fragmented process used before the dashboard existed.</p>
+
+          <div class="kpi-row">
+            <div class="kpi-card">
+              <div class="kpi-num">65%</div>
+              <div class="kpi-label">Reduction in mission creation time (23 min → 8 min avg)</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-num">41%</div>
+              <div class="kpi-label">Drop in mission-related support tickets</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-num">2.8×</div>
+              <div class="kpi-label">Engagement lift on insight-optimized campaigns</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-num">87%</div>
+              <div class="kpi-label">Brand onboarding completion rate (was 44%)</div>
+            </div>
+          </div>
+
+          <div style="margin-top:56px">
+            <h3 style="font-family:var(--f-display);font-size:20px;font-weight:700;margin-bottom:8px;color:var(--c-text)">Workflow Improvements</h3>
+            <p style="font-size:13.5px;color:var(--c-text-m);margin-bottom:32px">Before vs. after Club Dashboard (90-day cohort comparison across 18 active brands)</p>
+
+            <div class="impact-bars">
+              <div class="impact-bar-item">
+                <div class="impact-bar-label">
+                  <span>Mission Creation Time (minutes)</span>
+                  <span class="impact-val">-65% reduction</span>
+                </div>
+                <div class="impact-track">
+                  <div class="impact-prev" style="--prev:92%"></div>
+                  <div class="impact-fill" style="--fill:32%">
+                    <span class="impact-now">8 min</span>
+                    <span class="impact-was">Was 23 min</span>
+                  </div>
+                </div>
+              </div>
+              <div class="impact-bar-item">
+                <div class="impact-bar-label">
+                  <span>Brand Onboarding Completion</span>
+                  <span class="impact-val">+43pp improvement</span>
+                </div>
+                <div class="impact-track">
+                  <div class="impact-prev" style="--prev:44%"></div>
+                  <div class="impact-fill" style="--fill:87%">
+                    <span class="impact-now">87%</span>
+                    <span class="impact-was">Was 44%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="impact-bar-item">
+                <div class="impact-bar-label">
+                  <span>Campaign Completion Rate (dashboard-optimized campaigns)</span>
+                  <span class="impact-val">+2.8× improvement</span>
+                </div>
+                <div class="impact-track">
+                  <div class="impact-prev" style="--prev:23%"></div>
+                  <div class="impact-fill" style="--fill:65%">
+                    <span class="impact-now">65%</span>
+                    <span class="impact-was">Was 23%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="impact-bar-item">
+                <div class="impact-bar-label">
+                  <span>Mission-Related Support Tickets</span>
+                  <span class="impact-val">-41% reduction</span>
+                </div>
+                <div class="impact-track">
+                  <div class="impact-prev" style="--prev:68%"></div>
+                  <div class="impact-fill" style="--fill:40%">
+                    <span class="impact-now">40%</span>
+                    <span class="impact-was">Was 68%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="impact-bar-item">
+                <div class="impact-bar-label">
+                  <span>Analytics ROI Tracking Accuracy</span>
+                  <span class="impact-val">+34pp improvement</span>
+                </div>
+                <div class="impact-track">
+                  <div class="impact-prev" style="--prev:60%"></div>
+                  <div class="impact-fill" style="--fill:94%">
+                    <span class="impact-now">94%</span>
+                    <span class="impact-was">Was 60%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 11. CHALLENGES ── -->
+      <section class="band reveal" id="challenges">
+        <div class="wrap">
+          <p class="section-label"><span class="num">11 /</span> Challenges</p>
+          <h2>What made this hard — and how we worked through it</h2>
+
+          <div class="challenge-cards">
+            <div class="challenge-card-item">
+              <div class="chal-num">01</div>
+              <div class="chal-body">
+                <h3>Balancing flexibility with simplicity in the Mission Builder</h3>
+                <p>Brands wanted total control — custom proof types, complex eligibility rules, multi-step requirements. But every additional configuration option made the builder harder to learn and more error-prone. We resolved this by separating "common configuration" (in the wizard) from "advanced settings" (in a collapsible section) — common paths are fast, complex cases are accessible but not ambient. 95% of missions use only the wizard-level settings.</p>
+              </div>
+            </div>
+            <div class="challenge-card-item">
+              <div class="chal-num">02</div>
+              <div class="chal-body">
+                <h3>Designing meaningful analytics without real-time data</h3>
+                <p>Our 4-hour analytics refresh cycle was a hard constraint. The risk: admins would trust stale data, make bad decisions, and blame the product. We solved this through three strategies: explicit data freshness timestamps, contextual insight cards that are based on the last confirmed refresh (not interpolated), and a "pending completions" counter that shows activity since the last refresh in real time. Admins always know what they can and can't trust.</p>
+              </div>
+            </div>
+            <div class="challenge-card-item">
+              <div class="chal-num">03</div>
+              <div class="chal-body">
+                <h3>Handling the complexity of multi-club brand accounts</h3>
+                <p>Brands managing 10+ clubs had serious navigation and context-switching problems. The sidebar's flat list approach broke down at scale — admins lost track of which club they were editing. We introduced a persistent "active club" context bar at the top of all pages, a quick-switch dropdown, and a global search that scoped results by club. Large accounts now switch context 3× faster than before.</p>
+              </div>
+            </div>
+            <div class="challenge-card-item">
+              <div class="chal-num">04</div>
+              <div class="chal-body">
+                <h3>Making the UX flows work without real-time validation feedback</h3>
+                <p>Missions submitted for manual review could take hours — sometimes days — before being approved or rejected. Ambassadors needed to know their submission was received; brands needed visibility into a pending queue. We built a three-state pending system: Submitted → Under Review → Decided, with admin-facing queue management and configurable expected review time that was surfaced to ambassadors in the app. This eliminated "did my submission go through?" support tickets entirely.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 12. REFLECTION ── -->
+      <section class="band reveal" id="reflection">
+        <div class="wrap">
+          <p class="section-label"><span class="num">12 /</span> Reflection</p>
+          <h2>What I learned, what I'd change</h2>
+
+          <div class="reflection-split">
+            <div class="reflection-col">
+              <h3>What I learned</h3>
+              <ul class="reflection-list">
+                <li><strong>Admin UX has different stakes than consumer UX.</strong> Consumer mistakes are personal and low-cost. Admin mistakes affect hundreds or thousands of downstream users. The threshold for "good enough" is higher — every decision needs to communicate its scope and consequences clearly.</li>
+                <li><strong>Data without direction is noise.</strong> Surfacing raw numbers in the analytics layer made admins feel informed but paralyzed. The insight cards — simple pattern-matching driving actionable suggestions — had more impact on campaign performance than any chart we built. The lesson: always ask "what should the admin do with this data?"</li>
+                <li><strong>Sequence matters as much as fields.</strong> The Mission Builder's biggest improvement wasn't adding features — it was reordering the steps so decisions were made in logical dependency order. Defining what a mission is before deciding what it's worth produced better missions with less cognitive effort.</li>
+                <li><strong>Constraints force honest design.</strong> The 4-hour refresh cycle forced us to be explicit about data freshness rather than hiding it. Being honest about limitations built more admin trust than a polished UI that masked the constraint would have.</li>
+                <li><strong>The admin experience is the product's lever.</strong> Every design decision in the dashboard directly determines the quality of ambassador experiences across the entire platform. Investing in admin UX isn't overhead — it's leverage.</li>
+              </ul>
+            </div>
+            <div class="reflection-col">
+              <h3>What I'd improve</h3>
+              <ul class="reflection-list">
+                <li><strong>Mission templates.</strong> High-performing brands developed reusable mission patterns — "social share", "monthly purchase", "referral burst" — but had to recreate them from scratch every time. A template library would dramatically reduce creation time for experienced brands while also educating new ones on effective patterns.</li>
+                <li><strong>Better onboarding for new brands.</strong> The first-session experience was too open-ended. Brands were dropped into an empty dashboard without enough guidance on "what should I create first?" A structured onboarding flow with step-by-step guidance for the first club + first mission would reduce the time-to-first-live-campaign from ~3 days to same day.</li>
+                <li><strong>Collaborative editing.</strong> Many brands have 2–3 team members working in the dashboard simultaneously. We built no awareness of concurrent editing — two admins could overwrite each other's changes silently. Real-time presence indicators and edit locking for in-progress missions would prevent data conflicts and the confusion they cause.</li>
+                <li><strong>Richer segmentation in analytics.</strong> The current filtering is useful but surface-level. Cohort analysis — "show me the performance of ambassadors who joined in January vs. March" — requires export to external tools. Building this natively would unlock retention modeling directly inside the dashboard, which is the next strategic priority.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="reflection-close">
+            <p>The most important design lesson from Club Dashboard: a great SaaS product doesn't just give admins tools — it gives them judgment. Every dashboard feature should make the admin more capable, not just more efficient. When we got that right — when the insight cards told admins what to do, when the mission builder nudged them toward better decisions, when the analytics made optimization feel obvious — brands built better campaigns, ambassadors had better experiences, and the platform grew. That's the standard I'd hold any admin product to.</p>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+</body>
+</html>
