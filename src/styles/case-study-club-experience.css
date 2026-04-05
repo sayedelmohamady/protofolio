@@ -2732,3 +2732,18 @@
     transform: none;
   }
 }
+
+/* ─── CHEERS CLOSING IMAGE ──────────────────────────────────────── */
+
+.case-study-club .club-cheers-wrap {
+  width: 100%;
+  margin-top: 80px;
+  line-height: 0;
+}
+
+.case-study-club .club-cheers-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}

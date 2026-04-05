@@ -119,7 +119,7 @@ export default function ResumePage() {
                     </div>
                     <div className="resume-job-meta">
                       <span className="resume-job-period">Aug 2023 — Present</span>
-                      <span className="resume-job-location">Cairo, Egypt</span>
+                      <span className="resume-job-location">London & Oslo · Remote</span>
                     </div>
                   </div>
                   <ul className="resume-job-bullets">

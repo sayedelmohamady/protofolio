@@ -154,7 +154,7 @@
     p + p { margin-top: 14px; }
 
     /* PROBLEM */
-    .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 56px; }
+    .problem-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2px; margin-top: 56px; }
     .problem-card { background: var(--c-bg3); padding: 40px; position: relative; overflow: hidden; transition: background 0.3s cubic-bezier(0.22,1,0.36,1); }
     .problem-card:hover { background: var(--c-bg4); }
     .p-icon { width: 38px; height: 38px; border-radius: 10px; background: rgba(var(--c-accent-rgb),0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
@@ -171,46 +171,6 @@
     .highlight-card:hover { border-color: var(--c-border-m); }
     .highlight-card .qt { font-family: var(--f-display); font-size: 16px; font-weight: 600; line-height: 1.55; color: var(--c-text); margin-bottom: 12px; }
     .highlight-card .attr { font-size: 12px; color: var(--c-text-d); }
-
-    /* METRICS */
-    .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-top: 56px; }
-    .metric-card { background: var(--c-bg3); padding: 40px 32px; position: relative; overflow: hidden; transition: background 0.3s cubic-bezier(0.22,1,0.36,1); }
-    .metric-card:hover { background: var(--c-bg4); }
-    .metric-card .m-num { font-family: var(--f-display); font-size: 44px; font-weight: 800; color: var(--c-accent); line-height: 1; letter-spacing: -0.03em; margin-bottom: 8px; position: relative; }
-    .metric-card .m-label { font-size: 13px; color: var(--c-text-m); position: relative; max-width: 220px; line-height: 1.5; }
-
-    /* COMPARISON TABLE */
-    .comp-table { width: 100%; border-collapse: collapse; margin-top: 48px; }
-    .comp-table th { text-align: left; padding: 14px 18px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-accent); background: var(--c-bg3); border-bottom: 1px solid var(--c-border); }
-    .comp-table td { padding: 13px 18px; font-size: 13px; color: var(--c-text-m); border-bottom: 1px solid var(--c-border); }
-    .comp-table tr:hover td { background: rgba(var(--c-accent-rgb),0.03); }
-    .comp-table .check { color: var(--c-accent); }
-    .comp-table .cross { color: var(--c-text-d); }
-
-    /* PLACEHOLDER */
-    .placeholder {
-      background: var(--c-bg3);
-      border: 1px dashed rgba(var(--c-accent-rgb),0.28);
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      color: var(--c-text-d);
-      font-size: 12px;
-      position: relative;
-      overflow: hidden;
-      text-align: center;
-      padding: 28px;
-    }
-    .placeholder::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: repeating-linear-gradient(45deg, transparent, transparent 12px, rgba(var(--c-accent-rgb),0.025) 12px, rgba(var(--c-accent-rgb),0.025) 24px);
-    }
-    .placeholder svg { width: 24px; height: 24px; stroke: rgba(var(--c-accent-rgb),0.35); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; position: relative; }
-    .placeholder span { position: relative; line-height: 1.5; }
 
     /* WEB MOCKUPS (Website Design section) */
     .web-mockup-label {
@@ -244,30 +204,12 @@
       height: auto;
     }
 
-    /* IMPACT STATS */
-    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-top: 56px; margin-bottom: 20px; }
-    .stat-card { background: var(--c-bg3); padding: 44px 36px; position: relative; overflow: hidden; }
-    .stat-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at top right, rgba(var(--c-accent-rgb),0.055) 0%, transparent 60%); }
-    .stat-card .stat-n { font-family: var(--f-display); font-size: 60px; font-weight: 800; color: var(--c-accent); line-height: 1; letter-spacing: -0.03em; margin-bottom: 8px; position: relative; }
-    .stat-card .stat-l { font-size: 13px; color: var(--c-text-m); position: relative; max-width: 190px; line-height: 1.5; }
-
     /* QUOTES */
     .quotes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
     .q-card { background: var(--c-bg3); border-radius: 14px; padding: 28px; border: 1px solid var(--c-border); border-left: 3px solid var(--c-accent); transition: border-color 0.3s cubic-bezier(0.22,1,0.36,1); }
     .q-card:hover { border-color: var(--c-border-m); border-left-color: var(--c-accent); }
     .q-card .q-text { font-size: 14px; font-style: italic; color: var(--c-text); line-height: 1.65; margin-bottom: 14px; }
     .q-card .q-attr { font-size: 11px; color: var(--c-text-d); text-transform: uppercase; letter-spacing: 0.08em; }
-
-    /* USER RESEARCH */
-    .research-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 56px; }
-    .research-card { background: var(--c-bg3); border-radius: 16px; padding: 36px; border: 1px solid var(--c-border); position: relative; overflow: hidden; transition: border-color 0.3s cubic-bezier(0.22,1,0.36,1); }
-    .research-card:hover { border-color: var(--c-border-m); }
-    .research-card::after { content: ''; position: absolute; bottom: -40px; right: -40px; width: 160px; height: 160px; border-radius: 50%; background: rgba(var(--c-accent-rgb),0.04); }
-    .research-card h3 { font-size: 17px; color: var(--c-text); margin-bottom: 12px; }
-    .research-card p { font-size: 14px; max-width: none; line-height: 1.65; }
-    .feat-list { list-style: none; margin-top: 18px; display: flex; flex-direction: column; gap: 9px; }
-    .feat-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--c-text-m); }
-    .feat-list li::before { content: ''; display: block; width: 14px; height: 14px; flex-shrink: 0; margin-top: 4px; background: rgba(var(--c-accent-rgb),0.12); border-radius: 50%; border: 1px solid rgba(var(--c-accent-rgb),0.35); }
 
     /* LEARNINGS */
     .learnings-split { display: grid; grid-template-columns: 5fr 4fr; gap: 64px; align-items: start; margin-top: 56px; }
@@ -308,22 +250,19 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 1100px) {
       .learnings-split { grid-template-columns: 1fr; gap: 30px; }
-      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
-      .stats-row { grid-template-columns: repeat(2, 1fr); }
       .quotes-grid { grid-template-columns: 1fr; }
       .pillars-grid { grid-template-columns: repeat(2, 1fr); }
       .process-steps { grid-template-columns: repeat(3, 1fr); }
+      .problem-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 900px) {
       .sidebar { display: none; }
       .hero { padding: 0 20px 60px; }
       .wrap { padding: 72px 20px; }
       footer { padding: 40px 20px; flex-direction: column; gap: 20px; align-items: flex-start; }
-      .problem-grid, .role-split, .quotes-grid, .research-grid { grid-template-columns: 1fr; }
-      .stats-row, .metrics-grid { grid-template-columns: 1fr; }
+      .problem-grid, .role-split, .quotes-grid { grid-template-columns: 1fr; }
       .learnings-split { grid-template-columns: 1fr; }
       .process-steps { grid-template-columns: 1fr; }
-      .comp-table { font-size: 12px; }
       .top-nav { padding: 0 16px; }
       .next-steps { position: relative; top: auto; }
       .web-mockup { margin-top: 56px; }
@@ -380,24 +319,6 @@
         <a href="#challenge" data-section="challenge">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
           The Challenge
-        </a>
-      </li>
-      <li>
-        <a href="#research" data-section="research">
-          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-          Research
-        </a>
-      </li>
-      <li>
-        <a href="#user-research" data-section="user-research">
-          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          User Research
-        </a>
-      </li>
-      <li>
-        <a href="#competitors" data-section="competitors">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-          Competitors
         </a>
       </li>
       <li>
@@ -489,111 +410,11 @@
       </div>
     </div>
 
-    <!-- RESEARCH & DISCOVERY -->
-    <div class="wrap" id="research">
-      <div class="reveal">
-        <div class="section-label"><span class="num">03 /</span> Research &amp; Discovery</div>
-        <h2>Understanding the<br>market opportunity</h2>
-        <p>Before designing screens, we validated assumptions about user intent, decision triggers, and the strongest trust factors. Findings shaped the information architecture and interaction strategy.</p>
-      </div>
-
-      <div class="metrics-grid reveal">
-        <div class="metric-card"><div class="m-num">TBD</div><div class="m-label">User behaviour signals used to prioritise the flow</div></div>
-        <div class="metric-card"><div class="m-num">TBD</div><div class="m-label">Key friction points identified in user journeys</div></div>
-        <div class="metric-card"><div class="m-num">TBD</div><div class="m-label">Competitive patterns mapped for feature parity</div></div>
-      </div>
-
-      <div class="reveal mt-48">
-        <h3>Additional discovery insights</h3>
-        <p>Research highlighted that users do not just need features — they need reassurance moments and clear explanation of what happens next.</p>
-      </div>
-    </div>
-
-    <!-- USER RESEARCH -->
-    <div class="band">
-      <div class="wrap" id="user-research">
-        <div class="reveal">
-          <div class="section-label"><span class="num">04 /</span> User Research</div>
-          <h2>Qualitative insights<br>from real users</h2>
-          <p>We ran structured sessions to understand behaviours, decision-making criteria, and perceived risks across the journey.</p>
-        </div>
-
-        <div class="research-grid reveal">
-          <div class="research-card">
-            <h3>Interviews</h3>
-            <p>Captured user motivations, trust expectations, and how people compare options today.</p>
-            <ul class="feat-list">
-              <li>Mapping current workarounds</li>
-              <li>Identifying trust triggers</li>
-              <li>Understanding decision timelines</li>
-              <li>Documenting information gaps</li>
-            </ul>
-          </div>
-          <div class="research-card">
-            <h3>Usability testing</h3>
-            <p>Validated prototypes against real tasks to measure clarity and friction.</p>
-            <ul class="feat-list">
-              <li>Testing information hierarchy</li>
-              <li>Validating step-by-step comprehension</li>
-              <li>Reducing ambiguity in CTAs</li>
-              <li>Measuring time-to-decision</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- COMPETITOR ANALYSIS -->
-    <div class="wrap" id="competitors">
-      <div class="reveal">
-        <div class="section-label"><span class="num">05 /</span> Competitor Analysis</div>
-        <h2>Exploring existing<br>apps in the market</h2>
-        <p>We compared similar products to identify gaps, trust patterns, and feature sets. This helped us avoid building generic flows and instead focus on differentiation through clarity.</p>
-      </div>
-
-      <div class="reveal">
-        <table class="comp-table">
-          <thead>
-            <tr>
-              <th>Feature</th>
-              <th>Otida</th>
-              <th>Competitor A</th>
-              <th>Competitor B</th>
-              <th>Competitor C</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Clear next steps</td>
-              <td class="check">&#10003;</td>
-              <td class="cross">&#10005;</td>
-              <td class="check">&#10003;</td>
-              <td class="cross">&#10005;</td>
-            </tr>
-            <tr>
-              <td>Comparison experience</td>
-              <td class="check">&#10003;</td>
-              <td class="cross">&#10005;</td>
-              <td class="check">&#10003;</td>
-              <td class="check">&#10003;</td>
-            </tr>
-            <tr>
-              <td>Trust signals</td>
-              <td class="check">&#10003;</td>
-              <td class="check">&#10003;</td>
-              <td class="cross">&#10005;</td>
-              <td class="check">&#10003;</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
     <!-- SOLUTION -->
     <div class="band">
       <div class="wrap" id="solution">
         <div class="reveal">
-          <div class="section-label"><span class="num">06 /</span> Solution</div>
+          <div class="section-label"><span class="num">02 /</span> Solution</div>
           <h2>What we built<br>for Otida</h2>
           <p>Otida's solution was designed around four pillars to address the journey’s biggest risks: confusion, lack of comparability, uncertainty, and unnecessary steps.</p>
         </div>
@@ -621,15 +442,6 @@
           </div>
         </div>
 
-        <div class="reveal mt-48">
-          <h3>Key platform features</h3>
-          <p>We built reusable UI patterns for explanation, comparison, and reassurance — so the experience stays consistent across screens and channels.</p>
-        </div>
-
-        <div class="reveal mt-48 placeholder" style="height:360px;">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-          <span>Add app screens showing the main journey,<br>decision comparisons, and trust signals here</span>
-        </div>
       </div>
     </div>
 
@@ -637,7 +449,7 @@
     <div class="band">
       <div class="wrap" id="app-design">
         <div class="reveal">
-          <div class="section-label"><span class="num">07 /</span> App Design</div>
+          <div class="section-label"><span class="num">03 /</span> App Design</div>
           <h2>Crafting the<br>mobile experience</h2>
           <p>The mobile experience is where users decide. We focused on legibility, progressive disclosure, and reassuring microcopy that reduces uncertainty.</p>
         </div>
@@ -731,7 +543,7 @@
     <div class="band">
       <div class="wrap" id="web-design">
         <div class="reveal">
-          <div class="section-label"><span class="num">08 /</span> Website Design</div>
+          <div class="section-label"><span class="num">04 /</span> Website Design</div>
           <h2>Designing the<br>cross-device experience</h2>
           <p>We extended the same decision logic to responsive layouts, ensuring the user can compare options and complete the journey comfortably on desktop and mobile web.</p>
         </div>
@@ -837,7 +649,7 @@
     <!-- DESIGN PROCESS -->
     <div class="wrap" id="design-process">
       <div class="reveal">
-        <div class="section-label"><span class="num">09 /</span> Design Process</div>
+        <div class="section-label"><span class="num">05 /</span> Design Process</div>
         <h2>From research<br>to final UI</h2>
         <p>The design process followed a structured approach: discovery, definition, interaction design, testing, and iteration. Each phase was informed by the previous one’s findings.</p>
       </div>
@@ -879,38 +691,18 @@
           <p style="max-width:none;">Refine based on findings and technical feasibility constraints.</p>
         </div>
       </div>
-
-      <div class="placeholder reveal mt-48" style="height:320px;">
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-        <span>Add wireframes, user flows, and key UI screens here</span>
-      </div>
     </div>
 
     <!-- IMPACT -->
     <div class="band">
       <div class="wrap" id="impact">
         <div class="reveal">
-          <div class="section-label"><span class="num">10 /</span> Impact</div>
+          <div class="section-label"><span class="num">06 /</span> Impact</div>
           <h2>Results that<br>validated the work</h2>
           <p>The new Otida experience aimed to improve comprehension, reduce friction, and increase confidence at key decision moments.</p>
         </div>
 
-        <div class="stats-row reveal">
-          <div class="stat-card">
-            <div class="stat-n">TBD</div>
-            <div class="stat-l">Completion rate improvement (replace with real number)</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-n">TBD</div>
-            <div class="stat-l">Faster time-to-decision (replace with real number)</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-n">TBD</div>
-            <div class="stat-l">Higher user confidence / satisfaction (replace with real number)</div>
-          </div>
-        </div>
-
-        <div class="quotes-grid reveal">
+        <div class="quotes-grid reveal mt-48">
           <div class="q-card">
             <div class="q-text">"The experience made the next step feel obvious — I always knew what would happen after I chose."</div>
             <div class="q-attr">Outcome — clarity</div>
@@ -934,7 +726,7 @@
     <!-- LEARNINGS -->
     <div class="wrap" id="learnings">
       <div class="reveal">
-        <div class="section-label"><span class="num">11 /</span> Learnings</div>
+        <div class="section-label"><span class="num">07 /</span> Learnings</div>
         <h2>Key takeaways<br>from the project</h2>
         <p>Designing Otida highlighted that trust is earned through explanation and reassurance — not just by adding more UI.</p>
       </div>

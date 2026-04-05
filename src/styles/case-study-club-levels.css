@@ -1,0 +1,744 @@
+/*
+ * Club Levels case study — component styles + colour token overrides.
+ * Applied via .case-study-club.club-levels on the wrapper div.
+ * Structural foundation styles come from case-study-club.css.
+ *
+ * IMPORTANT: The HTML file's <style> block is head-only (stripped by
+ * getCaseStudyBodyHtml). ALL component CSS for Club Levels lives here.
+ */
+
+/* ─── HERO FIXES ─────────────────────────────────────────────────── */
+
+.case-study-club .hero-title .line-accent {
+  color: var(--c-accent);
+}
+
+.case-study-club .hero-meta {
+  flex-wrap: wrap;
+}
+
+/* ─── REVEAL ANIMATIONS ──────────────────────────────────────────── */
+
+.case-study-club .reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.case-study-club .reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+.case-study-club .rv-child {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1) var(--rv-d, 0ms),
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) var(--rv-d, 0ms);
+}
+
+.case-study-club .rv-child.rv-on {
+  opacity: 1;
+  transform: none;
+}
+
+/* ─── SECTION STRUCTURE ──────────────────────────────────────────── */
+
+.case-study-club .section-band {
+  background: var(--c-bg2);
+  border-top: 1px solid var(--c-border);
+  border-bottom: 1px solid var(--c-border);
+}
+
+/* ─── CONTEXT GRID ───────────────────────────────────────────────── */
+
+.case-study-club.club-levels .context-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+  margin-top: 40px;
+}
+
+.case-study-club.club-levels .context-visual {
+  background: var(--c-bg3);
+  border: 1px solid var(--c-border);
+  border-radius: 20px;
+  padding: 48px 40px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.case-study-club.club-levels .context-visual::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--c-accent-rgb), 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.case-study-club.club-levels .cv-stat {
+  position: relative;
+  z-index: 1;
+}
+
+.case-study-club.club-levels .cv-stat-num {
+  font-family: var(--f-display);
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--c-accent);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 4px;
+}
+
+.case-study-club.club-levels .cv-stat-label {
+  font-size: 12px;
+  color: var(--c-text-d);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.case-study-club.club-levels .cv-divider {
+  height: 1px;
+  background: var(--c-border);
+}
+
+.case-study-club.club-levels .cv-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.case-study-club.club-levels .cv-tag {
+  padding: 5px 14px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid var(--c-border-m);
+  color: var(--c-text-m);
+}
+
+.case-study-club.club-levels .cv-tag.accent {
+  border-color: rgba(var(--c-accent-rgb), 0.35);
+  color: var(--c-accent);
+  background: rgba(var(--c-accent-rgb), 0.08);
+}
+
+/* ─── PROBLEM GRID (4-up) ────────────────────────────────────────── */
+
+.case-study-club.club-levels .problem-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--case-grid-gap);
+  margin-top: 56px;
+  align-items: stretch;
+}
+
+.case-study-club.club-levels .problem-card {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.case-study-club.club-levels .problem-card p {
+  flex: 1;
+}
+
+/* ─── GOAL CARDS ─────────────────────────────────────────────────── */
+
+.case-study-club.club-levels .goal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--case-grid-gap);
+  margin-top: 40px;
+}
+
+.case-study-club.club-levels .goal-card {
+  background: var(--c-bg3);
+  border: 1px solid var(--c-border);
+  border-radius: var(--case-radius);
+  padding: 28px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition:
+    border-color 0.3s,
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.case-study-club.club-levels .goal-card:hover {
+  border-color: rgba(var(--c-accent-rgb), 0.22);
+  transform: translateY(-3px);
+}
+
+.case-study-club.club-levels .goal-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(var(--c-accent-rgb), 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.case-study-club.club-levels .goal-icon svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--c-accent);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.case-study-club.club-levels .goal-text h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--c-text);
+  margin-bottom: 6px;
+  font-family: var(--f-display);
+}
+
+.case-study-club.club-levels .goal-text p {
+  font-size: 13px;
+  max-width: none;
+  line-height: 1.65;
+}
+
+/* ─── LEVEL VISUAL ───────────────────────────────────────────────── */
+
+.case-study-club.club-levels .level-visual {
+  margin-top: 48px;
+  background: var(--c-bg3);
+  border: 1px solid var(--c-border);
+  border-radius: 24px;
+  padding: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.case-study-club.club-levels .level-visual::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--c-accent-rgb), 0.07) 0%, transparent 70%);
+}
+
+.case-study-club.club-levels .lv-tier-row {
+  display: flex;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.case-study-club.club-levels .lv-tier {
+  flex: 1;
+  background: var(--c-bg4);
+  border: 1px solid var(--c-border);
+  border-radius: 14px;
+  padding: 24px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition:
+    border-color 0.3s,
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.case-study-club.club-levels .lv-tier:hover {
+  border-color: rgba(var(--c-accent-rgb), 0.35);
+  transform: translateY(-4px);
+}
+
+.case-study-club.club-levels .lv-tier.active {
+  border-color: rgba(var(--c-accent-rgb), 0.5);
+  background: rgba(var(--c-accent-rgb), 0.06);
+  box-shadow: 0 0 32px rgba(var(--c-accent-rgb), 0.1);
+}
+
+.case-study-club.club-levels .lv-tier.active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--c-accent);
+}
+
+.case-study-club.club-levels .lv-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  margin: 0 auto 14px;
+  background: rgba(var(--c-accent-rgb), 0.12);
+  border: 1px solid rgba(var(--c-accent-rgb), 0.2);
+}
+
+.case-study-club.club-levels .lv-badge svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--c-accent);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.case-study-club.club-levels .lv-badge.gold {
+  background: rgba(251, 191, 36, 0.12);
+  border-color: rgba(251, 191, 36, 0.25);
+}
+
+.case-study-club.club-levels .lv-badge.gold svg {
+  stroke: #fbbf24;
+}
+
+.case-study-club.club-levels .lv-badge.platinum {
+  background: rgba(148, 163, 184, 0.12);
+  border-color: rgba(148, 163, 184, 0.25);
+}
+
+.case-study-club.club-levels .lv-badge.platinum svg {
+  stroke: #94a3b8;
+}
+
+.case-study-club.club-levels .lv-name {
+  font-family: var(--f-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--c-text);
+  margin-bottom: 4px;
+}
+
+.case-study-club.club-levels .lv-pts {
+  font-size: 11px;
+  color: var(--c-text-d);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.case-study-club.club-levels .lv-perk {
+  font-size: 12px;
+  color: var(--c-text-m);
+  line-height: 1.5;
+}
+
+.case-study-club.club-levels .lv-progress-row {
+  margin-top: 28px;
+  background: var(--c-bg4);
+  border: 1px solid var(--c-border);
+  border-radius: 14px;
+  padding: 24px 28px;
+  position: relative;
+  z-index: 1;
+}
+
+.case-study-club.club-levels .lv-progress-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.case-study-club.club-levels .lv-progress-text {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--c-text-m);
+}
+
+.case-study-club.club-levels .lv-progress-pct {
+  font-family: var(--f-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--c-accent);
+}
+
+.case-study-club.club-levels .lv-bar-track {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.case-study-club.club-levels .lv-bar-fill {
+  height: 100%;
+  border-radius: 100px;
+  width: 64%;
+  background: linear-gradient(90deg, var(--c-accent-d), var(--c-accent), var(--c-accent-l));
+}
+
+/* ─── LEARNINGS LIST ─────────────────────────────────────────────── */
+
+.case-study-club.club-levels .learnings-list {
+  list-style: none;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.case-study-club.club-levels .learnings-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: var(--c-bg3);
+  border: 1px solid var(--c-border);
+  border-radius: var(--case-radius);
+  padding: 22px 28px;
+  transition:
+    border-color 0.3s,
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.case-study-club.club-levels .learnings-list li:hover {
+  border-color: var(--c-border-m);
+  transform: translateX(4px);
+}
+
+.case-study-club.club-levels .li-num {
+  font-family: var(--f-display);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--c-accent);
+  opacity: 0.25;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.case-study-club.club-levels .li-text {
+  font-size: 14px;
+  color: var(--c-text-m);
+  line-height: 1.72;
+}
+
+/* ─── PRODUCT FLOWS ──────────────────────────────────────────────── */
+
+.case-study-club.club-levels .pf-flow {
+  padding-block: 80px 0;
+}
+
+.case-study-club.club-levels .pf-flow + .pf-flow {
+  border-top: 1px solid var(--c-border);
+}
+
+.case-study-club.club-levels .pf-header {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding-bottom: 48px;
+}
+
+.case-study-club.club-levels .pf-meta {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+}
+
+.case-study-club.club-levels .pf-index {
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--c-accent);
+  opacity: 0.25;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+  margin-top: 4px;
+}
+
+.case-study-club.club-levels .pf-meta > div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.case-study-club.club-levels .pf-title {
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  font-weight: 700;
+  color: var(--c-text);
+  line-height: 1.2;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.case-study-club.club-levels .pf-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+  background: rgba(var(--c-accent-rgb), 0.12);
+  border: 1px solid rgba(var(--c-accent-rgb), 0.3);
+  padding: 3px 10px;
+  border-radius: 100px;
+  vertical-align: middle;
+}
+
+.case-study-club.club-levels .pf-desc {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--c-text-m);
+  max-width: 600px;
+  margin: 0;
+}
+
+.case-study-club.club-levels .pf-steps {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.case-study-club.club-levels .pf-step {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--c-text-m);
+  background: var(--c-bg3);
+  border: 1px solid var(--c-border);
+  padding: 5px 14px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.case-study-club.club-levels .pf-arrow {
+  font-size: 0.8rem;
+  color: var(--c-accent);
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+/* ─── SCREEN PLACEHOLDER ─────────────────────────────────────────── */
+
+.case-study-club.club-levels .screen-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: linear-gradient(135deg, var(--c-bg3) 0%, var(--c-bg4) 100%);
+}
+
+.case-study-club.club-levels .screen-placeholder-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(var(--c-accent-rgb), 0.1);
+  border: 1px solid rgba(var(--c-accent-rgb), 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.case-study-club.club-levels .screen-placeholder-icon svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--c-accent);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.case-study-club.club-levels .screen-placeholder-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--c-text-d);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ─── HOW IT WORKS — FLOW STEPS ─────────────────────────────────── */
+
+.case-study-club.club-levels .flow-steps {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-top: 48px;
+  padding-bottom: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.case-study-club.club-levels .flow-steps::-webkit-scrollbar {
+  display: none;
+}
+
+.case-study-club.club-levels .flow-step {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.case-study-club.club-levels .flow-step-inner {
+  background: var(--c-bg3);
+  border: 1px solid var(--c-border);
+  border-radius: 14px;
+  padding: 20px 16px;
+  width: 140px;
+  text-align: center;
+  cursor: default;
+  transition:
+    border-color 0.3s,
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.3s;
+}
+
+.case-study-club.club-levels .flow-step-inner:hover {
+  border-color: rgba(var(--c-accent-rgb), 0.4);
+  transform: translateY(-5px);
+  background: var(--c-bg4);
+}
+
+.case-study-club.club-levels .flow-step-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(var(--c-accent-rgb), 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+}
+
+.case-study-club.club-levels .flow-step-icon svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--c-accent);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.case-study-club.club-levels .flow-step-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--c-text);
+  letter-spacing: 0.02em;
+}
+
+.case-study-club.club-levels .flow-step-sub {
+  font-size: 11px;
+  color: var(--c-text-d);
+  margin-top: 3px;
+  line-height: 1.4;
+}
+
+.case-study-club.club-levels .flow-arrow {
+  width: 32px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 28px;
+}
+
+.case-study-club.club-levels .flow-arrow svg {
+  width: 18px;
+  height: 18px;
+  stroke: rgba(var(--c-accent-rgb), 0.35);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ─── IMPACT — ANIMATED BAR CHART ───────────────────────────────── */
+
+.case-study-club.club-levels .reveal.visible .impact-bar-fill {
+  width: var(--w, 60%);
+  transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1) var(--delay, 0s);
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .case-study-club.club-levels .context-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .case-study-club.club-levels .goal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .case-study-club.club-levels .problem-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .case-study-club.club-levels .lv-tier-row {
+    flex-wrap: wrap;
+  }
+
+  .case-study-club.club-levels .lv-tier {
+    flex-basis: calc(50% - 5px);
+  }
+
+  .case-study-club.club-levels .pf-meta {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .case-study-club.club-levels .pf-flow {
+    padding-block: 56px 0;
+  }
+
+  .case-study-club.club-levels .pf-header {
+    padding-bottom: 32px;
+    gap: 20px;
+  }
+
+  .case-study-club.club-levels .pf-index {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .case-study-club.club-levels .problem-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .case-study-club.club-levels .lv-tier-row {
+    flex-direction: column;
+  }
+
+  .case-study-club.club-levels .lv-tier {
+    flex-basis: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-study-club.club-levels .reveal,
+  .case-study-club.club-levels .rv-child {
+    transition-duration: 0.01ms;
+  }
+}

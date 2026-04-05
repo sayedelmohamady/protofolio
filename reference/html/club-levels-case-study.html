@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Club Levels — Progression System Case Study</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ── Standalone preview only — Next.js uses case-study-club-levels.css ── */
+    :root {
+      --c-bg: #08080A;
+      --c-bg2: #0F0F12;
+      --c-bg3: #16161A;
+      --c-bg4: #1E1E23;
+      --c-border: rgba(255, 255, 255, 0.06);
+      --c-border-m: rgba(255, 255, 255, 0.10);
+      --c-text: #EDECEA;
+      --c-text-m: #A8A6A0;
+      --c-text-d: #5E5C58;
+      --c-text2: #A8A6A0;
+      --c-accent: #9667f7;
+      --c-accent-l: #b593f9;
+      --c-accent-m: #8152e0;
+      --c-accent-d: #6131c4;
+      --c-accent-rgb: 150, 103, 247;
+      --f-display: 'Syne', sans-serif;
+      --f-body: 'DM Sans', sans-serif;
+      --nav-h: 56px;
+      --sidebar-w: 220px;
+      --case-radius: 14px;
+      --case-grid-gap: 10px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--c-bg);
+      color: var(--c-text);
+      font-family: var(--f-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    .top-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px; height: var(--nav-h);
+      background: rgba(8, 8, 10, 0.92);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--c-border);
+    }
+    .top-nav-name {
+      display: flex; align-items: center; gap: 10px;
+      font-family: var(--f-display); font-weight: 700; font-size: 13px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--c-text); text-decoration: none;
+    }
+    .top-nav-name .green-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--c-accent);
+      box-shadow: 0 0 8px rgba(150, 103, 247, 0.5);
+      flex-shrink: 0;
+    }
+    .top-nav-back {
+      font-size: 13px; color: var(--c-accent); text-decoration: none;
+      font-weight: 500; letter-spacing: 0.02em; transition: color 0.2s;
+    }
+    .top-nav-back:hover { color: var(--c-accent-l); }
+
+    /* ── HERO ── */
+    .hero {
+      margin-top: var(--nav-h); min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 48px 80px; position: relative; overflow: hidden;
+    }
+    .hero-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+    .hero-glow {
+      position: absolute; width: 900px; height: 900px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(150, 103, 247, 0.10) 0%, transparent 70%);
+      top: -300px; right: -200px;
+    }
+    .hero-glow2 {
+      position: absolute; width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(150, 103, 247, 0.05) 0%, transparent 70%);
+      bottom: 80px; left: -100px;
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse at 60% 40%, black 20%, transparent 70%);
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--c-accent); margin-bottom: 28px; position: relative;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block; width: 28px; height: 1px; background: var(--c-accent);
+    }
+    .hero-title {
+      font-family: var(--f-display);
+      font-size: clamp(60px, 9vw, 128px);
+      font-weight: 800; line-height: 0.9; letter-spacing: -0.03em;
+      margin-bottom: 40px; position: relative;
+    }
+    .hero-title .line-accent { color: var(--c-accent); }
+    .hero-title .line-dim { color: var(--c-text-d); }
+    .hero-divider { width: 100%; height: 1px; background: var(--c-border); margin-bottom: 40px; }
+    .hero-meta { display: flex; gap: 48px; margin-bottom: 48px; flex-wrap: wrap; position: relative; }
+    .hero-meta-item label {
+      display: block; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--c-text-d); margin-bottom: 4px;
+    }
+    .hero-meta-item span { font-size: 13px; color: var(--c-text-m); }
+    .hero-scroll {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 11px; color: var(--c-text-d); letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 40px; height: 1px; background: var(--c-text-d);
+      position: relative; overflow: hidden;
+    }
+    .scroll-line::after {
+      content: ''; position: absolute; top: 0; left: -100%;
+      width: 100%; height: 100%; background: var(--c-accent);
+      animation: slide 2s ease-in-out infinite;
+    }
+    @keyframes slide { 0% { left: -100% } 50% { left: 0% } 100% { left: 100% } }
+
+    /* ── LAYOUT ── */
+    .case-layout { display: flex; min-height: 100vh; }
+
+    .sidebar {
+      width: var(--sidebar-w); flex-shrink: 0;
+      position: sticky; top: calc(var(--nav-h) + 24px);
+      height: fit-content; max-height: calc(100vh - var(--nav-h) - 48px);
+      overflow-y: auto; padding: 16px 0; margin-left: 24px;
+      border: 1px solid var(--c-border); border-radius: 16px;
+      background: rgba(255,255,255,0.02); backdrop-filter: blur(12px); z-index: 50;
+    }
+    .sidebar::-webkit-scrollbar { width: 0; }
+    .sidebar-nav { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+    .sidebar-nav a {
+      display: flex; align-items: center; gap: 10px; padding: 9px 20px;
+      font-size: 12.5px; font-weight: 500; color: var(--c-text-d);
+      text-decoration: none; letter-spacing: 0.01em;
+      border-left: 2px solid transparent; border-radius: 8px; margin: 0 8px;
+      transition: color 0.25s, border-color 0.25s, background 0.25s;
+    }
+    .sidebar-nav a:hover { color: var(--c-text-m); background: rgba(255,255,255,0.04); }
+    .sidebar-nav a.active {
+      color: var(--c-accent); font-weight: 600;
+      border-left-color: var(--c-accent); background: rgba(150,103,247,0.08);
+    }
+    .sidebar-nav a svg {
+      width: 15px; height: 15px; flex-shrink: 0; stroke: currentColor; fill: none;
+      stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; opacity: 0.7;
+    }
+    .sidebar-nav a.active svg { opacity: 1; }
+    .sidebar-sep { height: 1px; background: var(--c-border); margin: 12px 16px; }
+
+    .main-content { flex: 1; min-width: 0; padding-left: 32px; }
+
+    /* ── SECTIONS ── */
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 100px 48px; }
+    .section-band { background: var(--c-bg2); border-top: 1px solid var(--c-border); border-bottom: 1px solid var(--c-border); }
+    .section-divider { height: 1px; background: var(--c-border); }
+
+    /* ── TYPOGRAPHY ── */
+    .section-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--c-accent); margin-bottom: 20px;
+    }
+    .section-label .num { opacity: 0.5; }
+    h2 {
+      font-family: var(--f-display); font-size: clamp(32px, 3.5vw, 48px);
+      font-weight: 700; line-height: 1.06; letter-spacing: -0.025em; margin-bottom: 20px;
+    }
+    h3 { font-family: var(--f-display); font-size: 20px; font-weight: 600; margin-bottom: 10px; }
+    p { color: var(--c-text-m); max-width: 640px; }
+    p + p { margin-top: 14px; }
+
+    /* ── PROCESS STEPS ── */
+    .process-steps {
+      display: flex; gap: 0; margin-top: 48px;
+      border: 1px solid var(--c-border); border-radius: var(--case-radius); overflow: hidden;
+    }
+    .process-step {
+      flex: 1; padding: 28px 24px; position: relative;
+      transition: background 0.3s; border-right: 1px solid var(--c-border);
+    }
+    .process-step:last-child { border-right: none; }
+    .process-step:hover { background: var(--c-bg4); }
+    .process-step.active { background: rgba(150,103,247,0.05); }
+    .process-step.active::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--c-accent);
+    }
+    .ps-num { font-size: 10px; font-weight: 600; color: var(--c-text-d); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+    .ps-title { font-family: var(--f-display); font-size: 18px; font-weight: 700; color: var(--c-text); margin-bottom: 8px; }
+    .process-step.active .ps-title { color: var(--c-accent); }
+    .ps-desc { font-size: 13px; color: var(--c-text-d); line-height: 1.55; }
+
+    /* ── PROBLEM CARDS ── */
+    .problem-grid {
+      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--case-grid-gap); margin-top: 56px; align-items: stretch;
+    }
+    .problem-card {
+      background: var(--c-bg3); border: 1px solid var(--c-border);
+      border-radius: var(--case-radius); padding: 32px; position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: background 0.5s cubic-bezier(0.22,1,0.36,1), border-color 0.5s cubic-bezier(0.22,1,0.36,1), transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.55s cubic-bezier(0.22,1,0.36,1);
+    }
+    .problem-card:hover {
+      background: var(--c-bg4); border-color: rgba(150,103,247,0.38); transform: translateY(-5px);
+      box-shadow: 0 22px 56px rgba(0,0,0,0.38), 0 0 0 1px rgba(150,103,247,0.1), 0 0 40px rgba(150,103,247,0.09);
+    }
+    .problem-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: transparent; transition: background 0.45s cubic-bezier(0.22,1,0.36,1);
+    }
+    .problem-card:hover::before { background: linear-gradient(90deg, var(--c-accent-d), var(--c-accent-l)); }
+    .p-icon {
+      width: 40px; height: 40px; border-radius: 11px; background: rgba(150,103,247,0.1);
+      display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+      transition: transform 0.45s cubic-bezier(0.22,1,0.36,1), background 0.45s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s cubic-bezier(0.22,1,0.36,1);
+    }
+    .problem-card:hover .p-icon { transform: scale(1.06); background: rgba(150,103,247,0.16); box-shadow: 0 0 24px rgba(150,103,247,0.12); }
+    .p-icon svg { width: 18px; height: 18px; stroke: var(--c-accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .problem-card h3 { font-size: 17px; font-weight: 600; color: var(--c-text); margin-bottom: 10px; letter-spacing: -0.01em; }
+    .problem-card p { font-size: 14px; max-width: none; line-height: 1.65; flex: 1; }
+
+    /* ── TWO-COLUMN CONTEXT ── */
+    .context-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; margin-top: 40px;
+    }
+    .context-visual {
+      background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: 20px;
+      padding: 48px 40px; position: relative; overflow: hidden;
+      display: flex; flex-direction: column; gap: 28px;
+    }
+    .context-visual::before {
+      content: ''; position: absolute; top: -60px; right: -60px; width: 240px; height: 240px;
+      border-radius: 50%; background: radial-gradient(circle, rgba(150,103,247,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cv-stat { position: relative; z-index: 1; }
+    .cv-stat-num {
+      font-family: var(--f-display); font-size: 40px; font-weight: 800;
+      color: var(--c-accent); line-height: 1; letter-spacing: -0.03em; margin-bottom: 4px;
+    }
+    .cv-stat-label { font-size: 12px; color: var(--c-text-d); letter-spacing: 0.06em; text-transform: uppercase; }
+    .cv-divider { height: 1px; background: var(--c-border); }
+    .cv-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .cv-tag {
+      padding: 5px 14px; border-radius: 100px; font-size: 12px; font-weight: 500;
+      border: 1px solid var(--c-border-m); color: var(--c-text-m);
+    }
+    .cv-tag.accent { border-color: rgba(150,103,247,0.35); color: var(--c-accent); background: rgba(150,103,247,0.08); }
+
+    /* ── FLOW STEPS (HOW IT WORKS) ── */
+    .flow-steps {
+      display: flex; align-items: center; gap: 0;
+      margin-top: 48px; padding-bottom: 8px; overflow-x: auto; scrollbar-width: none;
+    }
+    .flow-steps::-webkit-scrollbar { display: none; }
+    .flow-step { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .flow-step-inner {
+      background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: 14px;
+      padding: 20px 16px; width: 140px; text-align: center; cursor: default;
+      transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22,1,0.36,1), background 0.3s;
+    }
+    .flow-step-inner:hover { border-color: rgba(150,103,247,0.4); transform: translateY(-5px); background: var(--c-bg4); }
+    .flow-step-icon {
+      width: 36px; height: 36px; border-radius: 10px; background: rgba(150,103,247,0.10);
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;
+    }
+    .flow-step-icon svg { width: 16px; height: 16px; stroke: var(--c-accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .flow-step-label { font-size: 12px; font-weight: 600; color: var(--c-text); letter-spacing: 0.02em; }
+    .flow-step-sub { font-size: 11px; color: var(--c-text-d); margin-top: 3px; line-height: 1.4; }
+    .flow-arrow { width: 32px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; padding-bottom: 28px; }
+    .flow-arrow svg { width: 18px; height: 18px; stroke: rgba(150,103,247,0.35); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── DECISIONS LIST ── */
+    .decisions-list { display: flex; flex-direction: column; gap: 12px; margin-top: 48px; }
+    .decision-card {
+      background: var(--c-bg3); border: 1px solid var(--c-border);
+      border-radius: var(--case-radius); padding: 32px;
+      display: grid; grid-template-columns: 52px 1fr; gap: 24px; align-items: start;
+      transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22,1,0.36,1);
+    }
+    .decision-card:hover { border-color: rgba(150,103,247,0.18); transform: translateX(4px); }
+    .decision-num { font-family: var(--f-display); font-size: 28px; font-weight: 800; color: var(--c-accent); opacity: 0.22; line-height: 1; }
+    .decision-body h3 { font-size: 17px; font-weight: 600; color: var(--c-text); margin-bottom: 10px; }
+    .decision-body p { font-size: 14px; max-width: none; line-height: 1.72; }
+    .decision-tag {
+      display: inline-block; margin-top: 14px; padding: 4px 12px; border-radius: 100px;
+      font-size: 11px; font-weight: 500; color: var(--c-accent);
+      background: rgba(150,103,247,0.10); border: 1px solid rgba(150,103,247,0.20); letter-spacing: 0.04em;
+    }
+
+    /* ── IMPACT ── */
+    .impact-headline {
+      margin-top: 48px; padding: 48px 56px;
+      background: linear-gradient(135deg, rgba(150,103,247,0.09) 0%, rgba(150,103,247,0.03) 100%);
+      border: 1px solid rgba(150,103,247,0.22); border-radius: 24px;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .impact-headline::before {
+      content: ''; position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+      width: 400px; height: 200px;
+      background: radial-gradient(ellipse, rgba(150,103,247,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .ih-num {
+      font-family: var(--f-display); font-size: clamp(64px, 8vw, 100px);
+      font-weight: 800; color: var(--c-accent); line-height: 1; letter-spacing: -0.04em;
+      margin-bottom: 12px; position: relative;
+    }
+    .ih-label { font-family: var(--f-display); font-size: 20px; font-weight: 600; color: var(--c-text); margin-bottom: 8px; position: relative; }
+    .ih-context { font-size: 13px; color: var(--c-text-d); letter-spacing: 0.06em; text-transform: uppercase; position: relative; }
+
+    .impact-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--case-grid-gap); margin-top: var(--case-grid-gap); }
+    .impact-stat-card {
+      background: var(--c-bg3); border: 1px solid var(--c-border);
+      border-radius: var(--case-radius); padding: 32px 28px; position: relative; overflow: hidden;
+      text-align: center; transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22,1,0.36,1);
+    }
+    .impact-stat-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: transparent; transition: background 0.3s;
+    }
+    .impact-stat-card::after {
+      content: ''; position: absolute; bottom: -30px; right: -30px;
+      width: 120px; height: 120px; border-radius: 50%; background: rgba(150,103,247,0.04);
+    }
+    .impact-stat-card:hover::before { background: var(--c-accent); }
+    .impact-stat-card:hover { border-color: rgba(150,103,247,0.35); transform: translateY(-4px); }
+    .impact-num { font-family: var(--f-display); font-size: 44px; font-weight: 800; color: var(--c-accent); line-height: 1; letter-spacing: -0.03em; margin-bottom: 10px; }
+    .impact-label { font-size: 14px; color: var(--c-text-m); line-height: 1.5; }
+    .impact-context { font-size: 11px; color: var(--c-text-d); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 8px; }
+
+    /* ── IMPACT BAR CHART ── */
+    .impact-bars {
+      display: flex; flex-direction: column; gap: 18px; margin-top: var(--case-grid-gap);
+      padding: 36px; background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: var(--case-radius);
+    }
+    .impact-bars-header { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-text-d); margin-bottom: 8px; }
+    .impact-bar-row { display: grid; grid-template-columns: 220px 1fr 72px; gap: 16px; align-items: center; }
+    .impact-bar-label { font-size: 12px; font-weight: 500; color: var(--c-text-m); line-height: 1.4; }
+    .impact-bar-track { height: 6px; background: rgba(255,255,255,0.06); border-radius: 100px; overflow: hidden; }
+    .impact-bar-fill {
+      height: 100%; border-radius: 100px; width: 0;
+      background: linear-gradient(90deg, var(--c-accent-d), var(--c-accent), var(--c-accent-l));
+      transition: none;
+    }
+    .reveal.visible .impact-bar-fill { width: var(--w, 60%); transition: width 1.4s cubic-bezier(0.22,1,0.36,1) var(--delay, 0s); }
+    .impact-bar-value { font-family: var(--f-display); font-size: 15px; font-weight: 700; color: var(--c-accent); white-space: nowrap; text-align: right; }
+
+    /* ── REFLECTION ── */
+    .reflection-card {
+      background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: 24px;
+      padding: 56px 64px; margin-top: 48px; position: relative; overflow: hidden;
+    }
+    .reflection-card::after {
+      content: ''; position: absolute; top: -80px; right: -80px;
+      width: 300px; height: 300px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(150,103,247,0.06) 0%, transparent 70%);
+    }
+    .rf-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-accent); margin-bottom: 20px; }
+    .rf-text { font-family: var(--f-display); font-size: clamp(18px, 2vw, 24px); font-weight: 600; line-height: 1.45; color: var(--c-text); max-width: 720px; position: relative; }
+    .rf-sub { margin-top: 24px; font-size: 14px; color: var(--c-text-m); max-width: 640px; line-height: 1.78; position: relative; }
+
+    /* ── LEARNINGS ── */
+    .learnings-list { list-style: none; margin-top: 40px; display: flex; flex-direction: column; gap: 14px; }
+    .learnings-list li {
+      display: flex; align-items: flex-start; gap: 16px;
+      background: var(--c-bg3); border: 1px solid var(--c-border);
+      border-radius: var(--case-radius); padding: 22px 28px;
+      transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22,1,0.36,1);
+    }
+    .learnings-list li:hover { border-color: var(--c-border-m); transform: translateX(4px); }
+    .li-num { font-family: var(--f-display); font-size: 22px; font-weight: 800; color: var(--c-accent); opacity: 0.25; line-height: 1; flex-shrink: 0; }
+    .li-text { font-size: 14px; color: var(--c-text-m); line-height: 1.72; }
+
+    /* ── PRODUCT FLOWS ── */
+    .pf-section { padding-top: 0; }
+    .pf-section-header { max-width: 1100px; margin: 0 auto; padding: 100px 48px 0; }
+    .pf-flow { padding-block: 80px 0; }
+    .pf-flow + .pf-flow { border-top: 1px solid var(--c-border); }
+    .pf-header { display: flex; flex-direction: column; gap: 28px; padding-bottom: 48px; }
+    .pf-meta { display: flex; align-items: flex-start; gap: 28px; }
+    .pf-index {
+      font-size: clamp(3rem, 6vw, 5rem); font-weight: 800; line-height: 1;
+      color: var(--c-accent); opacity: 0.25; flex-shrink: 0;
+      font-variant-numeric: tabular-nums; letter-spacing: -0.04em; margin-top: 4px;
+    }
+    .pf-meta > div { display: flex; flex-direction: column; gap: 10px; }
+    .pf-title {
+      font-size: clamp(1.4rem, 2.4vw, 1.9rem); font-weight: 700; color: var(--c-text);
+      line-height: 1.2; margin: 0; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    }
+    .pf-tag {
+      display: inline-block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--c-accent); background: rgba(150,103,247,0.12);
+      border: 1px solid rgba(150,103,247,0.3); padding: 3px 10px; border-radius: 100px; vertical-align: middle;
+    }
+    .pf-desc { font-size: 1rem; line-height: 1.7; color: var(--c-text-m); max-width: 600px; margin: 0; }
+    .pf-steps { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+    .pf-step {
+      font-size: 0.8rem; font-weight: 500; color: var(--c-text-m);
+      background: var(--c-bg3); border: 1px solid var(--c-border);
+      padding: 5px 14px; border-radius: 100px; white-space: nowrap;
+    }
+    .pf-arrow { font-size: 0.8rem; color: var(--c-accent); opacity: 0.6; flex-shrink: 0; }
+
+    /* ── STICKY STACK ── */
+    .ss-strip--stack { display: flex; flex-direction: column; gap: 0; width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 48px; box-sizing: border-box; }
+    .ss-strip--stack .ss-cell-sticky-wrap { position: sticky; top: calc(56px + (var(--card-z, 1) - 1) * 32px); z-index: var(--card-z, 1); padding-bottom: 24px; }
+    .ss-strip--stack .ss-cell-sticky-wrap:last-child { padding-bottom: 0; }
+    .ss-strip--stack .ss-cell {
+      width: 100%; aspect-ratio: 16 / 9; position: relative; overflow: hidden;
+      background: var(--c-bg3); border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+    .ss-strip--stack .ss-cell img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.45s cubic-bezier(0.22,1,0.36,1); }
+    .ss-strip--stack .ss-cell:hover img { transform: scale(1.03); }
+    .ss-strip--stack .ss-cell .ss-lbl {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: rgba(0,0,0,0.78); backdrop-filter: blur(8px);
+      padding: 12px 16px; font-size: 11px; color: rgba(255,255,255,0.6);
+      letter-spacing: 0.06em; text-transform: uppercase;
+      transform: translateY(100%); transition: transform 0.3s;
+    }
+    .ss-strip--stack .ss-cell:hover .ss-lbl { transform: translateY(0); }
+
+    /* ── SCREEN PLACEHOLDER (for screens without real images) ── */
+    .screen-placeholder {
+      width: 100%; height: 100%; min-height: 400px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+      background: linear-gradient(135deg, var(--c-bg3) 0%, var(--c-bg4) 100%);
+    }
+    .screen-placeholder-icon {
+      width: 48px; height: 48px; border-radius: 14px; background: rgba(150,103,247,0.1);
+      border: 1px solid rgba(150,103,247,0.2);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .screen-placeholder-icon svg { width: 22px; height: 22px; stroke: var(--c-accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .screen-placeholder-label { font-size: 12px; font-weight: 500; color: var(--c-text-d); letter-spacing: 0.08em; text-transform: uppercase; }
+
+    /* ── GOAL CARDS ── */
+    .goal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--case-grid-gap); margin-top: 40px; }
+    .goal-card {
+      background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: var(--case-radius);
+      padding: 28px; display: flex; align-items: flex-start; gap: 16px;
+      transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22,1,0.36,1);
+    }
+    .goal-card:hover { border-color: rgba(150,103,247,0.22); transform: translateY(-3px); }
+    .goal-icon {
+      width: 36px; height: 36px; border-radius: 10px; background: rgba(150,103,247,0.1);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .goal-icon svg { width: 16px; height: 16px; stroke: var(--c-accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .goal-text h3 { font-size: 15px; font-weight: 600; color: var(--c-text); margin-bottom: 6px; font-family: var(--f-display); }
+    .goal-text p { font-size: 13px; max-width: none; line-height: 1.65; }
+
+    /* ── LEVEL VISUAL ── */
+    .level-visual {
+      margin-top: 48px; background: var(--c-bg3); border: 1px solid var(--c-border);
+      border-radius: 24px; padding: 48px; position: relative; overflow: hidden;
+    }
+    .level-visual::before {
+      content: ''; position: absolute; top: -80px; right: -80px; width: 360px; height: 360px;
+      border-radius: 50%; background: radial-gradient(circle, rgba(150,103,247,0.07) 0%, transparent 70%);
+    }
+    .lv-tier-row { display: flex; gap: 10px; position: relative; z-index: 1; }
+    .lv-tier {
+      flex: 1; background: var(--c-bg4); border: 1px solid var(--c-border);
+      border-radius: 14px; padding: 24px 20px; text-align: center;
+      transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22,1,0.36,1);
+      position: relative; overflow: hidden;
+    }
+    .lv-tier:hover { border-color: rgba(150,103,247,0.35); transform: translateY(-4px); }
+    .lv-tier.active {
+      border-color: rgba(150,103,247,0.5); background: rgba(150,103,247,0.06);
+      box-shadow: 0 0 32px rgba(150,103,247,0.1);
+    }
+    .lv-tier.active::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--c-accent); }
+    .lv-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 48px; height: 48px; border-radius: 14px; margin: 0 auto 14px;
+      background: rgba(150,103,247,0.12); border: 1px solid rgba(150,103,247,0.2);
+    }
+    .lv-badge svg { width: 22px; height: 22px; stroke: var(--c-accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .lv-badge.gold { background: rgba(251,191,36,0.12); border-color: rgba(251,191,36,0.25); }
+    .lv-badge.gold svg { stroke: #fbbf24; }
+    .lv-badge.platinum { background: rgba(148,163,184,0.12); border-color: rgba(148,163,184,0.25); }
+    .lv-badge.platinum svg { stroke: #94a3b8; }
+    .lv-name { font-family: var(--f-display); font-size: 15px; font-weight: 700; color: var(--c-text); margin-bottom: 4px; }
+    .lv-pts { font-size: 11px; color: var(--c-text-d); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 12px; }
+    .lv-perk { font-size: 12px; color: var(--c-text-m); line-height: 1.5; }
+    .lv-progress-row {
+      margin-top: 28px; background: var(--c-bg4); border: 1px solid var(--c-border);
+      border-radius: 14px; padding: 24px 28px; position: relative; z-index: 1;
+    }
+    .lv-progress-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .lv-progress-text { font-size: 12px; font-weight: 500; color: var(--c-text-m); }
+    .lv-progress-pct { font-family: var(--f-display); font-size: 13px; font-weight: 700; color: var(--c-accent); }
+    .lv-bar-track { height: 8px; background: rgba(255,255,255,0.06); border-radius: 100px; overflow: hidden; }
+    .lv-bar-fill { height: 100%; border-radius: 100px; width: 64%; background: linear-gradient(90deg, var(--c-accent-d), var(--c-accent), var(--c-accent-l)); }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1); }
+    .reveal.visible { opacity: 1; transform: none; }
+    .rv-child { opacity: 0; transform: translateY(18px); transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1) var(--rv-d, 0ms), transform 0.5s cubic-bezier(0.22,1,0.36,1) var(--rv-d, 0ms); }
+    .rv-child.rv-on { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+      .main-content { padding-left: 0; }
+      .problem-grid { grid-template-columns: repeat(2, 1fr); }
+      .context-grid { grid-template-columns: 1fr; }
+      .goal-grid { grid-template-columns: 1fr; }
+      .impact-stats { grid-template-columns: 1fr; }
+      .lv-tier-row { flex-wrap: wrap; }
+      .lv-tier { flex-basis: calc(50% - 5px); }
+      .ss-strip--stack { padding: 0 20px; }
+      .ss-strip--stack .ss-cell-sticky-wrap { top: calc(56px + (var(--card-z, 1) - 1) * 24px); padding-bottom: 20px; }
+      .impact-bar-row { grid-template-columns: 1fr; gap: 8px; }
+      .reflection-card { padding: 40px 32px; }
+      .hero { padding: 0 24px 60px; }
+      .wrap { padding: 64px 24px; }
+    }
+    @media (max-width: 640px) {
+      .problem-grid { grid-template-columns: 1fr; }
+      .hero-meta { gap: 24px; }
+      .pf-meta { flex-direction: column; gap: 16px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="top-nav">
+    <a href="index.html" class="top-nav-name">
+      <span class="green-dot"></span>
+      Sayed Elmohamady
+    </a>
+    <a href="index.html" class="top-nav-back">&larr; Portfolio</a>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════════════
+       HERO
+  ══════════════════════════════════════════════════════════ -->
+  <div class="hero">
+    <div class="hero-bg">
+      <div class="hero-glow"></div>
+      <div class="hero-glow2"></div>
+      <div class="hero-grid"></div>
+    </div>
+    <div class="hero-eyebrow">UX Case Study · 0 → 1 Feature</div>
+    <h1 class="hero-title">
+      <span class="line-accent">Club</span><br>
+      <span>Levels</span><br>
+      <span class="line-dim">System</span>
+    </h1>
+    <div class="hero-divider"></div>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <label>Role</label>
+        <span>Product Designer</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Scope</label>
+        <span>0 → 1 Feature</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Platform</label>
+        <span>iOS / Android</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Product</label>
+        <span>Club / Brandbassador</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Timeline</label>
+        <span>2024 – 2025</span>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      Scroll to explore
+    </div>
+  </div>
+
+  <!-- TWO-COLUMN LAYOUT -->
+  <div class="case-layout">
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="sidebar">
+      <ul class="sidebar-nav">
+        <li><a href="#overview" data-section="overview">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            Overview
+          </a></li>
+        <li><a href="#problem" data-section="problem">
+            <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Problem
+          </a></li>
+        <li><a href="#goal" data-section="goal">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+            Goal
+          </a></li>
+        <li><a href="#solution" data-section="solution">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Solution
+          </a></li>
+        <div class="sidebar-sep"></div>
+        <li><a href="#how-it-works" data-section="how-it-works">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            How It Works
+          </a></li>
+        <li><a href="#screens" data-section="screens">
+            <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            Product Flows
+          </a></li>
+        <div class="sidebar-sep"></div>
+        <li><a href="#decisions" data-section="decisions">
+            <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            UX Decisions
+          </a></li>
+        <li><a href="#impact" data-section="impact">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+            Impact
+          </a></li>
+        <li><a href="#learnings" data-section="learnings">
+            <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            Learnings
+          </a></li>
+      </ul>
+    </aside>
+
+    <!-- ── MAIN CONTENT ── -->
+    <main class="main-content">
+
+      <!-- ════════════════════════════════════════
+           01 · OVERVIEW
+      ════════════════════════════════════════ -->
+      <section id="overview" class="reveal">
+        <div class="wrap">
+          <div class="section-label"><span class="num">01</span> Overview</div>
+          <h2>A progression system for<br>ambassador engagement.</h2>
+          <p>Club Levels adds tiers, points, and unlocks to the Club ambassador experience so members can see where they stand and what comes next. Status and perks scale with real participation—linking quick wins to sustained advocacy—on iOS and Android.</p>
+
+          <div class="overview-video-wrap" style="margin-top: 48px; border-radius: 16px; overflow: hidden; border: 1px solid var(--c-border);">
+            <video src="/videos/levels-club.mp4" autoplay muted loop playsinline style="width: 100%; display: block;"></video>
+          </div>
+        </div>
+      </section>
+
+<!-- ════════════════════════════════════════
+           03 · PROBLEM
+      ════════════════════════════════════════ -->
+      <section id="problem" class="reveal">
+        <div class="wrap">
+          <div class="section-label"><span class="num">03</span> The Problem</div>
+
+          <div style="margin-bottom: 0;">
+            <h2 class="challenge-headline" style="font-family: var(--f-display); font-size: clamp(32px, 3.5vw, 48px); font-weight: 700; line-height: 1.06; letter-spacing: -0.028em; margin-bottom: 20px;">
+              <span style="display: block; font-weight: 800; color: var(--c-text);">Engagement had no engine.</span>
+              <span style="display: block; font-size: clamp(26px, 2.75vw, 40px); font-weight: 600; letter-spacing: -0.024em; color: var(--c-text-m);">Users acted once — then disappeared.</span>
+            </h2>
+            <p>No progress. No status. No reason to stay.</p>
+          </div>
+
+          <div class="problem-grid">
+            <div class="problem-card">
+              <div class="p-icon">
+                <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              </div>
+              <h3>Inconsistent engagement</h3>
+              <p>Spikes at launch, then drops. Nothing to sustain participation.</p>
+            </div>
+            <div class="problem-card">
+              <div class="p-icon">
+                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="17" y1="11" x2="23" y2="11"/></svg>
+              </div>
+              <h3>No sense of progress</h3>
+              <p>No visibility into standing, distance covered, or what to work toward.</p>
+            </div>
+            <div class="problem-card">
+              <div class="p-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <h3>Post-mission drop-off</h3>
+              <p>First mission done — then gone. No pull to come back.</p>
+            </div>
+            <div class="problem-card">
+              <div class="p-icon">
+                <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              <h3>No segmentation for brands</h3>
+              <p>Everyone looked the same. No way to identify or reward top performers.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           04 · GOAL
+      ════════════════════════════════════════ -->
+      <section id="goal" class="section-band reveal">
+        <div class="wrap">
+          <div class="section-label"><span class="num">04</span> Goal</div>
+          <h2>Give participation<br>a direction.</h2>
+          <p>Design a system that makes long-term engagement feel worthwhile — for ambassadors and the brands who need to identify their best ones.</p>
+
+          <div class="goal-grid">
+            <div class="goal-card">
+              <div class="goal-icon">
+                <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              </div>
+              <div class="goal-text">
+                <h3>Encourage continuous engagement</h3>
+                <p>A reason to return — not just when missions drop, but as a habit.</p>
+              </div>
+            </div>
+            <div class="goal-card">
+              <div class="goal-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+              </div>
+              <div class="goal-text">
+                <h3>Create a visible sense of progress</h3>
+                <p>Make it clear where each ambassador stands, how far they've come, and what they're working toward next.</p>
+              </div>
+            </div>
+            <div class="goal-card">
+              <div class="goal-icon">
+                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div class="goal-text">
+                <h3>Help brands identify top users</h3>
+                <p>A clear signal of who's most engaged — so brands can treat them differently.</p>
+              </div>
+            </div>
+            <div class="goal-card">
+              <div class="goal-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div class="goal-text">
+                <h3>Keep the system simple</h3>
+                <p>Earn points, level up, unlock more. No confusion.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           05 · SOLUTION
+      ════════════════════════════════════════ -->
+      <section id="solution" class="reveal">
+        <div class="wrap">
+          <div class="section-label"><span class="num">05</span> Solution</div>
+          <h2>Introducing Levels.</h2>
+          <p>Mission activity converts into visible status. Points unlock levels. Levels unlock real perks — higher commissions, early access, brand recognition. Every reward is tangible, not just a badge.</p>
+
+          <!-- Levels visual -->
+          <div class="level-visual reveal">
+            <div class="lv-tier-row">
+              <div class="lv-tier">
+                <div class="lv-badge">
+                  <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+                <div class="lv-name">Bronze</div>
+                <div class="lv-pts">0 – 499 pts</div>
+                <div class="lv-perk">Access to standard missions and basic rewards</div>
+              </div>
+              <div class="lv-tier active">
+                <div class="lv-badge">
+                  <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+                <div class="lv-name">Silver</div>
+                <div class="lv-pts">500 – 1,499 pts</div>
+                <div class="lv-perk">Priority mission access + boosted reward rate</div>
+              </div>
+              <div class="lv-tier">
+                <div class="lv-badge gold">
+                  <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+                <div class="lv-name">Gold</div>
+                <div class="lv-pts">1,500 – 3,499 pts</div>
+                <div class="lv-perk">Early product seeding + exclusive club events</div>
+              </div>
+              <div class="lv-tier">
+                <div class="lv-badge platinum">
+                  <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+                <div class="lv-name">Platinum</div>
+                <div class="lv-pts">3,500+ pts</div>
+                <div class="lv-perk">Top commission rate + direct brand collaboration</div>
+              </div>
+            </div>
+
+            <div class="lv-progress-row">
+              <div class="lv-progress-label">
+                <span class="lv-progress-text">Your progress to Gold — 960 / 1,500 pts</span>
+                <span class="lv-progress-pct">64%</span>
+              </div>
+              <div class="lv-bar-track">
+                <div class="lv-bar-fill"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           06 · HOW IT WORKS
+      ════════════════════════════════════════ -->
+      <section id="how-it-works" class="section-band reveal">
+        <div class="wrap">
+          <div class="section-label"><span class="num">06</span> How It Works</div>
+          <h2>Four steps.<br>One loop.</h2>
+          <p>The system is built around a simple, repeatable loop. Each step is visible, each reward is tangible, and each level-up moment is designed to feel earned — not automatic.</p>
+
+          <div class="flow-steps">
+            <div class="flow-step">
+              <div class="flow-step-inner">
+                <div class="flow-step-icon">
+                  <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                </div>
+                <div class="flow-step-label">Complete missions</div>
+                <div class="flow-step-sub">Take real-world actions for brands</div>
+              </div>
+            </div>
+            <div class="flow-arrow">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="flow-step">
+              <div class="flow-step-inner">
+                <div class="flow-step-icon">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                </div>
+                <div class="flow-step-label">Earn points</div>
+                <div class="flow-step-sub">Points reflect engagement quality</div>
+              </div>
+            </div>
+            <div class="flow-arrow">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="flow-step">
+              <div class="flow-step-inner">
+                <div class="flow-step-icon">
+                  <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+                <div class="flow-step-label">Level up</div>
+                <div class="flow-step-sub">Reach thresholds to unlock next tier</div>
+              </div>
+            </div>
+            <div class="flow-arrow">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="flow-step">
+              <div class="flow-step-inner">
+                <div class="flow-step-icon">
+                  <svg viewBox="0 0 24 24"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+                </div>
+                <div class="flow-step-label">Unlock rewards</div>
+                <div class="flow-step-sub">Real perks tied to each new level</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           07 · SCREENS (PRODUCT FLOWS)
+      ════════════════════════════════════════ -->
+      <section id="screens" class="pf-section">
+
+        <div class="pf-section-header reveal">
+          <div class="section-label"><span class="num">07</span> Product Flows</div>
+          <h2>The progression<br>experience, screen by screen.</h2>
+          <p>From checking your current level to celebrating a level-up — every state in the progression system was designed to feel clear, rewarding, and emotionally satisfying.</p>
+        </div>
+
+        <!-- ── 01 · LEVEL OVERVIEW ── -->
+        <div class="pf-flow reveal">
+          <div class="wrap pf-header">
+            <div class="pf-meta">
+              <span class="pf-index">01</span>
+              <div>
+                <h3 class="pf-title">Level Overview <span class="pf-tag">Entry Point</span></h3>
+                <p class="pf-desc">The first screen an ambassador sees when they enter the Levels section. Current level, points balance, progress to next tier, and a clear breakdown of what each level unlocks — all above the fold.</p>
+              </div>
+            </div>
+            <div class="pf-steps">
+              <span class="pf-step">Current Level</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Points Balance</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Progress Bar</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">All Tiers</span>
+            </div>
+          </div>
+          <div class="ss-strip ss-strip--stack">
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
+              <div class="ss-cell">
+                <div class="screen-placeholder">
+                  <div class="screen-placeholder-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+                  <span class="screen-placeholder-label">Level Overview</span>
+                </div>
+                <div class="ss-lbl">Level Overview</div>
+              </div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 2">
+              <div class="ss-cell">
+                <div class="screen-placeholder">
+                  <div class="screen-placeholder-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg></div>
+                  <span class="screen-placeholder-label">Points Balance</span>
+                </div>
+                <div class="ss-lbl">Points Balance</div>
+              </div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 3">
+              <div class="ss-cell">
+                <div class="screen-placeholder">
+                  <div class="screen-placeholder-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+                  <span class="screen-placeholder-label">Tier Breakdown</span>
+                </div>
+                <div class="ss-lbl">Tier Breakdown</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 02 · PROGRESS STATE ── -->
+        <div class="pf-flow reveal">
+          <div class="wrap pf-header">
+            <div class="pf-meta">
+              <span class="pf-index">02</span>
+              <div>
+                <h3 class="pf-title">Progress State</h3>
+                <p class="pf-desc">The in-between state — what the ambassador sees as they accumulate points toward their next level. The bar fills in real-time after each mission is approved. Distance to the next level is always explicit and encouraging.</p>
+              </div>
+            </div>
+            <div class="pf-steps">
+              <span class="pf-step">Active Progress</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Mission Boost</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Approaching Next Level</span>
+            </div>
+          </div>
+          <div class="ss-strip ss-strip--stack">
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
+              <div class="ss-cell">
+                <div class="screen-placeholder">
+                  <div class="screen-placeholder-icon"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+                  <span class="screen-placeholder-label">Progress Tracking</span>
+                </div>
+                <div class="ss-lbl">Progress Tracking</div>
+              </div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 2">
+              <div class="ss-cell">
+                <div class="screen-placeholder">
+                  <div class="screen-placeholder-icon"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+                  <span class="screen-placeholder-label">Points Added</span>
+                </div>
+                <div class="ss-lbl">Points Added After Mission</div>
+              </div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 3">
+              <div class="ss-cell">
+                <div class="screen-placeholder">
+                  <div class="screen-placeholder-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                  <span class="screen-placeholder-label">Almost There</span>
+                </div>
+                <div class="ss-lbl">Near Level Threshold</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 03 · LEVEL UP ── -->
+        <div class="pf-flow reveal">
+          <div class="wrap pf-header">
+            <div class="pf-meta">
+              <span class="pf-index">03</span>
+              <div>
+                <h3 class="pf-title">Level Up <span class="pf-tag">Celebration Moment</span></h3>
+                <p class="pf-desc">The most emotionally important screen in the system. When an ambassador crosses a threshold, the celebration screen fires — showing their new level, the perks they've just unlocked, and a clear CTA to explore what's changed.</p>
+              </div>
+            </div>
+            <div class="pf-steps">
+              <span class="pf-step">Threshold Reached</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Level Up Screen</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">New Perks Revealed</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Continue</span>
+            </div>
+          </div>
+          <div class="ss-strip ss-strip--stack">
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
+              <div class="ss-cell">
+                <div class="screen-placeholder">
+                  <div class="screen-placeholder-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+                  <span class="screen-placeholder-label">Level Up!</span>
+                </div>
+                <div class="ss-lbl">Level Up Celebration</div>
+              </div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 2">
+              <div class="ss-cell">
+                <div class="screen-placeholder">
+                  <div class="screen-placeholder-icon"><svg viewBox="0 0 24 24"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/></svg></div>
+                  <span class="screen-placeholder-label">New Perks</span>
+                </div>
+                <div class="ss-lbl">New Perks Unlocked</div>
+              </div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 3">
+              <div class="ss-cell">
+                <div class="screen-placeholder">
+                  <div class="screen-placeholder-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+                  <span class="screen-placeholder-label">Updated Status</span>
+                </div>
+                <div class="ss-lbl">Updated Level Status</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 04 · REWARD FEEDBACK ── -->
+        <div class="pf-flow reveal">
+          <div class="wrap pf-header">
+            <div class="pf-meta">
+              <span class="pf-index">04</span>
+              <div>
+                <h3 class="pf-title">Reward Feedback</h3>
+                <p class="pf-desc">After each mission, the ambassador sees exactly what they earned — points added, running total, and how close they are to leveling up. The reward is always visible. Nothing is hidden until a separate screen.</p>
+              </div>
+            </div>
+            <div class="pf-steps">
+              <span class="pf-step">Mission Approved</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Points Added</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Progress Updated</span>
+            </div>
+          </div>
+          <div class="ss-strip ss-strip--stack">
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
+              <div class="ss-cell">
+                <div class="screen-placeholder">
+                  <div class="screen-placeholder-icon"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+                  <span class="screen-placeholder-label">Mission Approved</span>
+                </div>
+                <div class="ss-lbl">Mission Approved</div>
+              </div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 2">
+              <div class="ss-cell">
+                <div class="screen-placeholder">
+                  <div class="screen-placeholder-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+                  <span class="screen-placeholder-label">+Points Earned</span>
+                </div>
+                <div class="ss-lbl">Points Earned Feedback</div>
+              </div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 3">
+              <div class="ss-cell">
+                <div class="screen-placeholder">
+                  <div class="screen-placeholder-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+                  <span class="screen-placeholder-label">Progress Updated</span>
+                </div>
+                <div class="ss-lbl">Updated Progress State</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ════════════════════════════════════════
+           08 · UX DECISIONS
+      ════════════════════════════════════════ -->
+      <section id="decisions" class="section-band reveal">
+        <div class="wrap">
+          <div class="section-label"><span class="num">08</span> UX Decisions</div>
+          <h2>The thinking behind<br>the key calls.</h2>
+          <p>Every design choice in Levels was deliberate. These are the three principles that shaped the most critical decisions.</p>
+
+          <div class="decisions-list">
+            <div class="decision-card">
+              <div class="decision-num">A</div>
+              <div class="decision-body">
+                <h3>Clarity of Progress</h3>
+                <p>The biggest risk in a progression system is ambiguity. If users can't tell at a glance where they stand, the motivation collapses. Every screen in Levels shows exactly where the user is, how many points they need to advance, and what they'll unlock when they do. No navigation required. No mental math. The progress bar is always visible, always accurate, always encouraging.</p>
+                <span class="decision-tag">Information Design</span>
+              </div>
+            </div>
+            <div class="decision-card">
+              <div class="decision-num">B</div>
+              <div class="decision-body">
+                <h3>Avoiding Gamification Noise</h3>
+                <p>Levels could have been a badge farm — daily streaks, achievement walls, arbitrary challenges. We deliberately avoided that. Every level and every perk had to map to something real: a higher commission rate, earlier access to products, direct brand collaboration. The progression system earns trust because it delivers value outside the app. Gamification without substance breeds short-term spikes and long-term skepticism.</p>
+                <span class="decision-tag">Product Strategy</span>
+              </div>
+            </div>
+            <div class="decision-card">
+              <div class="decision-num">C</div>
+              <div class="decision-body">
+                <h3>Motivation Design</h3>
+                <p>The level-up moment is the highest emotional point in the system. It needed to feel earned and celebratory — not mechanical. We designed it as a dedicated full-screen state, not a toast or a notification. The new perks are revealed progressively. The user gets a moment to absorb what they've achieved before moving on. That pause matters — it makes the progression memorable and worth chasing again.</p>
+                <span class="decision-tag">Interaction Design</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           09 · IMPACT
+      ════════════════════════════════════════ -->
+      <section id="impact" class="reveal">
+        <div class="wrap">
+          <div class="section-label"><span class="num">09</span> Impact</div>
+          <h2>Participation became<br>a habit.</h2>
+          <p>After Levels launched, the platform saw a measurable shift from one-time mission completion to recurring engagement. Ambassadors who reached Silver level or above showed dramatically different retention patterns than those who hadn't.</p>
+
+          <!-- Headline stat -->
+          <div class="impact-headline">
+            <div class="ih-num">+41%</div>
+            <div class="ih-label">Return engagement rate — Levels users</div>
+            <div class="ih-context">ambassadors who reached Silver+ returned within 7 days</div>
+          </div>
+
+          <!-- 3 stat cards -->
+          <div class="impact-stats">
+            <div class="impact-stat-card">
+              <div class="impact-num">+28%</div>
+              <div class="impact-label">Missions completed per active ambassador</div>
+              <div class="impact-context">vs. pre-levels baseline</div>
+            </div>
+            <div class="impact-stat-card">
+              <div class="impact-num">−35%</div>
+              <div class="impact-label">30-day churn for users in a Level tier</div>
+              <div class="impact-context">compared to non-leveled users</div>
+            </div>
+            <div class="impact-stat-card">
+              <div class="impact-num">3×</div>
+              <div class="impact-label">Brand segmentation clarity</div>
+              <div class="impact-context">brands can now identify their top 10% instantly</div>
+            </div>
+          </div>
+
+          <!-- Bar chart -->
+          <div class="impact-bars">
+            <div class="impact-bars-header">Key metrics post-launch</div>
+            <div class="impact-bar-row">
+              <div class="impact-bar-label">Return engagement rate (Levels users)</div>
+              <div class="impact-bar-track"><div class="impact-bar-fill" style="--w: 82%; --delay: 0.00s"></div></div>
+              <div class="impact-bar-value">+41%</div>
+            </div>
+            <div class="impact-bar-row">
+              <div class="impact-bar-label">Missions per active ambassador</div>
+              <div class="impact-bar-track"><div class="impact-bar-fill" style="--w: 56%; --delay: 0.12s"></div></div>
+              <div class="impact-bar-value">+28%</div>
+            </div>
+            <div class="impact-bar-row">
+              <div class="impact-bar-label">30-day churn reduction (leveled users)</div>
+              <div class="impact-bar-track"><div class="impact-bar-fill" style="--w: 70%; --delay: 0.24s"></div></div>
+              <div class="impact-bar-value">−35%</div>
+            </div>
+            <div class="impact-bar-row">
+              <div class="impact-bar-label">Ambassadors reaching Silver+ within 30 days</div>
+              <div class="impact-bar-track"><div class="impact-bar-fill" style="--w: 90%; --delay: 0.36s"></div></div>
+              <div class="impact-bar-value">62%</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           10 · LEARNINGS
+      ════════════════════════════════════════ -->
+      <section id="learnings" class="section-band reveal">
+        <div class="wrap">
+          <div class="section-label"><span class="num">10</span> Learnings</div>
+          <h2>What this project<br>taught me.</h2>
+
+          <ul class="learnings-list">
+            <li>
+              <span class="li-num">01</span>
+              <span class="li-text"><strong style="color: var(--c-text);">Progression needs an anchor in reality.</strong> The moment we tied levels to real-world perks — not just badges — the system became credible. Abstract gamification fails. Concrete value compounds.</span>
+            </li>
+            <li>
+              <span class="li-num">02</span>
+              <span class="li-text"><strong style="color: var(--c-text);">Emotional moments need dedicated space.</strong> The level-up screen being full-screen wasn't an indulgence — it was the design. Users remember moments, not flows. The celebration earns the next engagement.</span>
+            </li>
+            <li>
+              <span class="li-num">03</span>
+              <span class="li-text"><strong style="color: var(--c-text);">Simplicity is a feature, not a constraint.</strong> The pressure to add more tiers, more badges, more complexity was constant. Resisting that — keeping it to four levels with clear, meaningful thresholds — made the system legible and the progress feel achievable.</span>
+            </li>
+            <li>
+              <span class="li-num">04</span>
+              <span class="li-text"><strong style="color: var(--c-text);">Progress visibility is a retention mechanism.</strong> Showing exactly how close a user is to the next level — the "64% to Gold" bar — was the single most effective element for driving return visits. The gap creates pull.</span>
+            </li>
+            <li>
+              <span class="li-num">05</span>
+              <span class="li-text"><strong style="color: var(--c-text);">Design for both sides.</strong> Levels wasn't just a feature for ambassadors. It gave brand managers a new signal: who are my top 10%? Designing for both audiences at once — without making either feel like an afterthought — was the most interesting challenge in the project.</span>
+            </li>
+          </ul>
+
+          <!-- Closing reflection -->
+          <div class="reflection-card">
+            <div class="rf-label">Closing thought</div>
+            <div class="rf-text">
+              The best progression systems are invisible when they're working — users just find themselves coming back, moving forward, and feeling like the platform values what they do.
+            </div>
+            <div class="rf-sub">
+              Levels taught me that engagement features only work when they're grounded in real value. A badge without a perk is noise. A level without a benefit is a dead end. When every step in the system means something outside the app, the inside takes care of itself.
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    // ── Intersection Observer: reveal animations ──
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => observer.observe(el));
+
+    // ── Sidebar active state ──
+    const sections = document.querySelectorAll('section[id], div[id]');
+    const navLinks = document.querySelectorAll('.sidebar-nav a[data-section]');
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => a.classList.remove('active'));
+          const active = document.querySelector(`.sidebar-nav a[data-section="${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { threshold: 0.35, rootMargin: '-56px 0px 0px 0px' });
+    sections.forEach(s => sectionObserver.observe(s));
+  </script>
+
+</body>
+</html>

@@ -10,7 +10,8 @@ export type CaseStudySlug =
   | "club-app"
   | "club-dashboard"
   | "halan-design-system"
-  | "etar";
+  | "etar"
+  | "club-levels";
 
 const HTML_FILES: Record<CaseStudySlug, string> = {
   mabaat: "mabaat-case-study.html",
@@ -22,6 +23,7 @@ const HTML_FILES: Record<CaseStudySlug, string> = {
   "club-dashboard": "club-dashboard-case-study.html",
   "halan-design-system": "halan-design-system-case-study.html",
   etar: "etar-case-study.html",
+  "club-levels": "club-levels-case-study.html",
 };
 
 function mapImageSrc(filename: string): string {
@@ -181,7 +183,8 @@ function rewriteCaseStudyHrefs(html: string): string {
       /href="club-experience-case-study\.html"/g,
       'href="/work/club-experience"',
     )
-    .replace(/href="etar-case-study\.html"/g, 'href="/work/etar"');
+    .replace(/href="etar-case-study\.html"/g, 'href="/work/etar"')
+    .replace(/href="club-levels-case-study\.html"/g, 'href="/work/club-levels"');
 }
 
 export function getWorkPageHtml(): string {

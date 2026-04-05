@@ -2582,79 +2582,7 @@
               <img class="hero-portrait-img" src="sayed-photo.png" alt="Sayed El Mohamady"
                 onerror="this.style.display='none'">
             </div>
-
-            <div class="hero-tools-cloud" aria-label="Tools I use">
-              <!-- Top row -->
-              <div class="hero-tool-chip hero-tool-chip--figma">
-                <span class="hero-tool-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <rect x="6" y="2" width="8" height="8" rx="4" fill="#F24E1E" />
-                    <rect x="6" y="10" width="8" height="8" rx="4" fill="#A259FF" />
-                    <rect x="6" y="18" width="8" height="4" rx="2" fill="#0ACF83" />
-                    <rect x="14" y="2" width="8" height="8" rx="4" fill="#FF7262" />
-                    <rect x="14" y="10" width="8" height="8" rx="4" fill="#1ABCFE" />
-                  </svg>
-                </span>
-                <span>Figma</span>
-              </div>
-
-              <div class="hero-tool-chip hero-tool-chip--system">
-                <span class="hero-tool-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <rect x="3" y="3" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.8" />
-                    <rect x="14" y="3" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.8" />
-                    <rect x="3" y="14" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.8" />
-                    <rect x="14" y="14" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.8" />
-                  </svg>
-                </span>
-                <span>Design Systems</span>
-              </div>
-
-              <!-- Middle row -->
-              <div class="hero-tool-chip hero-tool-chip--thinking">
-                <span class="hero-tool-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M9 22h6M12 2C8.13 2 5 5.13 5 9c0 2.74 1.53 5.12 3.8 6.39V17a1 1 0 001 1h4.4a1 1 0 001-1v-1.61C17.47 14.12 19 11.74 19 9c0-3.87-3.13-7-7-7z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </span>
-                <span>Design Thinking</span>
-              </div>
-
-              <div class="hero-tool-chip hero-tool-chip--digital">
-                <span class="hero-tool-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <rect x="7" y="2" width="10" height="20" rx="2.5" stroke="currentColor" stroke-width="1.8"/>
-                    <path d="M10.5 18h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                    <path d="M7 6h10" stroke="currentColor" stroke-width="1.5" opacity=".5"/>
-                  </svg>
-                </span>
-                <span>Digital Products</span>
-              </div>
-
-              <!-- Bottom row -->
-              <div class="hero-tool-chip hero-tool-chip--claude">
-                <span class="hero-tool-icon" aria-hidden="true">
-                  <!-- Claude logo: the distinctive angular A/crystal shape -->
-                  <svg viewBox="0 0 41 41" fill="none">
-                    <path d="M29.22 8.42h-6.61l-3.31 8.77-3.31-8.77H9.38l5.4 14.32L9.38 37.06h6.61l3.31-8.77 3.31 8.77h6.61l-5.4-14.32 5.4-14.32z" fill="currentColor"/>
-                  </svg>
-                </span>
-                <span>Claude</span>
-              </div>
-
-              <div class="hero-tool-chip hero-tool-chip--cursor">
-                <span class="hero-tool-icon" aria-hidden="true">
-                  <!-- Cursor logo: the distinctive cursor arrow -->
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M4.5 3.5L4.5 17.5L8 13.5L10.5 20L13 19L10.5 12.5L15.5 12.5L4.5 3.5Z" fill="currentColor"/>
-                  </svg>
-                </span>
-                <span>Cursor</span>
-              </div>
-            </div>
           </div>
-
-          <div class="hero-hover-hint">Hover to reveal tools</div>
         </div>
       </div>
     </div>
@@ -2666,7 +2594,8 @@
   </section>
 
   <!-- ═══ HERO CAROUSEL ═══ -->
-  <div class="hc-section">
+  <!-- To show again: use class="hc-section" only and remove aria-hidden. -->
+  <div class="hc-section hc-section--hidden" aria-hidden="true">
     <div class="hc-stage">
       <div class="hc-placeholder">
         <div class="hc-ph-card hc-ph-left">
@@ -2767,9 +2696,9 @@
             <span class="case-shimmer" aria-hidden="true"></span>
             <div class="case-card-content">
               <div class="case-brand">Club</div>
-              <p class="case-eyebrow">UX Case Study · 0 → 1 Mobile App</p>
+              <p class="case-eyebrow">UX Case Study · Mobile App</p>
               <h3 class="case-title">Club Ambassador<br>Platform</h3>
-              <p class="case-desc">Designing a brand ambassador platform from scratch — missions, rewards, and community in one product.</p>
+              <p class="case-desc">Missions, rewards, and community into one ambassador platform.</p>
             </div>
             <div class="case-card-visual">
               <div class="case-visual-mesh" aria-hidden="true"></div>
@@ -2877,8 +2806,50 @@
           </a>
         </div>
 
-        <!-- Case 5: Mabaat -->
-        <div class="case-card-sticky-wrap" data-base-z="5" data-case-type="digital-product" style="--card-z: 5">
+        <!-- Case 5: Club Levels -->
+        <div class="case-card-sticky-wrap" data-base-z="5" data-case-type="mobile-feature" style="--card-z: 5">
+          <a href="club-levels-case-study.html" class="case-card case-card--club-levels pressable" style="--card-bg: #0d0a14">
+            <span class="case-shimmer" aria-hidden="true"></span>
+            <div class="case-card-content">
+              <div class="case-brand">Club Levels</div>
+              <p class="case-eyebrow">GAMIFICATION · LEVELS</p>
+              <h3 class="case-title">Progression for<br>predictable engagement</h3>
+              <p class="case-desc">Points. Levels. Real perks. A system built for retention.</p>
+            </div>
+            <div class="case-card-visual">
+              <div class="case-visual-mesh" aria-hidden="true"></div>
+              <div class="case-float case-float--1" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              </div>
+              <div class="case-float case-float--2" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                  <polyline points="17 6 23 6 23 12"/>
+                </svg>
+              </div>
+              <div class="case-float case-float--3" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 12V22H4V12"/>
+                  <path d="M22 7H2v5h20V7z"/>
+                  <path d="M12 22V7"/>
+                </svg>
+              </div>
+              <div class="case-card-full-img-wrap">
+                <video class="case-card-thumb-video" src="/videos/levels-club.mp4" width="1200" height="750" autoplay muted
+                  loop playsinline preload="auto" aria-label="Club Levels progression system preview" style="object-position: center center;"></video>
+                <div class="case-card-full-placeholder">
+                  <span>Club Levels</span>
+                  <small>Add a Club Levels screenshot.</small>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Case 6: Mabaat -->
+        <div class="case-card-sticky-wrap" data-base-z="6" data-case-type="digital-product" style="--card-z: 6">
           <a href="mabaat-case-study.html" class="case-card case-card--mabaat pressable" style="--card-bg: #131a22">
             <span class="case-shimmer" aria-hidden="true"></span>
             <div class="case-card-content">

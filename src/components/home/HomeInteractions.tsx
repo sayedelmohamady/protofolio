@@ -638,6 +638,7 @@ export function HomeInteractions({ children }: { children: ReactNode }) {
 
     const section = source.closest<HTMLElement>(".hc-section");
     if (!section) return;
+    if (section.classList.contains("hc-section--hidden")) return;
 
     const stage = section.querySelector<HTMLElement>(".hc-stage");
     const placeholder = section.querySelector<HTMLElement>(".hc-placeholder");
