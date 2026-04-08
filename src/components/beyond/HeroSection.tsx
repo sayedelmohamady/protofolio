@@ -30,8 +30,8 @@ export function HeroSection() {
             the Interface
           </h1>
           <p className="beyond-hero-lead">
-            A visual diary of hobbies and interests — plants, keys, road,
-            water, and history.
+            A visual diary of hobbies and interests — plants, games, film,
+            history, and music.
           </p>
         </motion.div>
 

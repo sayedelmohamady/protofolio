@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import type { BeyondGridItem, BeyondSectionDefinition } from "@/lib/beyondMedia";
 import { SectionReveal } from "./SectionReveal";
 import { BeyondImage } from "./BeyondImage";
+import { BeyondGamingDisc } from "./BeyondGamingDisc";
 import { BeyondVideo } from "./BeyondVideo";
 
 function cellClass(span: BeyondGridItem["span"]) {
@@ -59,6 +60,11 @@ export function BeyondMediaSection({ def }: { def: BeyondSectionDefinition }) {
                 <BeyondVideo
                   src={item.src}
                   className="beyond-grid-cell-media"
+                />
+              ) : def.variant === "gaming" ? (
+                <BeyondGamingDisc
+                  coverSrc={item.src}
+                  priority={idx < 16}
                 />
               ) : (
                 <BeyondImage

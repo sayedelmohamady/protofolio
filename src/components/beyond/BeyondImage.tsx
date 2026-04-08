@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useLayoutEffect } from "react";
 
 interface BeyondImageProps {
   src: string;
@@ -18,6 +18,17 @@ export function BeyondImage({
 }: BeyondImageProps) {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  /* Cached / already-decoded images often fire `load` before `onLoad` is attached. */
+  useLayoutEffect(() => {
+    const el = imgRef.current;
+    if (!el) return;
+    setLoaded(false);
+    if (el.complete && el.naturalHeight > 0) {
+      setLoaded(true);
+    }
+  }, [src]);
 
   if (error) {
     return (
@@ -45,6 +56,7 @@ export function BeyondImage({
       )}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
+        ref={imgRef}
         src={src}
         alt={alt}
         loading={priority ? "eager" : "lazy"}

@@ -404,6 +404,50 @@
   color: #ff6b35;
 }
 
+/* ── Movie poster cells ────────────────────────────────── */
+.beyond-media-section--movement .beyond-grid-cell {
+  border-radius: 5px;
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.6),
+    0 2px 6px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Gloss sheen over poster surface */
+.beyond-media-section--movement .beyond-grid-cell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(
+    148deg,
+    rgba(255, 255, 255, 0.09) 0%,
+    rgba(255, 255, 255, 0.02) 38%,
+    transparent 58%
+  );
+  opacity: 0.7;
+  transition: opacity 0.4s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .beyond-media-section--movement .beyond-grid-cell:hover {
+    transform: perspective(700px) scale(1.11) translateY(-34px) rotateY(-5deg);
+    box-shadow:
+      14px 52px 100px rgba(0, 0, 0, 0.88),
+      6px 22px 52px rgba(0, 0, 0, 0.65),
+      0 0 0 1px rgba(255, 255, 255, 0.32),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.38);
+  }
+
+  .beyond-media-section--movement .beyond-grid-cell:hover::after {
+    opacity: 1;
+  }
+}
+
 .beyond-media-section--plants .beyond-media-section-eyebrow {
   color: #4ade80;
 }
@@ -421,6 +465,103 @@
   isolation: isolate;
   padding: 18px 12px 40px;
   margin-inline: -12px;
+}
+
+/* Film & TV — tighter poster grid */
+.beyond-media-section--movement .beyond-media-grid {
+  gap: 7px;
+}
+
+/* Gaming — 4×4 square grid (16 tiles) */
+.beyond-media-section--gaming .beyond-media-grid {
+  grid-template-columns: repeat(4, 1fr);
+  max-width: min(100%, 920px);
+  margin-inline: auto;
+}
+
+.beyond-media-section--gaming .beyond-grid-cell {
+  aspect-ratio: 1 / 1;
+}
+
+/* Gaming — spinning vinyl + cover (CodePen spin; see reference/third-party/spinning-cd-license.txt) */
+@keyframes beyond-gaming-spin {
+  from {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+
+.beyond-gaming-disc {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  background: radial-gradient(
+    ellipse 85% 85% at 45% 50%,
+    rgba(28, 28, 32, 0.98) 0%,
+    rgba(8, 8, 10, 1) 100%
+  );
+}
+
+.beyond-media-section--gaming .beyond-gaming-disc__vinyl {
+  position: absolute;
+  top: 50%;
+  left: 36%;
+  width: 55%;
+  height: auto;
+  max-width: none;
+  object-fit: contain;
+  z-index: 0;
+  pointer-events: none;
+  animation: beyond-gaming-spin 3s linear infinite;
+  transform: translateY(-50%);
+  transform-origin: 50% 50%;
+}
+
+.beyond-media-section--gaming .beyond-gaming-disc__cover {
+  position: absolute !important;
+  top: 50%;
+  left: 8%;
+  width: 48% !important;
+  height: auto !important;
+  aspect-ratio: 1;
+  max-height: 88%;
+  transform: translateY(-50%);
+  z-index: 1;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow:
+    0 12px 36px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.beyond-media-section--gaming .beyond-gaming-disc__cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.beyond-gaming-disc__play {
+  position: absolute;
+  top: 50%;
+  left: 24%;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: clamp(12px, 3.2vmin, 26px);
+  font-weight: 900;
+  color: rgba(134, 185, 125, 0.78);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+  line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .beyond-media-section--gaming .beyond-gaming-disc__vinyl {
+    animation: none;
+  }
 }
 
 /* 9:16 portrait tiles; six columns per row. Wide (3/6) uses 27/16 so row height matches 1× cells; two wides = one row. */
@@ -503,9 +644,13 @@
     border-color: rgba(255, 255, 255, 0.32);
   }
 
-  .beyond-grid-cell:hover .beyond-grid-cell-media img,
+  .beyond-grid-cell:hover .beyond-grid-cell-media img:not(.beyond-gaming-disc__vinyl),
   .beyond-grid-cell:hover .beyond-grid-cell-media video {
     transform: scale(1.1);
+  }
+
+  .beyond-media-section--gaming .beyond-grid-cell:hover .beyond-gaming-disc__cover img {
+    transform: scale(1.08);
   }
 }
 
@@ -525,9 +670,17 @@
     border-color: var(--beyond-border);
   }
 
-  .beyond-grid-cell:hover .beyond-grid-cell-media img,
+  .beyond-grid-cell:hover .beyond-grid-cell-media img:not(.beyond-gaming-disc__vinyl),
   .beyond-grid-cell:hover .beyond-grid-cell-media video {
     transform: none;
+  }
+
+  .beyond-media-section--movement .beyond-grid-cell {
+    transition: none;
+  }
+
+  .beyond-media-section--movement .beyond-grid-cell::after {
+    transition: none;
   }
 }
 
@@ -549,6 +702,11 @@
 @media (max-width: 900px) {
   .beyond-media-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .beyond-media-section--gaming .beyond-media-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 100%;
   }
 
   /* 2 of 3 wide → 9/8 matches single-cell row height at 9:16 */
@@ -580,6 +738,10 @@
 
   .beyond-media-grid {
     grid-template-columns: 1fr;
+  }
+
+  .beyond-media-section--gaming .beyond-media-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .beyond-grid-cell--wide {

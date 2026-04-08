@@ -7,9 +7,9 @@ const sections = [
   { id: "beyond-hero", label: "Hero" },
   { id: "beyond-plants", label: "Plants" },
   { id: "beyond-gaming", label: "Gaming" },
-  { id: "beyond-music", label: "Music" },
-  { id: "beyond-movement", label: "Movement" },
+  { id: "beyond-movement", label: "Film & TV" },
   { id: "beyond-history", label: "History" },
+  { id: "beyond-music", label: "Music" },
 ];
 
 export function BeyondNav() {

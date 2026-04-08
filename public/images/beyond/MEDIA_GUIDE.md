@@ -23,9 +23,9 @@ Place files to match **`beyondMedia.ts`**:
 
 | Section | Folder | Images | Videos |
 |---------|--------|--------|--------|
-| Gaming | `images/beyond/gaming/` | `01.jpg` … `06.jpg` | `videos/beyond/gaming-reel.mp4` |
+| Gaming (4×4 grid) | `images/beyond/gaming/` | `Game01.png` … `Game11.png` (cycled to 16 tiles) | — |
 | Music | `images/beyond/music/` | `01.jpg` … `06.jpg` | — |
-| Movement | `images/beyond/movement/` | `01.jpg` … `06.jpg` | `cycling-clip.mp4`, `swimming-clip.mp4` |
+| Film & TV (section `beyond-movement`) | `images/beyond/movies/` | `Movie Poster01.png` … `Movie Poster23.png` | — |
 | History | `images/beyond/history/` | `01.jpg` … `06.jpg` | — |
 
 Use **`.jpg`**, **`.png`**, or **`.webp`** — update extensions in `beyondMedia.ts` if needed.  

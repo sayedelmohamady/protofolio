@@ -217,222 +217,263 @@
   line-height: 1.65;
 }
 
-/* ─── LEVEL VISUAL ───────────────────────────────────────────────── */
+/* ─── LEVEL STRUCTURE (diagram) ────────────────────────────────── */
 
-.case-study-club.club-levels .level-visual {
+.case-study-club.club-levels .level-structure-wrap {
+  margin-top: 40px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--c-border);
+  background: var(--c-bg3);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.case-study-club.club-levels .level-structure-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ─── UX DECISIONS (HTML <head> is stripped in Next.js — must live here) ─── */
+
+.case-study-club.club-levels section#decisions.section-band {
+  background: #000000;
+}
+
+.case-study-club.club-levels .decisions-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
   margin-top: 48px;
+  align-items: stretch;
+}
+
+.case-study-club.club-levels .decision-card {
+  background: var(--c-bg3);
+  border: 1px solid var(--c-border);
+  border-radius: var(--case-radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 100%;
+  transition:
+    border-color 0.3s,
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.case-study-club.club-levels .decision-card:hover {
+  border-color: rgba(var(--c-accent-rgb), 0.18);
+  transform: translateY(-3px);
+}
+
+.case-study-club.club-levels .decision-num {
+  font-family: var(--f-display);
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--c-accent);
+  opacity: 0.28;
+  line-height: 1;
+}
+
+.case-study-club.club-levels .decision-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.case-study-club.club-levels .decision-body h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--c-text);
+  margin-bottom: 8px;
+}
+
+.case-study-club.club-levels .decision-body p {
+  font-size: 13px;
+  max-width: none;
+  line-height: 1.65;
+  flex: 1;
+}
+
+.case-study-club.club-levels .decision-tag {
+  display: inline-block;
+  margin-top: auto;
+  align-self: flex-start;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--c-accent);
+  background: rgba(var(--c-accent-rgb), 0.1);
+  border: 1px solid rgba(var(--c-accent-rgb), 0.2);
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 960px) {
+  .case-study-club.club-levels .decisions-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .case-study-club.club-levels .decision-card {
+    padding: 22px;
+  }
+
+  .case-study-club.club-levels .decision-num {
+    font-size: 28px;
+  }
+}
+
+/* ─── LEARNINGS + REFLECTION (HTML <head> stripped in Next.js) ─── */
+
+.case-study-club.club-levels .club-levels-learnings .learnings-list {
+  list-style: none;
+  margin: 40px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.case-study-club.club-levels .club-levels-learnings .learnings-list li {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--c-bg3);
+  border: 1px solid var(--c-border);
+  border-radius: var(--case-radius);
+  padding: 18px 14px;
+  min-height: 100%;
+  transition:
+    border-color 0.3s,
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.case-study-club.club-levels .club-levels-learnings .learnings-list li:hover {
+  border-color: rgba(var(--c-accent-rgb), 0.22);
+  transform: translateY(-3px);
+}
+
+.case-study-club.club-levels .club-levels-learnings .li-num {
+  font-family: var(--f-display);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--c-accent);
+  opacity: 0.35;
+  line-height: 1;
+}
+
+.case-study-club.club-levels .club-levels-learnings .li-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--c-text);
+  line-height: 1.35;
+  margin: 0;
+}
+
+.case-study-club.club-levels .club-levels-learnings .li-desc {
+  font-size: 12px;
+  color: var(--c-text-m);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.case-study-club.club-levels .club-levels-learnings .reflection-card {
   background: var(--c-bg3);
   border: 1px solid var(--c-border);
   border-radius: 24px;
-  padding: 48px;
+  padding: 40px 44px;
+  margin-top: 40px;
   position: relative;
   overflow: hidden;
 }
 
-.case-study-club.club-levels .level-visual::before {
+.case-study-club.club-levels .club-levels-learnings .reflection-card::after {
   content: '';
   position: absolute;
   top: -80px;
   right: -80px;
-  width: 360px;
-  height: 360px;
+  width: 300px;
+  height: 300px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(var(--c-accent-rgb), 0.07) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(var(--c-accent-rgb), 0.06) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
 }
 
-.case-study-club.club-levels .lv-tier-row {
-  display: flex;
-  gap: 10px;
-  position: relative;
-  z-index: 1;
-}
-
-.case-study-club.club-levels .lv-tier {
-  flex: 1;
-  background: var(--c-bg4);
-  border: 1px solid var(--c-border);
-  border-radius: 14px;
-  padding: 24px 20px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  transition:
-    border-color 0.3s,
-    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.case-study-club.club-levels .lv-tier:hover {
-  border-color: rgba(var(--c-accent-rgb), 0.35);
-  transform: translateY(-4px);
-}
-
-.case-study-club.club-levels .lv-tier.active {
-  border-color: rgba(var(--c-accent-rgb), 0.5);
-  background: rgba(var(--c-accent-rgb), 0.06);
-  box-shadow: 0 0 32px rgba(var(--c-accent-rgb), 0.1);
-}
-
-.case-study-club.club-levels .lv-tier.active::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--c-accent);
-}
-
-.case-study-club.club-levels .lv-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  margin: 0 auto 14px;
-  background: rgba(var(--c-accent-rgb), 0.12);
-  border: 1px solid rgba(var(--c-accent-rgb), 0.2);
-}
-
-.case-study-club.club-levels .lv-badge svg {
-  width: 22px;
-  height: 22px;
-  stroke: var(--c-accent);
-  fill: none;
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.case-study-club.club-levels .lv-badge.gold {
-  background: rgba(251, 191, 36, 0.12);
-  border-color: rgba(251, 191, 36, 0.25);
-}
-
-.case-study-club.club-levels .lv-badge.gold svg {
-  stroke: #fbbf24;
-}
-
-.case-study-club.club-levels .lv-badge.platinum {
-  background: rgba(148, 163, 184, 0.12);
-  border-color: rgba(148, 163, 184, 0.25);
-}
-
-.case-study-club.club-levels .lv-badge.platinum svg {
-  stroke: #94a3b8;
-}
-
-.case-study-club.club-levels .lv-name {
-  font-family: var(--f-display);
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--c-text);
-  margin-bottom: 4px;
-}
-
-.case-study-club.club-levels .lv-pts {
-  font-size: 11px;
-  color: var(--c-text-d);
-  letter-spacing: 0.06em;
+.case-study-club.club-levels .club-levels-learnings .rf-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  margin-bottom: 12px;
-}
-
-.case-study-club.club-levels .lv-perk {
-  font-size: 12px;
-  color: var(--c-text-m);
-  line-height: 1.5;
-}
-
-.case-study-club.club-levels .lv-progress-row {
-  margin-top: 28px;
-  background: var(--c-bg4);
-  border: 1px solid var(--c-border);
-  border-radius: 14px;
-  padding: 24px 28px;
+  color: var(--c-accent);
+  margin-bottom: 16px;
   position: relative;
-  z-index: 1;
 }
 
-.case-study-club.club-levels .lv-progress-label {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.case-study-club.club-levels .lv-progress-text {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--c-text-m);
-}
-
-.case-study-club.club-levels .lv-progress-pct {
+.case-study-club.club-levels .club-levels-learnings .rf-text {
   font-family: var(--f-display);
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--c-accent);
+  font-size: clamp(17px, 1.9vw, 22px);
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--c-text);
+  max-width: 720px;
+  position: relative;
 }
 
-.case-study-club.club-levels .lv-bar-track {
-  height: 8px;
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 100px;
-  overflow: hidden;
-}
-
-.case-study-club.club-levels .lv-bar-fill {
-  height: 100%;
-  border-radius: 100px;
-  width: 64%;
-  background: linear-gradient(90deg, var(--c-accent-d), var(--c-accent), var(--c-accent-l));
-}
-
-/* ─── LEARNINGS LIST ─────────────────────────────────────────────── */
-
-.case-study-club.club-levels .learnings-list {
-  list-style: none;
-  margin-top: 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.case-study-club.club-levels .learnings-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  background: var(--c-bg3);
-  border: 1px solid var(--c-border);
-  border-radius: var(--case-radius);
-  padding: 22px 28px;
-  transition:
-    border-color 0.3s,
-    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.case-study-club.club-levels .learnings-list li:hover {
-  border-color: var(--c-border-m);
-  transform: translateX(4px);
-}
-
-.case-study-club.club-levels .li-num {
-  font-family: var(--f-display);
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--c-accent);
-  opacity: 0.25;
-  line-height: 1;
-  flex-shrink: 0;
-}
-
-.case-study-club.club-levels .li-text {
+.case-study-club.club-levels .club-levels-learnings .rf-sub {
+  margin-top: 16px;
   font-size: 14px;
   color: var(--c-text-m);
-  line-height: 1.72;
+  max-width: 640px;
+  line-height: 1.65;
+  position: relative;
+}
+
+@media (max-width: 1200px) {
+  .case-study-club.club-levels .club-levels-learnings .learnings-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .case-study-club.club-levels .club-levels-learnings .learnings-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .case-study-club.club-levels .club-levels-learnings .learnings-list {
+    grid-template-columns: 1fr;
+  }
+
+  .case-study-club.club-levels .club-levels-learnings .reflection-card {
+    padding: 28px 24px;
+  }
 }
 
 /* ─── PRODUCT FLOWS ──────────────────────────────────────────────── */
+
+.case-study-club.club-levels .wrap.pf-section-header {
+  padding-bottom: 24px;
+}
+
+.case-study-club.club-levels .pf-section > .pf-flow:first-of-type {
+  padding-block-start: 0;
+}
+
+.case-study-club.club-levels .pf-section > .pf-flow:first-of-type > .wrap.pf-header {
+  padding-top: 32px;
+}
 
 .case-study-club.club-levels .pf-flow {
   padding-block: 80px 0;
@@ -445,7 +486,7 @@
 .case-study-club.club-levels .pf-header {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 20px;
   padding-bottom: 48px;
 }
 
@@ -500,10 +541,10 @@
 }
 
 .case-study-club.club-levels .pf-desc {
-  font-size: 1rem;
-  line-height: 1.7;
+  font-size: 0.9375rem;
+  line-height: 1.5;
   color: var(--c-text-m);
-  max-width: 600px;
+  max-width: 42ch;
   margin: 0;
 }
 
@@ -512,6 +553,8 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 6px;
+  width: 100%;
+  justify-content: flex-start;
 }
 
 .case-study-club.club-levels .pf-step {
@@ -575,62 +618,108 @@
   text-transform: uppercase;
 }
 
-/* ─── HOW IT WORKS — FLOW STEPS ─────────────────────────────────── */
+/* ─── HOW IT WORKS — TIE-style loop graph (curved dashed edges + hover) ─── */
 
-.case-study-club.club-levels .flow-steps {
-  display: flex;
-  align-items: center;
-  gap: 0;
+.case-study-club.club-levels .llg-wrap {
   margin-top: 48px;
-  padding-bottom: 8px;
-  overflow-x: auto;
-  scrollbar-width: none;
+  max-width: 920px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.case-study-club.club-levels .flow-steps::-webkit-scrollbar {
-  display: none;
+.case-study-club.club-levels .llg-graph {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 800 / 360;
+  margin: 0 auto;
 }
 
-.case-study-club.club-levels .flow-step {
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
+.case-study-club.club-levels .llg-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
 }
 
-.case-study-club.club-levels .flow-step-inner {
-  background: var(--c-bg3);
-  border: 1px solid var(--c-border);
-  border-radius: 14px;
-  padding: 20px 16px;
-  width: 140px;
-  text-align: center;
-  cursor: default;
+.case-study-club.club-levels .llg-edge {
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  opacity: 0.62;
   transition:
-    border-color 0.3s,
-    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-    background 0.3s;
+    opacity 0.35s ease,
+    stroke-width 0.35s ease;
+  stroke-dasharray: 8 5;
+  animation: case-study-club-levels-llg-flow 2s linear infinite;
 }
 
-.case-study-club.club-levels .flow-step-inner:hover {
-  border-color: rgba(var(--c-accent-rgb), 0.4);
-  transform: translateY(-5px);
-  background: var(--c-bg4);
+.case-study-club.club-levels .llg-edge--purple {
+  stroke: #a855f7;
+  animation-duration: 2.5s;
 }
 
-.case-study-club.club-levels .flow-step-icon {
-  width: 36px;
-  height: 36px;
+.case-study-club.club-levels .llg-edge--orange {
+  stroke: #f97316;
+  animation-duration: 2s;
+}
+
+.case-study-club.club-levels .llg-edge--green {
+  stroke: #22c55e;
+  animation-duration: 2.2s;
+}
+
+.case-study-club.club-levels .llg-edge--teal {
+  stroke: #06b6d4;
+  animation-duration: 2.1s;
+}
+
+@keyframes case-study-club-levels-llg-flow {
+  to {
+    stroke-dashoffset: -26;
+  }
+}
+
+.case-study-club.club-levels .llg-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: rgba(22, 22, 26, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px 14px;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  z-index: 2;
+  cursor: default;
+  max-width: min(148px, 22vw);
+  transition:
+    border-color 0.35s ease,
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease,
+    opacity 0.35s ease;
+}
+
+.case-study-club.club-levels .llg-node:focus {
+  outline: none;
+}
+
+.case-study-club.club-levels .llg-node:focus-visible {
+  border-color: rgba(var(--c-accent-rgb), 0.55);
+  box-shadow: 0 0 0 3px rgba(var(--c-accent-rgb), 0.25);
+}
+
+.case-study-club.club-levels .llg-node-icon {
+  width: 34px;
+  height: 34px;
   border-radius: 10px;
   background: rgba(var(--c-accent-rgb), 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 10px;
+  margin: 0 auto 8px;
 }
 
-.case-study-club.club-levels .flow-step-icon svg {
+.case-study-club.club-levels .llg-node-icon svg {
   width: 16px;
   height: 16px;
   stroke: var(--c-accent);
@@ -640,47 +729,321 @@
   stroke-linejoin: round;
 }
 
-.case-study-club.club-levels .flow-step-label {
+.case-study-club.club-levels .llg-node-name {
+  font-family: var(--f-display);
   font-size: 12px;
   font-weight: 600;
   color: var(--c-text);
   letter-spacing: 0.02em;
+  line-height: 1.25;
 }
 
-.case-study-club.club-levels .flow-step-sub {
+.case-study-club.club-levels .llg-node-sub {
+  font-size: 10px;
+  color: var(--c-text-d);
+  margin-top: 4px;
+  line-height: 1.35;
+  letter-spacing: 0.03em;
+}
+
+.case-study-club.club-levels .llg-caption {
+  margin-top: 18px;
+  font-size: 12px;
+  color: var(--c-text-d);
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+
+/* Reveal: tied to section #how-it-works (single .reveal, no nested observer) */
+.case-study-club.club-levels #how-it-works.reveal:not(.visible) .llg-edge {
+  opacity: 0;
+  animation: none;
+}
+
+.case-study-club.club-levels #how-it-works.reveal.visible .llg-edge {
+  animation: case-study-club-levels-llg-flow 2s linear infinite;
+}
+
+.case-study-club.club-levels #how-it-works.reveal.visible #llg-e1 {
+  opacity: 0.62;
+  transition-delay: 0.05s;
+}
+
+.case-study-club.club-levels #how-it-works.reveal.visible #llg-e2 {
+  opacity: 0.62;
+  transition-delay: 0.14s;
+}
+
+.case-study-club.club-levels #how-it-works.reveal.visible #llg-e3 {
+  opacity: 0.62;
+  transition-delay: 0.23s;
+}
+
+.case-study-club.club-levels #how-it-works.reveal.visible #llg-e4 {
+  opacity: 0.62;
+  transition-delay: 0.34s;
+}
+
+.case-study-club.club-levels #how-it-works.reveal:not(.visible) .llg-node {
+  opacity: 0;
+  transform: translate(-50%, -50%) translateY(14px) scale(0.98);
+}
+
+.case-study-club.club-levels #how-it-works.reveal.visible .llg-node {
+  opacity: 1;
+  transform: translate(-50%, -50%) translateY(0) scale(1);
+}
+
+.case-study-club.club-levels #how-it-works.reveal.visible .llg-node:nth-of-type(1) {
+  transition-delay: 0.08s;
+}
+
+.case-study-club.club-levels #how-it-works.reveal.visible .llg-node:nth-of-type(2) {
+  transition-delay: 0.16s;
+}
+
+.case-study-club.club-levels #how-it-works.reveal.visible .llg-node:nth-of-type(3) {
+  transition-delay: 0.24s;
+}
+
+.case-study-club.club-levels #how-it-works.reveal.visible .llg-node:nth-of-type(4) {
+  transition-delay: 0.32s;
+}
+
+/* Hover / focus: dim graph, highlight connections (Club TIE cag pattern) */
+.case-study-club.club-levels .llg-graph:has(.llg-node:hover) .llg-edge,
+.case-study-club.club-levels .llg-graph:has(.llg-node:focus-visible) .llg-edge {
+  opacity: 0.08;
+}
+
+.case-study-club.club-levels .llg-graph:has(.llg-node:hover) .llg-node,
+.case-study-club.club-levels .llg-graph:has(.llg-node:focus-visible) .llg-node {
+  opacity: 0.28;
+}
+
+.case-study-club.club-levels .llg-graph:has(.llg-node:hover) .llg-node:hover,
+.case-study-club.club-levels .llg-graph:has(.llg-node:focus-visible) .llg-node:focus-visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) translateY(-4px);
+}
+
+.case-study-club.club-levels .llg-graph:has(#llg-s1:hover) #llg-e1,
+.case-study-club.club-levels .llg-graph:has(#llg-s1:focus-visible) #llg-e1,
+.case-study-club.club-levels .llg-graph:has(#llg-s1:hover) #llg-e4,
+.case-study-club.club-levels .llg-graph:has(#llg-s1:focus-visible) #llg-e4 {
+  opacity: 1;
+  stroke-width: 2.45;
+}
+
+.case-study-club.club-levels .llg-graph:has(#llg-s1:hover) #llg-s2,
+.case-study-club.club-levels .llg-graph:has(#llg-s1:focus-visible) #llg-s2,
+.case-study-club.club-levels .llg-graph:has(#llg-s1:hover) #llg-s4,
+.case-study-club.club-levels .llg-graph:has(#llg-s1:focus-visible) #llg-s4 {
+  opacity: 1;
+  border-color: rgba(168, 85, 247, 0.42);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.22);
+}
+
+.case-study-club.club-levels .llg-graph:has(#llg-s2:hover) #llg-e1,
+.case-study-club.club-levels .llg-graph:has(#llg-s2:focus-visible) #llg-e1,
+.case-study-club.club-levels .llg-graph:has(#llg-s2:hover) #llg-e2,
+.case-study-club.club-levels .llg-graph:has(#llg-s2:focus-visible) #llg-e2 {
+  opacity: 1;
+  stroke-width: 2.45;
+}
+
+.case-study-club.club-levels .llg-graph:has(#llg-s2:hover) #llg-s1,
+.case-study-club.club-levels .llg-graph:has(#llg-s2:focus-visible) #llg-s1,
+.case-study-club.club-levels .llg-graph:has(#llg-s2:hover) #llg-s3,
+.case-study-club.club-levels .llg-graph:has(#llg-s2:focus-visible) #llg-s3 {
+  opacity: 1;
+  border-color: rgba(249, 115, 22, 0.45);
+  box-shadow: 0 0 20px rgba(249, 115, 22, 0.2);
+}
+
+.case-study-club.club-levels .llg-graph:has(#llg-s3:hover) #llg-e2,
+.case-study-club.club-levels .llg-graph:has(#llg-s3:focus-visible) #llg-e2,
+.case-study-club.club-levels .llg-graph:has(#llg-s3:hover) #llg-e3,
+.case-study-club.club-levels .llg-graph:has(#llg-s3:focus-visible) #llg-e3 {
+  opacity: 1;
+  stroke-width: 2.45;
+}
+
+.case-study-club.club-levels .llg-graph:has(#llg-s3:hover) #llg-s2,
+.case-study-club.club-levels .llg-graph:has(#llg-s3:focus-visible) #llg-s2,
+.case-study-club.club-levels .llg-graph:has(#llg-s3:hover) #llg-s4,
+.case-study-club.club-levels .llg-graph:has(#llg-s3:focus-visible) #llg-s4 {
+  opacity: 1;
+  border-color: rgba(34, 197, 94, 0.45);
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.18);
+}
+
+.case-study-club.club-levels .llg-graph:has(#llg-s4:hover) #llg-e3,
+.case-study-club.club-levels .llg-graph:has(#llg-s4:focus-visible) #llg-e3,
+.case-study-club.club-levels .llg-graph:has(#llg-s4:hover) #llg-e4,
+.case-study-club.club-levels .llg-graph:has(#llg-s4:focus-visible) #llg-e4 {
+  opacity: 1;
+  stroke-width: 2.45;
+}
+
+.case-study-club.club-levels .llg-graph:has(#llg-s4:hover) #llg-s3,
+.case-study-club.club-levels .llg-graph:has(#llg-s4:focus-visible) #llg-s3,
+.case-study-club.club-levels .llg-graph:has(#llg-s4:hover) #llg-s1,
+.case-study-club.club-levels .llg-graph:has(#llg-s4:focus-visible) #llg-s1 {
+  opacity: 1;
+  border-color: rgba(6, 182, 212, 0.45);
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
+}
+
+@media (max-width: 720px) {
+  .case-study-club.club-levels .llg-wrap {
+    margin-left: -12px;
+    margin-right: -12px;
+    padding: 0 12px;
+    overflow-x: auto;
+    overflow-y: visible;
+    scrollbar-width: thin;
+  }
+
+  .case-study-club.club-levels .llg-graph {
+    min-width: 520px;
+    aspect-ratio: 800 / 380;
+  }
+
+  .case-study-club.club-levels .llg-node-sub {
+    display: none;
+  }
+
+  .case-study-club.club-levels .llg-node {
+    max-width: 120px;
+    padding: 10px 10px;
+  }
+
+  .case-study-club.club-levels .llg-node-name {
+    font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-study-club.club-levels .llg-edge {
+    animation: none;
+    stroke-dasharray: none;
+  }
+
+  .case-study-club.club-levels #how-it-works.reveal:not(.visible) .llg-node,
+  .case-study-club.club-levels #how-it-works.reveal.visible .llg-node {
+    transition-duration: 0.01ms;
+  }
+
+  .case-study-club.club-levels #how-it-works.reveal:not(.visible) .llg-edge {
+    opacity: 0.62;
+  }
+
+  .case-study-club.club-levels .llg-graph:has(.llg-node:hover) .llg-node:hover,
+  .case-study-club.club-levels .llg-graph:has(.llg-node:focus-visible) .llg-node:focus-visible {
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* ─── IMPACT (HTML <head> stripped in Next.js — must live here) ─── */
+
+.case-study-club.club-levels .club-levels-impact {
+  background: #000000;
+}
+
+.case-study-club.club-levels .club-levels-impact .impact-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 40px;
+  list-style: none;
+  padding: 0;
+}
+
+.case-study-club.club-levels .club-levels-impact .impact-stat-card {
+  background: var(--c-bg3);
+  border: 1px solid var(--c-border);
+  border-radius: var(--case-radius);
+  padding: 22px 18px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  transition:
+    border-color 0.3s,
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100%;
+}
+
+.case-study-club.club-levels .club-levels-impact .impact-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: transparent;
+  transition: background 0.3s;
+}
+
+.case-study-club.club-levels .club-levels-impact .impact-stat-card::after {
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  right: -30px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(var(--c-accent-rgb), 0.04);
+}
+
+.case-study-club.club-levels .club-levels-impact .impact-stat-card:hover::before {
+  background: var(--c-accent);
+}
+
+.case-study-club.club-levels .club-levels-impact .impact-stat-card:hover {
+  border-color: rgba(var(--c-accent-rgb), 0.35);
+  transform: translateY(-4px);
+}
+
+.case-study-club.club-levels .club-levels-impact .impact-num {
+  font-family: var(--f-display);
+  font-size: clamp(32px, 4.2vw, 44px);
+  font-weight: 800;
+  color: var(--c-accent);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.case-study-club.club-levels .club-levels-impact .impact-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--c-text);
+  line-height: 1.35;
+  position: relative;
+}
+
+.case-study-club.club-levels .club-levels-impact .impact-context {
   font-size: 11px;
   color: var(--c-text-d);
-  margin-top: 3px;
-  line-height: 1.4;
-}
-
-.case-study-club.club-levels .flow-arrow {
-  width: 32px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 28px;
-}
-
-.case-study-club.club-levels .flow-arrow svg {
-  width: 18px;
-  height: 18px;
-  stroke: rgba(var(--c-accent-rgb), 0.35);
-  fill: none;
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-/* ─── IMPACT — ANIMATED BAR CHART ───────────────────────────────── */
-
-.case-study-club.club-levels .reveal.visible .impact-bar-fill {
-  width: var(--w, 60%);
-  transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1) var(--delay, 0s);
+  line-height: 1.45;
+  margin-top: 8px;
+  position: relative;
+  letter-spacing: 0.02em;
+  text-transform: none;
 }
 
 /* ─── RESPONSIVE ─────────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .case-study-club.club-levels .club-levels-impact .impact-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
 
 @media (max-width: 900px) {
   .case-study-club.club-levels .context-grid {
@@ -693,14 +1056,6 @@
 
   .case-study-club.club-levels .problem-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .case-study-club.club-levels .lv-tier-row {
-    flex-wrap: wrap;
-  }
-
-  .case-study-club.club-levels .lv-tier {
-    flex-basis: calc(50% - 5px);
   }
 
   .case-study-club.club-levels .pf-meta {
@@ -720,19 +1075,15 @@
   .case-study-club.club-levels .pf-index {
     font-size: 3rem;
   }
+
+  .case-study-club.club-levels .club-levels-impact .impact-stats {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 640px) {
   .case-study-club.club-levels .problem-grid {
     grid-template-columns: 1fr;
-  }
-
-  .case-study-club.club-levels .lv-tier-row {
-    flex-direction: column;
-  }
-
-  .case-study-club.club-levels .lv-tier {
-    flex-basis: auto;
   }
 }
 
