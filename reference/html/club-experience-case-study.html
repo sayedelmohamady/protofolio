@@ -465,71 +465,113 @@
       line-height: 1.4;
     }
 
-    /* PROCESS STEPS */
-    .process-steps {
+    /* PROBLEM / SOLUTION / IMPACT — large feature cards */
+    .process-steps--psi {
       display: flex;
+      flex-direction: column;
       gap: 0;
-      margin-top: 48px;
-      border: 1px solid var(--c-border);
-      border-radius: var(--case-radius);
-      overflow: hidden;
+      margin-top: clamp(56px, 6vw, 88px);
+      padding: 0;
+      border: none;
+      overflow: visible;
     }
 
-    .process-step {
-      flex: 1;
-      padding: 28px 24px;
-      position: relative;
-      transition: background 0.3s;
-      border-right: 1px solid var(--c-border);
+    .psi-cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(18px, 2.2vw, 28px);
+      align-items: stretch;
     }
 
-    .process-step:last-child {
-      border-right: none;
+    .process-steps--psi .process-step {
+      display: flex;
+      flex-direction: column;
+      padding: clamp(26px, 3vw, 40px) clamp(22px, 2.5vw, 32px) clamp(30px, 3.2vw, 44px);
+      border: 1px solid var(--c-border-m);
+      border-radius: clamp(18px, 1.8vw, 24px);
+      background: linear-gradient(
+        165deg,
+        rgba(255, 255, 255, 0.04) 0%,
+        var(--c-bg3) 42%,
+        var(--c-bg3) 100%
+      );
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.06) inset,
+        0 22px 56px rgba(0, 0, 0, 0.32),
+        0 8px 24px rgba(0, 0, 0, 0.18);
+      transition:
+        border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    .process-step:hover {
-      background: var(--c-bg4);
+    .process-steps--psi .process-step:hover {
+      border-color: rgba(150, 103, 247, 0.42);
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.07) inset,
+        0 28px 72px rgba(0, 0, 0, 0.38),
+        0 0 0 1px rgba(150, 103, 247, 0.14),
+        0 0 48px rgba(150, 103, 247, 0.08);
+      transform: translateY(-4px);
     }
 
-    .process-step.active {
-      background: rgba(150, 103, 247, 0.05);
-    }
-
-    .process-step.active::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--c-accent);
-    }
-
-    .ps-num {
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--c-text-d);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-
-    .ps-title {
+    .process-steps--psi .ps-title {
       font-family: var(--f-display);
-      font-size: 18px;
+      font-size: clamp(22px, 2.35vw, 30px);
       font-weight: 700;
       color: var(--c-text);
-      margin-bottom: 8px;
+      margin-bottom: clamp(18px, 2vw, 26px);
+      display: flex;
+      align-items: center;
+      gap: clamp(12px, 1.4vw, 16px);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
     }
 
-    .process-step.active .ps-title {
-      color: var(--c-accent);
+    .process-steps--psi .ps-title-ico {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: clamp(48px, 5vw, 58px);
+      height: clamp(48px, 5vw, 58px);
+      border-radius: clamp(14px, 1.4vw, 18px);
+      background: rgba(150, 103, 247, 0.14);
+      border: 1px solid rgba(150, 103, 247, 0.28);
+      font-style: normal;
+      flex-shrink: 0;
+      font-size: clamp(1.25rem, 2.4vw, 1.5rem);
+      line-height: 1;
     }
 
-    .ps-desc {
-      font-size: 13px;
-      color: var(--c-text-d);
-      line-height: 1.55;
+    .process-steps--psi .ps-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      font-size: clamp(13px, 1.12vw, 15px);
+      color: var(--c-text-m);
+      line-height: 1.62;
+    }
+
+    .process-steps--psi .ps-list li {
+      position: relative;
+      margin-bottom: 0.82em;
+      padding-left: clamp(16px, 1.6vw, 20px);
+      border-left: 3px solid rgba(150, 103, 247, 0.28);
+    }
+
+    .process-steps--psi .ps-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .process-steps--psi .ps-list strong {
+      color: var(--c-text);
+      font-weight: 600;
+    }
+
+    @media (max-width: 900px) {
+      .psi-cards {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* PROBLEM / CHALLENGE */
@@ -1476,197 +1518,6 @@
       letter-spacing: 0.04em;
     }
 
-    /* IMPACT HEADLINE */
-    .impact-headline {
-      margin-top: 48px;
-      padding: 48px 56px;
-      background: linear-gradient(135deg, rgba(150, 103, 247, 0.09) 0%, rgba(150, 103, 247, 0.03) 100%);
-      border: 1px solid rgba(150, 103, 247, 0.22);
-      border-radius: 24px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .impact-headline::before {
-      content: '';
-      position: absolute;
-      top: -60px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 400px;
-      height: 200px;
-      background: radial-gradient(ellipse, rgba(150, 103, 247, 0.15) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .ih-num {
-      font-family: var(--f-display);
-      font-size: clamp(64px, 8vw, 100px);
-      font-weight: 800;
-      color: var(--c-accent);
-      line-height: 1;
-      letter-spacing: -0.04em;
-      margin-bottom: 12px;
-      position: relative;
-    }
-
-    .ih-label {
-      font-family: var(--f-display);
-      font-size: 20px;
-      font-weight: 600;
-      color: var(--c-text);
-      margin-bottom: 8px;
-      position: relative;
-    }
-
-    .ih-context {
-      font-size: 13px;
-      color: var(--c-text-d);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      position: relative;
-    }
-
-    /* IMPACT STAT CARDS */
-    .impact-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--case-grid-gap);
-      margin-top: var(--case-grid-gap);
-    }
-
-    .impact-stat-card {
-      background: var(--c-bg3);
-      border: 1px solid var(--c-border);
-      border-radius: var(--case-radius);
-      padding: 32px 28px;
-      position: relative;
-      overflow: hidden;
-      text-align: center;
-      transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .impact-stat-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: transparent;
-      transition: background 0.3s;
-    }
-
-    .impact-stat-card::after {
-      content: '';
-      position: absolute;
-      bottom: -30px;
-      right: -30px;
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      background: rgba(150, 103, 247, 0.04);
-    }
-
-    .impact-stat-card:hover::before {
-      background: var(--c-accent);
-    }
-
-    .impact-stat-card:hover {
-      border-color: rgba(150, 103, 247, 0.35);
-      transform: translateY(-4px);
-    }
-
-    .impact-num {
-      font-family: var(--f-display);
-      font-size: 44px;
-      font-weight: 800;
-      color: var(--c-accent);
-      line-height: 1;
-      letter-spacing: -0.03em;
-      margin-bottom: 10px;
-    }
-
-    .impact-label {
-      font-size: 14px;
-      color: var(--c-text-m);
-      line-height: 1.5;
-    }
-
-    .impact-context {
-      font-size: 11px;
-      color: var(--c-text-d);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-top: 8px;
-    }
-
-    /* IMPACT BAR CHART */
-    .impact-bars {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      margin-top: var(--case-grid-gap);
-      padding: 36px;
-      background: var(--c-bg3);
-      border: 1px solid var(--c-border);
-      border-radius: var(--case-radius);
-    }
-
-    .impact-bars-header {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--c-text-d);
-      margin-bottom: 8px;
-    }
-
-    .impact-bar-row {
-      display: grid;
-      grid-template-columns: 220px 1fr 72px;
-      gap: 16px;
-      align-items: center;
-    }
-
-    .impact-bar-label {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--c-text-m);
-      line-height: 1.4;
-    }
-
-    .impact-bar-track {
-      height: 6px;
-      background: rgba(255, 255, 255, 0.06);
-      border-radius: 100px;
-      overflow: hidden;
-    }
-
-    .impact-bar-fill {
-      height: 100%;
-      border-radius: 100px;
-      background: linear-gradient(90deg, var(--c-accent-d), var(--c-accent), var(--c-accent-l));
-      width: 0;
-      transition: none;
-    }
-
-    /* Triggered by .reveal.visible on ancestor section */
-    .reveal.visible .impact-bar-fill {
-      width: var(--w, 60%);
-      transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1) var(--delay, 0s);
-    }
-
-    .impact-bar-value {
-      font-family: var(--f-display);
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--c-accent);
-      white-space: nowrap;
-      text-align: right;
-    }
-
     /* CHALLENGES */
     .challenges-grid {
       display: grid;
@@ -1859,12 +1710,21 @@
       <div class="hero-glow2"></div>
       <div class="hero-grid"></div>
     </div>
-    <div class="hero-eyebrow">UX Case Study · Mobile App</div>
+
+    <div class="hero-brand">
+      <img src="club-logo.png" alt="Club logo" class="hero-brand-logo">
+    </div>
+
     <h1 class="hero-title">
-      <span class="line-accent">Club</span><br>
-      <span>Ambassador</span><br>
-      <span class="line-dim">Platform</span>
+      <span class="line-accent">Powering Connections</span> Between <span class="line-dim">Brands &amp; Ambassadors</span>
     </h1>
+
+    <p class="hero-dek">Building an experience that enables smooth communication, structured missions, and consistent engagement.</p>
+
+    <div class="hero-mockup">
+      <img src="club-app-cover.png" alt="Club ambassador app — hero cover" width="1192" height="960" loading="eager" decoding="async">
+    </div>
+
     <div class="hero-divider"></div>
     <div class="hero-meta">
       <div class="hero-meta-item">
@@ -1887,10 +1747,6 @@
         <label>Year</label>
         <span>2023–2026</span>
       </div>
-    </div>
-    <div class="hero-scroll">
-      <div class="scroll-line"></div>
-      Scroll to explore
     </div>
   </div>
 
@@ -1961,14 +1817,6 @@
             </svg>
             Decisions
           </a></li>
-        <li><a href="#impact" data-section="impact">
-            <svg viewBox="0 0 24 24">
-              <line x1="12" y1="20" x2="12" y2="10" />
-              <line x1="18" y1="20" x2="18" y2="4" />
-              <line x1="6" y1="20" x2="6" y2="16" />
-            </svg>
-            Impact
-          </a></li>
         <li><a href="#reflection" data-section="reflection">
             <svg viewBox="0 0 24 24">
               <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
@@ -1993,21 +1841,38 @@
           </div>
 
 
-          <div class="process-steps">
-            <div class="process-step">
-              <div class="ps-num">Phase 01</div>
-              <div class="ps-title">Define</div>
-              <div class="ps-desc">Problem space, user needs, and product vision</div>
-            </div>
-            <div class="process-step active">
-              <div class="ps-num">Phase 02</div>
-              <div class="ps-title">Design</div>
-              <div class="ps-desc">Architecture, flows, and full UI across all surfaces</div>
-            </div>
-            <div class="process-step">
-              <div class="ps-num">Phase 03</div>
-              <div class="ps-title">Ship</div>
-              <div class="ps-desc">Launched on iOS & Android, iterated with real data</div>
+          <div class="process-steps process-steps--psi reveal">
+            <div class="psi-cards">
+              <div class="process-step psi-card">
+                <div class="ps-title"><span class="ps-title-ico" aria-hidden="true">🔍</span> Problem</div>
+                <ul class="ps-list">
+                  <li>Ambassadors struggled to <strong>discover relevant missions</strong> and understand what to do</li>
+                  <li>Communication between brands and ambassadors was <strong>fragmented and unclear</strong></li>
+                  <li>Low visibility into <strong>progress, expectations, and rewards</strong></li>
+                  <li>Engagement dropped due to <strong>lack of motivation and feedback loops</strong></li>
+                  <li>Brands had limited control over <strong>quality and consistency of outputs</strong></li>
+                </ul>
+              </div>
+              <div class="process-step psi-card">
+                <div class="ps-title"><span class="ps-title-ico" aria-hidden="true">💡</span> Solution</div>
+                <ul class="ps-list">
+                  <li>Designed a <strong>clear mission flow</strong> with structured steps, requirements, and deliverables</li>
+                  <li>Introduced <strong>centralized communication</strong> between brands and ambassadors</li>
+                  <li>Improved <strong>task clarity</strong> with better briefs, examples, and guidelines</li>
+                  <li>Added <strong>progress tracking and feedback mechanisms</strong> to keep users engaged</li>
+                  <li>Created a more <strong>intuitive, mobile-first experience</strong> for faster interaction</li>
+                </ul>
+              </div>
+              <div class="process-step psi-card">
+                <div class="ps-title"><span class="ps-title-ico" aria-hidden="true">🚀</span> Impact</div>
+                <ul class="ps-list">
+                  <li>Increased <strong>mission completion rate</strong></li>
+                  <li>Improved <strong>engagement and retention</strong> of ambassadors</li>
+                  <li>Reduced confusion and back-and-forth communication</li>
+                  <li>Enabled brands to get <strong>more consistent, higher-quality outputs</strong></li>
+                  <li>Strengthened the overall <strong>brand–ambassador relationship</strong></li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -2023,136 +1888,6 @@
           <div class="what-we-do-img">
             <img src="/images/projects/club-tie/club-trust.png"
               alt="How Club works — brand trust and ambassador engagement" loading="eager" decoding="sync">
-          </div>
-
-          <!-- ── Timeline: You're in good hands! ─────────────── -->
-          <div class="wwd-timeline-section reveal">
-            <div class="wwd-tl-headline">You're in <span class="tl-hl-accent">good hands!</span></div>
-
-            <div class="wwd-tl-container">
-
-              <!-- ═══ ABOVE ROW: 6 columns ════════════════════ -->
-              <div class="tl-row tl-row--above">
-
-                <!-- Col 1 · 2010: media + label + stem -->
-                <div class="tl-col" style="--rv-d: 0ms">
-                  <div class="tl-media tl-media--post tl-media--asset">
-                    <img src="/images/projects/club-tie/club-timeline-2010.png"
-                      alt="2010 — Onepiece PieceKeeper programme with Missions" width="285" height="273" loading="lazy"
-                      decoding="async" />
-                  </div>
-                  <div class="tl-label">
-                    <div class="tl-year">2010</div>
-                    <p>Onepiece launches the PieceKeeper programme with Missions</p>
-                  </div>
-                  <div class="tl-stem tl-stem--down"></div>
-                </div>
-
-                <!-- Col 2 · void (2015 is below) -->
-                <div class="tl-col tl-col--void"></div>
-
-                <!-- Col 3 · 2017: phone media + label + stem -->
-                <div class="tl-col" style="--rv-d: 200ms">
-                  <div class="tl-media tl-media--phone tl-media--asset">
-                    <img src="/images/projects/club-tie/club-timeline-2017.png"
-                      alt="2017 — Brandbassador launches on App Store and Google Play" width="307" height="349"
-                      loading="eager" decoding="sync" />
-                  </div>
-                  <div class="tl-label">
-                    <div class="tl-year">2017</div>
-                    <p>Brandbassador launches on App Store &amp; Google Play with 10 founding brands</p>
-                  </div>
-                  <div class="tl-stem tl-stem--down"></div>
-                </div>
-
-                <!-- Col 4 · void (2021 is below) -->
-                <div class="tl-col tl-col--void"></div>
-
-                <!-- Col 5 · 2022: label + stem only (no screenshot) -->
-                <div class="tl-col tl-col--no-media" style="--rv-d: 400ms">
-                  <div class="tl-label">
-                    <div class="tl-year">2022</div>
-                    <p>550 eCommerce brands have used Brandbassador to engage communities</p>
-                  </div>
-                  <div class="tl-stem tl-stem--down"></div>
-                </div>
-
-                <!-- Col 6 · 2024 phone mockup (text is in below row) -->
-                <div class="tl-col" style="--rv-d: 500ms">
-                  <div class="tl-media tl-media--phone-lg tl-media--asset">
-                    <img src="/images/projects/club-tie/club-timeline-2024.png"
-                      alt="2024 — Club launches: community marketing app" width="365" height="476" loading="lazy"
-                      decoding="async" />
-                  </div>
-                  <div class="tl-stem tl-stem--down tl-stem--lime"></div>
-                </div>
-
-              </div><!-- /tl-row--above -->
-
-              <!-- ═══ MIDDLE ROW: dots + connector ═══════════ -->
-              <div class="tl-row tl-row--middle">
-                <div class="tl-dot-col" style="--rv-d: 0ms">
-                  <div class="tl-dot"></div>
-                </div>
-                <div class="tl-dot-col" style="--rv-d: 100ms">
-                  <div class="tl-dot"></div>
-                </div>
-                <div class="tl-dot-col" style="--rv-d: 200ms">
-                  <div class="tl-dot"></div>
-                </div>
-                <div class="tl-dot-col" style="--rv-d: 300ms">
-                  <div class="tl-dot"></div>
-                </div>
-                <div class="tl-dot-col" style="--rv-d: 400ms">
-                  <div class="tl-dot"></div>
-                </div>
-                <div class="tl-dot-col" style="--rv-d: 500ms">
-                  <div class="tl-dot tl-dot--now"></div>
-                </div>
-              </div>
-
-              <!-- ═══ BELOW ROW: 6 columns ═════════════════════ -->
-              <div class="tl-row tl-row--below">
-
-                <!-- Col 1 · void (2010 is above) -->
-                <div class="tl-col tl-col--void"></div>
-
-                <!-- Col 2 · 2015 -->
-                <div class="tl-col" style="--rv-d: 100ms">
-                  <div class="tl-stem tl-stem--up"></div>
-                  <div class="tl-label">
-                    <div class="tl-year">2015</div>
-                    <p>Software development to help other brands build communities begins</p>
-                  </div>
-                </div>
-
-                <!-- Col 3 · void (2017 is above) -->
-                <div class="tl-col tl-col--void"></div>
-
-                <!-- Col 4 · 2021 -->
-                <div class="tl-col" style="--rv-d: 300ms">
-                  <div class="tl-stem tl-stem--up"></div>
-                  <div class="tl-label">
-                    <div class="tl-year">2021</div>
-                    <p>Brandbassador reaches over 1 million active users</p>
-                  </div>
-                </div>
-
-                <!-- Col 5 · void (2022 is above) -->
-                <div class="tl-col tl-col--void"></div>
-
-                <!-- Col 6 · 2024 text (phone is above) -->
-                <div class="tl-col" style="--rv-d: 500ms">
-                  <div class="tl-stem tl-stem--up tl-stem--lime"></div>
-                  <div class="tl-label">
-                    <div class="tl-year tl-year--now">2024</div>
-                    <p>Club launches: The future of community marketing</p>
-                  </div>
-                </div>
-
-              </div><!-- /tl-row--below -->
-
-            </div><!-- /wwd-tl-container -->
           </div>
         </div>
       </section>
@@ -2211,37 +1946,6 @@
           </div>
         </div>
       </section>
-
-      <style>
-        .ss-strip--stack { display: flex; flex-direction: column; gap: 0; width: 100%; max-width: 1100px; margin: 56px auto; padding: 0 48px; box-sizing: border-box; }
-        .ss-strip--stack .ss-cell-sticky-wrap { position: sticky; top: calc(56px + (var(--card-z, 1) - 1) * 32px); z-index: var(--card-z, 1); padding-bottom: 24px; }
-        .ss-strip--stack .ss-cell-sticky-wrap:last-child { padding-bottom: 0; }
-        .ss-strip--stack .ss-cell { width: 100%; aspect-ratio: 16 / 9; position: relative; overflow: hidden; background: var(--c-bg3, #1a1a1a); border-radius: 20px; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 16px 48px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04); }
-        .ss-strip--stack .ss-cell img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.45s cubic-bezier(0.22,1,0.36,1); }
-        .ss-strip--stack .ss-cell:hover img { transform: scale(1.03); }
-        .ss-strip--stack .ss-cell .ss-lbl { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.78); backdrop-filter: blur(8px); padding: 12px 16px; font-size: 11px; color: rgba(255,255,255,0.6); letter-spacing: 0.06em; text-transform: uppercase; transform: translateY(100%); transition: transform 0.3s; }
-        .ss-strip--stack .ss-cell:hover .ss-lbl { transform: translateY(0); }
-        @media (max-width: 768px) {
-          .ss-strip--stack { margin: 40px auto; padding: 0 20px; }
-          .ss-strip--stack .ss-cell-sticky-wrap { top: calc(56px + (var(--card-z, 1) - 1) * 24px); padding-bottom: 20px; }
-          .ss-strip--stack .ss-cell { border-radius: 16px; }
-        }
-      </style>
-
-      <div class="ss-strip--stack">
-        <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
-          <div class="ss-cell"><img src="club-exp-01.png" alt="Club experience 1" loading="eager" decoding="sync"><div class="ss-lbl">Experience</div></div>
-        </div>
-        <div class="ss-cell-sticky-wrap reveal" style="--card-z: 2">
-          <div class="ss-cell"><img src="club-exp-02.png" alt="Club experience 2" loading="eager" decoding="sync"><div class="ss-lbl">Experience</div></div>
-        </div>
-        <div class="ss-cell-sticky-wrap reveal" style="--card-z: 3">
-          <div class="ss-cell"><img src="club-exp-03.png" alt="Club experience 3" loading="eager" decoding="sync"><div class="ss-lbl">Experience</div></div>
-        </div>
-        <div class="ss-cell-sticky-wrap reveal" style="--card-z: 4">
-          <div class="ss-cell"><img src="club-exp-04.png" alt="Club experience 4" loading="eager" decoding="sync"><div class="ss-lbl">Experience</div></div>
-        </div>
-      </div>
 
       <!-- ── 05 · AUDIENCE ARCHITECTURE ──────────────────────── -->
       <section id="architecture">
@@ -3033,92 +2737,10 @@
         </div>
       </section>
 
-      <!-- ── 10 · IMPACT ───────────────────────────────────────── -->
-      <section id="impact" class="section-band reveal">
-        <div class="wrap">
-          <div class="section-label"><span class="num">09</span> Impact</div>
-          <h2>What happened<br>when it launched.</h2>
-          <p>Club shipped on iOS and Android and grew to 550+ active brand partners. These are the metrics that validated the core design decisions.</p>
-
-          <!-- Headline stat -->
-          <div class="impact-headline">
-            <div class="ih-num">+32%</div>
-            <div class="ih-label">Mission completion rate</div>
-            <div class="ih-context">across all active brands after launch</div>
-          </div>
-
-          <!-- 3 secondary stat cards -->
-          <div class="impact-stats">
-            <div class="impact-stat-card">
-              <div class="impact-num">−45%</div>
-              <div class="impact-label">Average reward claim time</div>
-              <div class="impact-context">users earning faster</div>
-            </div>
-            <div class="impact-stat-card">
-              <div class="impact-num">−60%</div>
-              <div class="impact-label">Time-to-first-mission</div>
-              <div class="impact-context">critical onboarding metric</div>
-            </div>
-            <div class="impact-stat-card">
-              <div class="impact-num">310%</div>
-              <div class="impact-label">ROI — top brand (Hunkemöller)</div>
-              <div class="impact-context">post-redesign campaign</div>
-            </div>
-          </div>
-
-          <!-- Animated bar chart — bars animate when section becomes visible -->
-          <div class="impact-bars">
-            <div class="impact-bars-header">Key metrics post-launch</div>
-            <div class="impact-bar-row">
-              <div class="impact-bar-label">Mission completion rate</div>
-              <div class="impact-bar-track">
-                <div class="impact-bar-fill" style="--w: 72%; --delay: 0.00s"></div>
-              </div>
-              <div class="impact-bar-value">+32%</div>
-            </div>
-            <div class="impact-bar-row">
-              <div class="impact-bar-label">Time-to-first-mission reduction</div>
-              <div class="impact-bar-track">
-                <div class="impact-bar-fill" style="--w: 95%; --delay: 0.12s"></div>
-              </div>
-              <div class="impact-bar-value">−60%</div>
-            </div>
-            <div class="impact-bar-row">
-              <div class="impact-bar-label">Reward claim time reduction</div>
-              <div class="impact-bar-track">
-                <div class="impact-bar-fill" style="--w: 80%; --delay: 0.24s"></div>
-              </div>
-              <div class="impact-bar-value">−45%</div>
-            </div>
-            <div class="impact-bar-row">
-              <div class="impact-bar-label">ROI — Hunkemöller campaign</div>
-              <div class="impact-bar-track">
-                <div class="impact-bar-fill" style="--w: 100%; --delay: 0.36s"></div>
-              </div>
-              <div class="impact-bar-value">310%</div>
-            </div>
-            <div class="impact-bar-row">
-              <div class="impact-bar-label">Active ambassadors — single brand record</div>
-              <div class="impact-bar-track">
-                <div class="impact-bar-fill" style="--w: 87%; --delay: 0.48s"></div>
-              </div>
-              <div class="impact-bar-value">6,370</div>
-            </div>
-            <div class="impact-bar-row">
-              <div class="impact-bar-label">UGC content coverage — Popsockets EU</div>
-              <div class="impact-bar-track">
-                <div class="impact-bar-fill" style="--w: 100%; --delay: 0.60s"></div>
-              </div>
-              <div class="impact-bar-value">100%</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ── 12 · REFLECTION ───────────────────────────────────── -->
+      <!-- ── 11 · REFLECTION ───────────────────────────────────── -->
       <section id="reflection" class="section-band reveal">
         <div class="wrap">
-          <div class="section-label"><span class="num">11</span> Reflection</div>
+          <div class="section-label"><span class="num">10</span> Reflection</div>
 
           <div class="reflection-card">
             <div class="rf-label">What I took away from this</div>

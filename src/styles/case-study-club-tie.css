@@ -1,0 +1,71 @@
+/**
+ * Club TIE (design system) case study — airier vertical rhythm between major sections.
+ * Requires root: <div class="case-study-club club-tie"> …
+ */
+
+.case-study-club.club-tie .wrap {
+  padding-top: 88px;
+  padding-bottom: 88px;
+}
+
+.case-study-club.club-tie .foundation-palette {
+  padding-bottom: 80px;
+}
+
+.case-study-club.club-tie .foundation-header {
+  padding-top: 48px;
+}
+
+.case-study-club.club-tie .foundation-corner-radius {
+  margin-top: 56px;
+}
+
+.case-study-club.club-tie .foundation-footer {
+  margin-top: 32px;
+}
+
+.case-study-club.club-tie .ss-strip--stack {
+  margin-top: 80px;
+}
+
+.case-study-club.club-tie .club-gfx-showcase {
+  padding-top: 88px;
+}
+
+.case-study-club.club-tie .club-gfx-intro {
+  padding-top: 88px;
+}
+
+.case-study-club.club-tie .club-gfx-animations-intro {
+  padding-top: 56px;
+}
+
+.case-study-club.club-tie .club-gfx-animations-intro--after-illos {
+  padding-top: 64px;
+}
+
+.case-study-club.club-tie .arch-layers,
+.case-study-club.club-tie .problem-grid,
+.case-study-club.club-tie .role-split {
+  margin-top: 72px;
+}
+
+.case-study-club.club-tie .foundation-screens {
+  margin: 36px 0 44px;
+}
+
+@media (max-width: 1100px) {
+  .case-study-club.club-tie .wrap {
+    padding: 52px 20px;
+  }
+
+  .case-study-club.club-tie .foundation-palette {
+    padding-bottom: 64px;
+  }
+}
+
+@media (max-width: 900px) {
+  .case-study-club.club-tie .foundation-palette {
+    padding-bottom: 56px;
+  }
+}

@@ -197,11 +197,12 @@
   .ss-strip--stack { display: flex; flex-direction: column; gap: 0; width: 100%; max-width: 1100px; margin: 56px auto; padding: 0 48px; box-sizing: border-box; }
   .ss-strip--stack .ss-cell-sticky-wrap { position: sticky; top: calc(56px + (var(--card-z, 1) - 1) * 32px); z-index: var(--card-z, 1); padding-bottom: 24px; }
   .ss-strip--stack .ss-cell-sticky-wrap:last-child { padding-bottom: 0; }
-  .ss-strip--stack .ss-cell { width: 100%; aspect-ratio: 16 / 9; position: relative; overflow: hidden; background: var(--c-bg3); border-radius: 20px; border: 1px solid var(--c-border); box-shadow: 0 16px 48px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04); }
-  .ss-strip--stack .ss-cell img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.45s cubic-bezier(0.22,1,0.36,1); }
+  .ss-strip--stack .ss-cell { width: 100%; aspect-ratio: 16 / 9; position: relative; overflow: hidden; min-height: 0; line-height: 0; background: var(--c-bg3); border-radius: 20px; border: 1px solid var(--c-border); box-shadow: 0 16px 48px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04); }
+  .ss-strip--stack .ss-cell img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; transition: transform 0.45s cubic-bezier(0.22,1,0.36,1); }
   .ss-strip--stack .ss-cell:hover img { transform: scale(1.03); }
-  .ss-strip--stack .ss-cell .ss-lbl { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.78); backdrop-filter: blur(8px); padding: 12px 16px; font-size: 11px; color: var(--c-text-m); letter-spacing: 0.06em; text-transform: uppercase; transform: translateY(100%); transition: transform 0.3s; }
+  .ss-strip--stack .ss-cell .ss-lbl { position: absolute; z-index: 1; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.78); backdrop-filter: blur(8px); padding: 12px 16px; font-size: 11px; color: var(--c-text-m); letter-spacing: 0.06em; text-transform: uppercase; transform: translateY(100%); transition: transform 0.3s; }
   .ss-strip--stack .ss-cell:hover .ss-lbl { transform: translateY(0); }
+  #components > .cag-wrap + .ss-strip.ss-strip--stack { padding: 0; }
 
   /* PLACEHOLDER */
   .placeholder { background: var(--c-bg3); border: 1px dashed rgba(150,103,247,0.28); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: var(--c-text-d); font-size: 12px; position: relative; overflow: hidden; }
@@ -274,6 +275,10 @@
   }
 
   /* GOVERNANCE */
+  .wrap#governance {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
   .gov-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 56px; }
   .gov-card { background: var(--c-bg3); border-radius: 16px; padding: 40px; border: 1px solid var(--c-border); position: relative; overflow: hidden; transition: border-color 0.3s cubic-bezier(0.22,1,0.36,1); }
   .gov-card:hover { border-color: var(--c-border-m); }
@@ -425,7 +430,8 @@
     .problem-grid, .role-split, .gov-grid { grid-template-columns: 1fr; }
     .ss-strip:not(.ss-strip--stack) { grid-template-columns: repeat(2, 1fr); }
     .ss-strip--stack { margin: 40px auto; padding: 0 20px; }
-    .ss-strip--stack .ss-cell-sticky-wrap { top: calc(56px + (var(--card-z, 1) - 1) * 24px); padding-bottom: 20px; }
+    #components > .cag-wrap + .ss-strip.ss-strip--stack { padding: 0; }
+    .ss-strip--stack .ss-cell-sticky-wrap { top: calc(56px + (var(--card-z, 1) - 1) * 32px); padding-bottom: 20px; }
     .ss-strip--stack .ss-cell { border-radius: 16px; }
     .stats-row { grid-template-columns: 1fr; }
     .comp-grid { grid-template-columns: 1fr; }
@@ -462,22 +468,31 @@
     <div class="hero-glow2"></div>
     <div class="hero-grid"></div>
   </div>
-  <div class="hero-eyebrow">UX Case Study</div>
+
+  <div class="hero-brand">
+    <img src="club-logo.png" alt="Club logo" class="hero-brand-logo">
+  </div>
+
   <h1 class="hero-title">
     <span class="line-teal">Club</span><br>
     <span>Design</span><br>
     <span class="line-dim">System</span>
   </h1>
-  <div class="hero-divider"></div>
-  <div class="hero-meta">
-    <div class="hero-meta-item"><label>Company</label><span>Brandbassador</span></div>
-    <div class="hero-meta-item"><label>Product</label><span>Club — Ambassador Platform</span></div>
-    <div class="hero-meta-item"><label>Role</label><span>Design System Lead · Senior Product Designer</span></div>
-    <div class="hero-meta-item"><label>Platforms</label><span>Flutter App · React Web</span></div>
+
+  <p class="hero-dek">End-to-end design system for Club&rsquo;s Flutter app and React web — tokens, components, documentation, and governance for a multi-surface ambassador platform.</p>
+
+  <div class="hero-mockup">
+    <img src="club-ds.png" alt="Club design system overview" width="2459" height="1737" loading="eager" decoding="async">
   </div>
-  <div class="hero-scroll">
-    <div class="scroll-line"></div>
-    Scroll to explore
+
+  <div class="hero-divider"></div>
+
+  <div class="hero-meta">
+    <div class="hero-meta-item"><label>Company</label><span>Club / Brandbassador</span></div>
+    <div class="hero-meta-item"><label>Product</label><span>Club — Ambassador Platform</span></div>
+    <div class="hero-meta-item"><label>My Role</label><span>Design System Lead · Senior Product Designer</span></div>
+    <div class="hero-meta-item"><label>Platform</label><span>Flutter App · React Web</span></div>
+    <div class="hero-meta-item"><label>Year</label><span>2023 – 2026</span></div>
   </div>
 </div>
 
@@ -939,25 +954,6 @@
       </div>
     </div>
 
-
-    <!-- BRAND VISUAL STRIPS (stacked scroll, full width) — Challenge + extended brand tokens -->
-    <div class="ss-strip ss-strip--stack">
-      <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
-        <div class="ss-cell"><img src="club-logo-grid.png" width="2550" height="1462" alt="Club logo with geometric construction grid" loading="lazy" decoding="async"><div class="ss-lbl">Logo System</div></div>
-      </div>
-      <div class="ss-cell-sticky-wrap reveal" style="--card-z: 2">
-        <div class="ss-cell"><img src="club-wordmark-construction.png" width="2550" height="1461" alt="Club wordmark — bezier construction on dark background" loading="lazy" decoding="async"><div class="ss-lbl">Wordmark</div></div>
-      </div>
-      <div class="ss-cell-sticky-wrap reveal" style="--card-z: 3">
-        <div class="ss-cell"><img src="club-logo-purple.png" width="2550" height="1461" alt="Club logo on brand purple background" loading="lazy" decoding="async"><div class="ss-lbl">Brand Identity</div></div>
-      </div>
-      <div class="ss-cell-sticky-wrap reveal" style="--card-z: 4">
-        <div class="ss-cell"><img src="club-logo-lockups.png" width="2550" height="1461" alt="Club logo lockups — horizontal and stacked" loading="lazy" decoding="async"><div class="ss-lbl">Logo Lockups</div></div>
-      </div>
-      <div class="ss-cell-sticky-wrap reveal" style="--card-z: 5">
-        <div class="ss-cell"><img src="club-tshirt-mockup.png" width="2550" height="1701" alt="Club branded apparel — logo on t-shirt mockup" loading="lazy" decoding="async"><div class="ss-lbl">Brand Application</div></div>
-      </div>
-    </div>
 
     <!-- ARCHITECTURE -->
     <div class="wrap" id="architecture">
@@ -1476,6 +1472,43 @@
           </div>
         </div>
       </div>
+
+      <div class="foundation-corner-radius reveal">
+        <div class="foundation-corner-radius-head">
+          <div class="section-label"><span class="num">Tier 1 /</span> Foundations</div>
+          <h2>Corner radius</h2>
+          <p class="foundation-corner-radius-desc">Corner radius plays a key role in expressing the brand&rsquo;s
+            personality&mdash;whether it feels soft, bold, or modern.</p>
+        </div>
+        <div class="foundation-corner-radius-media">
+          <div class="foundation-corner-radius-panel foundation-corner-radius-panel--image">
+            <img src="tie-radius-varient.png" width="1080" height="1471"
+              alt="Club TIE — corner radius variants (24px, 32px, 40px) annotated in the system" loading="lazy"
+              decoding="async">
+          </div>
+          <div class="foundation-corner-radius-panel foundation-corner-radius-panel--video">
+            <video src="/videos/tie-radius.mov" autoplay muted loop playsinline preload="metadata"
+              aria-label="Club TIE — corner radius and spacing in a UI card"></video>
+          </div>
+        </div>
+      </div>
+
+      <div class="foundation-spacing reveal">
+        <div class="foundation-spacing-head">
+          <div class="section-label"><span class="num">Tier 1 /</span> Foundations</div>
+          <h2>Spacing</h2>
+          <p class="foundation-spacing-desc">We carefully defined spacing values to ensure the interface feels neither
+            cluttered nor too sparse, helping users focus on important information while maintaining a clean and
+            approachable look.</p>
+        </div>
+        <div class="foundation-spacing-media">
+          <div class="foundation-spacing-panel foundation-spacing-panel--video">
+            <video src="/videos/tie-spacing.mov" autoplay muted loop playsinline preload="metadata"
+              aria-label="Club TIE — spacing rhythm in the interface"></video>
+          </div>
+        </div>
+      </div>
+
       <div class="foundation-footer">
         <span class="foundation-source">Source: Figma &mdash; <a href="https://www.figma.com/design/X6KYrCWNziNKbCebpNTCMP/%F0%9F%92%A0-1--Tie-----Foundations---ALPHA?node-id=111-9796" target="_blank" rel="noopener noreferrer">TIE Foundations (ALPHA)</a> &middot; Theme &middot; Light / Dark</span>
       </div>

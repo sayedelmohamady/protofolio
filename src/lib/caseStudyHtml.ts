@@ -42,6 +42,11 @@ function mapImageSrc(filename: string): string {
     return `/images/projects/etar/${filename}`;
   if (filename.startsWith("club-dashboard-"))
     return `/images/projects/club-dashboard/${filename}`;
+  if (
+    filename.startsWith("club-level-") ||
+    filename.startsWith("club-levels-")
+  )
+    return `/images/projects/club-levels/${filename}`;
   if (filename === "level-structure.png")
     return "/images/projects/club-tie/level-structure.png";
   if (filename === "levels-types.png")

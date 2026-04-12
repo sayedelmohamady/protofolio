@@ -3,6 +3,65 @@
 import type { ReactNode } from "react";
 import { useEffect } from "react";
 
+import "@/styles/case-study-section-nav-chrome.css";
+
+function ensureSidebarNavChrome(sidebar: HTMLElement) {
+  if (sidebar.dataset.sectionNavChrome === "1") return;
+  const nav = sidebar.querySelector("ul.sidebar-nav");
+  if (!nav?.parentNode) return;
+
+  sidebar.dataset.sectionNavChrome = "1";
+
+  const inner = document.createElement("div");
+  inner.className = "sidebar-nav-inner";
+  const glider = document.createElement("div");
+  glider.className = "sidebar-nav-glider";
+  glider.setAttribute("aria-hidden", "true");
+
+  nav.parentNode.insertBefore(inner, nav);
+  inner.appendChild(glider);
+  inner.appendChild(nav);
+
+  const progress = document.createElement("div");
+  progress.className = "sidebar-nav-progress";
+  progress.setAttribute("aria-hidden", "true");
+  const fill = document.createElement("div");
+  fill.className = "sidebar-nav-progress-fill";
+  progress.appendChild(fill);
+  sidebar.appendChild(progress);
+}
+
+function updateSidebarNavChrome(
+  sidebar: HTMLElement,
+  activeLink: HTMLAnchorElement | null,
+  activeIndex: number,
+  totalSections: number,
+  atTop: boolean,
+) {
+  const inner = sidebar.querySelector<HTMLElement>(".sidebar-nav-inner");
+  const glider = sidebar.querySelector<HTMLElement>(".sidebar-nav-glider");
+  const fill = sidebar.querySelector<HTMLElement>(".sidebar-nav-progress-fill");
+  if (!inner || !glider || !fill) return;
+
+  if (atTop || !activeLink) {
+    glider.classList.remove("is-visible");
+    fill.style.width = "0%";
+    return;
+  }
+
+  glider.classList.add("is-visible");
+  const ir = inner.getBoundingClientRect();
+  const lr = activeLink.getBoundingClientRect();
+  const left = lr.left - ir.left + inner.scrollLeft;
+  const width = lr.width;
+  glider.style.left = `${Math.max(0, left)}px`;
+  glider.style.width = `${Math.max(0, width)}px`;
+
+  const pct =
+    totalSections > 0 ? ((activeIndex + 1) / totalSections) * 100 : 0;
+  fill.style.width = `${pct}%`;
+}
+
 export function CaseStudyRevealInit({ children }: { children: ReactNode }) {
   useEffect(() => {
     const root = document.getElementById("case-study-root");
@@ -31,6 +90,7 @@ export function CaseStudyRevealInit({ children }: { children: ReactNode }) {
     const CHILD_SELS = [
       ".section-label",
       "h2",
+      "h3",
       ".challenge-lead > p",
       ".principles-dek",
       ".hero-eyebrow",
@@ -49,6 +109,11 @@ export function CaseStudyRevealInit({ children }: { children: ReactNode }) {
       ".comp-col",
       ".image-pair",
       ".image-trio",
+      ".lead",
+      ".section-lead",
+      "blockquote",
+      ".club-tie-intro-video",
+      ".overview-video-wrap",
     ].join(", ");
 
     function staggerChildren(section: HTMLElement) {
@@ -57,7 +122,7 @@ export function CaseStudyRevealInit({ children }: { children: ReactNode }) {
       items.forEach((el, i) => {
         if (el.dataset.rvC) return;
         el.dataset.rvC = "1";
-        const delay = Math.min(i, 7) * 65; // cap at 455 ms
+        const delay = Math.min(i, 12) * 72; // cap ~864 ms, smoother cascade
         el.style.setProperty("--rv-d", `${delay}ms`);
         el.classList.add("rv-child");
         requestAnimationFrame(() => {
@@ -78,7 +143,7 @@ export function CaseStudyRevealInit({ children }: { children: ReactNode }) {
           }
         });
       },
-      { threshold: 0.05, rootMargin: "0px 0px -60px 0px" },
+      { threshold: 0.06, rootMargin: "0px 0px -5% 0px" },
     );
 
     reveals.forEach((el) => {
@@ -101,6 +166,187 @@ export function CaseStudyRevealInit({ children }: { children: ReactNode }) {
     return () => {
       window.clearTimeout(t);
       obs.disconnect();
+    };
+  }, []);
+
+  /* Club case studies: shrink pinned product-flow headers (index + title) while scrolling stacked screens */
+  useEffect(() => {
+    const root = document.getElementById("case-study-root");
+    if (!root) return;
+    const scope = root.querySelector<HTMLElement>(".case-study-club");
+    if (!scope) return;
+
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    const flows = Array.from(
+      scope.querySelectorAll<HTMLElement>(
+        ".pf-flow:has(> .ss-strip.ss-strip--stack)",
+      ),
+    );
+    if (flows.length === 0) return;
+
+    type FlowCompact = { target: number; current: number };
+    const compactByFlow = new Map<HTMLElement, FlowCompact>();
+    for (const flow of flows) {
+      compactByFlow.set(flow, { target: 0, current: 0 });
+    }
+
+    /** Ease-out while ramping compact so shrink feels smooth, not linear. */
+    function easeOutCubic(t: number) {
+      const x = Math.min(1, Math.max(0, t));
+      return 1 - (1 - x) ** 3;
+    }
+
+    let scrollRaf = 0;
+    let smoothRaf = 0;
+
+    const measureCompactRange = (flow: HTMLElement) => {
+      const strip = flow.querySelector<HTMLElement>(
+        ":scope > .ss-strip.ss-strip--stack",
+      );
+      const h = strip?.offsetHeight ?? 400;
+      return Math.min(Math.max(200, Math.round(h * 0.16)), 340);
+    };
+
+    const applyTargets = () => {
+      scrollRaf = 0;
+
+      for (const flow of flows) {
+        const header = flow.querySelector<HTMLElement>(
+          ":scope > .wrap.pf-header",
+        );
+        const strip = flow.querySelector<HTMLElement>(
+          ":scope > .ss-strip.ss-strip--stack",
+        );
+        if (!header || !strip) continue;
+
+        /*
+         * Start compacting only once the vertical stack scrolls up into the
+         * pinned header (strip top crosses the header’s bottom edge), not when
+         * the header first becomes sticky.
+         */
+        const headway =
+          header.getBoundingClientRect().bottom -
+          strip.getBoundingClientRect().top;
+        const rangePx = reduced ? 1 : measureCompactRange(flow);
+        const raw = headway / rangePx;
+        const linear = reduced ? 0 : Math.min(1, Math.max(0, raw));
+        const p = easeOutCubic(linear);
+        const st = compactByFlow.get(flow);
+        if (st) st.target = p;
+      }
+      ensureSmoothLoop();
+    };
+
+    const SMOOTH = 0.22;
+
+    const smoothStep = () => {
+      let moving = false;
+      for (const flow of flows) {
+        const st = compactByFlow.get(flow);
+        if (!st) continue;
+        const d = st.target - st.current;
+        if (Math.abs(d) > 0.002) {
+          st.current += d * SMOOTH;
+          moving = true;
+        } else {
+          st.current = st.target;
+        }
+        flow.style.setProperty("--pf-compact", st.current.toFixed(4));
+      }
+      smoothRaf = moving ? requestAnimationFrame(smoothStep) : 0;
+    };
+
+    function ensureSmoothLoop() {
+      if (!smoothRaf) {
+        smoothRaf = requestAnimationFrame(smoothStep);
+      }
+    }
+
+    const onScroll = () => {
+      if (!scrollRaf) scrollRaf = requestAnimationFrame(applyTargets);
+    };
+
+    applyTargets();
+    ensureSmoothLoop();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (scrollRaf) cancelAnimationFrame(scrollRaf);
+      if (smoothRaf) cancelAnimationFrame(smoothRaf);
+      for (const flow of flows) {
+        flow.style.removeProperty("--pf-compact");
+      }
+      compactByFlow.clear();
+    };
+  }, []);
+
+  /* Hero parallax — any case study with `.hero` (CSS hero entrance keeps transform free at scroll 0) */
+  useEffect(() => {
+    const root = document.getElementById("case-study-root");
+    if (!root) return;
+
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (reduced) return;
+
+    const hero = root.querySelector<HTMLElement>(".hero");
+    if (!hero) return;
+
+    const headerEls = hero.querySelectorAll<HTMLElement>(
+      ".hero-brand, .hero-title, .hero-dek",
+    );
+    const visualEls = hero.querySelectorAll<HTMLElement>(
+      ".hero-mockup, .hero-screens, .hero-meta, .hero-divider",
+    );
+    if (headerEls.length === 0) return;
+
+    const headerFactor = 0.14;
+    const visualFactor = 0.38;
+    const scrollCap = () =>
+      Math.min(window.scrollY, window.innerHeight * 1.35);
+
+    let raf = 0;
+
+    const apply = () => {
+      raf = 0;
+      const y = scrollCap();
+      const tyHeader = y * headerFactor;
+      const tyVisual = y * visualFactor;
+      if (tyHeader < 0.5 && tyVisual < 0.5) {
+        headerEls.forEach((el) => el.style.removeProperty("transform"));
+        visualEls.forEach((el) => el.style.removeProperty("transform"));
+        return;
+      }
+      headerEls.forEach((el) => {
+        el.style.transform = `translate3d(0, ${tyHeader}px, 0)`;
+      });
+      visualEls.forEach((el) => {
+        el.style.transform = `translate3d(0, ${tyVisual}px, 0)`;
+      });
+    };
+
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(apply);
+    };
+
+    apply();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+      headerEls.forEach((el) => el.style.removeProperty("transform"));
+      visualEls.forEach((el) => el.style.removeProperty("transform"));
     };
   }, []);
 
@@ -151,7 +397,7 @@ export function CaseStudyRevealInit({ children }: { children: ReactNode }) {
           const target = document.querySelector(href);
           if (target) {
             const y =
-              target.getBoundingClientRect().top + window.scrollY - 56 - 24;
+              target.getBoundingClientRect().top + window.scrollY - 56 - 48 - 16;
             window.scrollTo({ top: y, behavior: "smooth" });
           }
         }
@@ -264,6 +510,14 @@ export function CaseStudyRevealInit({ children }: { children: ReactNode }) {
     );
     if (sidebarLinks.length === 0) return;
 
+    const sidebar = sidebarLinks[0]?.closest(".sidebar") as HTMLElement | null;
+    if (sidebar) ensureSidebarNavChrome(sidebar);
+
+    const inner = sidebar?.querySelector<HTMLElement>(".sidebar-nav-inner");
+    if (inner && !inner.dataset.scrollSync) {
+      inner.dataset.scrollSync = "1";
+    }
+
     const sectionIds: string[] = [];
     sidebarLinks.forEach((link) => {
       const id = link.getAttribute("data-section");
@@ -276,7 +530,13 @@ export function CaseStudyRevealInit({ children }: { children: ReactNode }) {
           getComputedStyle(document.documentElement).getPropertyValue("--nav-h"),
           10,
         ) || 56;
-      const scrollY = window.scrollY + navH + 80;
+      const sectionNavH = sidebar
+        ? parseInt(
+            getComputedStyle(sidebar).getPropertyValue("--section-nav-h"),
+            10,
+          ) || 50
+        : 50;
+      const scrollY = window.scrollY + navH + sectionNavH + 40;
       let currentId = sectionIds[0];
 
       for (let i = 0; i < sectionIds.length; i++) {
@@ -286,18 +546,36 @@ export function CaseStudyRevealInit({ children }: { children: ReactNode }) {
         }
       }
 
-      if (window.scrollY < 200) {
+      const atTop = window.scrollY < 200;
+
+      if (atTop) {
         sidebarLinks.forEach((l) => l.classList.remove("active"));
+        if (sidebar) {
+          updateSidebarNavChrome(sidebar, null, -1, sectionIds.length, true);
+        }
         return;
       }
 
+      let activeLink: HTMLAnchorElement | null = null;
       sidebarLinks.forEach((link) => {
         if (link.getAttribute("data-section") === currentId) {
           link.classList.add("active");
+          activeLink = link;
         } else {
           link.classList.remove("active");
         }
       });
+
+      if (sidebar) {
+        const idx = sectionIds.indexOf(currentId);
+        updateSidebarNavChrome(
+          sidebar,
+          activeLink,
+          idx,
+          sectionIds.length,
+          false,
+        );
+      }
     }
 
     let ticking = false;
@@ -313,10 +591,12 @@ export function CaseStudyRevealInit({ children }: { children: ReactNode }) {
 
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll, { passive: true });
+    inner?.addEventListener("scroll", onScroll, { passive: true });
     updateActive();
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+      inner?.removeEventListener("scroll", onScroll);
     };
   }, []);
 

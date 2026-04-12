@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Club Levels — Progression System Case Study</title>
+  <title>A Gamification system for ambassador — Club Levels</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -36,8 +36,17 @@
       --case-grid-gap: 10px;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       background: var(--c-bg);
@@ -50,455 +59,1229 @@
 
     /* ── NAV ── */
     .top-nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 32px; height: var(--nav-h);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      height: var(--nav-h);
       background: rgba(8, 8, 10, 0.92);
       backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--c-border);
     }
+
     .top-nav-name {
-      display: flex; align-items: center; gap: 10px;
-      font-family: var(--f-display); font-weight: 700; font-size: 13px;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      color: var(--c-text); text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--f-display);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--c-text);
+      text-decoration: none;
     }
+
     .top-nav-name .green-dot {
-      width: 8px; height: 8px; border-radius: 50%;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
       background: var(--c-accent);
       box-shadow: 0 0 8px rgba(150, 103, 247, 0.5);
       flex-shrink: 0;
     }
+
     .top-nav-back {
-      font-size: 13px; color: var(--c-accent); text-decoration: none;
-      font-weight: 500; letter-spacing: 0.02em; transition: color 0.2s;
+      font-size: 13px;
+      color: var(--c-accent);
+      text-decoration: none;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
     }
-    .top-nav-back:hover { color: var(--c-accent-l); }
+
+    .top-nav-back:hover {
+      color: var(--c-accent-l);
+    }
 
     /* ── HERO ── */
     .hero {
-      margin-top: var(--nav-h); min-height: 100vh;
-      display: flex; flex-direction: column; justify-content: flex-end;
-      padding: 0 48px 80px; position: relative; overflow: hidden;
+      margin-top: var(--nav-h);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 48px 80px;
+      position: relative;
+      overflow: hidden;
     }
-    .hero-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
     .hero-glow {
-      position: absolute; width: 900px; height: 900px; border-radius: 50%;
+      position: absolute;
+      width: 900px;
+      height: 900px;
+      border-radius: 50%;
       background: radial-gradient(circle, rgba(150, 103, 247, 0.10) 0%, transparent 70%);
-      top: -300px; right: -200px;
+      top: -300px;
+      right: -200px;
     }
+
     .hero-glow2 {
-      position: absolute; width: 500px; height: 500px; border-radius: 50%;
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
       background: radial-gradient(circle, rgba(150, 103, 247, 0.05) 0%, transparent 70%);
-      bottom: 80px; left: -100px;
+      bottom: 80px;
+      left: -100px;
     }
+
     .hero-grid {
-      position: absolute; inset: 0;
+      position: absolute;
+      inset: 0;
       background-image:
-        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+        linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
       background-size: 48px 48px;
       mask-image: radial-gradient(ellipse at 60% 40%, black 20%, transparent 70%);
     }
+
     .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 10px;
-      font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--c-accent); margin-bottom: 28px; position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-accent);
+      margin-bottom: 28px;
+      position: relative;
     }
+
     .hero-eyebrow::before {
-      content: ''; display: block; width: 28px; height: 1px; background: var(--c-accent);
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--c-accent);
     }
+
     .hero-title {
       font-family: var(--f-display);
       font-size: clamp(60px, 9vw, 128px);
-      font-weight: 800; line-height: 0.9; letter-spacing: -0.03em;
-      margin-bottom: 40px; position: relative;
+      font-weight: 800;
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      margin-bottom: 40px;
+      position: relative;
     }
-    .hero-title .line-accent { color: var(--c-accent); }
-    .hero-title .line-dim { color: var(--c-text-d); }
-    .hero-divider { width: 100%; height: 1px; background: var(--c-border); margin-bottom: 40px; }
-    .hero-meta { display: flex; gap: 48px; margin-bottom: 48px; flex-wrap: wrap; position: relative; }
+
+    .hero-title .line-accent {
+      color: var(--c-accent);
+    }
+
+    .hero-title .line-dim {
+      color: var(--c-text-d);
+    }
+
+    .hero-brand {
+      margin-bottom: 28px;
+    }
+
+    .hero-brand-logo {
+      height: 28px;
+      width: auto;
+      display: block;
+    }
+
+    .hero-dek {
+      font-size: 17px;
+      color: var(--c-text-m);
+      max-width: 560px;
+      line-height: 1.65;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .hero-mockup {
+      width: 100%;
+      max-width: 900px;
+      margin-bottom: 0;
+      line-height: 0;
+      position: relative;
+    }
+
+    .hero-mockup img {
+      width: 100%;
+      border-radius: 14px 14px 0 0;
+      display: block;
+    }
+
+    .hero-divider {
+      display: none;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 24px 32px;
+      margin: 0 auto 48px;
+      flex-wrap: wrap;
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      box-sizing: border-box;
+      padding: 24px 40px;
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: none;
+      border-radius: 16px;
+      justify-content: space-between;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+
     .hero-meta-item label {
-      display: block; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--c-text-d); margin-bottom: 4px;
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-text-d);
+      margin-bottom: 4px;
     }
-    .hero-meta-item span { font-size: 13px; color: var(--c-text-m); }
+
+    .hero-meta-item span {
+      font-size: 13px;
+      color: var(--c-text-m);
+      text-align: left;
+    }
+
     .hero-scroll {
-      display: flex; align-items: center; gap: 12px;
-      font-size: 11px; color: var(--c-text-d); letter-spacing: 0.1em; text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11px;
+      color: var(--c-text-d);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
     }
+
     .scroll-line {
-      width: 40px; height: 1px; background: var(--c-text-d);
-      position: relative; overflow: hidden;
+      width: 40px;
+      height: 1px;
+      background: var(--c-text-d);
+      position: relative;
+      overflow: hidden;
     }
+
     .scroll-line::after {
-      content: ''; position: absolute; top: 0; left: -100%;
-      width: 100%; height: 100%; background: var(--c-accent);
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--c-accent);
       animation: slide 2s ease-in-out infinite;
     }
-    @keyframes slide { 0% { left: -100% } 50% { left: 0% } 100% { left: 100% } }
+
+    @keyframes slide {
+      0% {
+        left: -100%
+      }
+
+      50% {
+        left: 0%
+      }
+
+      100% {
+        left: 100%
+      }
+    }
 
     /* ── LAYOUT ── */
-    .case-layout { display: flex; min-height: 100vh; }
+    .case-layout {
+      display: flex;
+      min-height: 100vh;
+    }
 
     .sidebar {
-      width: var(--sidebar-w); flex-shrink: 0;
-      position: sticky; top: calc(var(--nav-h) + 24px);
-      height: fit-content; max-height: calc(100vh - var(--nav-h) - 48px);
-      overflow-y: auto; padding: 16px 0; margin-left: 24px;
-      border: 1px solid var(--c-border); border-radius: 16px;
-      background: rgba(255,255,255,0.02); backdrop-filter: blur(12px); z-index: 50;
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      position: sticky;
+      top: calc(var(--nav-h) + 24px);
+      height: fit-content;
+      max-height: calc(100vh - var(--nav-h) - 48px);
+      overflow-y: auto;
+      padding: 16px 0;
+      margin-left: 24px;
+      border: 1px solid var(--c-border);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(12px);
+      z-index: 50;
     }
-    .sidebar::-webkit-scrollbar { width: 0; }
-    .sidebar-nav { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+
+    .sidebar::-webkit-scrollbar {
+      width: 0;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
     .sidebar-nav a {
-      display: flex; align-items: center; gap: 10px; padding: 9px 20px;
-      font-size: 12.5px; font-weight: 500; color: var(--c-text-d);
-      text-decoration: none; letter-spacing: 0.01em;
-      border-left: 2px solid transparent; border-radius: 8px; margin: 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 20px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--c-text-d);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      border-left: 2px solid transparent;
+      border-radius: 8px;
+      margin: 0 8px;
       transition: color 0.25s, border-color 0.25s, background 0.25s;
     }
-    .sidebar-nav a:hover { color: var(--c-text-m); background: rgba(255,255,255,0.04); }
-    .sidebar-nav a.active {
-      color: var(--c-accent); font-weight: 600;
-      border-left-color: var(--c-accent); background: rgba(150,103,247,0.08);
-    }
-    .sidebar-nav a svg {
-      width: 15px; height: 15px; flex-shrink: 0; stroke: currentColor; fill: none;
-      stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; opacity: 0.7;
-    }
-    .sidebar-nav a.active svg { opacity: 1; }
-    .sidebar-sep { height: 1px; background: var(--c-border); margin: 12px 16px; }
 
-    .main-content { flex: 1; min-width: 0; padding-left: 32px; }
+    .sidebar-nav a:hover {
+      color: var(--c-text-m);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .sidebar-nav a.active {
+      color: var(--c-accent);
+      font-weight: 600;
+      border-left-color: var(--c-accent);
+      background: rgba(150, 103, 247, 0.08);
+    }
+
+    .sidebar-nav a svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0.7;
+    }
+
+    .sidebar-nav a.active svg {
+      opacity: 1;
+    }
+
+    .sidebar-sep {
+      height: 1px;
+      background: var(--c-border);
+      margin: 12px 16px;
+    }
+
+    .main-content {
+      flex: 1;
+      min-width: 0;
+      padding-left: 32px;
+    }
 
     /* ── SECTIONS ── */
-    .wrap { max-width: 1100px; margin: 0 auto; padding: 100px 48px; }
-    .section-band { background: var(--c-bg2); border-top: 1px solid var(--c-border); border-bottom: 1px solid var(--c-border); }
-    .section-divider { height: 1px; background: var(--c-border); }
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 100px 48px;
+    }
+
+    .section-band {
+      background: var(--c-bg2);
+      border-top: 1px solid var(--c-border);
+      border-bottom: 1px solid var(--c-border);
+    }
+
+    .section-divider {
+      height: 1px;
+      background: var(--c-border);
+    }
 
     /* ── TYPOGRAPHY ── */
     .section-label {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--c-accent); margin-bottom: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-accent);
+      margin-bottom: 20px;
     }
-    .section-label .num { opacity: 0.5; }
+
+    .section-label .num {
+      opacity: 0.5;
+    }
+
     h2 {
-      font-family: var(--f-display); font-size: clamp(32px, 3.5vw, 48px);
-      font-weight: 700; line-height: 1.06; letter-spacing: -0.025em; margin-bottom: 20px;
+      font-family: var(--f-display);
+      font-size: clamp(32px, 3.5vw, 48px);
+      font-weight: 700;
+      line-height: 1.06;
+      letter-spacing: -0.025em;
+      margin-bottom: 20px;
     }
-    h3 { font-family: var(--f-display); font-size: 20px; font-weight: 600; margin-bottom: 10px; }
-    p { color: var(--c-text-m); max-width: 640px; }
-    p + p { margin-top: 14px; }
+
+    h3 {
+      font-family: var(--f-display);
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: var(--c-text-m);
+      max-width: 640px;
+    }
+
+    p+p {
+      margin-top: 14px;
+    }
 
     /* ── PROCESS STEPS ── */
     .process-steps {
-      display: flex; gap: 0; margin-top: 48px;
-      border: 1px solid var(--c-border); border-radius: var(--case-radius); overflow: hidden;
+      display: flex;
+      gap: 0;
+      margin-top: 48px;
+      border: 1px solid var(--c-border);
+      border-radius: var(--case-radius);
+      overflow: hidden;
     }
+
     .process-step {
-      flex: 1; padding: 28px 24px; position: relative;
-      transition: background 0.3s; border-right: 1px solid var(--c-border);
+      flex: 1;
+      padding: 28px 24px;
+      position: relative;
+      transition: background 0.3s;
+      border-right: 1px solid var(--c-border);
     }
-    .process-step:last-child { border-right: none; }
-    .process-step:hover { background: var(--c-bg4); }
-    .process-step.active { background: rgba(150,103,247,0.05); }
+
+    .process-step:last-child {
+      border-right: none;
+    }
+
+    .process-step:hover {
+      background: var(--c-bg4);
+    }
+
+    .process-step.active {
+      background: rgba(150, 103, 247, 0.05);
+    }
+
     .process-step.active::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--c-accent);
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--c-accent);
     }
-    .ps-num { font-size: 10px; font-weight: 600; color: var(--c-text-d); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
-    .ps-title { font-family: var(--f-display); font-size: 18px; font-weight: 700; color: var(--c-text); margin-bottom: 8px; }
-    .process-step.active .ps-title { color: var(--c-accent); }
-    .ps-desc { font-size: 13px; color: var(--c-text-d); line-height: 1.55; }
+
+    .ps-num {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--c-text-d);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .ps-title {
+      font-family: var(--f-display);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--c-text);
+      margin-bottom: 8px;
+    }
+
+    .process-step.active .ps-title {
+      color: var(--c-accent);
+    }
+
+    .ps-desc {
+      font-size: 13px;
+      color: var(--c-text-d);
+      line-height: 1.55;
+    }
 
     /* ── PROBLEM CARDS ── */
     .problem-grid {
-      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: var(--case-grid-gap); margin-top: 56px; align-items: stretch;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--case-grid-gap);
+      margin-top: 56px;
+      align-items: stretch;
     }
+
     .problem-card {
-      background: var(--c-bg3); border: 1px solid var(--c-border);
-      border-radius: var(--case-radius); padding: 32px; position: relative; overflow: hidden;
-      display: flex; flex-direction: column;
-      transition: background 0.5s cubic-bezier(0.22,1,0.36,1), border-color 0.5s cubic-bezier(0.22,1,0.36,1), transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.55s cubic-bezier(0.22,1,0.36,1);
+      background: var(--c-bg3);
+      border: 1px solid var(--c-border);
+      border-radius: var(--case-radius);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.5s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.55s cubic-bezier(0.22, 1, 0.36, 1);
     }
+
     .problem-card:hover {
-      background: var(--c-bg4); border-color: rgba(150,103,247,0.38); transform: translateY(-5px);
-      box-shadow: 0 22px 56px rgba(0,0,0,0.38), 0 0 0 1px rgba(150,103,247,0.1), 0 0 40px rgba(150,103,247,0.09);
+      background: var(--c-bg4);
+      border-color: rgba(150, 103, 247, 0.38);
+      transform: translateY(-5px);
+      box-shadow: 0 22px 56px rgba(0, 0, 0, 0.38), 0 0 0 1px rgba(150, 103, 247, 0.1), 0 0 40px rgba(150, 103, 247, 0.09);
     }
+
     .problem-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: transparent; transition: background 0.45s cubic-bezier(0.22,1,0.36,1);
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: transparent;
+      transition: background 0.45s cubic-bezier(0.22, 1, 0.36, 1);
     }
-    .problem-card:hover::before { background: linear-gradient(90deg, var(--c-accent-d), var(--c-accent-l)); }
+
+    .problem-card:hover::before {
+      background: linear-gradient(90deg, var(--c-accent-d), var(--c-accent-l));
+    }
+
     .p-icon {
-      width: 40px; height: 40px; border-radius: 11px; background: rgba(150,103,247,0.1);
-      display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
-      transition: transform 0.45s cubic-bezier(0.22,1,0.36,1), background 0.45s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s cubic-bezier(0.22,1,0.36,1);
+      width: 40px;
+      height: 40px;
+      border-radius: 11px;
+      background: rgba(150, 103, 247, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), background 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
     }
-    .problem-card:hover .p-icon { transform: scale(1.06); background: rgba(150,103,247,0.16); box-shadow: 0 0 24px rgba(150,103,247,0.12); }
-    .p-icon svg { width: 18px; height: 18px; stroke: var(--c-accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-    .problem-card h3 { font-size: 17px; font-weight: 600; color: var(--c-text); margin-bottom: 10px; letter-spacing: -0.01em; }
-    .problem-card p { font-size: 14px; max-width: none; line-height: 1.65; flex: 1; }
+
+    .problem-card:hover .p-icon {
+      transform: scale(1.06);
+      background: rgba(150, 103, 247, 0.16);
+      box-shadow: 0 0 24px rgba(150, 103, 247, 0.12);
+    }
+
+    .p-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--c-accent);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .problem-card h3 {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--c-text);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .problem-card p {
+      font-size: 14px;
+      max-width: none;
+      line-height: 1.65;
+      flex: 1;
+    }
 
     /* ── TWO-COLUMN CONTEXT ── */
     .context-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; margin-top: 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+      margin-top: 40px;
     }
+
     .context-visual {
-      background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: 20px;
-      padding: 48px 40px; position: relative; overflow: hidden;
-      display: flex; flex-direction: column; gap: 28px;
+      background: var(--c-bg3);
+      border: 1px solid var(--c-border);
+      border-radius: 20px;
+      padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
     }
+
     .context-visual::before {
-      content: ''; position: absolute; top: -60px; right: -60px; width: 240px; height: 240px;
-      border-radius: 50%; background: radial-gradient(circle, rgba(150,103,247,0.08) 0%, transparent 70%);
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(150, 103, 247, 0.08) 0%, transparent 70%);
       pointer-events: none;
     }
-    .cv-stat { position: relative; z-index: 1; }
+
+    .cv-stat {
+      position: relative;
+      z-index: 1;
+    }
+
     .cv-stat-num {
-      font-family: var(--f-display); font-size: 40px; font-weight: 800;
-      color: var(--c-accent); line-height: 1; letter-spacing: -0.03em; margin-bottom: 4px;
+      font-family: var(--f-display);
+      font-size: 40px;
+      font-weight: 800;
+      color: var(--c-accent);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
     }
-    .cv-stat-label { font-size: 12px; color: var(--c-text-d); letter-spacing: 0.06em; text-transform: uppercase; }
-    .cv-divider { height: 1px; background: var(--c-border); }
-    .cv-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .cv-stat-label {
+      font-size: 12px;
+      color: var(--c-text-d);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .cv-divider {
+      height: 1px;
+      background: var(--c-border);
+    }
+
+    .cv-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
     .cv-tag {
-      padding: 5px 14px; border-radius: 100px; font-size: 12px; font-weight: 500;
-      border: 1px solid var(--c-border-m); color: var(--c-text-m);
+      padding: 5px 14px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 500;
+      border: 1px solid var(--c-border-m);
+      color: var(--c-text-m);
     }
-    .cv-tag.accent { border-color: rgba(150,103,247,0.35); color: var(--c-accent); background: rgba(150,103,247,0.08); }
+
+    .cv-tag.accent {
+      border-color: rgba(150, 103, 247, 0.35);
+      color: var(--c-accent);
+      background: rgba(150, 103, 247, 0.08);
+    }
 
     /* ── HOW IT WORKS — loop graph (Next.js: case-study-club-levels.css) ── */
 
     /* ── DECISIONS LIST ── */
     .decisions-list {
-      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 48px; align-items: stretch;
-    }
-    @media (max-width: 960px) {
-      .decisions-list { grid-template-columns: 1fr; }
-    }
-    .decision-card {
-      background: var(--c-bg3); border: 1px solid var(--c-border);
-      border-radius: var(--case-radius); padding: 24px;
-      display: flex; flex-direction: column; gap: 14px; min-height: 100%;
-      transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22,1,0.36,1);
-    }
-    .decision-card:hover { border-color: rgba(150,103,247,0.18); transform: translateY(-3px); }
-    .decision-num { font-family: var(--f-display); font-size: 32px; font-weight: 800; color: var(--c-accent); opacity: 0.28; line-height: 1; }
-    .decision-body { display: flex; flex-direction: column; flex: 1; min-height: 0; }
-    .decision-body h3 { font-size: 16px; font-weight: 600; color: var(--c-text); margin-bottom: 8px; }
-    .decision-body p { font-size: 13px; max-width: none; line-height: 1.65; flex: 1; }
-    .decision-tag {
-      display: inline-block; margin-top: auto; padding: 4px 12px; border-radius: 100px;
-      font-size: 11px; font-weight: 500; color: var(--c-accent);
-      background: rgba(150,103,247,0.10); border: 1px solid rgba(150,103,247,0.20); letter-spacing: 0.04em;
-      align-self: flex-start;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 48px;
+      align-items: stretch;
     }
 
-    /* ── IMPACT (single horizontal stat row — Next.js: case-study-club-levels.css) ── */
-    .club-levels-impact { background: #000000; }
-    .club-levels-impact .impact-stats {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 40px;
-      list-style: none;
-      padding: 0;
+    @media (max-width: 960px) {
+      .decisions-list {
+        grid-template-columns: 1fr;
+      }
     }
-    .club-levels-impact .impact-stat-card {
-      background: var(--c-bg3); border: 1px solid var(--c-border);
-      border-radius: var(--case-radius); padding: 22px 18px; position: relative; overflow: hidden;
-      text-align: center; transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22,1,0.36,1);
-      display: flex; flex-direction: column; align-items: center; min-height: 100%;
+
+    .decision-card {
+      background: var(--c-bg3);
+      border: 1px solid var(--c-border);
+      border-radius: var(--case-radius);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-height: 100%;
+      transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     }
-    .club-levels-impact .impact-stat-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: transparent; transition: background 0.3s;
+
+    .decision-card:hover {
+      border-color: rgba(150, 103, 247, 0.18);
+      transform: translateY(-3px);
     }
-    .club-levels-impact .impact-stat-card::after {
-      content: ''; position: absolute; bottom: -30px; right: -30px;
-      width: 100px; height: 100px; border-radius: 50%; background: rgba(150,103,247,0.04);
+
+    .decision-num {
+      font-family: var(--f-display);
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--c-accent);
+      opacity: 0.28;
+      line-height: 1;
     }
-    .club-levels-impact .impact-stat-card:hover::before { background: var(--c-accent); }
-    .club-levels-impact .impact-stat-card:hover { border-color: rgba(150,103,247,0.35); transform: translateY(-4px); }
-    .club-levels-impact .impact-num {
-      font-family: var(--f-display); font-size: clamp(32px, 4.2vw, 44px); font-weight: 800; color: var(--c-accent);
-      line-height: 1; letter-spacing: -0.03em; margin-bottom: 10px; position: relative;
+
+    .decision-body {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
     }
-    .club-levels-impact .impact-label { font-size: 13px; font-weight: 600; color: var(--c-text); line-height: 1.35; position: relative; }
-    .club-levels-impact .impact-context {
-      font-size: 11px; color: var(--c-text-d); line-height: 1.45; margin-top: 8px; position: relative;
-      letter-spacing: 0.02em; text-transform: none;
+
+    .decision-body h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--c-text);
+      margin-bottom: 8px;
     }
-    @media (max-width: 1024px) {
-      .club-levels-impact .impact-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .decision-body p {
+      font-size: 13px;
+      max-width: none;
+      line-height: 1.65;
+      flex: 1;
     }
-    @media (max-width: 900px) {
-      .club-levels-impact .impact-stats { grid-template-columns: 1fr; }
+
+    .decision-tag {
+      display: inline-block;
+      margin-top: auto;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--c-accent);
+      background: rgba(150, 103, 247, 0.10);
+      border: 1px solid rgba(150, 103, 247, 0.20);
+      letter-spacing: 0.04em;
+      align-self: flex-start;
     }
 
     /* ── REFLECTION ── */
     .reflection-card {
-      background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: 24px;
-      padding: 56px 64px; margin-top: 48px; position: relative; overflow: hidden;
+      background: var(--c-bg3);
+      border: 1px solid var(--c-border);
+      border-radius: 24px;
+      padding: 56px 64px;
+      margin-top: 48px;
+      position: relative;
+      overflow: hidden;
     }
+
     .reflection-card::after {
-      content: ''; position: absolute; top: -80px; right: -80px;
-      width: 300px; height: 300px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(150,103,247,0.06) 0%, transparent 70%);
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(150, 103, 247, 0.06) 0%, transparent 70%);
     }
-    .rf-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-accent); margin-bottom: 20px; }
-    .rf-text { font-family: var(--f-display); font-size: clamp(18px, 2vw, 24px); font-weight: 600; line-height: 1.45; color: var(--c-text); max-width: 720px; position: relative; }
-    .rf-sub { margin-top: 24px; font-size: 14px; color: var(--c-text-m); max-width: 640px; line-height: 1.78; position: relative; }
+
+    .rf-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-accent);
+      margin-bottom: 20px;
+    }
+
+    .rf-text {
+      font-family: var(--f-display);
+      font-size: clamp(18px, 2vw, 24px);
+      font-weight: 600;
+      line-height: 1.45;
+      color: var(--c-text);
+      max-width: 720px;
+      position: relative;
+    }
+
+    .rf-sub {
+      margin-top: 24px;
+      font-size: 14px;
+      color: var(--c-text-m);
+      max-width: 640px;
+      line-height: 1.78;
+      position: relative;
+    }
 
     /* ── LEARNINGS (horizontal cards — Next.js: case-study-club-levels.css) ── */
     .club-levels-learnings .learnings-list {
-      list-style: none; margin: 40px 0 0; padding: 0;
-      display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px;
+      list-style: none;
+      margin: 40px 0 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
     }
+
     .club-levels-learnings .learnings-list li {
-      display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
-      background: var(--c-bg3); border: 1px solid var(--c-border);
-      border-radius: var(--case-radius); padding: 18px 14px; min-height: 100%;
-      transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22,1,0.36,1);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      background: var(--c-bg3);
+      border: 1px solid var(--c-border);
+      border-radius: var(--case-radius);
+      padding: 18px 14px;
+      min-height: 100%;
+      transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     }
-    .club-levels-learnings .learnings-list li:hover { border-color: rgba(150,103,247,0.22); transform: translateY(-3px); }
+
+    .club-levels-learnings .learnings-list li:hover {
+      border-color: rgba(150, 103, 247, 0.22);
+      transform: translateY(-3px);
+    }
+
     .club-levels-learnings .li-num {
-      font-family: var(--f-display); font-size: 18px; font-weight: 800; color: var(--c-accent); opacity: 0.35;
+      font-family: var(--f-display);
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--c-accent);
+      opacity: 0.35;
       line-height: 1;
     }
-    .club-levels-learnings .li-title { font-size: 13px; font-weight: 600; color: var(--c-text); line-height: 1.35; margin: 0; }
-    .club-levels-learnings .li-desc { font-size: 12px; color: var(--c-text-m); line-height: 1.55; margin: 0; }
+
+    .club-levels-learnings .li-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--c-text);
+      line-height: 1.35;
+      margin: 0;
+    }
+
+    .club-levels-learnings .li-desc {
+      font-size: 12px;
+      color: var(--c-text-m);
+      line-height: 1.55;
+      margin: 0;
+    }
+
     @media (max-width: 1200px) {
-      .club-levels-learnings .learnings-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .club-levels-learnings .learnings-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
     }
+
     @media (max-width: 768px) {
-      .club-levels-learnings .learnings-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .club-levels-learnings .learnings-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
+
     @media (max-width: 520px) {
-      .club-levels-learnings .learnings-list { grid-template-columns: 1fr; }
+      .club-levels-learnings .learnings-list {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* ── PRODUCT FLOWS ── */
-    .pf-section { padding-top: 0; }
-    .wrap.pf-section-header { padding-top: 100px; padding-bottom: 28px; }
-    .pf-section > .pf-flow:first-of-type { padding-block-start: 0; }
-    .pf-section > .pf-flow:first-of-type > .wrap.pf-header { padding-top: 32px; }
-    .pf-flow { padding-block: 80px 0; }
-    .pf-flow + .pf-flow { border-top: 1px solid var(--c-border); }
-    .pf-header { display: flex; flex-direction: column; gap: 20px; padding-bottom: 48px; }
+    .pf-section {
+      padding-top: 0;
+    }
+
+    .wrap.pf-section-header {
+      padding-top: 100px;
+      padding-bottom: 28px;
+    }
+
+    .pf-section>.pf-flow:first-of-type {
+      padding-block-start: 0;
+    }
+
+    .pf-section>.pf-flow:first-of-type>.wrap.pf-header {
+      padding-top: 32px;
+    }
+
+    .pf-flow {
+      padding-block: 80px 0;
+    }
+
+    .pf-flow+.pf-flow {
+      border-top: 1px solid var(--c-border);
+    }
+
+    .pf-header {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-bottom: 48px;
+    }
+
     .pf-steps {
-      display: flex; align-items: center; width: 100%; justify-content: flex-start;
-      flex-wrap: wrap; gap: 6px;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 6px;
     }
-    .pf-meta { display: flex; align-items: flex-start; gap: 28px; }
+
+    .pf-meta {
+      display: flex;
+      align-items: flex-start;
+      gap: 28px;
+    }
+
     .pf-index {
-      font-size: clamp(3rem, 6vw, 5rem); font-weight: 800; line-height: 1;
-      color: var(--c-accent); opacity: 0.25; flex-shrink: 0;
-      font-variant-numeric: tabular-nums; letter-spacing: -0.04em; margin-top: 4px;
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 800;
+      line-height: 1;
+      color: var(--c-accent);
+      opacity: 0.25;
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.04em;
+      margin-top: 4px;
     }
-    .pf-meta > div { display: flex; flex-direction: column; gap: 10px; }
+
+    .pf-meta>div {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
     .pf-title {
-      font-size: clamp(1.4rem, 2.4vw, 1.9rem); font-weight: 700; color: var(--c-text);
-      line-height: 1.2; margin: 0; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+      font-weight: 700;
+      color: var(--c-text);
+      line-height: 1.2;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
     }
+
     .pf-tag {
-      display: inline-block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--c-accent); background: rgba(150,103,247,0.12);
-      border: 1px solid rgba(150,103,247,0.3); padding: 3px 10px; border-radius: 100px; vertical-align: middle;
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--c-accent);
+      background: rgba(150, 103, 247, 0.12);
+      border: 1px solid rgba(150, 103, 247, 0.3);
+      padding: 3px 10px;
+      border-radius: 100px;
+      vertical-align: middle;
     }
-    .pf-desc { font-size: 0.9375rem; line-height: 1.5; color: var(--c-text-m); max-width: 42ch; margin: 0; }
+
+    .pf-desc {
+      font-size: 0.9375rem;
+      line-height: 1.5;
+      color: var(--c-text-m);
+      max-width: 42ch;
+      margin: 0;
+    }
+
     .pf-step {
-      font-size: 0.8rem; font-weight: 500; color: var(--c-text-m);
-      background: var(--c-bg3); border: 1px solid var(--c-border);
-      padding: 5px 14px; border-radius: 100px; white-space: nowrap;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--c-text-m);
+      background: var(--c-bg3);
+      border: 1px solid var(--c-border);
+      padding: 5px 14px;
+      border-radius: 100px;
+      white-space: nowrap;
     }
-    .pf-arrow { font-size: 0.8rem; color: var(--c-accent); opacity: 0.6; flex-shrink: 0; }
+
+    .pf-arrow {
+      font-size: 0.8rem;
+      color: var(--c-accent);
+      opacity: 0.6;
+      flex-shrink: 0;
+    }
 
     /* ── STICKY STACK ── */
-    .ss-strip--stack { display: flex; flex-direction: column; gap: 0; width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 48px; box-sizing: border-box; }
-    .ss-strip--stack .ss-cell-sticky-wrap { position: sticky; top: calc(56px + (var(--card-z, 1) - 1) * 32px); z-index: var(--card-z, 1); padding-bottom: 24px; }
-    .ss-strip--stack .ss-cell-sticky-wrap:last-child { padding-bottom: 0; }
+    .ss-strip--stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px;
+      box-sizing: border-box;
+    }
+
+    .ss-strip--stack .ss-cell-sticky-wrap {
+      position: sticky;
+      top: calc(56px + (var(--card-z, 1) - 1) * 32px);
+      z-index: var(--card-z, 1);
+      padding-bottom: 24px;
+    }
+
+    .ss-strip--stack .ss-cell-sticky-wrap:last-child {
+      padding-bottom: 0;
+    }
+
     .ss-strip--stack .ss-cell {
-      width: 100%; aspect-ratio: 16 / 9; position: relative; overflow: hidden;
-      background: var(--c-bg3); border-radius: 20px;
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 16px 48px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04);
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      position: relative;
+      overflow: hidden;
+      min-height: 0;
+      line-height: 0;
+      background: var(--c-bg3);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.04);
     }
-    .ss-strip--stack .ss-cell img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.45s cubic-bezier(0.22,1,0.36,1); }
-    .ss-strip--stack .ss-cell:hover img { transform: scale(1.03); }
+
+    .ss-strip--stack .ss-cell img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .ss-strip--stack .ss-cell:hover img {
+      transform: scale(1.03);
+    }
+
     .ss-strip--stack .ss-cell .ss-lbl {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      background: rgba(0,0,0,0.78); backdrop-filter: blur(8px);
-      padding: 12px 16px; font-size: 11px; color: rgba(255,255,255,0.6);
-      letter-spacing: 0.06em; text-transform: uppercase;
-      transform: translateY(100%); transition: transform 0.3s;
+      position: absolute;
+      z-index: 1;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(8px);
+      padding: 12px 16px;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.6);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transform: translateY(100%);
+      transition: transform 0.3s;
     }
-    .ss-strip--stack .ss-cell:hover .ss-lbl { transform: translateY(0); }
 
-    /* ── SCREEN PLACEHOLDER (for screens without real images) ── */
-    .screen-placeholder {
-      width: 100%; height: 100%; min-height: 400px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
-      background: linear-gradient(135deg, var(--c-bg3) 0%, var(--c-bg4) 100%);
+    .ss-strip--stack .ss-cell:hover .ss-lbl {
+      transform: translateY(0);
     }
-    .screen-placeholder-icon {
-      width: 48px; height: 48px; border-radius: 14px; background: rgba(150,103,247,0.1);
-      border: 1px solid rgba(150,103,247,0.2);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .screen-placeholder-icon svg { width: 22px; height: 22px; stroke: var(--c-accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-    .screen-placeholder-label { font-size: 12px; font-weight: 500; color: var(--c-text-d); letter-spacing: 0.08em; text-transform: uppercase; }
 
-    /* ── GOAL CARDS ── */
-    .goal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--case-grid-gap); margin-top: 40px; }
-    .goal-card {
-      background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: var(--case-radius);
-      padding: 28px; display: flex; align-items: flex-start; gap: 16px;
-      transition: border-color 0.3s, transform 0.3s cubic-bezier(0.22,1,0.36,1);
+    /* Platform flow — one image per subsection (no sticky stack) */
+    #platform-flow .ss-strip--pf-single {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 1100px;
+      margin: 40px auto 0;
+      padding: 0 48px;
+      box-sizing: border-box;
     }
-    .goal-card:hover { border-color: rgba(150,103,247,0.22); transform: translateY(-3px); }
-    .goal-icon {
-      width: 36px; height: 36px; border-radius: 10px; background: rgba(150,103,247,0.1);
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+
+    #platform-flow .ss-strip--pf-single .ss-cell-sticky-wrap {
+      position: relative;
+      top: auto;
+      z-index: 1;
+      padding-bottom: 0;
     }
-    .goal-icon svg { width: 16px; height: 16px; stroke: var(--c-accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-    .goal-text h3 { font-size: 15px; font-weight: 600; color: var(--c-text); margin-bottom: 6px; font-family: var(--f-display); }
-    .goal-text p { font-size: 13px; max-width: none; line-height: 1.65; }
+
+    #platform-flow .ss-strip--pf-single .ss-cell {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+      background: var(--c-bg3);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    #platform-flow .ss-strip--pf-single .ss-cell img {
+      width: 100%;
+      max-height: min(85vh, 880px);
+      height: auto;
+      margin: 0 auto;
+      display: block;
+      object-fit: contain;
+      object-position: center top;
+    }
+
+    #platform-flow .ss-strip--pf-single .ss-cell .ss-lbl {
+      position: static;
+      transform: none;
+      margin: 0;
+      padding: 12px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.55);
+      background: rgba(0, 0, 0, 0.45);
+      border-top: 1px solid var(--c-border);
+      line-height: 1.4;
+    }
+
+    @media (max-width: 900px) {
+      #platform-flow .ss-strip--pf-single {
+        padding: 0 20px;
+        margin-top: 32px;
+      }
+    }
+
+    #platform-flow .pf-desc {
+      max-width: min(58ch, 100%);
+    }
+
+    #platform-flow .pf-desc-follow {
+      margin-top: 12px;
+    }
+
+    #platform-flow .pf-mechanics-list {
+      margin: 14px 0 0;
+      padding-left: 1.15em;
+      font-size: 0.9375rem;
+      line-height: 1.55;
+      color: var(--c-text-m);
+      max-width: min(58ch, 100%);
+      list-style: disc;
+    }
+
+    #platform-flow .pf-mechanics-list li {
+      margin-bottom: 6px;
+    }
+
+    #platform-flow .pf-mechanics-list strong {
+      color: var(--c-text);
+      font-weight: 600;
+    }
 
     /* ── LEVEL STRUCTURE (diagram) ── */
     .level-structure-wrap {
-      margin-top: 40px; border-radius: 20px; overflow: hidden;
-      border: 1px solid var(--c-border); background: var(--c-bg3);
-      display: flex; flex-direction: column; gap: 16px;
+      margin-top: 40px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--c-border);
+      background: var(--c-bg3);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
-    .level-structure-wrap img { width: 100%; height: auto; display: block; }
+
+    .level-structure-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
 
     /* ── REVEAL ── */
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1); }
-    .reveal.visible { opacity: 1; transform: none; }
-    .rv-child { opacity: 0; transform: translateY(18px); transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1) var(--rv-d, 0ms), transform 0.5s cubic-bezier(0.22,1,0.36,1) var(--rv-d, 0ms); }
-    .rv-child.rv-on { opacity: 1; transform: none; }
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .rv-child {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1) var(--rv-d, 0ms), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) var(--rv-d, 0ms);
+    }
+
+    .rv-child.rv-on {
+      opacity: 1;
+      transform: none;
+    }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      .sidebar { display: none; }
-      .main-content { padding-left: 0; }
-      .problem-grid { grid-template-columns: repeat(2, 1fr); }
-      .context-grid { grid-template-columns: 1fr; }
-      .goal-grid { grid-template-columns: 1fr; }
-      .ss-strip--stack { padding: 0 20px; }
-      .ss-strip--stack .ss-cell-sticky-wrap { top: calc(56px + (var(--card-z, 1) - 1) * 24px); padding-bottom: 20px; }
-      .reflection-card { padding: 40px 32px; }
-      .hero { padding: 0 24px 60px; }
-      .wrap { padding: 64px 24px; }
+      .sidebar {
+        display: none;
+      }
+
+      .main-content {
+        padding-left: 0;
+      }
+
+      .problem-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .context-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ss-strip--stack {
+        padding: 0 20px;
+      }
+
+      .ss-strip--stack .ss-cell-sticky-wrap {
+        top: calc(56px + (var(--card-z, 1) - 1) * 32px);
+        padding-bottom: 20px;
+      }
+
+      .reflection-card {
+        padding: 40px 32px;
+      }
+
+      .hero {
+        padding: 0 24px 60px;
+      }
+
+      .wrap {
+        padding: 64px 24px;
+      }
+
+      .hero-meta {
+        width: 100%;
+        max-width: none;
+        gap: 20px;
+        flex-direction: column;
+        justify-content: flex-start;
+      }
+
+      .hero-meta-item {
+        width: 100%;
+      }
     }
+
     @media (max-width: 640px) {
-      .problem-grid { grid-template-columns: 1fr; }
-      .hero-meta { gap: 24px; }
-      .pf-meta { flex-direction: column; gap: 16px; }
+      .problem-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pf-meta {
+        flex-direction: column;
+        gap: 16px;
+      }
     }
   </style>
 </head>
@@ -516,44 +1299,55 @@
   <!-- ══════════════════════════════════════════════════════════
        HERO
   ══════════════════════════════════════════════════════════ -->
+  <!-- HERO -->
   <div class="hero">
     <div class="hero-bg">
       <div class="hero-glow"></div>
       <div class="hero-glow2"></div>
       <div class="hero-grid"></div>
     </div>
-    <div class="hero-eyebrow">UX Case Study · 0 → 1 Feature</div>
+
+    <div class="hero-brand">
+      <img src="club-logo.png" alt="Club logo" class="hero-brand-logo">
+    </div>
+
     <h1 class="hero-title">
-      <span class="line-accent">Club</span><br>
-      <span>Levels</span><br>
-      <span class="line-dim">System</span>
+      <span class="line-accent">A Gamification</span><br>
+      <span>system for</span><br>
+      <span class="line-dim">ambassador</span>
     </h1>
+
+    <p class="hero-dek">A progression framework for the Club app — defining level types, XP, and unlock rules so members
+      see clear paths from onboarding to power users.</p>
+
+    <div class="hero-mockup">
+      <img src="club-level-cover.png" alt="Club Levels system — progression framework overview" width="1600"
+        height="900" loading="eager" decoding="async">
+    </div>
+
     <div class="hero-divider"></div>
+
     <div class="hero-meta">
       <div class="hero-meta-item">
-        <label>Role</label>
-        <span>Product Designer</span>
-      </div>
-      <div class="hero-meta-item">
-        <label>Scope</label>
-        <span>0 → 1 Feature</span>
-      </div>
-      <div class="hero-meta-item">
-        <label>Platform</label>
-        <span>iOS / Android</span>
-      </div>
-      <div class="hero-meta-item">
-        <label>Product</label>
+        <label>Company</label>
         <span>Club / Brandbassador</span>
       </div>
       <div class="hero-meta-item">
-        <label>Timeline</label>
+        <label>Product</label>
+        <span>Levels &amp; Progression</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>My Role</label>
+        <span>Senior Product Designer</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Platform</label>
+        <span>Mobile/Web</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Year</label>
         <span>2024 – 2025</span>
       </div>
-    </div>
-    <div class="hero-scroll">
-      <div class="scroll-line"></div>
-      Scroll to explore
     </div>
   </div>
 
@@ -564,45 +1358,63 @@
     <aside class="sidebar">
       <ul class="sidebar-nav">
         <li><a href="#overview" data-section="overview">
-            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="3" width="7" height="7" rx="1" />
+              <rect x="14" y="3" width="7" height="7" rx="1" />
+              <rect x="3" y="14" width="7" height="7" rx="1" />
+              <rect x="14" y="14" width="7" height="7" rx="1" />
+            </svg>
             Overview
           </a></li>
         <li><a href="#problem" data-section="problem">
-            <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <svg viewBox="0 0 24 24">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+              <line x1="12" y1="9" x2="12" y2="13" />
+              <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>
             Problem
           </a></li>
-        <li><a href="#goal" data-section="goal">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-            Goal
-          </a></li>
         <li><a href="#solution" data-section="solution">
-            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <svg viewBox="0 0 24 24">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
             Solution
           </a></li>
         <div class="sidebar-sep"></div>
         <li><a href="#how-it-works" data-section="how-it-works">
-            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <svg viewBox="0 0 24 24">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+            </svg>
             How It Works
           </a></li>
         <li><a href="#screens" data-section="screens">
-            <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            <svg viewBox="0 0 24 24">
+              <rect x="5" y="2" width="14" height="20" rx="2" />
+              <line x1="12" y1="18" x2="12.01" y2="18" />
+            </svg>
             Product Flows
           </a></li>
         <li><a href="#platform-flow" data-section="platform-flow">
-            <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            <svg viewBox="0 0 24 24">
+              <polygon points="12 2 2 7 12 12 22 7 12 2" />
+              <polyline points="2 17 12 22 22 17" />
+              <polyline points="2 12 12 17 22 12" />
+            </svg>
             Platform flow
           </a></li>
         <div class="sidebar-sep"></div>
         <li><a href="#decisions" data-section="decisions">
-            <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+            </svg>
             UX Decisions
           </a></li>
-        <li><a href="#impact" data-section="impact">
-            <svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
-            Impact
-          </a></li>
         <li><a href="#learnings" data-section="learnings">
-            <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            <svg viewBox="0 0 24 24">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+            </svg>
             Learnings
           </a></li>
       </ul>
@@ -617,26 +1429,34 @@
       <section id="overview" class="reveal">
         <div class="wrap">
           <div class="section-label"><span class="num">01</span> Overview</div>
-          <h2>A progression system for<br>ambassador engagement.</h2>
-          <p>Club Levels adds tiers, points, and unlocks to the Club ambassador experience so members can see where they stand and what comes next. Status and perks scale with real participation—linking quick wins to sustained advocacy—on iOS and Android.</p>
+          <h2>A Gamification<br>system for<br>ambassador</h2>
+          <p>Ambassadors stick around when effort feels like it adds up—not when every mission resets the story to zero.
+            Club Levels is a progression layer in the Club app: tiers, points, and unlockable perks that make status and
+            next steps legible on iOS and Android, while giving brands a fairer read on who is actually driving
+            engagement over time.</p>
 
-          <div class="overview-video-wrap" style="margin-top: 48px; border-radius: 16px; overflow: hidden; border: 1px solid var(--c-border);">
-            <video src="/videos/levels-club.mp4" autoplay muted loop playsinline style="width: 100%; display: block;"></video>
+          <div class="overview-video-wrap"
+            style="margin-top: 48px; border-radius: 16px; overflow: hidden; border: 1px solid var(--c-border);">
+            <video src="/videos/levels-club.mp4" autoplay muted loop playsinline
+              style="width: 100%; display: block;"></video>
           </div>
         </div>
       </section>
 
-<!-- ════════════════════════════════════════
-           03 · PROBLEM
+      <!-- ════════════════════════════════════════
+           02 · PROBLEM
       ════════════════════════════════════════ -->
       <section id="problem" class="reveal">
         <div class="wrap">
-          <div class="section-label"><span class="num">03</span> The Problem</div>
+          <div class="section-label"><span class="num">02</span> The Problem</div>
 
           <div style="margin-bottom: 0;">
-            <h2 class="challenge-headline" style="font-family: var(--f-display); font-size: clamp(32px, 3.5vw, 48px); font-weight: 700; line-height: 1.06; letter-spacing: -0.028em; margin-bottom: 20px;">
+            <h2 class="challenge-headline"
+              style="font-family: var(--f-display); font-size: clamp(32px, 3.5vw, 48px); font-weight: 700; line-height: 1.06; letter-spacing: -0.028em; margin-bottom: 20px;">
               <span style="display: block; font-weight: 800; color: var(--c-text);">Engagement had no engine.</span>
-              <span style="display: block; font-size: clamp(26px, 2.75vw, 40px); font-weight: 600; letter-spacing: -0.024em; color: var(--c-text-m);">Users acted once — then disappeared.</span>
+              <span
+                style="display: block; font-size: clamp(26px, 2.75vw, 40px); font-weight: 600; letter-spacing: -0.024em; color: var(--c-text-m);">Users
+                acted once — then disappeared.</span>
             </h2>
             <p>No progress. No status. No reason to stay.</p>
           </div>
@@ -644,28 +1464,41 @@
           <div class="problem-grid">
             <div class="problem-card">
               <div class="p-icon">
-                <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                </svg>
               </div>
               <h3>Inconsistent engagement</h3>
               <p>Spikes at launch, then drops. Nothing to sustain participation.</p>
             </div>
             <div class="problem-card">
               <div class="p-icon">
-                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="17" y1="11" x2="23" y2="11"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <line x1="17" y1="11" x2="23" y2="11" />
+                </svg>
               </div>
               <h3>No sense of progress</h3>
               <p>No visibility into standing, distance covered, or what to work toward.</p>
             </div>
             <div class="problem-card">
               <div class="p-icon">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
               </div>
               <h3>Post-mission drop-off</h3>
               <p>First mission done — then gone. No pull to come back.</p>
             </div>
             <div class="problem-card">
               <div class="p-icon">
-                <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <rect x="2" y="3" width="20" height="14" rx="2" />
+                  <line x1="8" y1="21" x2="16" y2="21" />
+                  <line x1="12" y1="17" x2="12" y2="21" />
+                </svg>
               </div>
               <h3>No segmentation for brands</h3>
               <p>Everyone looked the same. No way to identify or reward top performers.</p>
@@ -675,119 +1508,101 @@
       </section>
 
       <!-- ════════════════════════════════════════
-           04 · GOAL
-      ════════════════════════════════════════ -->
-      <section id="goal" class="section-band reveal">
-        <div class="wrap">
-          <div class="section-label"><span class="num">04</span> Goal</div>
-          <h2>Give participation<br>a direction.</h2>
-          <p>Design a system that makes long-term engagement feel worthwhile — for ambassadors and the brands who need to identify their best ones.</p>
-
-          <div class="goal-grid">
-            <div class="goal-card">
-              <div class="goal-icon">
-                <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-              </div>
-              <div class="goal-text">
-                <h3>Encourage continuous engagement</h3>
-                <p>A reason to return — not just when missions drop, but as a habit.</p>
-              </div>
-            </div>
-            <div class="goal-card">
-              <div class="goal-icon">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-              </div>
-              <div class="goal-text">
-                <h3>Create a visible sense of progress</h3>
-                <p>Make it clear where each ambassador stands, how far they've come, and what they're working toward next.</p>
-              </div>
-            </div>
-            <div class="goal-card">
-              <div class="goal-icon">
-                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              </div>
-              <div class="goal-text">
-                <h3>Help brands identify top users</h3>
-                <p>A clear signal of who's most engaged — so brands can treat them differently.</p>
-              </div>
-            </div>
-            <div class="goal-card">
-              <div class="goal-icon">
-                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              </div>
-              <div class="goal-text">
-                <h3>Keep the system simple</h3>
-                <p>Earn points, level up, unlock more. No confusion.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ════════════════════════════════════════
-           05 · SOLUTION
+           03 · SOLUTION
       ════════════════════════════════════════ -->
       <section id="solution" class="reveal">
         <div class="wrap">
-          <div class="section-label"><span class="num">05</span> Solution</div>
+          <div class="section-label"><span class="num">03</span> Solution</div>
           <h2>Introducing Levels.</h2>
-          <p>Mission activity converts into visible status. Points unlock levels. Levels unlock real perks — higher commissions, early access, brand recognition. Every reward is tangible, not just a badge.</p>
+          <p>Mission activity converts into visible status. Points unlock levels. Levels unlock real perks — higher
+            commissions, early access, brand recognition. Every reward is tangible, not just a badge.</p>
 
           <div class="level-structure-wrap reveal">
-            <img src="level-structure.png" alt="Club Levels — structure of tiers, points, and progression" width="1600" height="900" loading="lazy" decoding="async">
-            <img src="levels-types.png" alt="Club Levels — level types and how they differ" width="1600" height="900" loading="lazy" decoding="async">
+            <img src="level-structure.png" alt="Club Levels — structure of tiers, points, and progression" width="1600"
+              height="900" loading="lazy" decoding="async">
+            <img src="levels-types.png" alt="Club Levels — level types and how they differ" width="1600" height="900"
+              loading="lazy" decoding="async">
           </div>
         </div>
       </section>
 
       <!-- ════════════════════════════════════════
-           06 · HOW IT WORKS
+           04 · HOW IT WORKS
       ════════════════════════════════════════ -->
       <section id="how-it-works" class="section-band reveal">
         <div class="wrap">
-          <div class="section-label"><span class="num">06</span> How It Works</div>
+          <div class="section-label"><span class="num">04</span> How It Works</div>
           <h2>Four steps.<br>One loop.</h2>
-          <p>The system is built around a simple, repeatable loop. Each step is visible, each reward is tangible, and each level-up moment is designed to feel earned — not automatic.</p>
+          <p>The system is built around a simple, repeatable loop. Each step is visible, each reward is tangible, and
+            each level-up moment is designed to feel earned — not automatic.</p>
 
           <div class="llg-wrap">
-            <div class="llg-graph" id="llg-progression-loop" role="group" aria-label="Progression loop: complete missions, earn points, level up, unlock rewards, then repeat">
+            <div class="llg-graph" id="llg-progression-loop" role="group"
+              aria-label="Progression loop: complete missions, earn points, level up, unlock rewards, then repeat">
               <svg class="llg-svg" viewBox="0 0 800 360" aria-hidden="true">
                 <defs>
-                  <marker id="llg-m-pu" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,.5 L0,6.5 L7,3.5z" fill="#a855f7"/></marker>
-                  <marker id="llg-m-or" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,.5 L0,6.5 L7,3.5z" fill="#f97316"/></marker>
-                  <marker id="llg-m-gr" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,.5 L0,6.5 L7,3.5z" fill="#22c55e"/></marker>
-                  <marker id="llg-m-te" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,.5 L0,6.5 L7,3.5z" fill="#06b6d4"/></marker>
+                  <marker id="llg-m-pu" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+                    <path d="M0,.5 L0,6.5 L7,3.5z" fill="#a855f7" />
+                  </marker>
+                  <marker id="llg-m-or" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+                    <path d="M0,.5 L0,6.5 L7,3.5z" fill="#f97316" />
+                  </marker>
+                  <marker id="llg-m-gr" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+                    <path d="M0,.5 L0,6.5 L7,3.5z" fill="#22c55e" />
+                  </marker>
+                  <marker id="llg-m-te" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+                    <path d="M0,.5 L0,6.5 L7,3.5z" fill="#06b6d4" />
+                  </marker>
                 </defs>
-                <path id="llg-e1" class="llg-edge llg-edge--purple" d="M 88,128 C 132,148 220,148 264,128" marker-end="url(#llg-m-pu)"/>
-                <path id="llg-e2" class="llg-edge llg-edge--orange" d="M 264,128 C 308,148 396,148 440,128" marker-end="url(#llg-m-or)"/>
-                <path id="llg-e3" class="llg-edge llg-edge--green" d="M 440,128 C 484,148 572,148 616,128" marker-end="url(#llg-m-gr)"/>
-                <path id="llg-e4" class="llg-edge llg-edge--teal" d="M 616,168 C 616,292 88,292 88,168" marker-end="url(#llg-m-te)"/>
+                <path id="llg-e1" class="llg-edge llg-edge--purple" d="M 88,128 C 132,148 220,148 264,128"
+                  marker-end="url(#llg-m-pu)" />
+                <path id="llg-e2" class="llg-edge llg-edge--orange" d="M 264,128 C 308,148 396,148 440,128"
+                  marker-end="url(#llg-m-or)" />
+                <path id="llg-e3" class="llg-edge llg-edge--green" d="M 440,128 C 484,148 572,148 616,128"
+                  marker-end="url(#llg-m-gr)" />
+                <path id="llg-e4" class="llg-edge llg-edge--teal" d="M 616,168 C 616,292 88,292 88,168"
+                  marker-end="url(#llg-m-te)" />
               </svg>
 
               <div class="llg-node" id="llg-s1" tabindex="0" style="left:11%;top:35.5%">
                 <div class="llg-node-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                  <svg viewBox="0 0 24 24">
+                    <polyline points="9 11 12 14 22 4" />
+                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+                  </svg>
                 </div>
                 <div class="llg-node-name">Complete missions</div>
                 <div class="llg-node-sub">Take real-world actions for brands</div>
               </div>
               <div class="llg-node" id="llg-s2" tabindex="0" style="left:33%;top:35.5%">
                 <div class="llg-node-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                  <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 8v4l3 3" />
+                  </svg>
                 </div>
                 <div class="llg-node-name">Earn points</div>
                 <div class="llg-node-sub">Points reflect engagement quality</div>
               </div>
               <div class="llg-node" id="llg-s3" tabindex="0" style="left:55%;top:35.5%">
                 <div class="llg-node-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                  </svg>
                 </div>
                 <div class="llg-node-name">Level up</div>
                 <div class="llg-node-sub">Reach thresholds to unlock next tier</div>
               </div>
               <div class="llg-node" id="llg-s4" tabindex="0" style="left:77%;top:35.5%">
                 <div class="llg-node-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+                  <svg viewBox="0 0 24 24">
+                    <path d="M20 12V22H4V12" />
+                    <path d="M22 7H2v5h20V7z" />
+                    <path d="M12 22V7" />
+                    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+                    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+                  </svg>
                 </div>
                 <div class="llg-node-name">Unlock rewards</div>
                 <div class="llg-node-sub">Real perks tied to each new level</div>
@@ -799,14 +1614,23 @@
       </section>
 
       <!-- ════════════════════════════════════════
-           07 · SCREENS (PRODUCT FLOWS)
+           05 · SCREENS (PRODUCT FLOWS)
       ════════════════════════════════════════ -->
       <section id="screens" class="pf-section">
 
         <div class="wrap pf-section-header reveal">
-          <div class="section-label"><span class="num">07</span> Product Flows</div>
+          <div class="section-label"><span class="num">05</span> Product Flows</div>
           <h2>The progression<br>experience, screen by screen.</h2>
           <p>From status to level-up, each state stays clear, rewarding, and emotionally sharp.</p>
+        </div>
+
+        <div class="wrap pf-intro-video-wrap reveal">
+          <div class="overview-video-wrap"
+            style="margin-top: 40px; border-radius: 16px; overflow: hidden; border: 1px solid var(--c-border); background: var(--c-bg2);">
+            <video src="/videos/levels-intro.mp4" autoplay muted loop playsinline preload="metadata"
+              style="width: 100%; display: block;"
+              aria-label="Club Levels — product flows walkthrough"></video>
+          </div>
         </div>
 
         <!-- ── 01 · LEVEL OVERVIEW ── -->
@@ -832,28 +1656,22 @@
           <div class="ss-strip ss-strip--stack">
             <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
               <div class="ss-cell">
-                <div class="screen-placeholder">
-                  <div class="screen-placeholder-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-                  <span class="screen-placeholder-label">Level Overview</span>
-                </div>
+                <img src="club-levels-product-flow-01-level-overview.png"
+                  alt="Club Levels — level overview: current tier, points, and progress" width="390" height="844">
                 <div class="ss-lbl">Level Overview</div>
               </div>
             </div>
             <div class="ss-cell-sticky-wrap reveal" style="--card-z: 2">
               <div class="ss-cell">
-                <div class="screen-placeholder">
-                  <div class="screen-placeholder-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg></div>
-                  <span class="screen-placeholder-label">Points Balance</span>
-                </div>
+                <img src="club-levels-product-flow-01-points-balance.png" alt="Club Levels — points balance" width="390"
+                  height="844">
                 <div class="ss-lbl">Points Balance</div>
               </div>
             </div>
             <div class="ss-cell-sticky-wrap reveal" style="--card-z: 3">
               <div class="ss-cell">
-                <div class="screen-placeholder">
-                  <div class="screen-placeholder-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-                  <span class="screen-placeholder-label">Tier Breakdown</span>
-                </div>
+                <img src="club-levels-product-flow-01-tier-breakdown.png"
+                  alt="Club Levels — tier breakdown and all tiers" width="390" height="844">
                 <div class="ss-lbl">Tier Breakdown</div>
               </div>
             </div>
@@ -867,7 +1685,8 @@
               <span class="pf-index">02</span>
               <div>
                 <h3 class="pf-title">Progress State</h3>
-                <p class="pf-desc">Between tiers: the bar moves as missions are approved; distance to the next level stays obvious.</p>
+                <p class="pf-desc">Between tiers: the bar moves as missions are approved; distance to the next level
+                  stays obvious.</p>
               </div>
             </div>
             <div class="pf-steps">
@@ -881,28 +1700,22 @@
           <div class="ss-strip ss-strip--stack">
             <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
               <div class="ss-cell">
-                <div class="screen-placeholder">
-                  <div class="screen-placeholder-icon"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
-                  <span class="screen-placeholder-label">Progress Tracking</span>
-                </div>
+                <img src="club-levels-product-flow-02-progress-tracking.png"
+                  alt="Club Levels — active progress toward next tier" width="390" height="844">
                 <div class="ss-lbl">Progress Tracking</div>
               </div>
             </div>
             <div class="ss-cell-sticky-wrap reveal" style="--card-z: 2">
               <div class="ss-cell">
-                <div class="screen-placeholder">
-                  <div class="screen-placeholder-icon"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-                  <span class="screen-placeholder-label">Points Added</span>
-                </div>
+                <img src="club-levels-product-flow-02-points-after-mission.png"
+                  alt="Club Levels — points added after mission approval" width="390" height="844">
                 <div class="ss-lbl">Points Added After Mission</div>
               </div>
             </div>
             <div class="ss-cell-sticky-wrap reveal" style="--card-z: 3">
               <div class="ss-cell">
-                <div class="screen-placeholder">
-                  <div class="screen-placeholder-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-                  <span class="screen-placeholder-label">Almost There</span>
-                </div>
+                <img src="club-levels-product-flow-02-near-threshold.png"
+                  alt="Club Levels — approaching the next level threshold" width="390" height="844">
                 <div class="ss-lbl">Near Level Threshold</div>
               </div>
             </div>
@@ -932,28 +1745,22 @@
           <div class="ss-strip ss-strip--stack">
             <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
               <div class="ss-cell">
-                <div class="screen-placeholder">
-                  <div class="screen-placeholder-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-                  <span class="screen-placeholder-label">Level Up!</span>
-                </div>
+                <img src="club-levels-product-flow-03-level-up-celebration.png"
+                  alt="Club Levels — level up celebration screen" width="390" height="844">
                 <div class="ss-lbl">Level Up Celebration</div>
               </div>
             </div>
             <div class="ss-cell-sticky-wrap reveal" style="--card-z: 2">
               <div class="ss-cell">
-                <div class="screen-placeholder">
-                  <div class="screen-placeholder-icon"><svg viewBox="0 0 24 24"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/></svg></div>
-                  <span class="screen-placeholder-label">New Perks</span>
-                </div>
+                <img src="club-levels-product-flow-03-new-perks-unlocked.png"
+                  alt="Club Levels — new perks unlocked after leveling up" width="390" height="844">
                 <div class="ss-lbl">New Perks Unlocked</div>
               </div>
             </div>
             <div class="ss-cell-sticky-wrap reveal" style="--card-z: 3">
               <div class="ss-cell">
-                <div class="screen-placeholder">
-                  <div class="screen-placeholder-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
-                  <span class="screen-placeholder-label">Updated Status</span>
-                </div>
+                <img src="club-levels-product-flow-03-updated-level-status.png"
+                  alt="Club Levels — updated level status after tier change" width="390" height="844">
                 <div class="ss-lbl">Updated Level Status</div>
               </div>
             </div>
@@ -967,7 +1774,8 @@
               <span class="pf-index">04</span>
               <div>
                 <h3 class="pf-title">Reward Feedback</h3>
-                <p class="pf-desc">After approval: points gained, running total, and how far to the next tier—nothing buried.</p>
+                <p class="pf-desc">After approval: points gained, running total, and how far to the next tier—nothing
+                  buried.</p>
               </div>
             </div>
             <div class="pf-steps">
@@ -981,28 +1789,22 @@
           <div class="ss-strip ss-strip--stack">
             <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
               <div class="ss-cell">
-                <div class="screen-placeholder">
-                  <div class="screen-placeholder-icon"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-                  <span class="screen-placeholder-label">Mission Approved</span>
-                </div>
+                <img src="club-levels-product-flow-04-mission-approved.png"
+                  alt="Club Levels — mission approved confirmation" width="390" height="844">
                 <div class="ss-lbl">Mission Approved</div>
               </div>
             </div>
             <div class="ss-cell-sticky-wrap reveal" style="--card-z: 2">
               <div class="ss-cell">
-                <div class="screen-placeholder">
-                  <div class="screen-placeholder-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
-                  <span class="screen-placeholder-label">+Points Earned</span>
-                </div>
+                <img src="club-levels-product-flow-04-points-earned-feedback.png"
+                  alt="Club Levels — points earned feedback" width="390" height="844">
                 <div class="ss-lbl">Points Earned Feedback</div>
               </div>
             </div>
             <div class="ss-cell-sticky-wrap reveal" style="--card-z: 3">
               <div class="ss-cell">
-                <div class="screen-placeholder">
-                  <div class="screen-placeholder-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-                  <span class="screen-placeholder-label">Progress Updated</span>
-                </div>
+                <img src="club-levels-product-flow-04-updated-progress-state.png"
+                  alt="Club Levels — progress bar updated after earning points" width="390" height="844">
                 <div class="ss-lbl">Updated Progress State</div>
               </div>
             </div>
@@ -1012,105 +1814,114 @@
       </section>
 
       <!-- ════════════════════════════════════════
-           08 · PLATFORM FLOW
+           06 · PLATFORM FLOW
       ════════════════════════════════════════ -->
       <section id="platform-flow" class="pf-section">
 
         <div class="wrap pf-section-header reveal">
-          <div class="section-label"><span class="num">08</span> Platform flow</div>
-          <h2>How Levels runs<br>across the stack.</h2>
-          <p>Configured rules, the points pipeline, and the same level data brands use for segments—behind what ambassadors see.</p>
+          <div class="section-label"><span class="num">06</span> Platform flow</div>
+          <h2>From club setup<br>to lasting motivation.</h2>
+          <p>How brands define club type, point rules per audience, and rewards in one place.</p>
         </div>
 
-        <!-- ── 01 · RULES & CONFIGURATION ── -->
+        <div class="wrap pf-intro-video-wrap reveal">
+          <div class="overview-video-wrap"
+            style="margin-top: 40px; border-radius: 16px; overflow: hidden; border: 1px solid var(--c-border); background: var(--c-bg2);">
+            <video src="/videos/level-platforms.mp4" autoplay muted loop playsinline preload="metadata"
+              style="width: 100%; display: block;"
+              aria-label="Club Levels — platform flow: club setup, core mechanics, and incentives"></video>
+          </div>
+        </div>
+
+        <!-- ── 01 · SETTING UP A CLUB ── -->
         <div class="pf-flow reveal">
           <div class="wrap pf-header">
             <div class="pf-meta">
               <span class="pf-index">01</span>
               <div>
-                <h3 class="pf-title">Rules &amp; configuration <span class="pf-tag">Admin</span></h3>
-                <p class="pf-desc">Tiers, point weights, and perks live in config—not the client—so iOS and Android stay in sync.</p>
+                <h3 class="pf-title">Setting Up a Club <span class="pf-tag">Foundation</span></h3>
+                <p class="pf-desc">Pick a club type and the behaviors you want to drive—everything else builds on that.</p>
               </div>
             </div>
             <div class="pf-steps">
-              <span class="pf-step">Tier schema</span>
+              <span class="pf-step">Club type</span>
               <span class="pf-arrow">→</span>
-              <span class="pf-step">Point rules</span>
+              <span class="pf-step">Goals &amp; behaviors</span>
               <span class="pf-arrow">→</span>
-              <span class="pf-step">Perk bindings</span>
-              <span class="pf-arrow">→</span>
-              <span class="pf-step">Client sync</span>
+              <span class="pf-step">Foundation</span>
             </div>
           </div>
-          <div class="ss-strip ss-strip--stack">
-            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
+          <div class="ss-strip ss-strip--pf-single">
+            <div class="ss-cell-sticky-wrap reveal">
               <div class="ss-cell">
-                <img src="/images/projects/club-levels/club-levels-platform-rules-config.png" alt="Club Levels — admin configuration for tier thresholds and point rules" width="390" height="844">
-                <div class="ss-lbl">Rules &amp; tiers config</div>
-              </div>
-            </div>
-            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 2">
-              <div class="ss-cell">
-                <img src="/images/projects/club-levels/club-levels-platform-perk-mapping.png" alt="Club Levels — mapping levels to perks and entitlements" width="390" height="844">
-                <div class="ss-lbl">Perk mapping</div>
+                <img src="club-level-platform-01.png"
+                  alt="Club Levels — brand flow for choosing a club type and defining foundational behaviors" width="1107" height="1019">
+                <div class="ss-lbl">Club setup</div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- ── 02 · POINTS & LEVEL RECALCULATION ── -->
+        <!-- ── 02 · DEFINING THE CORE MECHANICS ── -->
         <div class="pf-flow reveal">
           <div class="wrap pf-header">
             <div class="pf-meta">
               <span class="pf-index">02</span>
               <div>
-                <h3 class="pf-title">Points pipeline <span class="pf-tag">Backend</span></h3>
-                <p class="pf-desc">Approval → ledger → level recalc → events. The app reads truth from the API so level-ups match everywhere.</p>
+                <h3 class="pf-title">Defining the Core Mechanics <span class="pf-tag">Progression</span></h3>
+                <p class="pf-desc">Map actions to points; each club type uses its own rule set:</p>
+                <ul class="pf-mechanics-list">
+                  <li><strong>Affiliate</strong> — revenue → points</li>
+                  <li><strong>Customer</strong> — spend → points</li>
+                  <li><strong>Ambassador</strong> — approved missions → points</li>
+                  <li><strong>Creator</strong> — impressions → points</li>
+                </ul>
               </div>
             </div>
             <div class="pf-steps">
-              <span class="pf-step">Mission approved</span>
+              <span class="pf-step">Key actions</span>
               <span class="pf-arrow">→</span>
-              <span class="pf-step">Points ledger</span>
+              <span class="pf-step">Point mapping</span>
               <span class="pf-arrow">→</span>
-              <span class="pf-step">Level evaluation</span>
-              <span class="pf-arrow">→</span>
-              <span class="pf-step">Push &amp; feed</span>
+              <span class="pf-step">Club-type logic</span>
             </div>
           </div>
-          <div class="ss-strip ss-strip--stack">
-            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
+          <div class="ss-strip ss-strip--pf-single">
+            <div class="ss-cell-sticky-wrap reveal">
               <div class="ss-cell">
-                <img src="/images/projects/club-levels/club-levels-platform-points-pipeline.png" alt="Club Levels — diagram or dashboard of points ledger and level evaluation" width="1200" height="675">
-                <div class="ss-lbl">Ledger &amp; evaluation</div>
+                <img src="club-level-platform-02.png"
+                  alt="Club Levels — configuring how actions map to points per club type" width="1440" height="960">
+                <div class="ss-lbl">Core mechanics</div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- ── 03 · BRAND & SEGMENTATION ── -->
+        <!-- ── 03 · DRIVING MOTIVATION THROUGH INCENTIVES ── -->
         <div class="pf-flow reveal">
           <div class="wrap pf-header">
             <div class="pf-meta">
               <span class="pf-index">03</span>
               <div>
-                <h3 class="pf-title">Brand signals <span class="pf-tag">B2B</span></h3>
-                <p class="pf-desc">Same level data for cohorts, top performers, and who qualifies for exclusive missions.</p>
+                <h3 class="pf-title">Driving Motivation Through Incentives <span class="pf-tag">Rewards</span></h3>
+                <p class="pf-desc">Cash or credit for joining and leveling up; boosters add perks like higher commission
+                  or cashback—so good behavior keeps compounding.</p>
               </div>
             </div>
             <div class="pf-steps">
-              <span class="pf-step">Level cohorts</span>
+              <span class="pf-step">Entry &amp; level rewards</span>
               <span class="pf-arrow">→</span>
-              <span class="pf-step">Top % filters</span>
+              <span class="pf-step">Boosters &amp; perks</span>
               <span class="pf-arrow">→</span>
-              <span class="pf-step">Mission targeting</span>
+              <span class="pf-step">Ongoing momentum</span>
             </div>
           </div>
-          <div class="ss-strip ss-strip--stack">
-            <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
+          <div class="ss-strip ss-strip--pf-single">
+            <div class="ss-cell-sticky-wrap reveal">
               <div class="ss-cell">
-                <img src="/images/projects/club-levels/club-levels-platform-brand-segments.png" alt="Club Levels — brand dashboard showing ambassador segments by level" width="1200" height="675">
-                <div class="ss-lbl">Segments &amp; targeting</div>
+                <img src="club-level-platform-03.png"
+                  alt="Club Levels — incentives for joining, leveling up, and unlockable boosters" width="1440" height="960">
+                <div class="ss-lbl">Incentives &amp; boosters</div>
               </div>
             </div>
           </div>
@@ -1119,20 +1930,20 @@
       </section>
 
       <!-- ════════════════════════════════════════
-           09 · UX DECISIONS
+           07 · UX DECISIONS
       ════════════════════════════════════════ -->
       <section id="decisions" class="section-band reveal">
         <div class="wrap">
-          <div class="section-label"><span class="num">09</span> UX Decisions</div>
+          <div class="section-label"><span class="num">07</span> UX Decisions</div>
           <h2>The thinking behind<br>the key calls.</h2>
-          <p>Three principles behind the most important calls in Levels.</p>
+          <p>Three principles for the strongest calls in Levels.</p>
 
           <div class="decisions-list">
             <div class="decision-card">
               <div class="decision-num">A</div>
               <div class="decision-body">
                 <h3>Clarity of Progress</h3>
-                <p>If people can’t see where they stand, motivation drops. Every screen shows level, points to the next tier, and what unlocks next—no hunting. The progress bar stays visible and honest.</p>
+                <p>Level, distance to next tier, and next unlock—always in view. No hunting; the bar stays honest.</p>
                 <span class="decision-tag">Information Design</span>
               </div>
             </div>
@@ -1140,7 +1951,7 @@
               <div class="decision-num">B</div>
               <div class="decision-body">
                 <h3>Avoiding Gamification Noise</h3>
-                <p>No streak walls or empty badges. Each tier ties to real upside—commissions, early access, brand collaboration—so trust holds after the first week.</p>
+                <p>No empty badges. Tiers map to commissions, access, and collaboration—trust has to last past week one.</p>
                 <span class="decision-tag">Product Strategy</span>
               </div>
             </div>
@@ -1148,7 +1959,7 @@
               <div class="decision-num">C</div>
               <div class="decision-body">
                 <h3>Motivation Design</h3>
-                <p>Level-up is the emotional peak: full-screen, not a toast. Perks reveal in steps so the moment feels earned and easy to remember.</p>
+                <p>Level-up is full-screen, not a toast. Perks land in steps so the win feels earned and memorable.</p>
                 <span class="decision-tag">Interaction Design</span>
               </div>
             </div>
@@ -1157,79 +1968,45 @@
       </section>
 
       <!-- ════════════════════════════════════════
-           10 · IMPACT
-      ════════════════════════════════════════ -->
-      <section id="impact" class="club-levels-impact reveal">
-        <div class="wrap">
-          <div class="section-label"><span class="num">10</span> Impact</div>
-          <h2>Participation became<br>a habit.</h2>
-          <p>Levels turned one-off missions into repeat engagement—especially after Silver+.</p>
-
-          <div class="impact-stats" role="list">
-            <div class="impact-stat-card" role="listitem">
-              <div class="impact-num">+41%</div>
-              <div class="impact-label">Return engagement</div>
-              <div class="impact-context">Silver+ users back within 7 days</div>
-            </div>
-            <div class="impact-stat-card" role="listitem">
-              <div class="impact-num">+28%</div>
-              <div class="impact-label">Missions per ambassador</div>
-              <div class="impact-context">Vs. pre-Levels baseline</div>
-            </div>
-            <div class="impact-stat-card" role="listitem">
-              <div class="impact-num">−35%</div>
-              <div class="impact-label">30-day churn</div>
-              <div class="impact-context">Leveled vs. non-leveled users</div>
-            </div>
-            <div class="impact-stat-card" role="listitem">
-              <div class="impact-num">62%</div>
-              <div class="impact-label">Silver+ within 30 days</div>
-              <div class="impact-context">3× clearer top-10% signal for brands</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ════════════════════════════════════════
-           11 · LEARNINGS
+           08 · LEARNINGS
       ════════════════════════════════════════ -->
       <section id="learnings" class="section-band reveal club-levels-learnings">
         <div class="wrap">
-          <div class="section-label"><span class="num">11</span> Learnings</div>
+          <div class="section-label"><span class="num">08</span> Learnings</div>
           <h2>What this project<br>taught me.</h2>
 
           <ul class="learnings-list">
             <li>
               <span class="li-num">01</span>
               <strong class="li-title">Progression needs an anchor in reality.</strong>
-              <p class="li-desc">Tie levels to real perks—not badges. Concrete value beats abstract gamification.</p>
+              <p class="li-desc">Perks, not badges. Real value beats abstract gamification.</p>
             </li>
             <li>
               <span class="li-num">02</span>
               <strong class="li-title">Emotional moments need dedicated space.</strong>
-              <p class="li-desc">Level-up is full-screen on purpose. People remember moments, not flows.</p>
+              <p class="li-desc">Full-screen level-ups on purpose—people remember moments, not flows.</p>
             </li>
             <li>
               <span class="li-num">03</span>
               <strong class="li-title">Simplicity is a feature.</strong>
-              <p class="li-desc">Four clear tiers beat endless noise. Legible progress feels achievable.</p>
+              <p class="li-desc">Four tiers beat noise. Legible progress feels doable.</p>
             </li>
             <li>
               <span class="li-num">04</span>
               <strong class="li-title">Progress visibility drives retention.</strong>
-              <p class="li-desc">The “64% to Gold” bar brought people back—the gap creates pull.</p>
+              <p class="li-desc">A visible “64% to Gold” bar brings people back.</p>
             </li>
             <li>
               <span class="li-num">05</span>
               <strong class="li-title">Design for both sides.</strong>
-              <p class="li-desc">Ambassadors see status; brands see top 10%. Neither is an afterthought.</p>
+              <p class="li-desc">Status for ambassadors; top 10% for brands—both first-class.</p>
             </li>
           </ul>
 
           <div class="reflection-card">
             <div class="rf-label">Closing thought</div>
             <div class="rf-text">When progression works, it feels invisible—people just keep showing up.</div>
-            <div class="rf-sub">Engagement lasts when every step maps to value outside the app. Badges without perks are noise.</div>
+            <div class="rf-sub">Engagement lasts when steps map to value outside the app.</div>
           </div>
 
         </div>
@@ -1267,4 +2044,5 @@
   </script>
 
 </body>
+
 </html>

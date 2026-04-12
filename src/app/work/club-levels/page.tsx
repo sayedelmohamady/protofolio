@@ -4,9 +4,9 @@ import { getCaseStudyBodyHtml } from "@/lib/caseStudyHtml";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Club Levels — Case Study",
+  title: "A Gamification system for ambassador — Club Levels",
   description:
-    "Tiered levels, points, and unlocks on the Club ambassador platform—visible progression and rewards tied to participation on iOS and Android.",
+    "Tiered levels, points, and unlocks on the Club ambassador platform—visible progression and rewards tied to participation on mobile and web.",
 };
 
 export default function ClubLevelsCaseStudyPage() {

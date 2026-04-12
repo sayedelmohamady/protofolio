@@ -7,7 +7,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Club Experience — UX Restructuring Case Study",
   description:
-    "Redesigning the Club ambassador platform's mobile experience — restructuring IA, clarifying rewards, and building a progression system for 1M+ community members.",
+    "Building an experience that enables smooth communication, structured missions, and consistent engagement.",
 };
 
 export default function ClubExperienceCaseStudyPage() {

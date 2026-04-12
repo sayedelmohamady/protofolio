@@ -14,7 +14,7 @@ export default function ClubTieCaseStudyPage() {
   const html = getCaseStudyBodyHtml("club-tie");
   return (
     <CaseStudyRevealInit>
-      <div className="case-study-club">
+      <div className="case-study-club club-tie">
         <CaseStudyTopNav />
         <ClubTieCaseStudyBody html={html} />
       </div>

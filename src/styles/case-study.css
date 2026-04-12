@@ -16,6 +16,7 @@
     --f-body: var(--font-dm-sans), "DM Sans", sans-serif;
     --nav-h: 56px;
     --sidebar-w: 220px;
+    --section-nav-h: 50px;
     --case-radius: 14px;
     --case-grid-gap: 10px;
 
@@ -95,10 +96,12 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    padding: 0 48px 80px;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20% 80px;
     position: relative;
     overflow: hidden;
+    text-align: center;
   }
 
   .case-study .hero-bg {
@@ -159,11 +162,11 @@
 
   .case-study .hero-title {
     font-family: var(--f-display);
-    font-size: clamp(60px, 9vw, 128px);
+    font-size: clamp(36px, 5vw, 64px);
     font-weight: 800;
-    line-height: 0.9;
+    line-height: 1.0;
     letter-spacing: -0.03em;
-    margin-bottom: 40px;
+    margin-bottom: 32px;
     position: relative;
   }
 
@@ -183,6 +186,7 @@
     width: 100%;
     height: 1px;
     background: var(--c-border);
+    margin-top: auto;
     margin-bottom: 40px;
     position: relative;
   }
@@ -192,6 +196,7 @@
     gap: 48px;
     margin-bottom: 48px;
     position: relative;
+    justify-content: center;
   }
 
   .case-study .hero-meta-item label {
@@ -209,8 +214,7 @@
   }
 
   .case-study .hero-scroll {
-    display: flex;
-    align-items: center;
+    display: none;
     gap: 12px;
     font-size: 11px;
     color: var(--c-text-d);
@@ -252,39 +256,43 @@
     }
   }
 
-  /* ── TWO-COLUMN LAYOUT ── */
+  /* ── SINGLE-COLUMN LAYOUT ── */
   .case-study .case-layout {
-    display: flex;
+    display: block;
     min-height: 100vh;
   }
 
-  /* ── SIDEBAR (matches case-study-club: rounded panel, sticky, accent rail) ── */
+  /* ── SECTION NAV (horizontal sticky bar below top-nav) ── */
   .case-study .sidebar {
-    width: var(--sidebar-w);
-    flex-shrink: 0;
     position: sticky;
-    top: calc(var(--nav-h) + 24px);
-    height: fit-content;
-    max-height: calc(100vh - var(--nav-h) - 48px);
-    overflow-y: auto;
-    padding: 16px 0;
-    margin-left: 24px;
-    border: 1px solid var(--c-border);
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(12px);
-    z-index: 50;
+    top: var(--nav-h);
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: var(--section-nav-h);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0 32px;
+    background: rgba(8, 8, 10, 0.95);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--c-border);
+    z-index: 100;
   }
 
   .case-study .sidebar::-webkit-scrollbar {
-    width: 0;
+    height: 0;
   }
 
   .case-study .sidebar-nav {
     list-style: none;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
     gap: 2px;
+    white-space: nowrap;
   }
 
   .case-study .sidebar-nav li {}
@@ -292,37 +300,37 @@
   .case-study .sidebar-nav a {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 9px 20px 9px 20px;
-    font-size: 12.5px;
+    gap: 7px;
+    padding: 6px 12px;
+    font-size: 12px;
     font-weight: 500;
     color: var(--c-text-d);
     text-decoration: none;
-    letter-spacing: 0.01em;
-    border-left: 2px solid transparent;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
     border-radius: 8px;
-    margin: 0 8px;
-    transition: color 0.25s cubic-bezier(0.22, 1, 0.36, 1),
-      border-color 0.25s cubic-bezier(0.22, 1, 0.36, 1),
-      background 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    border: none;
+    background: transparent;
+    position: relative;
+    z-index: 1;
+    transition: color 0.28s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .case-study .sidebar-nav a:hover {
     color: var(--c-text-m);
-    background: rgba(255, 255, 255, 0.04);
   }
 
   .case-study .sidebar-nav a.active {
     color: var(--c-accent-l);
-    font-weight: 600;
-    border-left-color: var(--c-accent);
-    background: rgba(var(--c-accent-rgb), 0.14);
-    box-shadow: 0 0 28px rgba(var(--c-accent-rgb), 0.1);
+    font-weight: 500;
+    border: none;
+    background: transparent;
+    box-shadow: none;
   }
 
   .case-study .sidebar-nav a svg {
-    width: 15px;
-    height: 15px;
+    width: 13px;
+    height: 13px;
     flex-shrink: 0;
     stroke: currentColor;
     fill: none;
@@ -337,23 +345,24 @@
   }
 
   .case-study .sidebar-sep {
-    height: 1px;
+    width: 1px;
+    height: 18px;
+    flex-shrink: 0;
     background: var(--c-border);
-    margin: 12px 16px;
+    margin: 0 6px;
   }
 
   /* ── MAIN CONTENT ── */
   .case-study .main-content {
-    flex: 1;
+    width: 100%;
     min-width: 0;
-    padding-left: 32px;
   }
 
   /* ── SECTIONS ── */
   .case-study .wrap {
-    max-width: 1100px;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 100px 48px;
+    padding: 100px 20%;
   }
 
   .case-study .band {
@@ -1314,7 +1323,7 @@
   .case-study footer {
     background: var(--c-bg2);
     border-top: 1px solid var(--c-border);
-    padding: 56px 48px;
+    padding: 56px 20%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1494,83 +1503,101 @@
     margin-bottom: 16px;
   }
 
-  /* REVEAL ANIMATIONS */
-  .case-study .reveal {
+  /*
+   * Pure `.case-study` pages only — roots with `.case-study-club` use case-study-club.css
+   * so club-levels (case-study + case-study-club) does not get duplicate motion rules.
+   */
+  .case-study:not(.case-study-club) .reveal {
     opacity: 0;
-    transform: translateY(48px);
+    transform: translateY(40px) scale(0.985);
     transition:
-      opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+      opacity 0.88s cubic-bezier(0.26, 0.9, 0.35, 1),
+      transform 0.98s cubic-bezier(0.28, 1.1, 0.42, 1);
   }
 
-  .case-study .reveal.visible {
+  .case-study:not(.case-study-club) .reveal.visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 
-  /* Child stagger (applied via JS) */
-  .case-study .rv-child {
-    transform: translateY(28px);
-    transition: transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) var(--rv-d, 0ms);
+  /* Child stagger (applied via JS) — transform only avoids flash after parent .reveal */
+  .case-study:not(.case-study-club) .rv-child {
+    transform: translateY(24px) scale(0.99);
+    transition: transform 0.84s cubic-bezier(0.28, 1.12, 0.45, 1) var(--rv-d, 0ms);
   }
 
-  .case-study .rv-child.rv-on {
-    transform: translateY(0);
+  .case-study:not(.case-study-club) .rv-child.rv-on {
+    transform: translateY(0) scale(1);
   }
 
-  /* Hero entrance — cascades in on page load */
+  /* Hero entrance — elastic stagger on page load */
   @keyframes cs-hero-in {
     from {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(32px) scale(0.96);
     }
     to {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
     }
   }
 
-  .case-study .hero-eyebrow {
-    animation: cs-hero-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both;
+  .case-study:not(.case-study-club) .hero-eyebrow {
+    animation: cs-hero-in 0.88s cubic-bezier(0.33, 1.18, 0.5, 1) 0.08s both;
   }
 
-  .case-study .hero-title {
-    animation: cs-hero-in 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.32s both;
+  .case-study:not(.case-study-club) .hero-title {
+    animation: cs-hero-in 1.02s cubic-bezier(0.32, 1.22, 0.52, 1) 0.14s both;
   }
 
-  .case-study .hero-dek {
-    animation: cs-hero-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.44s both;
+  .case-study:not(.case-study-club) .hero-dek {
+    animation: cs-hero-in 0.92s cubic-bezier(0.34, 1.15, 0.5, 1) 0.24s both;
   }
 
-  .case-study .hero-divider {
-    animation: cs-hero-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.54s both;
+  .case-study:not(.case-study-club) .hero-divider {
+    animation: cs-hero-in 0.72s cubic-bezier(0.34, 1.1, 0.55, 1) 0.36s both;
   }
 
-  .case-study .hero-meta {
-    animation: cs-hero-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.60s both;
+  .case-study:not(.case-study-club) .hero-meta {
+    animation: cs-hero-in 0.95s cubic-bezier(0.33, 1.18, 0.5, 1) 0.4s both;
   }
 
-  .case-study .hero-scroll {
-    animation: cs-hero-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.72s both;
+  .case-study:not(.case-study-club) .hero-scroll {
+    animation: cs-hero-in 0.82s cubic-bezier(0.34, 1.12, 0.52, 1) 0.48s both;
+  }
+
+  .case-study:not(.case-study-club) .hero-brand {
+    animation: cs-hero-in 0.95s cubic-bezier(0.33, 1.2, 0.48, 1) 0.06s both;
+  }
+
+  .case-study:not(.case-study-club) .hero-mockup {
+    animation: cs-hero-in 1.12s cubic-bezier(0.3, 1.28, 0.45, 1) 0.28s both;
+  }
+
+  .case-study:not(.case-study-club) .hero-screens {
+    animation: cs-hero-in 1.08s cubic-bezier(0.3, 1.25, 0.48, 1) 0.26s both;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .case-study .hero-eyebrow,
-    .case-study .hero-title,
-    .case-study .hero-dek,
-    .case-study .hero-divider,
-    .case-study .hero-meta,
-    .case-study .hero-scroll {
+    .case-study:not(.case-study-club) .hero-eyebrow,
+    .case-study:not(.case-study-club) .hero-title,
+    .case-study:not(.case-study-club) .hero-dek,
+    .case-study:not(.case-study-club) .hero-divider,
+    .case-study:not(.case-study-club) .hero-meta,
+    .case-study:not(.case-study-club) .hero-scroll,
+    .case-study:not(.case-study-club) .hero-brand,
+    .case-study:not(.case-study-club) .hero-mockup,
+    .case-study:not(.case-study-club) .hero-screens {
       animation: none;
     }
 
-    .case-study .reveal {
+    .case-study:not(.case-study-club) .reveal {
       opacity: 1;
       transform: none;
       transition: none;
     }
 
-    .case-study .rv-child {
+    .case-study:not(.case-study-club) .rv-child {
       transform: none;
       transition: none;
     }
@@ -1605,7 +1632,7 @@
 
   @media (max-width: 900px) {
     .case-study .sidebar {
-      display: none;
+      padding: 0 16px;
     }
 
     .case-study .hero {
@@ -1705,6 +1732,9 @@
 
   .case-study .web-mockup-frame {
     margin-top: 28px;
+    margin-left: -5vw;
+    margin-right: -5vw;
+    width: calc(100% + 10vw);
     background: var(--c-bg3);
     border: 1px solid var(--c-border);
     border-radius: 16px;
@@ -1726,6 +1756,20 @@
     line-height: 1.65;
     margin-bottom: 32px;
     position: relative;
+  }
+
+  .case-study .hero-mockup {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 40px;
+    position: relative;
+  }
+
+  .case-study .hero-mockup img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--case-radius);
+    display: block;
   }
 
   .case-study .hero-meta-item a {

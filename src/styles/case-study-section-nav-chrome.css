@@ -1,0 +1,81 @@
+/* Injected by CaseStudyRevealInit: .sidebar-nav-inner, .sidebar-nav-glider (hidden), .sidebar-nav-progress */
+
+#case-study-root .sidebar {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 0;
+  /* Must match --section-nav-h: sticky offsets (pf-header, stacks) use nav-h + section-nav-h. */
+  height: var(--section-nav-h);
+  min-height: var(--section-nav-h);
+  max-height: var(--section-nav-h);
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+#case-study-root .sidebar-nav-inner {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  min-height: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0 32px;
+  -webkit-overflow-scrolling: touch;
+}
+
+#case-study-root .sidebar-nav-inner::-webkit-scrollbar {
+  height: 0;
+}
+
+/* Pill glider disabled — active item uses .sidebar-nav a.active (accent text + icon only). */
+#case-study-root .sidebar-nav-glider {
+  display: none;
+}
+
+#case-study-root .sidebar-nav-inner > .sidebar-nav {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+#case-study-root .sidebar-nav-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  height: 2px;
+  margin: 0;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2;
+}
+
+#case-study-root .sidebar-nav-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(
+    90deg,
+    rgba(var(--c-accent-rgb), 0.9),
+    var(--c-accent-l)
+  );
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 14px rgba(var(--c-accent-rgb), 0.28);
+}
+
+@media (max-width: 900px) {
+  #case-study-root .sidebar-nav-inner {
+    padding: 0 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #case-study-root .sidebar-nav-progress-fill {
+    transition-duration: 0.01ms;
+  }
+}

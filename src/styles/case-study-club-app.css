@@ -44,18 +44,25 @@
 
 .case-study-club .hero-screens {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  /* Main cover + vertical stack of three screens — each stack cell gets ~⅓ of
+     the hero height so thumbnails read as large as the collage (was one row
+     of four, which crushed the 1fr columns). */
+  grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr);
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
   gap: 10px;
   margin-top: 48px;
   margin-bottom: 40px;
   max-width: 900px;
+  min-height: clamp(340px, 50vh, 620px);
 }
 
 .case-study-club .hero-screen {
   border-radius: 16px;
   overflow: hidden;
   width: 100%;
-  aspect-ratio: 9 / 16;
+  height: 100%;
+  min-height: 0;
   object-fit: cover;
   object-position: top;
   background: var(--c-bg3);
@@ -64,8 +71,8 @@
 }
 
 .case-study-club .hero-screen--main {
-  aspect-ratio: auto;
-  grid-row: span 1;
+  grid-column: 1;
+  grid-row: 1 / -1;
 }
 
 /* ─── KPI ROW ────────────────────────────────────────────────────── */
@@ -1372,8 +1379,28 @@
   .case-study-club .reflection-split { grid-template-columns: 1fr; gap: 32px; }
 }
 
+@media (max-width: 720px) {
+  .case-study-club .hero-screens {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(200px, min(52vw, 360px)) repeat(3, minmax(148px, 200px));
+    min-height: 0;
+  }
+
+  .case-study-club .hero-screen--main {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .case-study-club .hero-screen:not(.hero-screen--main) {
+    aspect-ratio: 9 / 16;
+    width: min(100%, 260px);
+    height: auto;
+    max-height: 220px;
+    justify-self: center;
+  }
+}
+
 @media (max-width: 640px) {
-  .case-study-club .hero-screens { grid-template-columns: 1fr 1fr; }
   .case-study-club .kpi-row { grid-template-columns: repeat(2, 1fr); }
   .case-study-club .pillars-grid { grid-template-columns: repeat(2, 1fr); }
   .case-study-club .evolution-grid { grid-template-columns: 1fr; }
