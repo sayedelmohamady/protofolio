@@ -7,6 +7,7 @@ import { BeyondSectionCarousel } from "@/components/beyond/BeyondSectionCarousel
 import { BeyondMediaSection } from "@/components/beyond/BeyondMediaSection";
 import { BeyondFooter } from "@/components/beyond/BeyondFooter";
 import { beyondMediaSections } from "@/lib/beyondMedia";
+import { MotionProvider } from "@/components/MotionProvider";
 
 export const metadata: Metadata = {
   title: "Beyond the Interface — Sayed El Mohamady",
@@ -16,14 +17,16 @@ export const metadata: Metadata = {
 
 export default function BeyondTheInterfacePage() {
   return (
-    <div className="beyond-page">
-      <BeyondNav />
-      <HeroSection />
-      <BeyondSectionCarousel sections={beyondMediaSections} />
-      {beyondMediaSections.map((def) => (
-        <BeyondMediaSection key={def.id} def={def} />
-      ))}
-      <BeyondFooter />
-    </div>
+    <MotionProvider>
+      <div className="beyond-page">
+        <BeyondNav />
+        <HeroSection />
+        <BeyondSectionCarousel sections={beyondMediaSections} />
+        {beyondMediaSections.map((def) => (
+          <BeyondMediaSection key={def.id} def={def} />
+        ))}
+        <BeyondFooter />
+      </div>
+    </MotionProvider>
   );
 }

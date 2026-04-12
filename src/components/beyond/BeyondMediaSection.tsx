@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import type { BeyondGridItem, BeyondSectionDefinition } from "@/lib/beyondMedia";
 import { SectionReveal } from "./SectionReveal";
 import { BeyondImage } from "./BeyondImage";
@@ -48,7 +48,7 @@ export function BeyondMediaSection({ def }: { def: BeyondSectionDefinition }) {
 
         <div className="beyond-media-grid">
           {def.items.map((item, idx) => (
-            <motion.div
+            <m.div
               key={`${def.id}-${idx}`}
               className={cellClass(item.span)}
               initial={{ opacity: 0, y: 16 }}
@@ -74,7 +74,7 @@ export function BeyondMediaSection({ def }: { def: BeyondSectionDefinition }) {
                   priority={idx < 18}
                 />
               )}
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { BeyondImage } from "./BeyondImage";
 
 export function HeroSection() {
@@ -17,7 +17,7 @@ export function HeroSection() {
       </div>
 
       <div className="beyond-hero-inner">
-        <motion.div
+        <m.div
           className="beyond-hero-copy"
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
@@ -33,9 +33,9 @@ export function HeroSection() {
             A visual diary of hobbies and interests — plants, games, film,
             history, and music.
           </p>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           className="beyond-hero-scroll"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -44,7 +44,7 @@ export function HeroSection() {
         >
           <span>Scroll</span>
           <span className="beyond-hero-scroll-line" />
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

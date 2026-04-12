@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { BeyondImage } from "./BeyondImage";
 
 /** Bundled asset (original: postimg vinyl; see `reference/third-party/spinning-cd-license.txt`). */
@@ -14,13 +15,14 @@ export function BeyondGamingDisc({
 }) {
   return (
     <div className="beyond-grid-cell-media beyond-gaming-disc">
-      <img
+      <Image
         className="beyond-gaming-disc__vinyl"
         src={VINYL_SRC}
         alt=""
         width={320}
         height={320}
-        decoding="async"
+        quality={75}
+        loading="lazy"
       />
       <BeyondImage
         src={coverSrc}

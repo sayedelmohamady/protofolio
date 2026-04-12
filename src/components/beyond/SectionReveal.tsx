@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, type ReactNode } from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 
 interface SectionRevealProps {
   children: ReactNode;
@@ -29,7 +29,7 @@ export function SectionReveal({
   const offset = directionOffsets[direction];
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       className={className}
       initial={{ opacity: 0, y: offset.y, x: offset.x }}
@@ -45,6 +45,6 @@ export function SectionReveal({
       }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { DM_Sans, Syne } from "next/font/google";
 
@@ -6,8 +6,7 @@ import "@/styles/globals.css";
 import "@/styles/custom-cursor.css";
 import "@/styles/intro.css";
 
-import { CustomCursor } from "@/components/CustomCursor";
-import { IntroOverlay } from "@/components/IntroOverlay";
+import { ClientShell } from "@/components/ClientShell";
 
 const syne = Syne({
   subsets: ["latin"],
@@ -29,6 +28,12 @@ export const metadata: Metadata = {
     "Portfolio of Sayed Elmohamady — product design, case studies, and selected work.",
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#0a0a0a",
+};
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
@@ -36,8 +41,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       className={`${syne.variable} ${dmSans.variable}`}
     >
       <body className="min-h-screen antialiased">
-        <IntroOverlay />
-        <CustomCursor />
+        <ClientShell />
         <div id="pt-overlay" aria-hidden="true" />
         {children}
       </body>

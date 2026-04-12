@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useRef, useLayoutEffect } from "react";
+import { useState } from "react";
+import Image from "next/image";
 
 interface BeyondImageProps {
   src: string;
@@ -18,17 +19,6 @@ export function BeyondImage({
 }: BeyondImageProps) {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
-  const imgRef = useRef<HTMLImageElement>(null);
-
-  /* Cached / already-decoded images often fire `load` before `onLoad` is attached. */
-  useLayoutEffect(() => {
-    const el = imgRef.current;
-    if (!el) return;
-    setLoaded(false);
-    if (el.complete && el.naturalHeight > 0) {
-      setLoaded(true);
-    }
-  }, [src]);
 
   if (error) {
     return (
@@ -47,24 +37,27 @@ export function BeyondImage({
   }
 
   return (
-    <div className={className}>
+    <div className={className} style={{ position: "relative" }}>
       {!loaded && (
         <div
           className="beyond-img-placeholder"
           style={{ position: "absolute", inset: 0 }}
         />
       )}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        ref={imgRef}
+      <Image
         src={src}
         alt={alt}
-        loading={priority ? "eager" : "lazy"}
-        decoding="async"
-        {...(priority ? { fetchPriority: "high" as const } : {})}
+        fill
+        sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+        quality={80}
+        priority={priority}
         onLoad={() => setLoaded(true)}
         onError={() => setError(true)}
-        style={{ opacity: loaded ? 1 : 0, transition: "opacity 0.5s ease" }}
+        style={{
+          objectFit: "cover",
+          opacity: loaded ? 1 : 0,
+          transition: "opacity 0.5s ease",
+        }}
       />
     </div>
   );

@@ -134,6 +134,14 @@ function enhanceImageLoading(html: string): string {
   });
 }
 
+/** Sets videos to preload="none" so they only load when scrolled into view. */
+function enhanceVideoLoading(html: string): string {
+  return html.replace(/<video(\s[^>]*)>/gi, (full, attrs: string) => {
+    if (/\spreload\s*=/i.test(attrs)) return full;
+    return `<video${attrs} preload="none">`;
+  });
+}
+
 function extractBodyInner(html: string): string {
   const bodyOpen = html.match(/<body[^>]*>/i);
   if (!bodyOpen || bodyOpen.index === undefined) {
@@ -155,6 +163,7 @@ export function getCaseStudyBodyHtml(slug: CaseStudySlug): string {
   inner = inner.replace(/href="index\.html"/g, 'href="/"');
   inner = rewriteImgSrc(inner);
   inner = enhanceImageLoading(inner);
+  inner = enhanceVideoLoading(inner);
   if (slug === "club-tie") {
     inner = inner.replace(
       /onclick="switchTab\(this,'([^']+)'\)"/g,
@@ -223,6 +232,7 @@ export function getWorkPageHtml(): string {
   section = rewriteImgSrc(section);
   section = rewriteVideoPoster(section);
   section = enhanceImageLoading(section);
+  section = enhanceVideoLoading(section);
 
   const footer = extractHtmlBetweenComments(
     raw,
@@ -287,5 +297,6 @@ export function getHomeBodyHtml(): string {
   inner = rewriteVideoPoster(inner);
   inner = injectHomeTimelineLogoSrc(inner);
   inner = enhanceImageLoading(inner);
+  inner = enhanceVideoLoading(inner);
   return inner;
 }

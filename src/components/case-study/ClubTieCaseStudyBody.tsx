@@ -1,8 +1,16 @@
 "use client";
 
-import { ClubRiveAnimationsGrid } from "@/components/case-study/ClubRiveAnimationsGrid";
+import dynamic from "next/dynamic";
 import { useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+
+const ClubRiveAnimationsGrid = dynamic(
+  () =>
+    import("@/components/case-study/ClubRiveAnimationsGrid").then(
+      (mod) => mod.ClubRiveAnimationsGrid,
+    ),
+  { ssr: false },
+);
 
 export function ClubTieCaseStudyBody({ html }: { html: string }) {
   const hostRef = useRef<HTMLDivElement>(null);
