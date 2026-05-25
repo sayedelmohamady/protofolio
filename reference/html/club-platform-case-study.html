@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Club Platform — Community-Led Growth Case Study</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ── Standalone preview only — Next.js uses case-study-club-platform.css ── */
+    :root {
+      --c-bg: #08080A;
+      --c-bg2: #0F0F12;
+      --c-bg3: #16161A;
+      --c-bg4: #1E1E23;
+      --c-border: rgba(255,255,255,0.06);
+      --c-border-m: rgba(255,255,255,0.10);
+      --c-text: #EDECEA;
+      --c-text-m: #A8A6A0;
+      --c-text-d: #5E5C58;
+      --c-accent: #9667f7;
+      --c-accent-l: #b593f9;
+      --c-accent-m: #8152e0;
+      --c-accent-d: #6131c4;
+      --c-accent-rgb: 150,103,247;
+      --f-display: 'Syne', sans-serif;
+      --f-body: 'DM Sans', sans-serif;
+      --nav-h: 56px;
+      --sidebar-w: 220px;
+      --case-radius: 14px;
+      --case-grid-gap: 10px;
+    }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--c-bg); color:var(--c-text); font-family:var(--f-body); font-size:16px; line-height:1.7; overflow-x:hidden; }
+    .top-nav { position:fixed; top:0; left:0; right:0; z-index:200; display:flex; align-items:center; justify-content:space-between; padding:0 32px; height:var(--nav-h); background:rgba(8,8,10,0.92); backdrop-filter:blur(18px); border-bottom:1px solid var(--c-border); }
+    .top-nav-name { display:flex; align-items:center; gap:10px; font-family:var(--f-display); font-weight:700; font-size:13px; letter-spacing:0.06em; text-transform:uppercase; color:var(--c-text); text-decoration:none; }
+    .top-nav-name .green-dot { width:8px; height:8px; border-radius:50%; background:var(--c-accent); box-shadow:0 0 8px rgba(150,103,247,0.5); flex-shrink:0; }
+    .top-nav-back { font-size:13px; color:var(--c-accent); text-decoration:none; font-weight:500; letter-spacing:0.02em; transition:color 0.2s; }
+    .top-nav-back:hover { color:var(--c-accent-l); }
+  </style>
+</head>
+
+<body>
+
+  <nav class="top-nav">
+    <a href="index.html" class="top-nav-name">
+      <span class="green-dot"></span>
+      Sayed Elmohamady
+    </a>
+    <a href="index.html" class="top-nav-back">&larr; Portfolio</a>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════════════
+       HERO
+  ══════════════════════════════════════════════════════════ -->
+  <div class="hero">
+    <div class="hero-bg">
+      <div class="hero-glow"></div>
+      <div class="hero-glow2"></div>
+      <div class="hero-grid"></div>
+    </div>
+
+    <div class="hero-brand">
+      <img src="club-logo.png" alt="Club logo" class="hero-brand-logo">
+    </div>
+
+    <h1 class="hero-title">
+      <span class="line-accent">Powering Connections</span><br>
+      <span>Between Brands</span><br>
+      <span class="line-dim">&amp; Ambassadors</span>
+    </h1>
+
+    <p class="hero-dek">How we redesigned the Club platform from a disconnected admin tool into a brand-experience builder — where brands see their club while they build it, and ambassadors always know what to do next.</p>
+
+    <div class="hero-mockup">
+      <img src="brand-hub-screen-01.png" alt="Club Platform — brand hub and ambassador experience overview" width="1600" height="900" loading="eager" decoding="async">
+    </div>
+
+    <div class="hero-divider"></div>
+
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <label>Company</label>
+        <span>Club / Brandbassador</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Product</label>
+        <span>Platform Core</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>My Role</label>
+        <span>Head of Design</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Platform</label>
+        <span>Web / Mobile</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Timeline</label>
+        <span>2022 – Ongoing</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TWO-COLUMN LAYOUT -->
+  <div class="case-layout">
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="sidebar">
+      <ul class="sidebar-nav">
+        <li><a href="#overview" data-section="overview">
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="3" width="7" height="7" rx="1"/>
+              <rect x="14" y="3" width="7" height="7" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" rx="1"/>
+              <rect x="14" y="14" width="7" height="7" rx="1"/>
+            </svg>
+            Overview
+          </a></li>
+        <li><a href="#problem" data-section="problem">
+            <svg viewBox="0 0 24 24">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+              <line x1="12" y1="9" x2="12" y2="13"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+            Problem
+          </a></li>
+        <li><a href="#insight" data-section="insight">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            Core Insight
+          </a></li>
+        <li><a href="#solution" data-section="solution">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            Solution
+          </a></li>
+        <div class="sidebar-sep"></div>
+        <li><a href="#how-it-works" data-section="how-it-works">
+            <svg viewBox="0 0 24 24">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+            Growth Loop
+          </a></li>
+        <li><a href="#brand-flows" data-section="brand-flows">
+            <svg viewBox="0 0 24 24">
+              <rect x="5" y="2" width="14" height="20" rx="2"/>
+              <line x1="12" y1="18" x2="12.01" y2="18"/>
+            </svg>
+            Brand Flows
+          </a></li>
+        <li><a href="#ambassador-flows" data-section="ambassador-flows">
+            <svg viewBox="0 0 24 24">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+            Ambassador Flows
+          </a></li>
+        <div class="sidebar-sep"></div>
+        <li><a href="#decisions" data-section="decisions">
+            <svg viewBox="0 0 24 24">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            </svg>
+            UX Decisions
+          </a></li>
+        <li><a href="#impact" data-section="impact">
+            <svg viewBox="0 0 24 24">
+              <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+              <polyline points="16 7 22 7 22 13"/>
+            </svg>
+            Impact
+          </a></li>
+        <li><a href="#learnings" data-section="learnings">
+            <svg viewBox="0 0 24 24">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+            </svg>
+            Learnings
+          </a></li>
+      </ul>
+    </aside>
+
+    <!-- ── MAIN CONTENT ── -->
+    <main class="main-content">
+
+      <!-- ════════════════════════════════════════
+           01 · OVERVIEW
+      ════════════════════════════════════════ -->
+      <section id="overview" class="reveal">
+        <div class="wrap">
+          <div class="section-label"><span class="num">01</span> Overview</div>
+          <h2>The platform where brands<br>build their community.</h2>
+          <p>Club connects brands with their most engaged followers — people who want to share, create, and be rewarded for genuine advocacy. The platform is the operating layer for that relationship: where brands set missions, distribute rewards, and grow their ambassador community at scale.</p>
+          <p>As Head of Design, I owned roughly 95% of the platform's interaction model — from onboarding wizards to the modal-based workflow architecture that became the core design principle of the entire product.</p>
+
+          <div class="cp-kpi-row">
+            <div class="cp-kpi-card">
+              <div class="cp-kpi-num">95%</div>
+              <div class="cp-kpi-label">of platform interactions<br>designed end-to-end</div>
+            </div>
+            <div class="cp-kpi-card">
+              <div class="cp-kpi-num">4</div>
+              <div class="cp-kpi-label">club types<br>supported</div>
+            </div>
+            <div class="cp-kpi-card">
+              <div class="cp-kpi-num">2+</div>
+              <div class="cp-kpi-label">years<br>ongoing</div>
+            </div>
+            <div class="cp-kpi-card">
+              <div class="cp-kpi-num">∞</div>
+              <div class="cp-kpi-label">mission &rarr; reward<br>loops shipped</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           02 · PROBLEM
+      ════════════════════════════════════════ -->
+      <section id="problem" class="reveal">
+        <div class="wrap">
+          <div class="section-label"><span class="num">02</span> The Problem</div>
+
+          <div class="challenge-section">
+            <h2 class="challenge-headline">
+              <span class="challenge-headline__primary">Brands were building blind.</span>
+              <span class="challenge-headline__secondary">Separated from the thing they were building.</span>
+            </h2>
+            <div class="challenge-lead">
+              <p>Traditional admin dashboards disconnected brands from their actual product. Settings felt abstract. Configuration felt technical. The real brand experience — the thing members would see — disappeared entirely during the setup process.</p>
+              <p>The result: longer time-to-launch, more support tickets, and brands who didn't feel ownership over what they'd built.</p>
+            </div>
+
+            <div class="problem-grid">
+              <div class="problem-card">
+                <div class="p-icon">
+                  <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                </div>
+                <h3>Invisible product</h3>
+                <p>Brands configured settings without ever seeing what their club would look like to members.</p>
+              </div>
+              <div class="problem-card">
+                <div class="p-icon">
+                  <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="17" y1="11" x2="23" y2="11"/></svg>
+                </div>
+                <h3>Abstract workflows</h3>
+                <p>Reward rules and mission logic felt technical — not tied to the lived experience of ambassadors.</p>
+              </div>
+              <div class="problem-card">
+                <div class="p-icon">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <h3>Slow onboarding</h3>
+                <p>New brands took too long to get their first mission live. Friction compounded at every step.</p>
+              </div>
+              <div class="problem-card">
+                <div class="p-icon">
+                  <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                </div>
+                <h3>No sense of ownership</h3>
+                <p>Brands didn't feel like their club was truly theirs. The gap between setup and reality was too wide.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           03 · CORE INSIGHT
+      ════════════════════════════════════════ -->
+      <section id="insight" class="reveal">
+        <div class="wrap">
+          <div class="section-label"><span class="num">03</span> Core Insight</div>
+
+          <div class="cp-insight-card">
+            <div class="cp-insight-quote">&ldquo;</div>
+            <div class="cp-insight-text">
+              Brands should build the experience<br><em>while seeing the experience.</em>
+            </div>
+            <div class="cp-insight-sub">The central design principle that reshaped every workflow on the platform</div>
+          </div>
+
+          <div class="cp-principle-grid">
+            <div class="cp-principle-item">
+              <div class="cp-principle-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </div>
+              <div>
+                <h3>Live Preview at Center</h3>
+                <p>The brand's actual Club page — exactly as members see it — sits at the center of every workflow. Not a mockup. Not a preview toggle. The real thing.</p>
+              </div>
+            </div>
+            <div class="cp-principle-item">
+              <div class="cp-principle-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+              </div>
+              <div>
+                <h3>Modal Overlay Architecture</h3>
+                <p>Every major action — e-commerce connections, mission creation, reward setup — surfaces as a modal over the live page. You never leave the context of your club.</p>
+              </div>
+            </div>
+            <div class="cp-principle-item">
+              <div class="cp-principle-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div>
+                <h3>Purposeful Configuration</h3>
+                <p>Every setting has visual consequence. Every input maps to a visible change. Configuration stops feeling technical and starts feeling like design.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           04 · SOLUTION
+      ════════════════════════════════════════ -->
+      <section id="solution" class="reveal">
+        <div class="wrap">
+          <div class="section-label"><span class="num">04</span> Solution</div>
+          <h2>One platform.<br>Two sides.</h2>
+          <p>Club operates as a dual-sided product: brands manage their community and run campaigns from the web platform, while ambassadors discover, complete missions, and earn rewards through the mobile app. The design challenge was making both sides feel effortless — and deeply connected.</p>
+
+          <div class="cp-solution-split">
+            <div class="cp-solution-card cp-solution-card--brand">
+              <div class="cp-sol-badge">Brand Platform</div>
+              <h3>Build your club,<br>see it happen.</h3>
+              <p>Brands configure missions, set reward rules, manage their ambassador community — all while seeing their live club page update in real time. Setup is always purposeful. Configuration never disappears into abstraction.</p>
+              <ul class="cp-sol-list">
+                <li>Mission creation &amp; management</li>
+                <li>Reward configuration (cash, gift cards, products)</li>
+                <li>Affiliate revenue tracking</li>
+                <li>Community communication</li>
+                <li>Geographic segmentation</li>
+                <li>Performance analytics</li>
+              </ul>
+              <div class="cp-sol-img">
+                <img src="brand-hub-screen-01.png" alt="Club Platform — brand dashboard overview" loading="lazy" decoding="async">
+              </div>
+            </div>
+            <div class="cp-solution-card cp-solution-card--app">
+              <div class="cp-sol-badge cp-sol-badge--app">Ambassador App</div>
+              <h3>Every mission has<br>a clear next step.</h3>
+              <p>Ambassadors discover brands, join clubs, complete missions, submit proof, and earn real rewards. The mobile experience is stripped of friction — never more than two taps to the next action.</p>
+              <ul class="cp-sol-list">
+                <li>Brand discovery &amp; club joining</li>
+                <li>Mission browsing &amp; completion</li>
+                <li>Proof submission</li>
+                <li>Reward earning &amp; redemption</li>
+                <li>Progress &amp; level visibility</li>
+                <li>In-app wallet</li>
+              </ul>
+              <div class="cp-sol-img">
+                <img src="Missions-screen-01.png" alt="Club App — ambassador missions view" loading="lazy" decoding="async">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           05 · GROWTH LOOP
+      ════════════════════════════════════════ -->
+      <section id="how-it-works" class="section-band reveal">
+        <div class="wrap">
+          <div class="section-label"><span class="num">05</span> Growth Loop</div>
+          <h2>Community-led growth.<br>By design.</h2>
+          <p>The platform's repeatable engagement cycle is the product. Every step — from mission creation to reward distribution — is designed to close the loop and restart it with more momentum than before.</p>
+
+          <div class="cp-loop-wrap">
+            <div class="cp-loop-graph" role="group" aria-label="Community growth loop: create mission, complete, reward, grow revenue, repeat">
+              <svg class="cp-loop-svg" viewBox="0 0 900 400" aria-hidden="true">
+                <defs>
+                  <marker id="cp-m-pu" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+                    <path d="M0,.5 L0,6.5 L7,3.5z" fill="#9667f7"/>
+                  </marker>
+                  <marker id="cp-m-teal" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+                    <path d="M0,.5 L0,6.5 L7,3.5z" fill="#06b6d4"/>
+                  </marker>
+                  <marker id="cp-m-gr" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+                    <path d="M0,.5 L0,6.5 L7,3.5z" fill="#22c55e"/>
+                  </marker>
+                  <marker id="cp-m-or" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+                    <path d="M0,.5 L0,6.5 L7,3.5z" fill="#f97316"/>
+                  </marker>
+                </defs>
+                <!-- forward arrows -->
+                <path class="cp-loop-edge cp-loop-edge--purple" d="M 100,148 C 150,168 235,168 280,148" marker-end="url(#cp-m-pu)"/>
+                <path class="cp-loop-edge cp-loop-edge--teal" d="M 280,148 C 330,168 415,168 460,148" marker-end="url(#cp-m-teal)"/>
+                <path class="cp-loop-edge cp-loop-edge--green" d="M 460,148 C 510,168 595,168 640,148" marker-end="url(#cp-m-gr)"/>
+                <path class="cp-loop-edge cp-loop-edge--orange" d="M 640,148 C 690,168 775,168 820,148" marker-end="url(#cp-m-or)"/>
+                <!-- return arrow -->
+                <path class="cp-loop-edge cp-loop-edge--loop" d="M 820,188 C 820,320 100,320 100,188" marker-end="url(#cp-m-pu)"/>
+              </svg>
+
+              <div class="cp-loop-node" style="left:11%;top:33%">
+                <div class="cp-loop-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                </div>
+                <div class="cp-loop-name">Create Mission</div>
+                <div class="cp-loop-sub">Brand defines the ask</div>
+              </div>
+              <div class="cp-loop-node" style="left:31.2%;top:33%">
+                <div class="cp-loop-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                </div>
+                <div class="cp-loop-name">Complete</div>
+                <div class="cp-loop-sub">Ambassador takes action</div>
+              </div>
+              <div class="cp-loop-node" style="left:51.2%;top:33%">
+                <div class="cp-loop-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+                </div>
+                <div class="cp-loop-name">Reward</div>
+                <div class="cp-loop-sub">Real value distributed</div>
+              </div>
+              <div class="cp-loop-node" style="left:71.2%;top:33%">
+                <div class="cp-loop-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                </div>
+                <div class="cp-loop-name">Revenue Grows</div>
+                <div class="cp-loop-sub">Brand reinvests in campaigns</div>
+              </div>
+            </div>
+            <p class="cp-loop-caption">The loop is the product. Each step feeds the next — and the next cycle is bigger.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           06 · BRAND FLOWS
+      ════════════════════════════════════════ -->
+      <section id="brand-flows" class="pf-section">
+
+        <div class="wrap pf-section-header reveal">
+          <div class="section-label"><span class="num">06</span> Brand Flows</div>
+          <h2>Building your club,<br>screen by screen.</h2>
+          <p>The brand platform is designed around a single principle: you're always in context of your live club. Modals surface over the real page. Every change is visible.</p>
+        </div>
+
+        <!-- ── 01 · BRAND HUB ── -->
+        <div class="pf-flow reveal">
+          <div class="wrap pf-header">
+            <div class="pf-meta">
+              <span class="pf-index">01</span>
+              <div>
+                <h3 class="pf-title">Brand Hub <span class="pf-tag">Home Base</span></h3>
+                <p class="pf-desc">The brand's live club page — as members see it — is the command center. Every action flows from here.</p>
+              </div>
+            </div>
+            <div class="pf-steps">
+              <span class="pf-step">Club Page</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Member View</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Edit In-Context</span>
+            </div>
+          </div>
+          <div class="ss-strip ss-strip--stack">
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z:1">
+              <div class="ss-cell">
+                <img src="brand-hub-screen-01.png" alt="Club Platform — brand hub: live club page overview" width="390" height="844">
+                <div class="ss-lbl">Club Page</div>
+              </div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z:2">
+              <div class="ss-cell">
+                <img src="brand-hub-screen-02.png" alt="Club Platform — brand hub: member-facing view" width="390" height="844">
+                <div class="ss-lbl">Member View</div>
+              </div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z:3">
+              <div class="ss-cell">
+                <img src="brand-hub-screen-03.png" alt="Club Platform — brand hub: edit modal overlaid on club page" width="390" height="844">
+                <div class="ss-lbl">Edit in Context</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 02 · MISSION MANAGEMENT ── -->
+        <div class="pf-flow reveal">
+          <div class="wrap pf-header">
+            <div class="pf-meta">
+              <span class="pf-index">02</span>
+              <div>
+                <h3 class="pf-title">Mission Management <span class="pf-tag">Core Loop Driver</span></h3>
+                <p class="pf-desc">Create, approve, and track missions — without ever losing sight of how ambassadors will experience them.</p>
+              </div>
+            </div>
+            <div class="pf-steps">
+              <span class="pf-step">Mission List</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Create Mission</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Review &amp; Approve</span>
+            </div>
+          </div>
+          <div class="ss-strip ss-strip--stack">
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z:1">
+              <div class="ss-cell">
+                <img src="brand-screen-01.png" alt="Club Platform — mission list view" width="390" height="844">
+                <div class="ss-lbl">Mission List</div>
+              </div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z:2">
+              <div class="ss-cell">
+                <img src="brand-screen-02.png" alt="Club Platform — create mission modal" width="390" height="844">
+                <div class="ss-lbl">Create Mission</div>
+              </div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z:3">
+              <div class="ss-cell">
+                <img src="brand-screen-03.png" alt="Club Platform — review and approve submissions" width="390" height="844">
+                <div class="ss-lbl">Review &amp; Approve</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 03 · REWARD SETUP ── -->
+        <div class="pf-flow reveal">
+          <div class="wrap pf-header">
+            <div class="pf-meta">
+              <span class="pf-index">03</span>
+              <div>
+                <h3 class="pf-title">Reward Setup</h3>
+                <p class="pf-desc">Cash, gift cards, or products — brands configure what ambassadors earn and when. Every reward type has its own clear setup flow.</p>
+              </div>
+            </div>
+            <div class="pf-steps">
+              <span class="pf-step">Choose Type</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Set Rules</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Confirm</span>
+            </div>
+          </div>
+          <div class="ss-strip ss-strip--stack">
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z:1">
+              <div class="ss-cell">
+                <img src="Cash reward.png" alt="Club Platform — cash reward configuration" width="390" height="844">
+                <div class="ss-lbl">Cash Reward</div>
+              </div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z:2">
+              <div class="ss-cell">
+                <img src="Gift Card reward.png" alt="Club Platform — gift card reward configuration" width="390" height="844">
+                <div class="ss-lbl">Gift Card Reward</div>
+              </div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z:3">
+              <div class="ss-cell">
+                <img src="Product reward.png" alt="Club Platform — product reward configuration" width="390" height="844">
+                <div class="ss-lbl">Product Reward</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 04 · DASHBOARD ── -->
+        <div class="pf-flow reveal">
+          <div class="wrap pf-header">
+            <div class="pf-meta">
+              <span class="pf-index">04</span>
+              <div>
+                <h3 class="pf-title">Brand Dashboard</h3>
+                <p class="pf-desc">Performance at a glance — mission completion rates, affiliate revenue, community growth, and engagement trends.</p>
+              </div>
+            </div>
+            <div class="pf-steps">
+              <span class="pf-step">Overview</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Mission Analytics</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Revenue Tracking</span>
+            </div>
+          </div>
+          <div class="ss-strip ss-strip--pf-single">
+            <div class="ss-cell-sticky-wrap reveal">
+              <div class="ss-cell">
+                <img src="dashboard-screen-01.png" alt="Club Platform — brand analytics dashboard" width="1107" height="720">
+                <div class="ss-lbl">Brand Dashboard</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ════════════════════════════════════════
+           07 · AMBASSADOR FLOWS
+      ════════════════════════════════════════ -->
+      <section id="ambassador-flows" class="pf-section">
+
+        <div class="wrap pf-section-header reveal">
+          <div class="section-label"><span class="num">07</span> Ambassador Flows</div>
+          <h2>The ambassador experience,<br>screen by screen.</h2>
+          <p>From discovering a brand to earning a reward — every step is designed to feel immediate, clear, and worth coming back for.</p>
+        </div>
+
+        <!-- ── 01 · ONBOARDING ── -->
+        <div class="pf-flow reveal">
+          <div class="wrap pf-header">
+            <div class="pf-meta">
+              <span class="pf-index">01</span>
+              <div>
+                <h3 class="pf-title">Onboarding <span class="pf-tag">First Impression</span></h3>
+                <p class="pf-desc">Join a club in under a minute. The onboarding wizard is adaptive — fewer steps for returning ambassadors, full context for new ones.</p>
+              </div>
+            </div>
+            <div class="pf-steps">
+              <span class="pf-step">Discover Brand</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Join Club</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">First Mission</span>
+            </div>
+          </div>
+          <div class="ss-strip ss-strip--stack">
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z:1">
+              <div class="ss-cell">
+                <img src="onboarding-screen-01.png" alt="Club App — discover brand and join flow" width="390" height="844">
+                <div class="ss-lbl">Discover &amp; Join</div>
+              </div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z:2">
+              <div class="ss-cell">
+                <img src="onboarding-screen-02.png" alt="Club App — onboarding profile setup" width="390" height="844">
+                <div class="ss-lbl">Profile Setup</div>
+              </div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z:3">
+              <div class="ss-cell">
+                <img src="onboarding-screen-03.png" alt="Club App — first mission prompt" width="390" height="844">
+                <div class="ss-lbl">First Mission</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 02 · MISSION FLOW ── -->
+        <div class="pf-flow reveal">
+          <div class="wrap pf-header">
+            <div class="pf-meta">
+              <span class="pf-index">02</span>
+              <div>
+                <h3 class="pf-title">Mission Flow <span class="pf-tag">Core Loop</span></h3>
+                <p class="pf-desc">Browse missions, pick one, take the action, submit proof. Every step has a clear next move — no dead ends.</p>
+              </div>
+            </div>
+            <div class="pf-steps">
+              <span class="pf-step">Browse</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Select</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Complete</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Submit Proof</span>
+            </div>
+          </div>
+          <div class="ss-strip ss-strip--stack">
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z:1">
+              <div class="ss-cell">
+                <img src="Missions-screen-01.png" alt="Club App — missions list view" width="390" height="844">
+                <div class="ss-lbl">Mission List</div>
+              </div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z:2">
+              <div class="ss-cell">
+                <img src="Missions-screen-02.png" alt="Club App — mission detail" width="390" height="844">
+                <div class="ss-lbl">Mission Detail</div>
+              </div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z:3">
+              <div class="ss-cell">
+                <img src="Missions-screen-03.png" alt="Club App — submit proof screen" width="390" height="844">
+                <div class="ss-lbl">Submit Proof</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 03 · NOTIFICATIONS ── -->
+        <div class="pf-flow reveal">
+          <div class="wrap pf-header">
+            <div class="pf-meta">
+              <span class="pf-index">03</span>
+              <div>
+                <h3 class="pf-title">Notifications &amp; Updates</h3>
+                <p class="pf-desc">Approval confirmations, reward credits, and new mission alerts — delivered with just enough context to drive immediate action.</p>
+              </div>
+            </div>
+            <div class="pf-steps">
+              <span class="pf-step">Submission Approved</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">Reward Credited</span>
+              <span class="pf-arrow">→</span>
+              <span class="pf-step">New Mission Alert</span>
+            </div>
+          </div>
+          <div class="ss-strip ss-strip--stack">
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z:1">
+              <div class="ss-cell">
+                <img src="notifications-screen-01.png" alt="Club App — notification: submission approved" width="390" height="844">
+                <div class="ss-lbl">Submission Approved</div>
+              </div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z:2">
+              <div class="ss-cell">
+                <img src="notifications-screen-02.png" alt="Club App — notification: reward credited" width="390" height="844">
+                <div class="ss-lbl">Reward Credited</div>
+              </div>
+            </div>
+            <div class="ss-cell-sticky-wrap reveal" style="--card-z:3">
+              <div class="ss-cell">
+                <img src="notifications-screen-03.png" alt="Club App — notification: new mission available" width="390" height="844">
+                <div class="ss-lbl">New Mission Alert</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ════════════════════════════════════════
+           08 · UX DECISIONS
+      ════════════════════════════════════════ -->
+      <section id="decisions" class="section-band reveal">
+        <div class="wrap">
+          <div class="section-label"><span class="num">08</span> UX Decisions</div>
+          <h2>The thinking behind<br>the key calls.</h2>
+          <p>Five principles that shaped the most consequential design decisions on the platform.</p>
+
+          <div class="decisions-list">
+            <div class="decision-card">
+              <div class="decision-num">A</div>
+              <div class="decision-body">
+                <h3>Build While Experiencing</h3>
+                <p>The brand's live club page never leaves the screen. Modal overlays preserve context while enabling configuration — you always know exactly what you're building toward.</p>
+                <span class="decision-tag">Core Architecture</span>
+              </div>
+            </div>
+            <div class="decision-card">
+              <div class="decision-num">B</div>
+              <div class="decision-body">
+                <h3>Scalable Wizard Patterns</h3>
+                <p>Onboarding and setup flows use adaptive wizards — fewer steps for known users, full guidance for new ones. Complexity is hidden until it's needed.</p>
+                <span class="decision-tag">Progressive Disclosure</span>
+              </div>
+            </div>
+            <div class="decision-card">
+              <div class="decision-num">C</div>
+              <div class="decision-body">
+                <h3>Geographic Segmentation</h3>
+                <p>Brands need to reward local ambassadors differently than global followers. A geographic filter system makes regional targeting first-class — not a workaround.</p>
+                <span class="decision-tag">Market Strategy</span>
+              </div>
+            </div>
+            <div class="decision-card">
+              <div class="decision-num">D</div>
+              <div class="decision-body">
+                <h3>Approval as Trust Signal</h3>
+                <p>Submission review is designed to feel fair, not bureaucratic. Clear criteria, fast feedback, and visible status keep ambassadors motivated through the wait.</p>
+                <span class="decision-tag">Motivation Design</span>
+              </div>
+            </div>
+            <div class="decision-card">
+              <div class="decision-num">E</div>
+              <div class="decision-body">
+                <h3>Repeatable Interaction Patterns</h3>
+                <p>95% of platform actions use 5 core patterns. Consistency reduces cognitive load — brands learn once, apply everywhere.</p>
+                <span class="decision-tag">Design Systems</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           09 · IMPACT
+      ════════════════════════════════════════ -->
+      <section id="impact" class="section-band reveal">
+        <div class="wrap">
+          <div class="section-label"><span class="num">09</span> Impact</div>
+          <h2>What changed<br>when we shipped it.</h2>
+          <p>The shift from disconnected admin dashboard to contextual brand builder had measurable effects across onboarding, comprehension, and long-term platform engagement.</p>
+
+          <div class="cp-impact-grid">
+            <div class="cp-impact-card cp-impact-card--full">
+              <div class="cp-impact-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+              </div>
+              <div class="cp-impact-content">
+                <h3>Faster onboarding, stronger comprehension</h3>
+                <p>Brands reached their first live mission significantly faster after the modal architecture replaced the legacy dashboard flow. Support tickets dropped as setup became self-evident.</p>
+              </div>
+            </div>
+            <div class="cp-impact-card">
+              <div class="cp-impact-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div class="cp-impact-content">
+                <h3>Clearer brand ownership</h3>
+                <p>Brands felt the club was truly theirs — because they built it while seeing it.</p>
+              </div>
+            </div>
+            <div class="cp-impact-card">
+              <div class="cp-impact-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div class="cp-impact-content">
+                <h3>Scalable approval workflows</h3>
+                <p>Internal review flows scaled with ambassador growth — no operational breakpoints.</p>
+              </div>
+            </div>
+            <div class="cp-impact-card">
+              <div class="cp-impact-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+              </div>
+              <div class="cp-impact-content">
+                <h3>Eliminated the build-experience gap</h3>
+                <p>The core problem — brands lost in abstraction — was architecturally solved, not patched.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           10 · LEARNINGS
+      ════════════════════════════════════════ -->
+      <section id="learnings" class="section-band reveal cp-learnings">
+        <div class="wrap">
+          <div class="section-label"><span class="num">10</span> Learnings</div>
+          <h2>What this project<br>taught me.</h2>
+
+          <ul class="learnings-list">
+            <li>
+              <span class="li-num">01</span>
+              <strong class="li-title">Context collapse kills comprehension.</strong>
+              <p class="li-desc">The moment a brand leaves the context of their product to configure it, comprehension breaks. The architecture has to preserve context — not fight it.</p>
+            </li>
+            <li>
+              <span class="li-num">02</span>
+              <strong class="li-title">Dual-sided products need a single design principle.</strong>
+              <p class="li-desc">"Build while experiencing" worked for brands. "Always a clear next step" worked for ambassadors. One principle per side, not one shared muddle.</p>
+            </li>
+            <li>
+              <span class="li-num">03</span>
+              <strong class="li-title">The loop is the product.</strong>
+              <p class="li-desc">Community-led growth isn't a feature — it's the business model. Every design decision has to serve the loop or it's noise.</p>
+            </li>
+            <li>
+              <span class="li-num">04</span>
+              <strong class="li-title">Consistency compounds.</strong>
+              <p class="li-desc">Five core patterns covering 95% of interactions means brands learn once. That's not a shortcut — it's a competitive advantage baked into the UX.</p>
+            </li>
+            <li>
+              <span class="li-num">05</span>
+              <strong class="li-title">Head of Design is also product strategy.</strong>
+              <p class="li-desc">At this scale, design decisions are business decisions. The geographic segmentation system was a market strategy call — it just happened to live in the UI.</p>
+            </li>
+          </ul>
+
+          <div class="reflection-card">
+            <div class="rf-label">Closing thought</div>
+            <div class="rf-text">When a platform disappears — brands just build, ambassadors just act — the design has done its job.</div>
+            <div class="rf-sub">The best interface is the one you stop noticing because the outcome is too good to look away from.</div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    // ── Intersection Observer: reveal animations ──
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => observer.observe(el));
+
+    // ── Sidebar active state ──
+    const sections = document.querySelectorAll('section[id], div[id]');
+    const navLinks = document.querySelectorAll('.sidebar-nav a[data-section]');
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => a.classList.remove('active'));
+          const active = document.querySelector(`.sidebar-nav a[data-section="${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { threshold: 0.35, rootMargin: '-56px 0px 0px 0px' });
+    sections.forEach(s => sectionObserver.observe(s));
+  </script>
+
+</body>
+</html>

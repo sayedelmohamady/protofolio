@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Etar">
+  <rect width="100" height="100" fill="#0B0F1A"/>
+  <path d="M50 24L66 50L50 76L34 50Z" fill="#2A72EF"/>
+  <text x="50" y="92" text-anchor="middle" fill="#EDECEA" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" letter-spacing="0.04em">etar</text>
+</svg>

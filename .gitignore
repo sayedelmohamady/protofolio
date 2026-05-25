@@ -32,3 +32,7 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+.vercel
+
+# perf backup of original media (kept locally only)
+/_perf_backup

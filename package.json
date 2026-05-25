@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "clean": "rm -rf .next node_modules/.cache",
-    "dev": "next dev -p 3000 --turbo",
-    "dev:webpack": "next dev -p 3000",
-    "dev:fresh": "sh -c 'p=$(lsof -ti:3000 2>/dev/null); [ -n \"$p\" ] && kill -9 $p; rm -rf .next node_modules/.cache; exec next dev -p 3000'",
-    "dev:fresh:turbo": "sh -c 'p=$(lsof -ti:3000 2>/dev/null); [ -n \"$p\" ] && kill -9 $p; rm -rf .next node_modules/.cache; exec next dev -p 3000 --turbo'",
-    "dev:clean": "npm run clean && next dev -p 3000",
+    "dev": "next dev -p 3006 --turbo",
+    "dev:webpack": "next dev -p 3006",
+    "dev:fresh": "sh -c 'p=$(lsof -ti:3006 2>/dev/null); [ -n \"$p\" ] && kill -9 $p; rm -rf .next node_modules/.cache; exec next dev -p 3006'",
+    "dev:fresh:turbo": "sh -c 'p=$(lsof -ti:3006 2>/dev/null); [ -n \"$p\" ] && kill -9 $p; rm -rf .next node_modules/.cache; exec next dev -p 3006 --turbo'",
+    "dev:clean": "npm run clean && next dev -p 3006",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

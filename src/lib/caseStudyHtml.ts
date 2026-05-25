@@ -11,7 +11,8 @@ export type CaseStudySlug =
   | "club-dashboard"
   | "halan-design-system"
   | "etar"
-  | "club-levels";
+  | "club-levels"
+  | "club-platform";
 
 const HTML_FILES: Record<CaseStudySlug, string> = {
   mabaat: "mabaat-case-study.html",
@@ -24,6 +25,7 @@ const HTML_FILES: Record<CaseStudySlug, string> = {
   "halan-design-system": "halan-design-system-case-study.html",
   etar: "etar-case-study.html",
   "club-levels": "club-levels-case-study.html",
+  "club-platform": "club-platform-case-study.html",
 };
 
 function mapImageSrc(filename: string): string {
@@ -56,17 +58,38 @@ function mapImageSrc(filename: string): string {
   if (filename.startsWith("halan-"))
     return `/images/projects/mnt-halan/${filename}`;
   if (
+    filename === "Cash reward.png" ||
+    filename === "Gift Card reward.png" ||
+    filename === "Product reward.png" ||
+    filename === "Reward icon group.png" ||
+    filename === "Value.png" ||
+    filename === "Button.png" ||
+    filename === "Image.png" ||
+    filename === "Brand avatar.png" ||
+    filename === "App template 10.png" ||
+    filename === "Mission Card App📱.png" ||
+    filename === "Missions.png" ||
+    filename === "Notifications-01.png"
+  )
+    return `/images/projects/club-tie/${filename.replace(/ /g, "%20")}`;
+  if (
+    filename.startsWith("Missions-screen-") ||
+    filename.startsWith("brand-hub-screen-") ||
+    filename.startsWith("brand-screen-") ||
+    filename.startsWith("notifications-screen-") ||
+    filename.startsWith("onboarding-screen-") ||
+    filename.startsWith("dashboard-screen-")
+  )
+    return `/images/projects/club-tie/${filename}`;
+  if (
     filename.startsWith("club-") ||
     filename.startsWith("tie-") ||
     filename.startsWith("mission-") ||
-    filename.startsWith("onboarding-") ||
-    filename.startsWith("dashboard-") ||
     filename.startsWith("missions-") ||
     filename.startsWith("wallet-") ||
     filename.startsWith("rewards-") ||
     filename.startsWith("brand-") ||
     filename.startsWith("progress-") ||
-    filename.startsWith("notifications-") ||
     filename.startsWith("settings-")
   )
     return `/images/projects/club-tie/${filename}`;
@@ -104,6 +127,8 @@ const TIMELINE_LOGO_PUBLIC_FILES: Record<string, string> = {
   orcas: "orcas.png",
   "wallet-erp": "wallet-erp.png",
   awammer: "awammer.png",
+  otida: "otida.png",
+  etar: "etar.svg",
 };
 
 function injectHomeTimelineLogoSrc(html: string): string {
@@ -134,11 +159,19 @@ function enhanceImageLoading(html: string): string {
   });
 }
 
-/** Sets videos to preload="none" so they only load when scrolled into view. */
+/**
+ * Forces every <video> to preload="none" so browsers only fetch them when
+ * actually played. Authored HTML sometimes sets preload="auto" (e.g. homepage
+ * case cards) which would otherwise eagerly download 50MB+ on landing.
+ * Companion runtime code starts playback once the video scrolls into view.
+ */
 function enhanceVideoLoading(html: string): string {
-  return html.replace(/<video(\s[^>]*)>/gi, (full, attrs: string) => {
-    if (/\spreload\s*=/i.test(attrs)) return full;
-    return `<video${attrs} preload="none">`;
+  return html.replace(/<video(\s[^>]*)>/gi, (_full, attrs: string) => {
+    const stripped = attrs
+      .replace(/\spreload\s*=\s*"[^"]*"/gi, "")
+      .replace(/\sautoplay(?=\s|$)/gi, " data-autoplay")
+      .replace(/\sautoplay=""/gi, ' data-autoplay=""');
+    return `<video${stripped} preload="none">`;
   });
 }
 
