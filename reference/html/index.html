@@ -1479,7 +1479,32 @@
       display: flex;
       flex-direction: column;
       gap: 0;
-      margin-top: 56px;
+      margin-top: 32px;
+    }
+
+    .cases-tier-label {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 48px 0 24px;
+      font-family: var(--f-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-text-d, rgba(255,255,255,0.55));
+    }
+    .cases-tier-label--inline {
+      margin: 64px 0 24px;
+    }
+    .cases-tier-label .cases-tier-bar {
+      width: 28px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--c-accent, #b794f4), transparent);
+      border-radius: 999px;
+    }
+    .cases-tier-label .cases-tier-text {
+      color: var(--c-text, #fff);
+      opacity: 0.85;
     }
 
     .cases-filter {
@@ -1734,6 +1759,38 @@
 
     .case-card--halan-ds .case-eyebrow {
       color: #00a970;
+    }
+
+    /* GatherUp Design System — brand gold #E5B84A */
+    .case-card--gatherup-ds {
+      --card-bg: #0c0a06;
+    }
+
+    .case-card--gatherup-ds::before {
+      background: linear-gradient(135deg, rgba(229, 184, 74, 0.35), transparent, transparent, rgba(239, 207, 110, 0.2)) border-box;
+    }
+
+    .case-card--gatherup-ds::after {
+      background:
+        radial-gradient(circle at var(--card-mx, 50%) var(--card-my, 50%), rgba(229, 184, 74, 0.22), transparent 40%),
+        linear-gradient(110deg, rgba(255, 255, 255, 0.025), transparent 45%);
+    }
+
+    .case-card--gatherup-ds:hover {
+      border-color: rgba(229, 184, 74, 0.48);
+      box-shadow:
+        0 36px 88px rgba(0, 0, 0, 0.42),
+        0 0 0 1px rgba(229, 184, 74, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.09),
+        inset 0 0 88px rgba(229, 184, 74, 0.1);
+    }
+
+    .case-card--gatherup-ds .case-float {
+      color: #EFCF6E;
+    }
+
+    .case-card--gatherup-ds .case-eyebrow {
+      color: #E5B84A;
     }
 
     /* Mabaat — #448886 */
@@ -2550,12 +2607,12 @@
 
         <h1 class="hero-title">
           <span class="line">Sayed El Mohamady</span>
-          <span class="line">crafts digital</span>
-          <span class="line"><span class="accent">products and systems</span></span>
+          <span class="line">builds the systems</span>
+          <span class="line"><span class="accent">products grow on.</span></span>
         </h1>
 
         <p class="hero-desc">
-          Product designer focused on clean digital products and thoughtful design systems.
+          Eight years leading product design and design systems across mobile, web, and RTL &mdash; shipped to <strong>5M+ users</strong> at MNT Halan, Club, and Mabaat.
         </p>
 
         <div class="hero-actions">
@@ -2566,8 +2623,7 @@
               <path d="M7 17l9.2-9.2M17 17V8H8" />
             </svg>
           </a>
-          <a href="/deck" class="btn-secondary magnetic pressable">View deck</a>
-          <a href="#contact" class="btn-secondary magnetic pressable">Let&apos;s talk</a>
+          <a href="#contact" class="btn-secondary magnetic pressable">Get in touch</a>
         </div>
       </div>
 
@@ -2632,8 +2688,7 @@
       <div class="rv">
         <div class="section-label"><span class="num">01 /</span> Selected Work</div>
         <h2 class="section-title">Case studies</h2>
-        <p class="section-desc">Deep dives into design system work — from problem framing through architecture,
-          implementation, and impact.</p>
+        <p class="section-desc">Featured first &mdash; the three projects that best represent my work on design systems and product at scale. Selected work follows below.</p>
         <div class="cases-filter" id="casesFilter" role="tablist" aria-label="Filter case studies">
           <button type="button" class="cases-filter-btn is-active" data-filter="all" role="tab"
             aria-selected="true">All</button>
@@ -2644,6 +2699,10 @@
         </div>
       </div>
       <!-- Mockups: use device frames from Shots.so, LS Graphics, or Rotato; photos from Unsplash/Pexels; icons from Phosphor/Lucide. -->
+      <div class="cases-tier-label rv" aria-hidden="false">
+        <span class="cases-tier-bar"></span>
+        <span class="cases-tier-text">Featured</span>
+      </div>
       <div class="cases-grid rv">
         <!-- Case 1: Club TIE -->
         <div class="case-card-sticky-wrap" data-base-z="1" data-case-type="design-system" style="--card-z: 1">
@@ -2651,9 +2710,9 @@
             <span class="case-shimmer" aria-hidden="true"></span>
             <div class="case-card-content">
               <div class="case-brand">Club TIE</div>
-              <p class="case-eyebrow">Design System · Brandbassador</p>
+              <p class="case-eyebrow">Design System · Club · 2023&ndash;Present</p>
               <h3 class="case-title">A system built to ship with the product</h3>
-              <p class="case-desc">Tokens, components, and governance across Flutter &amp; React.</p>
+              <p class="case-desc">Tokens, components, and governance &mdash; adopted across Club&rsquo;s Flutter app and React platform.</p>
             </div>
             <div class="case-card-visual">
               <div class="case-visual-mesh" aria-hidden="true"></div>
@@ -2691,15 +2750,59 @@
           </a>
         </div>
 
+        <!-- Case: GatherUp Design System -->
+        <div class="case-card-sticky-wrap" data-base-z="2" data-case-type="design-system" style="--card-z: 2">
+          <a href="gatherup-design-system-case-study.html" class="case-card case-card--gatherup-ds pressable"
+            style="--card-bg: #0c0a06">
+            <span class="case-shimmer" aria-hidden="true"></span>
+            <div class="case-card-content">
+              <div class="case-brand">GatherUp</div>
+              <p class="case-eyebrow">Product · UX/UI · Design System · Code</p>
+              <h3 class="case-title">Meet through things<br>you already love</h3>
+              <p class="case-desc">A social app for Cairo — from product thinking through design system and Flutter implementation.</p>
+            </div>
+            <div class="case-card-visual">
+              <div class="case-visual-mesh" aria-hidden="true"></div>
+              <div class="case-float case-float--1" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <rect x="3" y="3" width="7" height="7" rx="1" />
+                  <rect x="14" y="3" width="7" height="7" rx="1" />
+                  <rect x="3" y="14" width="7" height="7" rx="1" />
+                  <rect x="14" y="14" width="7" height="7" rx="1" />
+                </svg>
+              </div>
+              <div class="case-float case-float--2" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+                </svg>
+              </div>
+              <div class="case-float case-float--3" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4 7h16M4 12h12M4 17h8" />
+                </svg>
+              </div>
+              <div class="case-card-full-img-wrap">
+                <img class="case-card-full-img" src="gatherup-ds-card.jpg" width="1024" height="634"
+                  alt="GatherUp app — home feed and Artists Hangout on iPhone" loading="lazy" decoding="async">
+                <div class="case-card-full-placeholder">
+                  <span>GatherUp DS</span>
+                  <small>Add framed Widgetbook / EventCard screenshots.</small>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+
         <!-- Case 2: Club Experience -->
-        <div class="case-card-sticky-wrap" data-base-z="2" data-case-type="digital-product" style="--card-z: 2">
+        <div class="case-card-sticky-wrap" data-base-z="3" data-case-type="digital-product" style="--card-z: 3">
           <a href="club-experience-case-study.html" class="case-card case-card--club-exp pressable">
             <span class="case-shimmer" aria-hidden="true"></span>
             <div class="case-card-content">
               <div class="case-brand">Club</div>
-              <p class="case-eyebrow">UX Case Study · Mobile App</p>
-              <h3 class="case-title">Powering Connections<br>Between Brands &amp; Ambassadors</h3>
-              <p class="case-desc">Missions, rewards, and community into one ambassador platform.</p>
+              <p class="case-eyebrow">UX Restructuring · Senior PD</p>
+              <h3 class="case-title">Powering connections<br>between brands &amp; ambassadors</h3>
+              <p class="case-desc">Missions, rewards, and community unified into one ambassador platform.</p>
             </div>
             <div class="case-card-visual">
               <div class="case-visual-mesh" aria-hidden="true"></div>
@@ -2725,15 +2828,20 @@
           </a>
         </div>
 
+        <!-- Selected-work divider -->
+        <div class="cases-tier-label cases-tier-label--inline rv" aria-hidden="false">
+          <span class="cases-tier-bar"></span>
+          <span class="cases-tier-text">Selected work</span>
+        </div>
         <!-- Case 3: Club Levels -->
-        <div class="case-card-sticky-wrap" data-base-z="3" data-case-type="mobile-feature" style="--card-z: 3">
+        <div class="case-card-sticky-wrap" data-base-z="4" data-case-type="mobile-feature" style="--card-z: 4">
           <a href="club-levels-case-study.html" class="case-card case-card--club-levels pressable" style="--card-bg: #0d0a14">
             <span class="case-shimmer" aria-hidden="true"></span>
             <div class="case-card-content">
               <div class="case-brand">Club Levels</div>
-              <p class="case-eyebrow">GAMIFICATION · LEVELS</p>
-              <h3 class="case-title">A Gamification<br>system for<br>ambassador</h3>
-              <p class="case-desc">Points. Levels. Real perks. A system built for retention.</p>
+              <p class="case-eyebrow">Gamification · Retention</p>
+              <h3 class="case-title">A gamified retention<br>layer for ambassadors</h3>
+              <p class="case-desc">Points, tiers, and real-world perks &mdash; a progression system designed to keep ambassadors active.</p>
             </div>
             <div class="case-card-visual">
               <div class="case-visual-mesh" aria-hidden="true"></div>
@@ -2768,14 +2876,14 @@
         </div>
 
         <!-- Case 4: Etar Design System -->
-        <div class="case-card-sticky-wrap" data-base-z="4" data-case-type="design-system" style="--card-z: 4">
+        <div class="case-card-sticky-wrap" data-base-z="5" data-case-type="design-system" style="--card-z: 5">
           <a href="etar-case-study.html" class="case-card case-card--etar pressable" style="--card-bg: #0b0f1a">
             <span class="case-shimmer" aria-hidden="true"></span>
             <div class="case-card-content">
               <div class="case-brand">Etar</div>
-              <p class="case-eyebrow">Design System · Founder</p>
+              <p class="case-eyebrow">Design System · Founder &amp; Lead</p>
               <h3 class="case-title">RTL-first system for<br>the Arab world</h3>
-              <p class="case-desc">4,000+ components supporting Arabic &amp; English, web &amp; mobile.</p>
+              <p class="case-desc">4,000+ components, dual-language Arabic &amp; English, native RTL across web and mobile.</p>
             </div>
             <div class="case-card-visual">
               <div class="case-visual-mesh" aria-hidden="true"></div>
@@ -2814,14 +2922,14 @@
         </div>
 
         <!-- Case 5: Otida -->
-        <div class="case-card-sticky-wrap" data-base-z="5" data-case-type="digital-product" style="--card-z: 5">
+        <div class="case-card-sticky-wrap" data-base-z="6" data-case-type="digital-product" style="--card-z: 6">
           <a href="otida-case-study.html" class="case-card case-card--otida pressable" style="--card-bg: #101a1e">
             <span class="case-shimmer" aria-hidden="true"></span>
             <div class="case-card-content">
               <div class="case-brand">Otida</div>
-              <p class="case-eyebrow">UX Case Study · Product journey</p>
+              <p class="case-eyebrow">UX Case Study · Health &amp; Wellness</p>
               <h3 class="case-title">Clarity and confidence from browse to checkout</h3>
-              <p class="case-desc">Research-led flows, patterns, and validated usability.</p>
+              <p class="case-desc">Research-led flows and validated patterns &mdash; turning a complex catalog into a confident purchase.</p>
             </div>
             <div class="case-card-visual">
               <div class="case-visual-mesh" aria-hidden="true"></div>
@@ -2850,14 +2958,14 @@
         </div>
 
         <!-- Case 6: Mabaat -->
-        <div class="case-card-sticky-wrap" data-base-z="6" data-case-type="digital-product" style="--card-z: 6">
+        <div class="case-card-sticky-wrap" data-base-z="7" data-case-type="digital-product" style="--card-z: 7">
           <a href="mabaat-case-study.html" class="case-card case-card--mabaat pressable" style="--card-bg: #131a22">
             <span class="case-shimmer" aria-hidden="true"></span>
             <div class="case-card-content">
               <div class="case-brand">Mabaat</div>
-              <p class="case-eyebrow">UX Case Study · Short-term stays</p>
+              <p class="case-eyebrow">UX Case Study · Lead Product Designer · 2023</p>
               <h3 class="case-title">Short stays,<br>lasting first impressions</h3>
-              <p class="case-desc">End-to-end booking UX for Saudi Arabia &amp; UAE.</p>
+              <p class="case-desc">End-to-end booking experience for short-term stays across Saudi Arabia &amp; the UAE.</p>
             </div>
             <div class="case-card-visual">
               <div class="case-visual-mesh" aria-hidden="true"></div>
@@ -2888,14 +2996,14 @@
         </div>
 
         <!-- Case 6: MNT-Halan -->
-        <div class="case-card-sticky-wrap" data-base-z="6" data-case-type="digital-product" style="--card-z: 6">
+        <div class="case-card-sticky-wrap" data-base-z="8" data-case-type="digital-product" style="--card-z: 8">
           <a href="project-case-study.html" class="case-card case-card--mnt-halan pressable" style="--card-bg: #181716">
             <span class="case-shimmer" aria-hidden="true"></span>
             <div class="case-card-content">
               <div class="case-brand">MNT-Halan</div>
-              <p class="case-eyebrow">Lending · Loan officers</p>
-              <h3 class="case-title">Revolutionizing<br>loan processing</h3>
-              <p class="case-desc">Gamification, incentives, dashboards, and field-ready mobile UX.</p>
+              <p class="case-eyebrow">Lending · Field Ops · Lead PD</p>
+              <h3 class="case-title">Loan ops, built for<br>the field</h3>
+              <p class="case-desc">Gamified incentives, dashboards, and mobile-first flows used daily by 15k internal loan officers.</p>
             </div>
             <div class="case-card-visual">
               <div class="case-visual-mesh" aria-hidden="true"></div>
@@ -2926,7 +3034,7 @@
         </div>
 
         <!-- Case 7: Halan Design System — HIDDEN, restore when needed -->
-        <div class="case-card-sticky-wrap" data-base-z="7" data-case-type="design-system" style="--card-z: 7; display: none">
+        <div class="case-card-sticky-wrap" data-base-z="9" data-case-type="design-system" style="--card-z: 9; display: none">
           <a href="halan-design-system-case-study.html" class="case-card case-card--halan-ds pressable"
             style="--card-bg: #0a1210">
             <span class="case-shimmer" aria-hidden="true"></span>
@@ -3070,9 +3178,9 @@
     <div class="section-inner">
       <div class="rv">
         <div class="section-label"><span class="num">03 /</span> About</div>
-        <h2 class="section-title">That&rsquo;s me!</h2>
-        <p class="section-desc">Over the past 8 years, I&rsquo;ve worked with a diverse range of clients, from
-          startups to companies. I love crafting interfaces that delight users and help businesses grow.</p>
+        <h2 class="section-title">Designing where <span style="color:var(--c-accent)">system meets product</span></h2>
+        <p class="section-desc">I design products where the system <em>is</em> the product. Over eight years I&rsquo;ve led design systems at MNT Halan (5M+ customers, 980+ components across 10+ apps) and Club (cross-platform Flutter + React), shipped consumer flagships for Mabaat and Otida, and built Etar &mdash; a 4,000-component RTL-first library for the Arab market.</p>
+        <p class="section-desc" style="margin-top:14px;">I work where design and engineering meet: tokens, governance, adoption, and the infrastructure that makes shipping fast feel obvious. Currently Senior Product Designer at Club, based in Cairo.</p>
       </div>
 
       <div class="about-mosaic-grid rv rv-stagger" aria-label="Photo gallery">
@@ -3294,8 +3402,7 @@
     <div class="rv">
       <div class="section-label" style="justify-content:center;"><span class="num">06 /</span> Contact</div>
       <h2 class="section-title">Let's build<br>something <span style="color:var(--c-accent)">together</span></h2>
-      <p class="section-desc" style="margin:16px auto 0; text-align:center; max-width:480px;">Open to design system
-        roles, product design opportunities, and collaborations where design and code meet.</p>
+      <p class="section-desc" style="margin:16px auto 0; text-align:center; max-width:520px;">Open to Senior &amp; Staff product design roles, design system leadership, and selective consulting &mdash; especially work that bridges design and engineering.</p>
     </div>
     <div class="contact-links rv">
       <a href="mailto:sayedelmohamady@gmail.com" class="contact-link magnetic pressable">

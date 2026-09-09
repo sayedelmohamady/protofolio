@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GatherUp — Case Study</title>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="index.html" class="top-nav-name"><span class="green-dot"></span>
+    Sayed El Mohamady
+  </a>
+  <a href="index.html" class="top-nav-back">&larr; Back to Portfolio</a>
+</nav>
+
+<!-- 01 HERO -->
+<div class="hero gu-hero" id="hero-top">
+  <div class="hero-bg">
+    <div class="hero-glow"></div>
+    <div class="hero-glow2"></div>
+    <div class="hero-grid"></div>
+  </div>
+
+  <p class="hero-eyebrow">Case study</p>
+  <h1 class="hero-title">
+    <span class="line-teal">GatherUp</span>
+  </h1>
+  <p class="hero-dek">Meet through shared interests — not profiles.</p>
+  <p class="gu-role-line">Product · UX/UI · Design system · Flutter</p>
+
+  <div class="gu-hero-phones gu-hero-phones--composite reveal">
+    <img
+      src="gatherup-ds-hero-phones.png"
+      width="787"
+      height="917"
+      alt="GatherUp app — home feed and featured Artists Hangout event"
+      loading="eager"
+      decoding="async"
+    >
+  </div>
+
+  <div class="hero-divider"></div>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><label>Market</label><span>Egypt · Cairo first</span></div>
+    <div class="hero-meta-item"><label>Platform</label><span>iOS · Android · Web</span></div>
+    <div class="hero-meta-item"><label>Locale</label><span>EN + AR · RTL</span></div>
+    <div class="hero-meta-item"><label>Stack</label><span>Flutter · Nest · Next.js</span></div>
+  </div>
+</div>
+
+<div class="case-layout">
+  <aside class="sidebar">
+    <ul class="sidebar-nav">
+      <li><a href="#problem" data-section="problem">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        Problem
+      </a></li>
+      <li><a href="#product" data-section="product">
+        <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        Product
+      </a></li>
+      <li><a href="#thinking" data-section="thinking">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2"/></svg>
+        Thinking
+      </a></li>
+      <li><a href="#experience" data-section="experience">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Experience
+      </a></li>
+      <li><a href="#system" data-section="system">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Design system
+      </a></li>
+      <li><a href="#motion" data-section="motion">
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Motion
+      </a></li>
+      <li><a href="#code" data-section="code">
+        <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Design + code
+      </a></li>
+      <li><a href="#iteration" data-section="iteration">
+        <svg viewBox="0 0 24 24"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.5 9A9 9 0 0 0 5 7.5M3.5 15A9 9 0 0 0 19 16.5"/></svg>
+        Iteration
+      </a></li>
+      <li><a href="#results" data-section="results">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+        Results
+      </a></li>
+      <li><div class="sidebar-sep"></div></li>
+      <li><a href="#hero-top" data-section="hero-top">
+        <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+        Top
+      </a></li>
+    </ul>
+  </aside>
+
+  <div class="main-content">
+
+    <!-- 01 PROBLEM + INSIGHT -->
+    <div class="wrap" id="problem">
+      <div class="reveal">
+        <div class="section-label"><span class="num">01 /</span> Problem</div>
+        <h2>Meeting people shouldn&rsquo;t start with a profile.</h2>
+        <p>Most apps lead with faces. GatherUp leads with something to do — padel, coffee, board games.</p>
+      </div>
+
+      <div class="gu-model-compare reveal" aria-label="How meeting usually works versus GatherUp">
+        <div class="gu-model-col gu-model-col--old">
+          <div class="gu-model-col__label">Typical social apps</div>
+          <ol class="gu-model-steps">
+            <li><span class="gu-model-step-n">01</span> Profile</li>
+            <li><span class="gu-model-step-n">02</span> Swipe</li>
+            <li><span class="gu-model-step-n">03</span> Maybe meet</li>
+          </ol>
+          <p class="gu-model-note">Faces first. Plans optional.</p>
+        </div>
+        <div class="gu-model-vs" aria-hidden="true">vs</div>
+        <div class="gu-model-col gu-model-col--new">
+          <div class="gu-model-col__label">GatherUp</div>
+          <ol class="gu-model-steps">
+            <li><span class="gu-model-step-n">01</span> Interest</li>
+            <li><span class="gu-model-step-n">02</span> Book</li>
+            <li><span class="gu-model-step-n">03</span> Meet</li>
+            <li><span class="gu-model-step-n">04</span> Faces unlock</li>
+          </ol>
+          <p class="gu-model-note gu-model-note--lock">Guest list private until after.</p>
+        </div>
+      </div>
+
+      <div class="reveal" style="margin-top:48px">
+        <div class="section-label"><span class="num">Story /</span> GatherUp</div>
+        <h3 class="gu-story-heading">From wanting plans to actually meeting.</h3>
+      </div>
+    </div>
+
+    <div class="ss-strip ss-strip--stack ss-strip--story" aria-label="Story of GatherUp">
+      <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
+        <div class="ss-cell">
+          <img src="gatherup-ds-story-01-problem.jpg" width="1024" height="682" alt="The Problem — free time, too many interests, hard to find people, feeling isolated" loading="lazy" decoding="async">
+          <div class="ss-lbl">01 · The Problem</div>
+        </div>
+      </div>
+      <div class="ss-cell-sticky-wrap reveal" style="--card-z: 2">
+        <div class="ss-cell">
+          <img src="gatherup-ds-story-02-struggle.jpg" width="1024" height="682" alt="The Struggle — busy friends, unfit events, awkward groups, missing community" loading="lazy" decoding="async">
+          <div class="ss-lbl">02 · The Struggle</div>
+        </div>
+      </div>
+      <div class="ss-cell-sticky-wrap reveal" style="--card-z: 3">
+        <div class="ss-cell">
+          <img src="gatherup-ds-story-03-turning.jpg" width="1024" height="682" alt="The Turning Point — discovering GatherUp and seeing real activities" loading="lazy" decoding="async">
+          <div class="ss-lbl">03 · The Turning Point</div>
+        </div>
+      </div>
+      <div class="ss-cell-sticky-wrap reveal" style="--card-z: 4">
+        <div class="ss-cell">
+          <img src="gatherup-ds-story-04-reality.jpg" width="1024" height="682" alt="A Better Reality — discover, join, do and connect, keep going" loading="lazy" decoding="async">
+          <div class="ss-lbl">04 · A Better Reality</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 PRODUCT -->
+    <div class="wrap" id="product">
+      <div class="reveal">
+        <div class="section-label"><span class="num">02 /</span> Product</div>
+        <h2>The loop</h2>
+        <p>Discover → join → meet → connect. Hover a step.</p>
+      </div>
+    </div>
+
+    <div class="gu-lgraph-wrap reveal">
+      <div class="gu-lgraph" id="gu-lgraph">
+        <svg class="gu-lgraph-svg" viewBox="0 0 900 160" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <defs>
+            <marker id="gu-la" markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto"><path d="M0,0.5 L6,3.5 L0,6.5 Z" fill="#E5B84A" opacity="0.85"/></marker>
+          </defs>
+          <path class="gu-lge-bg" d="M 168 80 L 264 80"/>
+          <path class="gu-lge-bg" d="M 392 80 L 488 80"/>
+          <path class="gu-lge-bg" d="M 616 80 L 712 80"/>
+          <path class="gu-lge gu-lge--e12" d="M 168 80 L 264 80" marker-end="url(#gu-la)"/>
+          <path class="gu-lge gu-lge--e23" d="M 392 80 L 488 80" marker-end="url(#gu-la)"/>
+          <path class="gu-lge gu-lge--e34" d="M 616 80 L 712 80" marker-end="url(#gu-la)"/>
+          <path class="gu-lge-hint" d="M 210 73 L 224 80 L 210 87" fill="none" stroke="#E5B84A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="gu-lgn" id="gu-lgn1" style="left:12%">
+          <div class="gu-lgn-card"><div class="gu-lgn-num">01</div><div class="gu-lgn-title">Discover</div></div>
+        </div>
+        <div class="gu-lgn" id="gu-lgn2" style="left:37%">
+          <div class="gu-lgn-card"><div class="gu-lgn-num">02</div><div class="gu-lgn-title">Join</div></div>
+        </div>
+        <div class="gu-lgn" id="gu-lgn3" style="left:62%">
+          <div class="gu-lgn-card"><div class="gu-lgn-num">03</div><div class="gu-lgn-title">Meet</div></div>
+        </div>
+        <div class="gu-lgn" id="gu-lgn4" style="left:87%">
+          <div class="gu-lgn-card"><div class="gu-lgn-num">04</div><div class="gu-lgn-title">Connect</div></div>
+        </div>
+      </div>
+      <div class="gu-lgd-wrap">
+        <div class="gu-lgd gu-lgd--idle">Hover a step</div>
+        <div class="gu-lgd gu-lgd--1"><strong>Discover</strong> — activities near you, this week</div>
+        <div class="gu-lgd gu-lgd--2"><strong>Join</strong> — book free, or pay via InstaPay</div>
+        <div class="gu-lgd gu-lgd--3"><strong>Meet</strong> — show up. Small groups by default</div>
+        <div class="gu-lgd gu-lgd--4"><strong>Connect</strong> — chat unlocks. Faces after</div>
+      </div>
+    </div>
+
+    <!-- 03 PRODUCT THINKING -->
+    <div class="band">
+      <div class="wrap" id="thinking">
+        <div class="reveal">
+          <div class="section-label"><span class="num">03 /</span> Thinking</div>
+          <h2>Product questions came first.</h2>
+          <p>Hover a question.</p>
+        </div>
+        <div class="gu-tgraph-wrap reveal">
+          <div class="gu-tgraph" id="gu-tgraph">
+            <button type="button" class="gu-tgn" id="gu-tgn1" data-t="1"><span class="gu-tgn-q">Who is this for?</span></button>
+            <button type="button" class="gu-tgn" id="gu-tgn2" data-t="2"><span class="gu-tgn-q">Why join?</span></button>
+            <button type="button" class="gu-tgn" id="gu-tgn3" data-t="3"><span class="gu-tgn-q">What lowers anxiety?</span></button>
+            <button type="button" class="gu-tgn" id="gu-tgn4" data-t="4"><span class="gu-tgn-q">What does a host need?</span></button>
+            <button type="button" class="gu-tgn" id="gu-tgn5" data-t="5"><span class="gu-tgn-q">What brings people back?</span></button>
+            <button type="button" class="gu-tgn" id="gu-tgn6" data-t="6"><span class="gu-tgn-q">How do they pay?</span></button>
+          </div>
+          <div class="gu-td-wrap">
+            <div class="gu-td gu-td--idle">Hover a question</div>
+            <div class="gu-td gu-td--1"><strong>Who is this for?</strong> People new in the city — or restarting their social life. Not dating.</div>
+            <div class="gu-td gu-td--2"><strong>Why join?</strong> A concrete plan this week — not a maybe calendar.</div>
+            <div class="gu-td gu-td--3"><strong>What lowers anxiety?</strong> Come for the activity. Guest list private until after. ~8 people.</div>
+            <div class="gu-td gu-td--4"><strong>What does a host need?</strong> Fill seats, verify payments, run a series without chaos.</div>
+            <div class="gu-td gu-td--5"><strong>What brings people back?</strong> Familiar faces. Chat after. Next week&rsquo;s drop.</div>
+            <div class="gu-td gu-td--6"><strong>How do they pay?</strong> InstaPay host↔attendee. GatherUp isn&rsquo;t merchant of record.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 EXPERIENCE -->
+    <div class="wrap" id="experience">
+      <div class="reveal">
+        <div class="section-label"><span class="num">04 /</span> Experience</div>
+        <h2>Making meeting strangers feel easy.</h2>
+        <p>Hover to play.</p>
+      </div>
+    </div>
+
+    <div class="gu-showcase-stack" aria-label="Experience flows">
+      <article class="gu-showcase-card reveal" tabindex="0" aria-label="Discover flow">
+        <div class="gu-showcase-card__media">
+          <div class="gu-showcase__bezel">
+            <div class="gu-showcase__screen"><video src="/videos/gatherup/showcase-home-v2.mp4" muted playsinline loop preload="metadata" data-hover-play></video></div>
+          </div>
+          <span class="gu-showcase-card__hint" aria-hidden="true">Hover to play</span>
+        </div>
+        <div class="gu-showcase-card__copy">
+          <h3>Discover</h3>
+          <p>What&rsquo;s on near you — interests first.</p>
+        </div>
+      </article>
+
+      <article class="gu-showcase-card reveal" tabindex="0" aria-label="Event detail flow">
+        <div class="gu-showcase-card__media">
+          <div class="gu-showcase__bezel">
+            <div class="gu-showcase__screen"><video src="/videos/gatherup/showcase-detail-v2.mp4" muted playsinline loop preload="metadata" data-hover-play></video></div>
+          </div>
+          <span class="gu-showcase-card__hint" aria-hidden="true">Hover to play</span>
+        </div>
+        <div class="gu-showcase-card__copy">
+          <h3>Context</h3>
+          <p>Place, time, price, size — before you commit.</p>
+        </div>
+      </article>
+
+      <article class="gu-showcase-card reveal" tabindex="0" aria-label="Booking flow">
+        <div class="gu-showcase-card__media">
+          <div class="gu-showcase__bezel">
+            <div class="gu-showcase__screen"><video src="/videos/gatherup/showcase-book-v2.mp4" muted playsinline loop preload="metadata" data-hover-play></video></div>
+          </div>
+          <span class="gu-showcase-card__hint" aria-hidden="true">Hover to play</span>
+        </div>
+        <div class="gu-showcase-card__copy">
+          <h3>Book</h3>
+          <p>One gold CTA — free hold or pay.</p>
+        </div>
+      </article>
+
+      <article class="gu-showcase-card reveal" tabindex="0" aria-label="Chat flow">
+        <div class="gu-showcase-card__media">
+          <div class="gu-showcase__bezel">
+            <div class="gu-showcase__screen"><video src="/videos/gatherup/showcase-chat-v2.mp4" muted playsinline loop preload="metadata" data-hover-play></video></div>
+          </div>
+          <span class="gu-showcase-card__hint" aria-hidden="true">Hover to play</span>
+        </div>
+        <div class="gu-showcase-card__copy">
+          <h3>Connect</h3>
+          <p>Chat unlocks when it matters.</p>
+        </div>
+      </article>
+    </div>
+
+    <!-- 05 DESIGN SYSTEM -->
+    <div class="band" id="system">
+      <div class="wrap">
+        <div class="reveal">
+          <div class="section-label"><span class="num">05 /</span> Design system</div>
+          <h2>One system. Three surfaces.</h2>
+          <p>Flutter · web · admin — EN + AR from the same tokens.</p>
+        </div>
+
+        <div class="arch-layers reveal">
+          <div class="arch-layer l0 active">
+            <div class="arch-lbl">
+              <div class="tier">Tier 0</div><div class="name">Primitives</div>
+            </div>
+            <div class="arch-items">
+              <div class="arch-item">Brand gold</div>
+              <div class="arch-item">Night</div>
+              <div class="arch-item">Chalk</div>
+              <div class="arch-item">Sage</div>
+            </div>
+          </div>
+          <div class="arch-layer l1">
+            <div class="arch-lbl">
+              <div class="tier">Tier 1</div><div class="name">Foundations</div>
+            </div>
+            <div class="arch-items">
+              <div class="arch-item">Semantic light/dark</div>
+              <div class="arch-item">Lexend + IBM Plex AR</div>
+              <div class="arch-item">4px spacing</div>
+              <div class="arch-item">Motion tokens</div>
+            </div>
+          </div>
+          <div class="arch-layer l2">
+            <div class="arch-lbl">
+              <div class="tier">Tier 2</div><div class="name">Core components</div>
+            </div>
+            <div class="arch-items">
+              <div class="arch-item">Buttons &amp; chips</div>
+              <div class="arch-item">Cards &amp; lists</div>
+              <div class="arch-item">Sheets &amp; nav</div>
+              <div class="arch-item">~25 blocks</div>
+            </div>
+          </div>
+          <div class="arch-layer l3">
+            <div class="arch-lbl">
+              <div class="tier">Tier 3</div><div class="name">Surfaces</div>
+            </div>
+            <div class="arch-items">
+              <div class="arch-item">Flutter app</div>
+              <div class="arch-item">Next.js web</div>
+              <div class="arch-item">Admin</div>
+            </div>
+          </div>
+          <div class="arch-layer l4">
+            <div class="arch-lbl">
+              <div class="tier">Tier 4</div><div class="name">Patterns</div>
+            </div>
+            <div class="arch-items">
+              <div class="arch-item">Book sheet</div>
+              <div class="arch-item">Interest hub</div>
+              <div class="arch-item">Feed rail</div>
+              <div class="arch-item">Privacy unlock</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal" style="margin-top:48px">
+          <h3>Color</h3>
+        </div>
+        <div class="gu-swatch-hero reveal">
+          <div class="gu-swatch-big" style="background:#E5B84A;color:#0A0A0A">
+            <span class="gu-swatch-name">Brand</span>
+            <span class="gu-swatch-hex">#E5B84A</span>
+          </div>
+          <div class="gu-swatch-big" style="background:#000000;color:#ECECEC;border:1px solid #333">
+            <span class="gu-swatch-name">Night</span>
+            <span class="gu-swatch-hex">#000000</span>
+          </div>
+          <div class="gu-swatch-big" style="background:#FBF7F1;color:#1C1917">
+            <span class="gu-swatch-name">Chalk</span>
+            <span class="gu-swatch-hex">#FBF7F1</span>
+          </div>
+        </div>
+
+        <div class="gu-ds-pair reveal" aria-label="Theme and language">
+          <article class="gu-ds-pair__card" data-hover-card tabindex="0" aria-label="Light and dark theme switch">
+            <div class="gu-ds-pair__media">
+              <div class="gu-showcase__bezel">
+                <div class="gu-showcase__screen"><video src="/videos/gatherup/theme-switch-v4.mp4" muted playsinline loop preload="metadata" data-hover-play></video></div>
+              </div>
+              <span class="gu-showcase-card__hint" aria-hidden="true">Hover</span>
+            </div>
+            <h3>Light · dark</h3>
+            <p>One token set. Brand gold stays put.</p>
+          </article>
+          <article class="gu-ds-pair__card" data-hover-card tabindex="0" aria-label="English and Arabic language switch">
+            <div class="gu-ds-pair__media">
+              <div class="gu-showcase__bezel">
+                <div class="gu-showcase__screen"><video src="/videos/gatherup/lang-switch-v3.mp4" muted playsinline loop preload="metadata" data-hover-play></video></div>
+              </div>
+              <span class="gu-showcase-card__hint" aria-hidden="true">Hover</span>
+            </div>
+            <h3>EN · AR</h3>
+            <p>Lexend + IBM Plex Arabic. RTL first-class.</p>
+          </article>
+        </div>
+
+        <div class="reveal" style="margin-top:56px">
+          <h3>Type</h3>
+        </div>
+        <div class="gu-type-store reveal">
+          <div class="gu-type-card">
+            <p class="gu-type-label">Lexend</p>
+            <p class="gu-type-display" style="font-family:var(--font-gatherup-lexend),Lexend,system-ui,sans-serif">Pull up a chair.</p>
+          </div>
+          <div class="gu-type-card">
+            <p class="gu-type-label">IBM Plex Sans Arabic</p>
+            <p class="gu-type-display gu-type-ar" style="font-family:var(--font-gatherup-arabic),'IBM Plex Sans Arabic',system-ui,sans-serif" dir="rtl">قابل ناس بيشاركوك اهتماماتك</p>
+          </div>
+        </div>
+
+        <div class="reveal" style="margin-top:56px">
+          <h3>Components</h3>
+          <p>~25 blocks — live from the app.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="gu-showcase-stack" aria-label="Component showcases">
+      <article class="gu-showcase-card reveal" tabindex="0" aria-label="Buttons component">
+        <div class="gu-showcase-card__media">
+          <div class="gu-showcase__bezel">
+            <div class="gu-showcase__screen"><video src="/videos/gatherup/comp-buttons-v2.mp4" muted playsinline loop preload="metadata" data-hover-play></video></div>
+          </div>
+          <span class="gu-showcase-card__hint" aria-hidden="true">Hover to play</span>
+        </div>
+        <div class="gu-showcase-card__copy">
+          <h3>Buttons</h3>
+          <p>Primary gold CTA with press spring.</p>
+        </div>
+      </article>
+      <article class="gu-showcase-card reveal" tabindex="0" aria-label="Chips component">
+        <div class="gu-showcase-card__media">
+          <div class="gu-showcase__bezel">
+            <div class="gu-showcase__screen"><video src="/videos/gatherup/comp-chips-v2.mp4" muted playsinline loop preload="metadata" data-hover-play></video></div>
+          </div>
+          <span class="gu-showcase-card__hint" aria-hidden="true">Hover to play</span>
+        </div>
+        <div class="gu-showcase-card__copy">
+          <h3>Chips</h3>
+          <p>Filter by interest — activity first.</p>
+        </div>
+      </article>
+      <article class="gu-showcase-card reveal" tabindex="0" aria-label="Sheet component">
+        <div class="gu-showcase-card__media">
+          <div class="gu-showcase__bezel">
+            <div class="gu-showcase__screen"><video src="/videos/gatherup/comp-sheet-v2.mp4" muted playsinline loop preload="metadata" data-hover-play></video></div>
+          </div>
+          <span class="gu-showcase-card__hint" aria-hidden="true">Hover to play</span>
+        </div>
+        <div class="gu-showcase-card__copy">
+          <h3>Sheets</h3>
+          <p>Book a Spot — confirm in place.</p>
+        </div>
+      </article>
+    </div>
+
+
+    <!-- 06 MOTION -->
+    <div class="band" id="motion">
+      <div class="wrap">
+        <div class="reveal">
+          <div class="section-label"><span class="num">06 /</span> Motion</div>
+          <h2>Shared motion language</h2>
+          <p>Same durations in code. Reduce Motion respected.</p>
+        </div>
+
+        <div class="gu-motion-timing reveal">
+          <div class="gu-motion-chip"><em>Micro</em><span>~150ms</span><small>Press</small></div>
+          <div class="gu-motion-chip"><em>Quick</em><span>~250ms</span><small>Tab · chip</small></div>
+          <div class="gu-motion-chip"><em>Standard</em><span>~350ms</span><small>Sheet</small></div>
+          <div class="gu-motion-chip"><em>Screen</em><span>~500ms</span><small>Push</small></div>
+        </div>
+
+        <div class="gu-motion-grid reveal">
+          <article class="gu-motion-card">
+            <div class="gu-motion-media">
+              <video src="/videos/gatherup/motion-tab-select-v2.mp4" muted playsinline loop autoplay></video>
+            </div>
+            <h4>Tab</h4>
+          </article>
+          <article class="gu-motion-card">
+            <div class="gu-motion-media">
+              <video src="/videos/gatherup/motion-nav-push-v2.mp4" muted playsinline loop autoplay></video>
+            </div>
+            <h4>Push</h4>
+          </article>
+          <article class="gu-motion-card">
+            <div class="gu-motion-media">
+              <video src="/videos/gatherup/motion-sheet-book-v2.mp4" muted playsinline loop autoplay></video>
+            </div>
+            <h4>Sheet</h4>
+          </article>
+          <article class="gu-motion-card">
+            <div class="gu-motion-media">
+              <video src="/videos/gatherup/motion-privacy-sheet-v2.mp4" muted playsinline loop autoplay></video>
+            </div>
+            <h4>Privacy</h4>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <!-- 07 DESIGN + CODE -->
+    <div class="band">
+      <div class="wrap" id="code">
+        <div class="reveal">
+          <div class="section-label"><span class="num">07 /</span> Design + code</div>
+          <h2>I also built what I designed.</h2>
+          <p>Figma → Flutter → Widgetbook → App Store.</p>
+        </div>
+        <div class="gu-code-pipe reveal">
+          <div class="gu-code-pipe__step"><span>01</span><strong>Design</strong><em>Flows · UI · system</em></div>
+          <div class="gu-code-pipe__arrow" aria-hidden="true">→</div>
+          <div class="gu-code-pipe__step"><span>02</span><strong>Code</strong><em>Tokens · components</em></div>
+          <div class="gu-code-pipe__arrow" aria-hidden="true">→</div>
+          <div class="gu-code-pipe__step"><span>03</span><strong>Ship</strong><em>iOS · Android · web</em></div>
+        </div>
+        <p class="gu-code-note reveal">Constraints shaped simpler UI. Changing a token updated the live app.</p>
+      </div>
+    </div>
+
+    <!-- 08 ITERATION -->
+    <div class="wrap" id="iteration">
+      <div class="reveal">
+        <div class="section-label"><span class="num">08 /</span> Iteration</div>
+        <h2>What shipping changed</h2>
+        <p>Fixes Figma never caught.</p>
+      </div>
+      <div class="gu-iterate-grid">
+        <article class="gu-iterate-card reveal" aria-label="Snackbar feedback">
+          <div class="gu-iterate-viz" aria-hidden="true">
+            <div class="gu-iv-pair">
+              <div class="gu-iv-frame gu-iv-snack--bad">
+                <div class="gu-iv-snack-msg">Saved</div>
+                <div class="gu-iv-snack-bar"></div>
+              </div>
+              <span class="gu-iv-arrow">→</span>
+              <div class="gu-iv-frame gu-iv-snack--good">
+                <div class="gu-iv-snack-toast">Saved</div>
+                <div class="gu-iv-snack-bar"></div>
+              </div>
+            </div>
+          </div>
+          <div class="gu-iterate-body">
+            <div class="gu-iterate-row">
+              <span class="gu-iterate-label">Before</span>
+              <h4>Bottom snackbars</h4>
+              <p>Feedback hid behind the floating bookings bar.</p>
+            </div>
+            <div class="gu-iterate-row">
+              <span class="gu-iterate-label">Learned</span>
+              <p class="gu-iterate-insight">One feedback channel — from the top.</p>
+            </div>
+            <div class="gu-iterate-row">
+              <span class="gu-iterate-label">After</span>
+              <p class="gu-iterate-fix"><code>TopSnackBar</code> as a system rule.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="gu-iterate-card reveal" aria-label="Spacing tokens">
+          <div class="gu-iterate-viz" aria-hidden="true">
+            <div class="gu-iv-pair gu-iv-pair--space">
+              <div class="gu-iv-space gu-iv-space--bad">
+                <span style="--n:8">8</span>
+                <span style="--n:12">12</span>
+                <span style="--n:14">14</span>
+                <span style="--n:16">16</span>
+              </div>
+              <span class="gu-iv-arrow">→</span>
+              <div class="gu-iv-space gu-iv-space--good">
+                <span>4</span><span>8</span><span>12</span><span>16</span><span>24</span>
+              </div>
+            </div>
+          </div>
+          <div class="gu-iterate-body">
+            <div class="gu-iterate-row">
+              <span class="gu-iterate-label">Before</span>
+              <h4>Magic spacing numbers</h4>
+              <p>8, 12, 14, 16 — almost the same, never quite.</p>
+            </div>
+            <div class="gu-iterate-row">
+              <span class="gu-iterate-label">Learned</span>
+              <p class="gu-iterate-insight">Close enough looks like a bug.</p>
+            </div>
+            <div class="gu-iterate-row">
+              <span class="gu-iterate-label">After</span>
+              <p class="gu-iterate-fix">4px token scale + <code>DsGap</code>.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="gu-iterate-card reveal" aria-label="Text contrast">
+          <div class="gu-iterate-viz" aria-hidden="true">
+            <div class="gu-iv-pair">
+              <div class="gu-iv-contrast gu-iv-contrast--bad">
+                <span class="gu-iv-contrast-sample">Caption text</span>
+                <span class="gu-iv-contrast-ratio">3.6:1</span>
+              </div>
+              <span class="gu-iv-arrow">→</span>
+              <div class="gu-iv-contrast gu-iv-contrast--good">
+                <span class="gu-iv-contrast-sample">Caption text</span>
+                <span class="gu-iv-contrast-ratio">4.8:1</span>
+              </div>
+            </div>
+          </div>
+          <div class="gu-iterate-body">
+            <div class="gu-iterate-row">
+              <span class="gu-iterate-label">Before</span>
+              <h4>Faint text on dark cards</h4>
+              <p>Captions failed WCAG AA (~3.6:1).</p>
+            </div>
+            <div class="gu-iterate-row">
+              <span class="gu-iterate-label">Learned</span>
+              <p class="gu-iterate-insight">Contrast is a token problem, not a one-screen hotfix.</p>
+            </div>
+            <div class="gu-iterate-row">
+              <span class="gu-iterate-label">After</span>
+              <p class="gu-iterate-fix"><code>inkFaint</code> lifted to pass AA.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="gu-iterate-card reveal" aria-label="Social proof honesty">
+          <div class="gu-iterate-viz" aria-hidden="true">
+            <div class="gu-iv-pair">
+              <div class="gu-iv-proof gu-iv-proof--bad">
+                <div class="gu-iv-proof-faces">
+                  <i></i><i></i><i></i>
+                </div>
+                <span class="gu-iv-proof-count gu-iv-proof-count--fake">247 going</span>
+              </div>
+              <span class="gu-iv-arrow">→</span>
+              <div class="gu-iv-proof gu-iv-proof--good">
+                <div class="gu-iv-proof-faces">
+                  <i></i><i></i><i></i>
+                </div>
+                <span class="gu-iv-proof-count">8 going</span>
+              </div>
+            </div>
+          </div>
+          <div class="gu-iterate-body">
+            <div class="gu-iterate-row">
+              <span class="gu-iterate-label">Before</span>
+              <h4>Fabricated social proof</h4>
+              <p>Vanity counts that weren&rsquo;t real.</p>
+            </div>
+            <div class="gu-iterate-row">
+              <span class="gu-iterate-label">Learned</span>
+              <p class="gu-iterate-insight">Store audit + trust — fake numbers had to go.</p>
+            </div>
+            <div class="gu-iterate-row">
+              <span class="gu-iterate-label">After</span>
+              <p class="gu-iterate-fix">Honest counts only. Or none.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- 09 RESULTS -->
+    <div class="band">
+      <div class="wrap" id="results">
+        <div class="reveal">
+          <div class="section-label"><span class="num">09 /</span> Results</div>
+          <h2>After launch</h2>
+          <p>Real usage in Cairo and beyond.</p>
+        </div>
+        <div class="stats-row stats-row--4 reveal" style="margin-top:40px">
+          <div class="stat-card">
+            <div class="stat-n">1,516</div>
+            <div class="stat-l">Users</div>
+            <div class="stat-sub">150 new this week</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-n">1,522</div>
+            <div class="stat-l">Total bookings</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-n">95.7%</div>
+            <div class="stat-l">Show-up rate</div>
+            <div class="stat-sub">Past events</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-n">29%</div>
+            <div class="stat-l">Repeat booking rate</div>
+            <div class="stat-sub">201 of 692 members booked again</div>
+          </div>
+        </div>
+
+        <div class="gu-stats-secondary reveal">
+          <div class="gu-stat-mini">
+            <div class="gu-stat-mini__n">170</div>
+            <div class="gu-stat-mini__l">Weekly bookings</div>
+            <div class="gu-stat-mini__sub gu-stat-mini__sub--up">+29% vs last week</div>
+          </div>
+          <div class="gu-stat-mini">
+            <div class="gu-stat-mini__n">4.3%</div>
+            <div class="gu-stat-mini__l">No-show rate</div>
+          </div>
+        </div>
+
+        <p class="gu-shipped reveal">Shipped · iOS · Android · Web · Admin · Widgetbook</p>
+
+        <div class="gu-metric-charts reveal">
+          <div class="gu-metric-card">
+            <h4>Where members are</h4>
+            <p class="gu-metric-card__dek">Greater Cairo first — city on profile</p>
+            <ul class="gu-metric-bars" aria-label="Member locations">
+              <li>
+                <span class="gu-metric-bars__label">Cairo</span>
+                <span class="gu-metric-bars__track"><span class="gu-metric-bars__fill" style="--bar:63.8%"></span></span>
+                <span class="gu-metric-bars__val">63.8%</span>
+              </li>
+              <li>
+                <span class="gu-metric-bars__label">Giza</span>
+                <span class="gu-metric-bars__track"><span class="gu-metric-bars__fill" style="--bar:9.5%"></span></span>
+                <span class="gu-metric-bars__val">9.5%</span>
+              </li>
+              <li>
+                <span class="gu-metric-bars__label">6th of October</span>
+                <span class="gu-metric-bars__track"><span class="gu-metric-bars__fill" style="--bar:9.2%"></span></span>
+                <span class="gu-metric-bars__val">9.2%</span>
+              </li>
+              <li>
+                <span class="gu-metric-bars__label">New Cairo</span>
+                <span class="gu-metric-bars__track"><span class="gu-metric-bars__fill" style="--bar:5.8%"></span></span>
+                <span class="gu-metric-bars__val">5.8%</span>
+              </li>
+            </ul>
+          </div>
+          <div class="gu-metric-card">
+            <h4>Top interests</h4>
+            <p class="gu-metric-card__dek">Most common picks during onboarding</p>
+            <ul class="gu-metric-bars" aria-label="Selected interests">
+              <li>
+                <span class="gu-metric-bars__label">Music</span>
+                <span class="gu-metric-bars__track"><span class="gu-metric-bars__fill" style="--bar:100%"></span></span>
+                <span class="gu-metric-bars__val">590</span>
+              </li>
+              <li>
+                <span class="gu-metric-bars__label">Outdoors</span>
+                <span class="gu-metric-bars__track"><span class="gu-metric-bars__fill" style="--bar:95%"></span></span>
+                <span class="gu-metric-bars__val">560</span>
+              </li>
+              <li>
+                <span class="gu-metric-bars__label">Food</span>
+                <span class="gu-metric-bars__track"><span class="gu-metric-bars__fill" style="--bar:90%"></span></span>
+                <span class="gu-metric-bars__val">530</span>
+              </li>
+              <li>
+                <span class="gu-metric-bars__label">Board Games</span>
+                <span class="gu-metric-bars__track"><span class="gu-metric-bars__fill" style="--bar:86%"></span></span>
+                <span class="gu-metric-bars__val">510</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        
+      </div>
+    </div>
+
+    <!-- CLOSE -->
+    <div class="wrap" id="close" style="padding-bottom:120px">
+      <div class="gu-brand-end reveal">
+        <img src="gatherup-ds-icon.png" width="96" height="96" alt="GatherUp" loading="lazy" decoding="async">
+        <p>Designed and shipped end to end.</p>
+      </div>
+      <p class="reveal" style="margin-top:48px"><a href="/work" style="color:var(--c-accent)">← All case studies</a></p>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

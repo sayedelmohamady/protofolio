@@ -36,3 +36,45 @@ yarn-error.log*
 
 # perf backup of original media (kept locally only)
 /_perf_backup
+
+# Local agent settings
+.claude/settings.local.json
+
+# Job application materials (local only — not part of the site)
+APPLICATIONS.md
+Sayed-Elmohamady-*.pdf
+
+# GatherUp video drafts not linked from the live case study
+public/videos/gatherup/gatherup-flow-*.mp4
+public/videos/gatherup/comp-search-v2.mp4
+public/videos/gatherup/comp-segmented-v2.mp4
+public/videos/gatherup/comp-tabs-v2.mp4
+public/videos/gatherup/showcase-discover-v2.mp4
+public/videos/gatherup/showcase-notify-v2.mp4
+public/videos/gatherup/motion-chat-open*.mp4
+public/videos/gatherup/motion-discover-enter*.mp4
+public/videos/gatherup/motion-notifications*.mp4
+public/videos/gatherup/motion-scroll-feed*.mp4
+public/videos/gatherup/motion-nav-push.mp4
+public/videos/gatherup/motion-privacy-sheet.mp4
+public/videos/gatherup/motion-sheet-book.mp4
+public/videos/gatherup/motion-tab-select.mp4
+
+# Unused stills / drafts (case study uses the mp4 / story jpgs instead)
+public/images/projects/club-tie/club-pattern-faces.png
+public/images/projects/club-tie/club-pattern-spinner.jpg
+public/images/projects/club-tie/club-pattern-craft-clarity-poster.jpg
+public/images/projects/gatherup-design-system/story/
+public/images/projects/gatherup-design-system/gatherup-ds-booked.png
+public/images/projects/gatherup-design-system/gatherup-ds-card.png
+public/images/projects/gatherup-design-system/gatherup-ds-card.svg
+public/images/projects/gatherup-design-system/gatherup-ds-cat-*
+public/images/projects/gatherup-design-system/gatherup-ds-chat*.png
+public/images/projects/gatherup-design-system/gatherup-ds-detail.png
+public/images/projects/gatherup-design-system/gatherup-ds-event.png
+public/images/projects/gatherup-design-system/gatherup-ds-feed-*.png
+public/images/projects/gatherup-design-system/gatherup-ds-hero-a.png
+public/images/projects/gatherup-design-system/gatherup-ds-hero-b.png
+public/images/projects/gatherup-design-system/gatherup-ds-hero-c.png
+public/images/projects/gatherup-design-system/gatherup-ds-home.png
+public/images/projects/gatherup-design-system/gatherup-ds-logo.svg

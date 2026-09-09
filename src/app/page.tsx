@@ -6,7 +6,7 @@ import "@/styles/home.css";
 export const metadata: Metadata = {
   title: "Sayed El Mohamady — Senior Product Designer",
   description:
-    "Senior Product Designer specializing in design systems and vibe coding. Bridging the gap between design and engineering.",
+    "Senior Product Designer leading design systems and product design across mobile, web, and RTL. Eight years shipping to 5M+ users at MNT Halan, Club, and Mabaat.",
 };
 
 export default function HomePage() {

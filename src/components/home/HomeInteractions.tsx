@@ -306,7 +306,8 @@ export function HomeInteractions({ children }: { children: ReactNode }) {
       if (filter === "all") {
         wraps.forEach((wrap) => {
           const bz = wrap.dataset.baseZ;
-          if (bz) wrap.style.setProperty("--card-z", bz);
+          // Only restore numeric z — invalid values break sticky calc().
+          if (bz && /^\d+$/.test(bz)) wrap.style.setProperty("--card-z", bz);
         });
       } else {
         let z = 1;

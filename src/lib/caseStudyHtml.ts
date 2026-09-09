@@ -10,6 +10,7 @@ export type CaseStudySlug =
   | "club-app"
   | "club-dashboard"
   | "halan-design-system"
+  | "gatherup-design-system"
   | "etar"
   | "club-levels"
   | "club-platform";
@@ -23,6 +24,7 @@ const HTML_FILES: Record<CaseStudySlug, string> = {
   "club-app": "club-app-case-study.html",
   "club-dashboard": "club-dashboard-case-study.html",
   "halan-design-system": "halan-design-system-case-study.html",
+  "gatherup-design-system": "gatherup-design-system-case-study.html",
   etar: "etar-case-study.html",
   "club-levels": "club-levels-case-study.html",
   "club-platform": "club-platform-case-study.html",
@@ -55,6 +57,12 @@ function mapImageSrc(filename: string): string {
     return "/images/projects/club-tie/levels-types.png";
   if (filename.startsWith("halan-ds-"))
     return `/images/projects/halan-design-system/${filename}`;
+  if (
+    filename.startsWith("gatherup-ds-") ||
+    filename.startsWith("gatherup-flow-") ||
+    filename.startsWith("gatherup-design-system")
+  )
+    return `/images/projects/gatherup-design-system/${filename}`;
   if (filename.startsWith("halan-"))
     return `/images/projects/mnt-halan/${filename}`;
   if (
@@ -167,11 +175,14 @@ function enhanceImageLoading(html: string): string {
  */
 function enhanceVideoLoading(html: string): string {
   return html.replace(/<video(\s[^>]*)>/gi, (_full, attrs: string) => {
+    const isHoverPlay = /\sdata-hover-play(?=\s|$|=)/i.test(attrs);
     const stripped = attrs
       .replace(/\spreload\s*=\s*"[^"]*"/gi, "")
       .replace(/\sautoplay(?=\s|$)/gi, " data-autoplay")
       .replace(/\sautoplay=""/gi, ' data-autoplay=""');
-    return `<video${stripped} preload="none">`;
+    // Hover-play cards need a first frame; metadata is enough without full download.
+    const preload = isHoverPlay ? "metadata" : "none";
+    return `<video${stripped} preload="${preload}">`;
   });
 }
 
@@ -222,6 +233,10 @@ function rewriteCaseStudyHrefs(html: string): string {
     .replace(
       /href="halan-design-system-case-study\.html"/g,
       'href="/work/halan-design-system"',
+    )
+    .replace(
+      /href="gatherup-design-system-case-study\.html"/g,
+      'href="/work/gatherup-design-system"',
     )
     .replace(/href="mabaat-case-study\.html"/g, 'href="/work/mabaat"')
     .replace(/href="otida-case-study\.html"/g, 'href="/work/otida"')

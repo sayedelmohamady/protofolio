@@ -28,6 +28,48 @@
   margin-top: 80px;
 }
 
+.case-study-club.club-tie .club-story-heading {
+  margin: 0 0 16px;
+  font-family: var(--f-display);
+  font-size: clamp(1.5rem, 2.8vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  color: var(--c-text);
+  max-width: 28rem;
+}
+
+.case-study-club.club-tie .ss-strip--story {
+  margin-top: 32px;
+  margin-bottom: 48px;
+  padding: 0 clamp(16px, 8vw, 12%);
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+.case-study-club.club-tie .ss-strip--story .ss-cell {
+  aspect-ratio: 1024 / 682;
+  background: #0f0f12;
+  border: 1px solid rgba(150, 103, 247, 0.22);
+  box-shadow:
+    0 20px 56px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.case-study-club.club-tie .ss-strip--story .ss-cell img {
+  object-fit: contain;
+  object-position: center;
+}
+
+.case-study-club.club-tie .ss-strip--story .ss-cell .ss-lbl {
+  background: rgba(10, 10, 10, 0.82);
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.case-study-club.club-tie .club-tie-intro-video--craft {
+  margin-bottom: 20px;
+}
+
 .case-study-club.club-tie .club-gfx-showcase {
   padding-top: 88px;
 }

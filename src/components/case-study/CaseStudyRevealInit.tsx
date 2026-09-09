@@ -169,11 +169,13 @@ export function CaseStudyRevealInit({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  /* Club case studies: shrink pinned product-flow headers (index + title) while scrolling stacked screens */
+  /* Product-flow sticky headers: shrink index + title while scrolling stacked screens */
   useEffect(() => {
     const root = document.getElementById("case-study-root");
     if (!root) return;
-    const scope = root.querySelector<HTMLElement>(".case-study-club");
+    const scope = root.querySelector<HTMLElement>(
+      ".case-study-club, .case-study-gatherup",
+    );
     if (!scope) return;
 
     const reduced = window.matchMedia(
@@ -350,13 +352,16 @@ export function CaseStudyRevealInit({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  /* Club TIE: muted autoplay loops — call play() for Safari / after reveal. */
+  /* Muted autoplay loops — call play() for Safari / after reveal.
+   * Skip data-hover-play (GatherUp cards); LazyVideoPlayer owns those. */
   useEffect(() => {
     const root = document.getElementById("case-study-root");
     if (!root) return;
-    const videos = root.querySelectorAll<HTMLVideoElement>(
-      ".club-tie-intro-video video, .vibe-split__media video, .overview-video-wrap video, video[src^='/videos/']",
-    );
+    const videos = Array.from(
+      root.querySelectorAll<HTMLVideoElement>(
+        ".club-tie-intro-video video, .vibe-split__media video, .overview-video-wrap video, video[data-autoplay]",
+      ),
+    ).filter((v) => !v.hasAttribute("data-hover-play"));
     if (videos.length === 0) return;
 
     const tryPlayAll = () => {

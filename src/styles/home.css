@@ -1659,7 +1659,35 @@
   display: flex;
   flex-direction: column;
   gap: 0;
-  margin-top: 56px;
+  margin-top: 32px;
+}
+
+.home-page .cases-tier-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 48px 0 24px;
+  font-family: var(--f-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-text-d);
+}
+
+.home-page .cases-tier-label--inline {
+  margin: 64px 0 24px;
+}
+
+.home-page .cases-tier-label .cases-tier-bar {
+  width: 28px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--c-accent), transparent);
+  border-radius: 999px;
+}
+
+.home-page .cases-tier-label .cases-tier-text {
+  color: var(--c-text);
+  opacity: 0.85;
 }
 
 .home-page .cases-filter {
@@ -1888,6 +1916,43 @@
 
 .home-page .case-card--halan-ds .case-eyebrow {
   color: #00a970;
+}
+
+/* GatherUp Design System — brand gold #E5B84A */
+.home-page .case-card--gatherup-ds {
+  --card-bg: #0c0a06;
+}
+
+.home-page .case-card--gatherup-ds::before {
+  background: linear-gradient(135deg, rgba(229, 184, 74, 0.35), transparent, transparent, rgba(239, 207, 110, 0.2)) border-box;
+}
+
+.home-page .case-card--gatherup-ds::after {
+  background:
+    radial-gradient(circle at var(--card-mx, 50%) var(--card-my, 50%), rgba(229, 184, 74, 0.22), transparent 40%),
+    linear-gradient(110deg, rgba(255, 255, 255, 0.025), transparent 45%);
+}
+
+.home-page .case-card--gatherup-ds:hover {
+  border-color: rgba(229, 184, 74, 0.48);
+  box-shadow:
+    0 36px 88px rgba(0, 0, 0, 0.42),
+    0 0 0 1px rgba(229, 184, 74, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    inset 0 0 88px rgba(229, 184, 74, 0.1);
+}
+
+.home-page .case-card--gatherup-ds .case-float {
+  color: #EFCF6E;
+}
+
+.home-page .case-card--gatherup-ds .case-eyebrow {
+  color: #E5B84A;
+}
+
+.home-page .case-card--gatherup-ds .case-card-full-img {
+  object-fit: cover;
+  object-position: center;
 }
 
 /* Mabaat — #448886 */
@@ -2966,7 +3031,11 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;
-  margin-top: 56px;
+  margin-top: 32px;
+}
+
+.work-page .cases-tier-label {
+  grid-column: 1 / -1;
 }
 
 .work-page .case-card-sticky-wrap {

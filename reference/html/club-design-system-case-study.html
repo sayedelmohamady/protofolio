@@ -275,10 +275,6 @@
   }
 
   /* GOVERNANCE */
-  .wrap#governance {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
   .gov-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 56px; }
   .gov-card { background: var(--c-bg3); border-radius: 16px; padding: 40px; border: 1px solid var(--c-border); position: relative; overflow: hidden; transition: border-color 0.3s cubic-bezier(0.22,1,0.36,1); }
   .gov-card:hover { border-color: var(--c-border-m); }
@@ -509,6 +505,12 @@
         </a>
       </li>
       <li>
+        <a href="#story" data-section="story">
+          <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          Story
+        </a>
+      </li>
+      <li>
         <a href="#process" data-section="process">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           Process
@@ -581,13 +583,65 @@
         <div class="section-label"><span class="num">00 /</span> Intro</div>
         <h2>What is the TIE design system?</h2>
         <p><strong>TIE</strong> (Club’s design system) is the single source of truth for UI across the ambassador platform — tokens, components, and patterns shared between Flutter and React. It aligns teams on one visual and interaction language so Club scales without fragmenting the brand.</p>
+        <div class="club-tie-intro-video club-tie-intro-video--craft">
+          <video
+            src="/videos/club-pattern-craft-clarity.mp4"
+            muted
+            playsinline
+            loop
+            autoplay
+            preload="metadata"
+            aria-label="Club motion pattern — craft and clarity"
+          ></video>
+        </div>
         <div class="club-tie-intro-video">
-          <video src="/videos/club-tie-winsen-intro.mp4" autoplay muted loop playsinline preload="auto"></video>
+          <video src="/videos/club-tie-winsen-intro.mp4" autoplay muted loop playsinline preload="auto" aria-label="Club community faces and brand motion"></video>
         </div>
       </div>
     </div>
 
-    <!-- PROBLEM -->
+    <!-- STORY — Problem → Transformation → Result → Impact → Learnings -->
+    <div class="wrap" id="story">
+      <div class="reveal">
+        <div class="section-label"><span class="num">01 /</span> Story</div>
+        <h2 class="club-story-heading">From fragmented Brandbassador to one Club.</h2>
+        <p>The product had grown across app, platform, marketing, web, and email — but the experience hadn’t grown with it. Rebranding to Club was the chance to rebuild the foundation.</p>
+      </div>
+    </div>
+
+    <div class="ss-strip ss-strip--stack ss-strip--story" aria-label="Club story — problem through key learnings">
+      <div class="ss-cell-sticky-wrap reveal" style="--card-z: 1">
+        <div class="ss-cell">
+          <img src="club-story-01-problem.jpg" width="1024" height="682" alt="The Problem — fragmented Brandbassador experiences across app, platform, marketing, web, and email" loading="lazy" decoding="async">
+          <div class="ss-lbl">01 · The Problem</div>
+        </div>
+      </div>
+      <div class="ss-cell-sticky-wrap reveal" style="--card-z: 2">
+        <div class="ss-cell">
+          <img src="club-story-02-transformation.jpg" width="1024" height="682" alt="The Transformation — Brandbassador becomes Club with a new identity system" loading="lazy" decoding="async">
+          <div class="ss-lbl">02 · The Transformation</div>
+        </div>
+      </div>
+      <div class="ss-cell-sticky-wrap reveal" style="--card-z: 3">
+        <div class="ss-cell">
+          <img src="club-story-03-result.jpg" width="1024" height="682" alt="The Result — one Club experience across app, platform, marketing, web, and email" loading="lazy" decoding="async">
+          <div class="ss-lbl">03 · The Result</div>
+        </div>
+      </div>
+      <div class="ss-cell-sticky-wrap reveal" style="--card-z: 4">
+        <div class="ss-cell">
+          <img src="club-story-04-impact.jpg" width="1024" height="682" alt="The Impact — reusable components, unified products, growing community, faster design to development" loading="lazy" decoding="async">
+          <div class="ss-lbl">04 · The Impact</div>
+        </div>
+      </div>
+      <div class="ss-cell-sticky-wrap reveal" style="--card-z: 5">
+        <div class="ss-cell">
+          <img src="club-story-05-learnings.jpg" width="1024" height="682" alt="Key Learnings — rebrand as product rethink, systems for scale, design and development together" loading="lazy" decoding="async">
+          <div class="ss-lbl">05 · Key Learnings</div>
+        </div>
+      </div>
+    </div>
+
     <!-- PROCESS DEEP-DIVE -->
     <div class="band band--rounded">
       <div class="wrap" id="process">
@@ -2446,6 +2500,7 @@
           <div class="adg-legend-item"><div class="adg-legend-dot" style="background:rgba(34,197,94,.55)"></div>Template</div>
         </div>
       </div>
+    </div><!-- /components -->
 
     <!-- GOVERNANCE -->
     <style>@media (max-width: 680px) { .gov-grid { grid-template-columns: 1fr !important; } }</style>

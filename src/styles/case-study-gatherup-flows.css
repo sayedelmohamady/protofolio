@@ -1,0 +1,598 @@
+/* GatherUp Experience — product flows + video slots */
+
+.case-study-gatherup .pf-flow {
+  padding-block: 80px 0;
+}
+
+.case-study-gatherup .pf-header {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding-bottom: 36px;
+}
+
+.case-study-gatherup .pf-meta {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+}
+
+.case-study-gatherup .pf-index {
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--c-accent);
+  opacity: 0.25;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+  margin-top: 4px;
+  font-family: var(--f-display);
+}
+
+.case-study-gatherup .pf-meta > div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.case-study-gatherup .pf-title {
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  font-weight: 700;
+  color: var(--c-text);
+  line-height: 1.2;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-family: var(--f-display);
+}
+
+.case-study-gatherup .pf-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+  background: rgba(var(--c-accent-rgb), 0.12);
+  border: 1px solid rgba(var(--c-accent-rgb), 0.3);
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+
+.case-study-gatherup .pf-desc {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--c-text-m);
+  max-width: 600px;
+  margin: 0;
+}
+
+.case-study-gatherup .pf-steps {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.case-study-gatherup .pf-step {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--c-text-m);
+  background: var(--c-bg3);
+  border: 1px solid var(--c-border);
+  padding: 5px 14px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.case-study-gatherup .pf-arrow {
+  font-size: 0.8rem;
+  color: var(--c-text-d);
+  opacity: 0.7;
+}
+
+/* Video grid — 2 or 3 clips per flow */
+.case-study-gatherup .pf-videos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 8px;
+  padding-bottom: 24px;
+}
+
+.case-study-gatherup .pf-videos:has(> :nth-child(2):last-child) {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 900px;
+}
+
+.case-study-gatherup .pf-video {
+  margin: 0;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--c-bg3);
+  border: 1px solid var(--c-border);
+  aspect-ratio: 9 / 16;
+  max-height: 640px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+}
+
+.case-study-gatherup .pf-video video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  vertical-align: top;
+}
+
+.case-study-gatherup .pf-video figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  padding: 12px 16px;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-text-m);
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+}
+
+/* Empty slots until videos are dropped in */
+.case-study-gatherup .pf-video--ph {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(165deg, rgba(229, 184, 74, 0.1), transparent 55%),
+    var(--c-bg3);
+  border: 1px dashed rgba(229, 184, 74, 0.35);
+}
+
+.case-study-gatherup .pf-video--ph .ss-ph-hint {
+  font-size: 13px;
+  color: var(--c-text-d);
+  text-align: center;
+  line-height: 1.5;
+  padding: 24px;
+  max-width: 16rem;
+}
+
+.case-study-gatherup .pf-video--ph .ss-ph-hint code {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--c-accent);
+  font-family: ui-monospace, monospace;
+  word-break: break-all;
+}
+
+.case-study-gatherup .pf-video--ph figcaption {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+@media (max-width: 900px) {
+  .case-study-gatherup .pf-flow {
+    padding-block: 56px 0;
+  }
+
+  .case-study-gatherup .pf-index {
+    font-size: clamp(2.4rem, 8vw, 3.5rem);
+  }
+
+  .case-study-gatherup .pf-videos,
+  .case-study-gatherup .pf-videos:has(> :nth-child(2):last-child) {
+    grid-template-columns: 1fr;
+    max-width: 360px;
+  }
+
+  .case-study-gatherup .pf-video {
+    max-height: none;
+  }
+}
+
+/* Motion & micro-interactions section */
+.case-study-gatherup .gu-motion-timing {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 40px 0 48px;
+}
+
+.case-study-gatherup .gu-motion-chip {
+  background: var(--c-bg3);
+  border: 1px solid var(--c-border);
+  border-radius: 16px;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.case-study-gatherup .gu-motion-chip em {
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+}
+
+.case-study-gatherup .gu-motion-chip span {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--c-text);
+  font-family: var(--f-display);
+  letter-spacing: -0.03em;
+}
+
+.case-study-gatherup .gu-motion-chip small {
+  font-size: 13px;
+  color: var(--c-text-m);
+}
+
+.case-study-gatherup .gu-motion-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.case-study-gatherup .gu-motion-card {
+  margin: 0;
+  background: var(--c-bg3);
+  border: 1px solid var(--c-border);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.case-study-gatherup .gu-motion-media {
+  aspect-ratio: 9 / 16;
+  max-height: 420px;
+  background: #0a0a0a;
+  overflow: hidden;
+}
+
+.case-study-gatherup .gu-motion-media video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.case-study-gatherup .gu-motion-card h4 {
+  margin: 14px 16px 16px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--c-text);
+}
+
+.case-study-gatherup .gu-motion-rules {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.case-study-gatherup .gu-motion-rule {
+  background: var(--c-bg3);
+  border: 1px solid var(--c-border);
+  border-radius: 16px;
+  padding: 22px 20px;
+}
+
+.case-study-gatherup .gu-motion-rule h4 {
+  margin: 0 0 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--c-text);
+}
+
+.case-study-gatherup .gu-motion-rule p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--c-text-m);
+}
+
+.case-study-gatherup .gu-motion-rule code {
+  font-size: 12px;
+  color: var(--c-accent);
+  font-family: ui-monospace, monospace;
+}
+
+@media (max-width: 1100px) {
+  .case-study-gatherup .gu-motion-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .case-study-gatherup .gu-motion-timing,
+  .case-study-gatherup .gu-motion-rules {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .case-study-gatherup .gu-motion-grid {
+    grid-template-columns: 1fr;
+    max-width: 360px;
+  }
+}
+
+/* Showcase — full-width vertical banners, phone on top, centered copy below */
+.case-study-gatherup .gu-showcase-grid,
+.case-study-gatherup .gu-showcase-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: min(1100px, 100%);
+  margin: 40px auto 72px;
+  padding: 0 clamp(12px, 2.5vw, 20px);
+  box-sizing: border-box;
+}
+
+.case-study-gatherup .gu-showcase-card {
+  --gu-showcase-bg: #e5b84a;
+  --gu-showcase-ink: #0a0a0a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 1.8vh, 20px);
+  margin: 0;
+  min-height: min(86vh, 900px);
+  height: auto;
+  max-height: none;
+  padding: clamp(24px, 3.5vh, 40px) clamp(24px, 4vw, 48px) clamp(28px, 4vh, 48px);
+  border-radius: 28px;
+  overflow: hidden;
+  background: var(--gu-showcase-bg);
+  color: var(--gu-showcase-ink);
+  border: 1px solid rgba(10, 10, 10, 0.08);
+  box-shadow: 0 22px 56px rgba(0, 0, 0, 0.22);
+  scroll-margin-top: 72px;
+  box-sizing: border-box;
+  text-align: center;
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.case-study-gatherup .gu-showcase-card__media {
+  position: relative;
+  order: -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 auto;
+  min-height: 0;
+  width: 100%;
+  padding: 0;
+  background: transparent;
+}
+
+.case-study-gatherup .gu-showcase-card__copy {
+  order: 0;
+  flex: 0 0 auto;
+  padding: 0;
+  max-width: 36rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.case-study-gatherup .gu-showcase__bezel,
+.case-study-gatherup .gu-showcase__screen {
+  display: block;
+  width: auto;
+  max-width: min(340px, 42vw);
+  margin: 0 auto;
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.case-study-gatherup .gu-showcase__bezel::before {
+  content: none;
+}
+
+.case-study-gatherup .gu-showcase__bezel video,
+.case-study-gatherup .gu-showcase__screen video {
+  position: static;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(340px, 42vw);
+  max-height: min(58vh, 560px);
+  object-fit: contain;
+  border-radius: 12px;
+  background: transparent;
+  pointer-events: none;
+  transform: none;
+  filter: none;
+}
+
+.case-study-gatherup .gu-showcase-card__hint {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  z-index: 3;
+  transform: translateX(min(100px, 16vw));
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(10, 10, 10, 0.55);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  padding: 5px 9px;
+  border-radius: 999px;
+  transition: opacity 0.25s ease;
+  white-space: nowrap;
+}
+
+.case-study-gatherup .gu-showcase-card:hover .gu-showcase-card__hint,
+.case-study-gatherup .gu-showcase-card.is-playing .gu-showcase-card__hint,
+.case-study-gatherup [data-hover-card]:hover .gu-showcase-card__hint,
+.case-study-gatherup [data-hover-card].is-playing .gu-showcase-card__hint {
+  opacity: 0;
+}
+
+.case-study-gatherup .gu-showcase-card__copy h3 {
+  margin: 0 0 12px;
+  font-family: var(--f-display);
+  font-size: clamp(2.1rem, 4.5vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  text-transform: none;
+  color: var(--gu-showcase-ink);
+  text-align: center;
+}
+
+.case-study-gatherup .gu-showcase-card__copy p {
+  margin: 0 auto;
+  font-size: clamp(16px, 1.6vw, 19px);
+  line-height: 1.6;
+  font-weight: 500;
+  color: rgba(10, 10, 10, 0.72);
+  max-width: 32rem;
+  text-align: center;
+}
+
+/* Banner enter — rise + soft scale, staggered media → copy */
+.case-study-gatherup .gu-showcase-card.reveal {
+  opacity: 0;
+  transform: translateY(64px) scale(0.96);
+  transition:
+    opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s ease;
+}
+
+.case-study-gatherup .gu-showcase-card.reveal.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.case-study-gatherup .gu-showcase-stack .gu-showcase-card.reveal:nth-child(1) { transition-delay: 0s; }
+.case-study-gatherup .gu-showcase-stack .gu-showcase-card.reveal:nth-child(2) { transition-delay: 0.04s; }
+.case-study-gatherup .gu-showcase-stack .gu-showcase-card.reveal:nth-child(3) { transition-delay: 0.08s; }
+.case-study-gatherup .gu-showcase-stack .gu-showcase-card.reveal:nth-child(4) { transition-delay: 0.12s; }
+
+.case-study-gatherup .gu-showcase-card.reveal .gu-showcase-card__copy,
+.case-study-gatherup .gu-showcase-card.reveal .gu-showcase-card__media {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.case-study-gatherup .gu-showcase-card.reveal.visible .gu-showcase-card__media {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.1s;
+}
+
+.case-study-gatherup .gu-showcase-card.reveal.visible .gu-showcase-card__copy {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.22s;
+}
+
+.case-study-gatherup .gu-showcase-card.reveal.visible .gu-showcase__bezel,
+.case-study-gatherup .gu-showcase-card.reveal.visible .gu-showcase__screen {
+  animation: gu-showcase-phone-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 0.12s;
+}
+
+@keyframes gu-showcase-phone-in {
+  from {
+    opacity: 0.6;
+    transform: translateY(28px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .case-study-gatherup .gu-showcase-card.reveal.visible:hover {
+    transform: translateY(-8px) scale(1.012);
+    box-shadow: 0 32px 72px rgba(0, 0, 0, 0.3);
+  }
+
+  .case-study-gatherup .gu-showcase-card.reveal.visible:hover .gu-showcase__bezel,
+  .case-study-gatherup .gu-showcase-card.reveal.visible:hover .gu-showcase__screen {
+    transform: translateY(-6px);
+    animation: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .case-study-gatherup .gu-showcase-grid,
+  .case-study-gatherup .gu-showcase-stack {
+    gap: 16px;
+    margin-top: 28px;
+  }
+
+  .case-study-gatherup .gu-showcase-card {
+    min-height: min(78vh, 720px);
+    height: auto;
+    max-height: none;
+    padding: 22px 18px 26px;
+    gap: 14px;
+  }
+
+  .case-study-gatherup .gu-showcase__bezel,
+  .case-study-gatherup .gu-showcase__screen {
+    max-width: min(300px, 70vw);
+  }
+
+  .case-study-gatherup .gu-showcase__bezel video,
+  .case-study-gatherup .gu-showcase__screen video {
+    max-width: min(300px, 70vw);
+    max-height: min(52vh, 480px);
+  }
+
+  .case-study-gatherup .gu-showcase-card__copy h3 {
+    font-size: clamp(1.85rem, 7vw, 2.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-study-gatherup .gu-showcase-card.reveal,
+  .case-study-gatherup .gu-showcase-card.reveal .gu-showcase-card__copy,
+  .case-study-gatherup .gu-showcase-card.reveal .gu-showcase-card__media {
+    transition: opacity 0.2s ease;
+    transform: none;
+  }
+
+  .case-study-gatherup .gu-showcase-card.reveal.visible .gu-showcase__bezel,
+  .case-study-gatherup .gu-showcase-card.reveal.visible .gu-showcase__screen {
+    animation: none;
+  }
+
+  .case-study-gatherup .gu-showcase-card:hover,
+  .case-study-gatherup .gu-showcase-card.reveal.visible:hover {
+    transform: none;
+  }
+}
+
+@media (hover: none) {
+  .case-study-gatherup .gu-showcase-card__hint {
+    opacity: 0.9;
+  }
+}
